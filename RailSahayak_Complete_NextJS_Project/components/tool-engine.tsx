@@ -1,8 +1,9 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Icon } from "@/components/icon";
 import { useLanguage } from "@/components/language-provider";
+import { RailProviderResult } from "@/components/rail-provider-result";
 import { trackEvent } from "@/lib/analytics";
 import type { ToolConfig } from "@/lib/tool-registry";
 
@@ -17,10 +18,10 @@ const coachOptions: Option[] = [["SL3A", "Sleeper / AC 3 Tier", "स्लीप
 
 const fieldMap: Record<string, Field[]> = {
   "live-train-status": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12951", type: "number" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }],
-  "trains-between-stations": [{ name: "from", label: "From station code", labelHi: "शुरुआती स्टेशन कोड", placeholder: "NDLS" }, { name: "to", label: "To station code", labelHi: "मंज़िल स्टेशन कोड", placeholder: "BCT" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }],
-  "seat-availability": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12951", type: "number" }, { name: "from", label: "From", labelHi: "कहाँ से", placeholder: "NDLS" }, { name: "to", label: "To", labelHi: "कहाँ तक", placeholder: "BCT" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }, { name: "class", label: "Class", labelHi: "श्रेणी", type: "select", options: classOptions }, { name: "quota", label: "Quota", labelHi: "कोटा", type: "select", options: quotaOptions }],
+  "trains-between-stations": [{ name: "from", label: "From station code", labelHi: "शुरुआती स्टेशन कोड", placeholder: "NDLS" }, { name: "to", label: "To station code", labelHi: "मंज़िल स्टेशन कोड", placeholder: "MMCT" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }],
+  "seat-availability": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12952", type: "number" }, { name: "from", label: "From", labelHi: "कहाँ से", placeholder: "NDLS" }, { name: "to", label: "To", labelHi: "कहाँ तक", placeholder: "MMCT" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }, { name: "class", label: "Class", labelHi: "श्रेणी", type: "select", options: classOptions }, { name: "quota", label: "Quota", labelHi: "कोटा", type: "select", options: quotaOptions }],
   "train-schedule": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12951", type: "number" }],
-  "train-fare": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12951", type: "number" }, { name: "from", label: "From", labelHi: "कहाँ से", placeholder: "NDLS" }, { name: "to", label: "To", labelHi: "कहाँ तक", placeholder: "BCT" }, { name: "class", label: "Class", labelHi: "श्रेणी", type: "select", options: classOptions }, { name: "quota", label: "Quota", labelHi: "कोटा", type: "select", options: quotaOptions }],
+  "train-fare": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12952", type: "number" }, { name: "from", label: "From", labelHi: "कहाँ से", placeholder: "NDLS" }, { name: "to", label: "To", labelHi: "कहाँ तक", placeholder: "MMCT" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }, { name: "class", label: "Class", labelHi: "श्रेणी", type: "select", options: classOptions }, { name: "quota", label: "Quota", labelHi: "कोटा", type: "select", options: quotaOptions }],
   "station-arrivals-departures": [{ name: "station", label: "Station code", labelHi: "स्टेशन कोड", placeholder: "NDLS" }, { name: "hours", label: "Time window", labelHi: "समय अवधि", type: "select", options: [["2", "Next 2 hours", "अगले 2 घंटे"], ["4", "Next 4 hours", "अगले 4 घंटे"], ["8", "Next 8 hours", "अगले 8 घंटे"]] }],
   "coach-position": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12951", type: "number" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }],
   "platform-number": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12951", type: "number" }, { name: "station", label: "Station code", labelHi: "स्टेशन कोड", placeholder: "NDLS" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }],
@@ -48,8 +49,6 @@ function initialForm(fields: Field[]) { return Object.fromEntries(fields.map((fi
 function dateValue(value: string) { const date = new Date(value.includes("T") ? value : `${value}T12:00:00`); return Number.isNaN(date.valueOf()) ? null : date; }
 function formatDate(date: Date, hi: boolean, withTime = true) { return date.toLocaleString(hi ? "hi-IN" : "en-IN", withTime ? { dateStyle: "full", timeStyle: "short" } : { dateStyle: "full" }); }
 function money(value: number) { return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(Math.max(0, value)); }
-function record(value: unknown) { return value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : null; }
-
 export function ToolEngine({ tool }: { tool: ToolConfig }) {
   const { language } = useLanguage(); const hi = language === "hi";
   const fields = fieldMap[tool.slug] ?? [];
@@ -58,17 +57,6 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
   const [localResult, setLocalResult] = useState<LocalResult | null>(null);
   const [providerResult, setProviderResult] = useState<Record<string, unknown> | null>(null);
   const submitLabel = tool.live ? (hi ? "लाइव जानकारी देखें" : "Check live information") : (hi ? "परिणाम निकालें" : "Calculate result");
-  const primitiveProviderFields = useMemo(() => {
-    const source = providerResult ? record(providerResult.data) ?? record(providerResult.result) ?? providerResult : null;
-    return source ? Object.entries(source).filter(([, value]) => ["string", "number", "boolean"].includes(typeof value)).slice(0, 12) : [];
-  }, [providerResult]);
-  const providerList = useMemo(() => {
-    const source = providerResult ? record(providerResult.data) ?? record(providerResult.result) ?? providerResult : null;
-    if (!source) return [];
-    const found = Object.values(source).find(Array.isArray);
-    return Array.isArray(found) ? found.slice(0, 20) : [];
-  }, [providerResult]);
-
   function error(title: string, description: string) { setLocalResult({ tone: "error", eyebrow: hi ? "जानकारी जाँचें" : "Check the information", title, description }); }
 
   function calculate(): LocalResult | null {
@@ -138,6 +126,11 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
       if (!/^\d{10}$/.test(form.pnr) || !/^\S+@\S+\.\S+$/.test(form.email) || form.consent !== "true") { error(hi ? "PNR, ईमेल और सहमति जाँचें" : "Check PNR, email and consent", hi ? "अलर्ट बनाने के लिए सभी जानकारी सही होना जरूरी है।" : "Valid information and explicit consent are required."); return; }
       setLoading(true); try { const response = await fetch("/api/reminders", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ pnr: form.pnr, email: form.email, consent: true }) }); const payload = await response.json() as Record<string, unknown>; if (!response.ok) throw new Error(); setLocalResult({ tone: "success", eyebrow: hi ? "अलर्ट अनुरोध मिला" : "Alert request received", title: hi ? "स्थिति बदलाव पर सूचना तैयार है" : "Status-change monitoring is ready", description: String(payload.message ?? (hi ? "सेवा सक्रिय होने पर ईमेल भेजा जाएगा।" : "Email will be sent when the monitoring service is active.")) }); } catch { setLocalResult({ tone: "warning", eyebrow: hi ? "सुरक्षित अलर्ट सेटअप आवश्यक" : "Secure alert setup required", title: hi ? "होस्टिंग में रिमाइंडर सेवा कॉन्फ़िगर करें" : "Configure the reminder service in hosting", description: hi ? "एन्क्रिप्शन, Supabase और ईमेल प्रदाता की कुंजी जोड़ने के बाद यह सुविधा सक्रिय होगी।" : "This activates after encryption, Supabase and email-provider keys are configured." }); } finally { setLoading(false); } return;
     }
+    const trainTools = ["live-train-status", "seat-availability", "train-schedule", "train-fare", "coach-position", "platform-number"];
+    if (trainTools.includes(tool.slug) && !/^\d{5}$/.test(form.train ?? "")) { error(hi ? "सही 5 अंकों का ट्रेन नंबर डालें" : "Enter a valid 5-digit train number", hi ? "उदाहरण: 12952" : "For example: 12952"); return; }
+    if (["trains-between-stations", "seat-availability", "train-fare"].includes(tool.slug) && (!/^[A-Z0-9]{2,6}$/i.test(form.from ?? "") || !/^[A-Z0-9]{2,6}$/i.test(form.to ?? ""))) { error(hi ? "दोनों स्टेशन कोड जाँचें" : "Check both station codes", hi ? "उदाहरण: NDLS से MMCT" : "For example: NDLS to MMCT"); return; }
+    if (["seat-availability", "train-fare"].includes(tool.slug) && !form.date) { error(hi ? "यात्रा तारीख चुनें" : "Select a journey date", hi ? "उपलब्धता और किराए के लिए तारीख जरूरी है।" : "A journey date is required for availability and fare."); return; }
+    if (["station-arrivals-departures", "platform-number"].includes(tool.slug) && !/^[A-Z0-9]{2,6}$/i.test(form.station ?? "")) { error(hi ? "सही स्टेशन कोड डालें" : "Enter a valid station code", hi ? "उदाहरण: NDLS" : "For example: NDLS"); return; }
     setLoading(true); trackEvent("live_tool_submitted", { tool: tool.slug });
     const actionMap: Record<string, string> = { "live-train-status": "live", "trains-between-stations": "between", "seat-availability": "availability", "train-schedule": "schedule", "train-fare": "fare", "station-arrivals-departures": "station", "coach-position": "coach", "platform-number": "platform" };
     const params = new URLSearchParams({ action: actionMap[tool.slug] ?? tool.slug }); Object.entries(form).forEach(([key, value]) => { if (value) params.set(key, ["from", "to", "station"].includes(key) ? value.toUpperCase() : value); });
@@ -156,6 +149,6 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
 
     {localResult && <div className={`engine-result ${localResult.tone}`} aria-live="polite"><span>{localResult.eyebrow}</span><h2>{localResult.title}</h2><p>{localResult.description}</p>{localResult.metrics && <dl>{localResult.metrics.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}{localResult.calendarIso && <button onClick={downloadCalendar}><Icon name="calendar" size={17} />{hi ? "कैलेंडर में जोड़ें" : "Add to calendar"}</button>}</div>}
 
-    {providerResult && <div className="provider-result" aria-live="polite"><div><span className="live-dot" />{hi ? "नवीनतम प्रदाता उत्तर" : "Latest provider response"}</div><h2>{hi ? "लाइव जानकारी मिल गई" : "Live information received"}</h2>{primitiveProviderFields.length > 0 && <dl>{primitiveProviderFields.map(([key, value]) => <div key={key}><dt>{key.replace(/([A-Z])/g, " $1")}</dt><dd>{String(value)}</dd></div>)}</dl>}{providerList.length > 0 && <div className="provider-list">{providerList.map((item, index) => { const row = record(item); return <article key={index}>{row ? Object.entries(row).filter(([, value]) => ["string", "number", "boolean"].includes(typeof value)).slice(0, 6).map(([key, value]) => <span key={key}><small>{key.replace(/([A-Z])/g, " $1")}</small><b>{String(value)}</b></span>) : <b>{String(item)}</b>}</article>; })}</div>}<p>{hi ? "अंतिम और महत्वपूर्ण जानकारी आधिकारिक रेलवे माध्यम से सत्यापित करें।" : "Verify final and critical information through official railway channels."}</p></div>}
+    {providerResult && <RailProviderResult toolSlug={tool.slug} payload={providerResult} hi={hi} />}
   </section>;
 }

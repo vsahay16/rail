@@ -102,8 +102,13 @@ RAILRADAR_API_BASE_URL=https://api.railradar.in/v1
 | Live train | `/trains/{train}/live` | No store |
 | Between stations | `/trains/between/{from}/{to}` | 15 minutes |
 | Train schedule | `/trains/{train}` | 15 minutes |
+| Seat availability | `/trains/{train}/seats` | No store |
+| Train fare | `/trains/{train}/fare` | No store |
+| Station board | `/stations/{station}/live` | No store |
+| Coach position | `/trains/{train}/coaches` | No store |
+| Platform/coach position | `/trains/{train}/coaches/{station}` | No store |
 
-Seat availability, fare, station board, coach position and platform data are provider-ready but deliberately do not guess undocumented endpoints. Add the approved templates supplied by your licensed provider:
+RailRadar v1 path defaults are built in. If an approved provider account or later API version uses different paths, override only the paths that differ:
 
 ```env
 RAIL_API_AVAILABILITY_PATH=
@@ -113,7 +118,7 @@ RAIL_API_COACH_POSITION_PATH=
 RAIL_API_PLATFORM_PATH=
 ```
 
-Templates can use `{train}`, `{from}`, `{to}`, `{date}`, `{class}`, `{quota}`, `{station}` and `{hours}`. Use the exact path from your provider documentation.
+Templates can use `{train}`, `{from}`, `{to}`, `{date}`, `{class}`, `{quota}`, `{station}` and `{hours}`. Always confirm production access and use the exact path from your provider documentation.
 
 Free or trial railway APIs are useful for development, but live PNR, reservation availability and commercial traffic generally require approved access, quotas and usage rights. Do not scrape IRCTC or bypass protected services.
 
@@ -149,7 +154,7 @@ RESEND_API_KEY=your_resend_key
 REMINDER_FROM_EMAIL=RailSahayak Alerts <alerts@your-domain.in>
 ```
 
-`vercel.json` schedules `/api/cron/reminders` every 30 minutes. The route decrypts PNRs only in server memory, rechecks due records, fingerprints the response and sends a privacy-safe email only after a later status change. Verify that your Vercel plan supports this cron frequency and verify the sender domain in Resend.
+`vercel.json` uses a once-daily reminder schedule so the initial project can deploy on Vercel Hobby. The route decrypts PNRs only in server memory, rechecks due records, fingerprints the response and sends a privacy-safe email only after a later status change. For more frequent checks, use a Vercel plan that supports them or configure an approved external scheduler, then verify the sender domain in Resend.
 
 ## Analytics, consent and advertising
 
@@ -161,7 +166,7 @@ NEXT_PUBLIC_ADSENSE_SQUARE_SLOT=0000000002
 NEXT_PUBLIC_ADSENSE_BOTTOM_SLOT=0000000003
 ```
 
-Until valid AdSense values are added, labelled ad placeholders remain visible. GA4, Supabase analytics and AdSense activate only after the visitor allows them. Full PNRs, emails, names and passenger details are blocked from analytics on both client and server.
+Until valid AdSense values are added, the reserved inventory displays useful first-party house promotions for RailSahayak tools and a clearly labelled founding-partner invitation. It never pretends that a paid ad is running. GA4, Supabase analytics and AdSense activate only after the visitor allows them. Full PNRs, emails, names and passenger details are blocked from analytics on both client and server.
 
 For AdSense approval, replace placeholder business details with the real legal entity and domain, verify `ads.txt` as instructed by AdSense, and complete the consent configuration required for the countries served.
 
@@ -179,7 +184,7 @@ For AdSense approval, replace placeholder business details with the real legal e
 
 - Rotate any API key pasted into chat, email or a public issue.
 - Confirm commercial data rights and production rate limits.
-- Add WAF/rate limiting to `/api/rail`, `/api/contact` and reminder creation.
+- The app includes a best-effort 20-lookups-per-minute API guard. Add durable Vercel Firewall or distributed rate limiting to `/api/rail`, `/api/contact` and reminder creation before significant traffic.
 - Keep PNR and live responses out of CDN caches and logs.
 - Review booking, Tatkal, charting, refund and luggage rules against current official sources.
 - Test keyboard navigation, Hindi text, mobile forms, slow networks and provider outages.

@@ -16,6 +16,7 @@ export function Icon({ name, size = 22 }: { name: string; size?: number }) {
     sparkle: <><path d="M12 3l1.2 3.8L17 8l-3.8 1.2L12 13l-1.2-3.8L7 8l3.8-1.2z"/><path d="M18 14l.7 2.3L21 17l-2.3.7L18 20l-.7-2.3L15 17l2.3-.7z"/></>,
     swap: <path d="M7 7h11l-3-3M17 17H6l3 3"/>,
     bell: <path d="M6 16h12l-1.5-2v-4.5a4.5 4.5 0 00-9 0V14zM10 19h4"/>,
+    megaphone: <><path d="M4 11v3h4l8 4V7l-8 4z"/><path d="M16 10a3 3 0 010 5M7 14l1 5h3l-1-4"/></>,
     globe: <><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></>,
     close: <path d="M6 6l12 12M18 6L6 18"/>,
     menu: <path d="M4 7h16M4 12h16M4 17h16"/>,

@@ -23,7 +23,7 @@ const copy = {
     intro: "Check the details that matter before you book, while you wait, and until you arrive—without jumping between five different websites.",
     pnr: "PNR status", live: "Live train", between: "Between stations", booking: "Booking date",
     pnrPlaceholder: "Enter 10-digit PNR", trainPlaceholder: "Train number, e.g. 12951",
-    fromPlaceholder: "From station code, e.g. NDLS", toPlaceholder: "To station code, e.g. BCT", journeyDate: "Journey date",
+    fromPlaceholder: "From station code, e.g. NDLS", toPlaceholder: "To station code, e.g. MMCT", journeyDate: "Journey date",
     checkPnr: "Check PNR", trackTrain: "Track train", findTrains: "Find trains", calculate: "Calculate date",
     privacy: "Your PNR is never saved in analytics", updated: "Live provider-ready", noLogin: "No login for quick tools",
     train: "Train", from: "From", to: "To", liveConnection: "Live data connection",
@@ -43,7 +43,7 @@ const copy = {
     intro: "बुकिंग से पहले, वेटिंग के दौरान और मंज़िल तक—ज़रूरी जानकारी एक ही जगह पाएँ।",
     pnr: "PNR स्थिति", live: "लाइव ट्रेन", between: "स्टेशन के बीच", booking: "बुकिंग तारीख",
     pnrPlaceholder: "10 अंकों का PNR डालें", trainPlaceholder: "ट्रेन नंबर, जैसे 12951",
-    fromPlaceholder: "स्टेशन कोड, जैसे NDLS", toPlaceholder: "स्टेशन कोड, जैसे BCT", journeyDate: "यात्रा की तारीख",
+    fromPlaceholder: "स्टेशन कोड, जैसे NDLS", toPlaceholder: "स्टेशन कोड, जैसे MMCT", journeyDate: "यात्रा की तारीख",
     checkPnr: "PNR देखें", trackTrain: "ट्रेन ट्रैक करें", findTrains: "ट्रेन खोजें", calculate: "तारीख निकालें",
     privacy: "आपका PNR एनालिटिक्स में सेव नहीं होता", updated: "लाइव डेटा के लिए तैयार", noLogin: "क्विक टूल्स के लिए लॉगिन नहीं",
     train: "ट्रेन", from: "कहाँ से", to: "कहाँ तक", liveConnection: "लाइव डेटा कनेक्शन",
@@ -175,7 +175,7 @@ export default function Home() {
         <div className="hero-copy"><div className="eyebrow"><span className="live-dot" /> {t.badge}</div><h1>{t.titleA}<br /><em>{t.titleB}</em></h1><p>{t.intro}</p><div className="trust-inline"><span><Icon name="shield" size={17} /> {t.privacy}</span><span><Icon name="pulse" size={17} /> {t.updated}</span></div></div>
         <div className="hero-visual" aria-label={language === "hi" ? "आधुनिक भारतीय यात्री ट्रेन यात्रा" : "Modern Indian passenger train journey"}>
           <Image src="/rail-hero.webp" alt={language === "hi" ? "सूर्योदय के समय आधुनिक भारतीय यात्री ट्रेन" : "Modern Indian passenger train at sunrise"} fill priority sizes="(max-width: 760px) 100vw, 55vw" />
-          <div className="route-card"><div><span>NDLS</span><b>New Delhi</b></div><span className="route-line"><i /><i /><i /></span><div><span>BCT</span><b>Mumbai</b></div></div>
+          <div className="route-card"><div><span>NDLS</span><b>New Delhi</b></div><span className="route-line"><i /><i /><i /></span><div><span>MMCT</span><b>Mumbai Central</b></div></div>
           <div className="status-pill"><span className="live-dot" /> {t.liveConnection}</div>
         </div>
         <section className="search-shell" id="rail-search" aria-label="Railway search tools">
@@ -203,7 +203,7 @@ export default function Home() {
 
       <section className="journey-section" id="journey">
         <div className="journey-copy"><span className="kicker light">{t.journeyKicker}</span><h2>{t.journeyTitle}</h2><p>{t.journeyDescription}</p><ul><li><span><Icon name="pulse" size={18} /></span><div><b>{t.pulseTitle}</b><small>{t.pulseText}</small></div></li><li><span><Icon name="bell" size={18} /></span><div><b>{t.alertTitle}</b><small>{t.alertText}</small></div></li><li><span><Icon name="shield" size={18} /></span><div><b>{t.privacyTitle}</b><small>{t.privacyText}</small></div></li></ul><button className="secondary-button" onClick={() => { switchTab("pnr"); trackEvent("journey_cta_clicked"); }}>{t.journeyCta} <Icon name="arrow" size={18} /></button></div>
-        <div className="journey-dashboard"><div className="dash-top"><span>{t.myJourney}</span><b><span className="live-dot" /> {t.tracking}</b></div><div className="train-title"><span>12952</span><div><h3>Mumbai Rajdhani</h3><p>New Delhi → Mumbai Central</p></div><strong>{t.onTime}</strong></div><div className="rail-progress"><i /><i /><i /><i /><span /></div><div className="station-row"><div><small>{t.depart}</small><b>NDLS</b><span>16:55</span></div><div><small>{t.next}</small><b>KOTA</b><span>21:40</span></div><div><small>{t.arrive}</small><b>BCT</b><span>08:35</span></div></div><div className="dash-cards"><div><small>{t.pnr}</small><b>{t.confirmed}</b><span>B4 · 31 LB</span></div><div><small>{t.chartTime}</small><b>08:55 AM</b><span>{t.finalTomorrow}</span></div></div><p className="demo-note">{t.demoNote}</p></div>
+        <div className="journey-dashboard"><div className="dash-top"><span>{t.myJourney}</span><b><span className="live-dot" /> {t.tracking}</b></div><div className="train-title"><span>12952</span><div><h3>Mumbai Rajdhani</h3><p>New Delhi → Mumbai Central</p></div><strong>{t.onTime}</strong></div><div className="rail-progress"><i /><i /><i /><i /><span /></div><div className="station-row"><div><small>{t.depart}</small><b>NDLS</b><span>16:55</span></div><div><small>{t.next}</small><b>KOTA</b><span>21:40</span></div><div><small>{t.arrive}</small><b>MMCT</b><span>08:35</span></div></div><div className="dash-cards"><div><small>{t.pnr}</small><b>{t.confirmed}</b><span>B4 · 31 LB</span></div><div><small>{t.chartTime}</small><b>08:55 AM</b><span>{t.finalTomorrow}</span></div></div><p className="demo-note">{t.demoNote}</p></div>
       </section>
 
       <div className="content-with-ad"><section className="section updates-section" id="updates"><div className="section-heading compact"><div><span className="kicker">{t.rulesKicker}</span><h2>{t.rulesTitle}</h2></div></div><div className="update-grid">{updates.map((update) => <article key={update.title}><span>{language === "hi" ? update.dateHi : update.date}</span><h3>{language === "hi" ? update.titleHi : update.title}</h3><b>{language === "hi" ? update.valueHi : update.value}</b><p>{language === "hi" ? update.noteHi : update.note}</p><Link href="/guides">{t.readGuidance} <Icon name="arrow" size={15} /></Link></article>)}</div></section><AdSlot placement="square" format="300 × 250" className="square-ad" /></div>
