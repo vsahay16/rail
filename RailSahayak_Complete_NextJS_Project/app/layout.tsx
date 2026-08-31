@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import Script from "next/script"; // 1. Imported Next.js script optimizer
 import { LanguageProvider } from "@/components/language-provider";
 import { ConsentManager } from "@/components/consent-manager";
 import { SiteHeader } from "@/components/site-header";
@@ -30,32 +31,11 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
   const requestHeaders = await headers();
   const initialLanguage = requestHeaders.get("x-railsahayak-language") === "hi" ? "hi" : "en";
+  
   return (
     <html lang={initialLanguage === "hi" ? "hi-IN" : "en-IN"}>
-      <body>
-        <StructuredData data={{
-          "@context": "https://schema.org",
-          "@graph": [
-            { "@type": "Organization", "@id": `${siteUrl}/#organization`, name: "RailSahayak", url: siteUrl, logo: `${siteUrl}/favicon.svg` },
-            { "@type": "WebSite", "@id": `${siteUrl}/#website`, url: siteUrl, name: "RailSahayak", inLanguage: ["en-IN", "hi-IN"], publisher: { "@id": `${siteUrl}/#organization` } },
-          ],
-        }} />
-        <LanguageProvider initialLanguage={initialLanguage}><SiteHeader />{children}<SiteFooter /><ConsentManager gaId={gaId} adsenseClient={adsenseClient} /></LanguageProvider>
-      </body>
-    </html>
-  );
-}
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Script from "next/script"; // <-- 1. Add this import at the top
-
-const inter = Inter({ subsets: ["latin"] });
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
       <head>
-        {/* 2. Add the Google Tag Manager Script below */}
+        {/* 2. Restored fully functional, optimized Google Tag Manager script */}
         <Script
           id="gtm-script"
           strategy="afterInteractive"
@@ -68,8 +48,8 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className={inter.className}>
-        {/* 3. Add the noscript iframe fallback right below the body tag */}
+      <body>
+        {/* 3. Valid structural placement for the noscript fallback */}
         <noscript>
           <iframe
             src="https://googletagmanager.com"
@@ -78,9 +58,22 @@ export default function RootLayout({ children }) {
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        {children}
+
+        <StructuredData data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "Organization", "@id": `${siteUrl}/#organization`, name: "RailSahayak", url: siteUrl, logo: `${siteUrl}/favicon.svg` },
+            { "@type": "WebSite", "@id": `${siteUrl}/#website`, url: siteUrl, name: "RailSahayak", inLanguage: ["en-IN", "hi-IN"], publisher: { "@id": `${siteUrl}/#organization` } },
+          ],
+        }} />
+        
+        <LanguageProvider initialLanguage={initialLanguage}>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+          <ConsentManager gaId={gaId} adsenseClient={adsenseClient} />
+        </LanguageProvider>
       </body>
     </html>
   );
 }
-
