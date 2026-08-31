@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import Script from "next/script"; // 1. Imported Next.js script optimizer
 import { LanguageProvider } from "@/components/language-provider";
 import { ConsentManager } from "@/components/consent-manager";
 import { SiteHeader } from "@/components/site-header";
@@ -31,34 +30,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
   const requestHeaders = await headers();
   const initialLanguage = requestHeaders.get("x-railsahayak-language") === "hi" ? "hi" : "en";
-  
   return (
     <html lang={initialLanguage === "hi" ? "hi-IN" : "en-IN"}>
-      <head>
-        {/* 2. Restored fully functional, optimized Google Tag Manager script */}
-        <Script
-          id="gtm-script"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://googletagmanager.com;
-            })(window,document,'script','dataLayer','GTM-NMXSVRCB');`,
-          }}
-        />
-      </head>
       <body>
-        {/* 3. Valid structural placement for the noscript fallback */}
-        <noscript>
-          <iframe
-            src="https://googletagmanager.com"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
-
         <StructuredData data={{
           "@context": "https://schema.org",
           "@graph": [
@@ -66,13 +40,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             { "@type": "WebSite", "@id": `${siteUrl}/#website`, url: siteUrl, name: "RailSahayak", inLanguage: ["en-IN", "hi-IN"], publisher: { "@id": `${siteUrl}/#organization` } },
           ],
         }} />
-        
-        <LanguageProvider initialLanguage={initialLanguage}>
-          <SiteHeader />
-          {children}
-          <SiteFooter />
-          <ConsentManager gaId={gaId} adsenseClient={adsenseClient} />
-        </LanguageProvider>
+        <LanguageProvider initialLanguage={initialLanguage}><SiteHeader />{children}<SiteFooter /><ConsentManager gaId={gaId} adsenseClient={adsenseClient} /></LanguageProvider>
       </body>
     </html>
   );
