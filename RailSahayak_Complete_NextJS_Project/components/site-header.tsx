@@ -16,7 +16,7 @@ const tools = [
 ] as const;
 
 export function Brand({ inverse = false }: { inverse?: boolean }) {
-  return <Link className={`brand${inverse ? " inverse" : ""}`} href="/" aria-label="RailSahayak home"><span className="brand-mark"><i /><i /><i /></span><span><b>Rail</b>Sahayak<small>यात्रा का साथी</small></span></Link>;
+  return <Link className={`brand${inverse ? " inverse" : ""}`} href="/" aria-label="RailQ home"><span className="brand-mark"><i /><i /><i /></span><span><b>Rail</b>Q<small>Indian Railway Tools by RailSahayak</small></span></Link>;
 }
 
 export function SiteHeader() {

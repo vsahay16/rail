@@ -1,15 +1,25 @@
 import type { Metadata } from "next";
 
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://railq.in").replace(/\/$/, "");
+function configuredOrigin() {
+  try {
+    const url = new URL(process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://railq.in");
+    if (!["https:", "http:"].includes(url.protocol) || url.username || url.password) return "https://railq.in";
+    return url.origin;
+  } catch { return "https://railq.in"; }
+}
+export const siteUrl = configuredOrigin();
 
-export function localizedAlternates(path = "/"): NonNullable<Metadata["alternates"]> {
-  const normalized = path === "/" ? "" : `/${path.replace(/^\/+|\/+$/g, "")}`;
+export function localizedAlternates(path = "/", language: "en" | "hi" = path === "/hi" || path.startsWith("/hi/") ? "hi" : "en"): NonNullable<Metadata["alternates"]> {
+  const clean = path.replace(/^\/hi(?=\/|$)/, "").replace(/^\/+|\/+$/g, "");
+  const normalized = clean ? `/${clean}` : "";
+  const en = absoluteUrl(normalized || "/");
+  const hi = absoluteUrl(`/hi${normalized}`);
   return {
-    canonical: normalized || "/",
+    canonical: language === "hi" ? hi : en,
     languages: {
-      "en-IN": normalized || "/",
-      "hi-IN": `/hi${normalized || "/"}`,
-      "x-default": normalized || "/",
+      "en-IN": en,
+      "hi-IN": hi,
+      "x-default": en,
     },
   };
 }

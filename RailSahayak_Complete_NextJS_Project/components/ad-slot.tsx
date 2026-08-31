@@ -15,7 +15,7 @@ const slots = {
 
 const housePromos = {
   top: { icon: "chart", title: "Plan the whole journey", titleHi: "पूरी यात्रा की योजना बनाएँ", text: "Status, timings, chart and official links on one screen.", textHi: "स्थिति, समय, चार्ट और आधिकारिक लिंक एक स्क्रीन पर।", href: "/dashboard", cta: "Open My Journey", ctaHi: "मेरी यात्रा खोलें" },
-  square: { icon: "megaphone", title: "Partner with RailSahayak", titleHi: "RailSahayak के साथ साझेदारी", text: "Founding sponsorships for useful, traveller-safe brands.", textHi: "उपयोगी और यात्री-सुरक्षित ब्रांड के लिए शुरुआती साझेदारी।", href: "/advertise", cta: "See partner options", ctaHi: "साझेदारी विकल्प देखें" },
+  square: { icon: "megaphone", title: "Partner with RailQ", titleHi: "RailQ के साथ साझेदारी", text: "Founding sponsorships for useful, traveller-safe brands.", textHi: "उपयोगी और यात्री-सुरक्षित ब्रांड के लिए शुरुआती साझेदारी।", href: "/advertise", cta: "See partner options", ctaHi: "साझेदारी विकल्प देखें" },
   bottom: { icon: "route", title: "Explore every railway tool", titleHi: "सभी रेलवे टूल देखें", text: "Find the right answer before booking, boarding or cancelling.", textHi: "बुकिंग, बोर्डिंग या रद्दीकरण से पहले सही जवाब पाएँ।", href: "/tools", cta: "View all tools", ctaHi: "सभी टूल देखें" },
 } as const;
 
