@@ -1,107 +1,73 @@
 import { NextRequest, NextResponse } from "next/server";
+import { fetchRailway, limitVisitor, RailServiceError } from "@/lib/rail-server";
 
-export const runtime = "edge";
-const API_BASE = process.env.RAILRADAR_API_BASE_URL ?? "https://api.railradar.in/v1";
-
-const optionalPaths: Record<string, string | undefined> = {
-  availability: process.env.RAIL_API_AVAILABILITY_PATH ?? "/trains/{train}/seats?source={from}&destination={to}&journeyDate={date}&classCode={class}&quotaCode={quota}",
-  fare: process.env.RAIL_API_FARE_PATH ?? "/trains/{train}/fare?source={from}&destination={to}&journeyDate={date}&classCode={class}&quotaCode={quota}",
-  station: process.env.RAIL_API_STATION_BOARD_PATH ?? "/stations/{station}/live?hours={hours}",
-  coach: process.env.RAIL_API_COACH_POSITION_PATH ?? "/trains/{train}/coaches",
-  platform: process.env.RAIL_API_PLATFORM_PATH ?? "/trains/{train}/coaches/{station}",
-};
-
-const RATE_LIMIT = 20;
-const RATE_WINDOW_MS = 60_000;
-const rateBuckets = new Map<string, { count: number; resetAt: number }>();
-
-function badRequest(message: string) { return NextResponse.json({ success: false, message }, { status: 400 }); }
-
-function validTrain(value: string) { return /^\d{5}$/.test(value); }
-function validStation(value: string) { return /^[A-Z0-9]{2,6}$/.test(value); }
-function validDate(value: string) { return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(new Date(`${value}T12:00:00+05:30`).valueOf()); }
-
-async function requestFingerprint(request: NextRequest) {
-  const raw = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "anonymous";
-  const bytes = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(raw));
-  return Array.from(new Uint8Array(bytes).slice(0, 8), (byte) => byte.toString(16).padStart(2, "0")).join("");
+export const runtime = "nodejs";
+export const maxDuration = 30;
+const trainValid = (value: string) => /^\d{5}$/.test(value);
+const stationValid = (value: string) => /^[A-Z0-9]{2,6}$/.test(value);
+function dateValid(value: string) {
+  const date = new Date(`${value}T12:00:00Z`);
+  return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
 }
-
-async function checkRateLimit(request: NextRequest) {
-  const now = Date.now(); const fingerprint = await requestFingerprint(request);
-  const current = rateBuckets.get(fingerprint);
-  const bucket = !current || current.resetAt <= now ? { count: 0, resetAt: now + RATE_WINDOW_MS } : current;
-  bucket.count += 1; rateBuckets.set(fingerprint, bucket);
-  if (rateBuckets.size > 2_000) for (const [key, value] of rateBuckets) if (value.resetAt <= now) rateBuckets.delete(key);
-  return { allowed: bucket.count <= RATE_LIMIT, remaining: Math.max(0, RATE_LIMIT - bucket.count), resetAt: bucket.resetAt };
-}
-function optionalEndpoint(action: string, params: URLSearchParams) {
-  const template = optionalPaths[action];
-  if (!template) return null;
-  const allowed = ["train", "from", "to", "date", "class", "quota", "station", "hours"];
-  return allowed.reduce((path, name) => path.replaceAll(`{${name}}`, encodeURIComponent(params.get(name) ?? "")), template);
-}
-
-export async function GET(request: NextRequest) {
-  const rate = await checkRateLimit(request);
-  if (!rate.allowed) {
-    const retryAfter = Math.max(1, Math.ceil((rate.resetAt - Date.now()) / 1000));
-    return NextResponse.json({ success: false, code: "RATE_LIMITED", message: "Too many railway lookups. Please wait a minute and try again." }, { status: 429, headers: { "Retry-After": String(retryAfter), "Cache-Control": "no-store" } });
-  }
-  const key = process.env.RAILRADAR_API_KEY;
-  if (!key) return NextResponse.json({ success: false, code: "PROVIDER_NOT_CONFIGURED", message: "The live railway provider is ready but has not been connected yet." }, { status: 503 });
-
-  const params = request.nextUrl.searchParams;
-  const action = params.get("action");
-  let endpoint: string;
+function invalid(message: string): never { throw new RailServiceError("INVALID_INPUT", message, 400, 0); }
+function endpointFor(params: URLSearchParams, privatePost: boolean) {
+  const action = params.get("action") ?? "";
+  const train = params.get("train") ?? "";
+  const date = params.get("date") ?? "";
+  for (const field of ["from", "to", "station", "class", "quota"]) if (params.has(field)) params.set(field, params.get(field)!.trim().toUpperCase());
   if (action === "pnr") {
+    if (!privatePost) throw new RailServiceError("POST_REQUIRED", "Use a private POST request for PNR lookup.", 405, 0);
     const pnr = params.get("pnr") ?? "";
-    if (!/^\d{10}$/.test(pnr)) return badRequest("A valid 10-digit PNR is required.");
-    endpoint = `/pnr/${pnr}`;
-  } else if (action === "live") {
-    const train = params.get("train") ?? "";
-    const date = params.get("date");
-    if (!validTrain(train)) return badRequest("A valid 5-digit train number is required.");
-    endpoint = `/trains/${train}/live${date ? `?date=${encodeURIComponent(date)}` : ""}`;
-  } else if (action === "schedule") {
-    const train = params.get("train") ?? "";
-    if (!validTrain(train)) return badRequest("A valid 5-digit train number is required.");
-    endpoint = `/trains/${train}`;
-  } else if (action === "between") {
-    const from = (params.get("from") ?? "").toUpperCase();
-    const to = (params.get("to") ?? "").toUpperCase();
-    if (!validStation(from) || !validStation(to)) return badRequest("Valid origin and destination station codes are required.");
-    const date = params.get("date") ?? "";
-    if (date && !validDate(date)) return badRequest("A valid journey date is required.");
-    endpoint = `/trains/between/${from}/${to}${date ? `?date=${encodeURIComponent(date)}` : ""}`;
-  } else if (["availability", "fare", "station", "coach", "platform"].includes(action ?? "")) {
-    const train = params.get("train") ?? "";
-    const from = (params.get("from") ?? "").toUpperCase();
-    const to = (params.get("to") ?? "").toUpperCase();
-    const station = (params.get("station") ?? "").toUpperCase();
-    if (["availability", "fare", "coach", "platform"].includes(action ?? "") && !validTrain(train)) return badRequest("A valid 5-digit train number is required.");
-    if (["availability", "fare"].includes(action ?? "") && (!validStation(from) || !validStation(to))) return badRequest("Valid origin and destination station codes are required.");
-    if (["availability", "fare"].includes(action ?? "") && !validDate(params.get("date") ?? "")) return badRequest("A valid journey date is required.");
-    if (["station", "platform"].includes(action ?? "") && !validStation(station)) return badRequest("A valid station code is required.");
-    if (action === "station" && !params.get("hours")) params.set("hours", "4");
-    endpoint = optionalEndpoint(action ?? "", params) ?? "";
-    if (!endpoint) return NextResponse.json({ success: false, code: "PROVIDER_FEATURE_NOT_CONFIGURED", message: "This live-data feature needs an approved provider endpoint. Add its path template in the server environment; no sample data is shown as live." }, { status: 501 });
-  } else return badRequest("Unsupported railway data request.");
-
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 9000);
-  try {
-    const providerResponse = await fetch(`${API_BASE}${endpoint}`, {
-      headers: { authorization: `Bearer ${key}`, accept: "application/json" }, cache: "no-store", signal: controller.signal,
-    });
-    const payload = await providerResponse.json().catch(() => ({ success: false, message: "Invalid provider response." }));
-    const response = NextResponse.json(payload, { status: providerResponse.status });
-    response.headers.set("Cache-Control", action === "between" || action === "schedule" ? "public, s-maxage=900, stale-while-revalidate=3600" : "no-store");
-    response.headers.set("X-RateLimit-Limit", String(RATE_LIMIT));
-    response.headers.set("X-RateLimit-Remaining", String(rate.remaining));
-    return response;
-  } catch (error) {
-    const timeoutError = error instanceof Error && error.name === "AbortError";
-    return NextResponse.json({ success: false, message: timeoutError ? "The live railway provider timed out." : "The live railway provider is currently unavailable." }, { status: 502 });
-  } finally { clearTimeout(timeout); }
+    if (!/^\d{10}$/.test(pnr)) invalid("A valid 10-digit PNR is required.");
+    return { action, endpoint: `/pnr/${pnr}` };
+  }
+  if (privatePost) invalid("POST only supports PNR lookup.");
+  if (!["live", "schedule", "between", "availability", "fare", "station", "coach", "platform"].includes(action)) invalid("Unsupported railway lookup.");
+  if (["live", "schedule", "availability", "fare", "coach", "platform"].includes(action) && !trainValid(train)) invalid("A valid 5-digit train number is required.");
+  if ((date && !dateValid(date)) || (["availability", "fare"].includes(action) && !date)) invalid("A valid journey date is required.");
+  if (["between", "availability", "fare"].includes(action)) {
+    if (!stationValid(params.get("from") ?? "") || !stationValid(params.get("to") ?? "") || params.get("from") === params.get("to")) invalid("Two different valid station codes are required.");
+  }
+  if (["station", "platform"].includes(action) && !stationValid(params.get("station") ?? "")) invalid("A valid station code is required.");
+  if (["availability", "fare"].includes(action)) {
+    if (!["1A", "2A", "3A", "3E", "CC", "EC", "SL", "2S", "FC"].includes(params.get("class") ?? "")) invalid("Choose a valid travel class.");
+    if (!["GN", "TQ", "PT", "LD", "SS", "HP", "DF", "DP", "FT", "YU"].includes(params.get("quota") ?? "")) invalid("Choose a valid quota.");
+  }
+  if (action === "station") {
+    const hours = Number(params.get("hours") || 4);
+    if (!Number.isInteger(hours) || hours < 1 || hours > 12) invalid("Station window must be 1–12 hours.");
+    params.set("hours", String(hours));
+  }
+  const paths: Record<string, string> = {
+    live: `/trains/${train}/live${date ? `?date=${encodeURIComponent(date)}` : ""}`,
+    schedule: `/trains/${train}`,
+    between: `/trains/between/${params.get("from")}/${params.get("to")}${date ? `?date=${encodeURIComponent(date)}` : ""}`,
+    availability: process.env.RAIL_API_AVAILABILITY_PATH ?? "/trains/{train}/seats?source={from}&destination={to}&journeyDate={date}&classCode={class}&quotaCode={quota}",
+    fare: process.env.RAIL_API_FARE_PATH ?? "/trains/{train}/fare?source={from}&destination={to}&journeyDate={date}&classCode={class}&quotaCode={quota}",
+    station: process.env.RAIL_API_STATION_BOARD_PATH ?? "/stations/{station}/live?hours={hours}",
+    coach: process.env.RAIL_API_COACH_POSITION_PATH ?? "/trains/{train}/coaches",
+    platform: process.env.RAIL_API_PLATFORM_PATH ?? "/trains/{train}/coaches/{station}",
+  };
+  const endpoint = ["train", "from", "to", "date", "class", "quota", "station", "hours"].reduce((path, name) => path.replaceAll(`{${name}}`, encodeURIComponent(params.get(name) ?? "")), paths[action]);
+  return { action, endpoint };
 }
+async function handle(request: NextRequest, privatePost: boolean) {
+  try {
+    let params: URLSearchParams;
+    if (privatePost) {
+      const raw = await request.text();
+      if (raw.length > 1024) invalid("Request body is too large.");
+      const body = JSON.parse(raw) as Record<string, unknown>;
+      if (!body || typeof body !== "object" || Array.isArray(body) || typeof body.pnr !== "string" || body.action !== "pnr") invalid("A PNR lookup is required.");
+      params = new URLSearchParams({ action: "pnr", pnr: body.pnr.trim() });
+    } else params = new URLSearchParams(request.nextUrl.searchParams);
+    const { action, endpoint } = endpointFor(params, privatePost);
+    await limitVisitor(request, action);
+    return NextResponse.json(await fetchRailway(endpoint, action), { headers: { "Cache-Control": "no-store" } });
+  } catch (error) {
+    const problem = error instanceof RailServiceError ? error : error instanceof SyntaxError ? new RailServiceError("INVALID_INPUT", "Invalid JSON body.", 400, 0) : new RailServiceError("SERVICE_UNAVAILABLE", "The live service is temporarily unavailable.");
+    return NextResponse.json({ success: false, code: problem.code, message: problem.message, error: { code: problem.code, message: problem.message } }, { status: problem.status, headers: { "Cache-Control": "no-store", ...(problem.retryAfter ? { "Retry-After": String(problem.retryAfter) } : {}), ...(problem.status === 405 ? { Allow: "POST" } : {}) } });
+  }
+}
+export async function GET(request: NextRequest) { return handle(request, false); }
+export async function POST(request: NextRequest) { return handle(request, true); }

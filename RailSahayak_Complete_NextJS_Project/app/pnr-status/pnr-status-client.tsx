@@ -6,6 +6,7 @@ import { AdSlot } from "@/components/ad-slot";
 import { Icon } from "@/components/icon";
 import { useLanguage } from "@/components/language-provider";
 import { trackEvent } from "@/lib/analytics";
+import { pnrSummary, railRequest, railError } from "@/lib/rail-data";
 
 type Tone = "success" | "warning" | "error";
 type Passenger = { number: string; booking: string; current: string; coach: string; berth: string };
@@ -36,7 +37,7 @@ const content = {
     connection: "Connection interrupted", connectionTitle: "The live service is taking longer than expected.", connectionText: "Please try again. For urgent travel decisions, use the official railway enquiry.",
     latest: "Latest available PNR response", received: "PNR status received", receivedText: "Review every passenger separately because booking and current status can be different.",
     train: "Train", journeyDate: "Journey date", route: "Journey", travelClass: "Class", chart: "Chart", passenger: "Passenger", bookingStatus: "Booking status", currentStatus: "Current status", coachBerth: "Coach / berth", notAvailable: "Not available",
-    verify: "Verify on official Indian Railways", sourceNote: "RailSahayak is independent. The official railway record remains the final authority.",
+    verify: "Verify on official Indian Railways", sourceNote: "RailQ is independent. The official railway record remains the final authority.",
     privacyTitle: "Private by design", privacyText: "The PNR is sent only to the secure railway-data route. It is not included in GA4 or Supabase analytics events.",
     guideKicker: "Read the result calmly", guideTitle: "What common PNR codes mean", guideText: "A booking code can change until chart preparation. Read the current status for each passenger, not only the original booking status.",
     howKicker: "Three simple steps", howTitle: "How this PNR checker works", step1Title: "Enter the ticket number", step1Text: "Use the 10-digit PNR printed on the ticket or booking confirmation.", step2Title: "We request the latest record", step2Text: "The request goes through a protected server route so the provider key is not exposed.", step3Title: "Review each passenger", step3Text: "Check current status, coach, berth and whether the chart has been prepared.",
@@ -55,7 +56,7 @@ const content = {
     connection: "कनेक्शन रुक गया", connectionTitle: "लाइव सेवा अपेक्षा से अधिक समय ले रही है।", connectionText: "फिर प्रयास करें। जरूरी यात्रा निर्णय के लिए आधिकारिक रेलवे पूछताछ का उपयोग करें।",
     latest: "नवीनतम उपलब्ध PNR उत्तर", received: "PNR स्थिति मिल गई", receivedText: "हर यात्री की जानकारी अलग देखें क्योंकि बुकिंग और वर्तमान स्थिति अलग हो सकती है।",
     train: "ट्रेन", journeyDate: "यात्रा तारीख", route: "यात्रा", travelClass: "श्रेणी", chart: "चार्ट", passenger: "यात्री", bookingStatus: "बुकिंग स्थिति", currentStatus: "वर्तमान स्थिति", coachBerth: "कोच / बर्थ", notAvailable: "उपलब्ध नहीं",
-    verify: "आधिकारिक भारतीय रेल पर सत्यापित करें", sourceNote: "RailSahayak एक स्वतंत्र सेवा है। आधिकारिक रेलवे रिकॉर्ड ही अंतिम मान्य स्रोत है।",
+    verify: "आधिकारिक भारतीय रेल पर सत्यापित करें", sourceNote: "RailQ एक स्वतंत्र सेवा है। आधिकारिक रेलवे रिकॉर्ड ही अंतिम मान्य स्रोत है।",
     privacyTitle: "गोपनीयता पहले", privacyText: "PNR केवल सुरक्षित रेलवे डेटा रूट को भेजा जाता है। इसे GA4 या Supabase एनालिटिक्स में शामिल नहीं किया जाता।",
     guideKicker: "स्थिति को आसानी से समझें", guideTitle: "सामान्य PNR कोड का अर्थ", guideText: "चार्ट बनने तक बुकिंग कोड बदल सकता है। केवल शुरुआती बुकिंग स्थिति नहीं, हर यात्री की वर्तमान स्थिति देखें।",
     howKicker: "तीन आसान चरण", howTitle: "यह PNR चेकर कैसे काम करता है", step1Title: "टिकट नंबर डालें", step1Text: "टिकट या बुकिंग पुष्टिकरण पर दिया गया 10 अंकों का PNR इस्तेमाल करें।", step2Title: "नवीनतम रिकॉर्ड माँगा जाता है", step2Text: "अनुरोध सुरक्षित सर्वर रूट से जाता है, इसलिए प्रदाता की कुंजी दिखाई नहीं देती।", step3Title: "हर यात्री की स्थिति देखें", step3Text: "वर्तमान स्थिति, कोच, बर्थ और चार्ट तैयार हुआ है या नहीं—सब जाँचें।",
@@ -81,56 +82,18 @@ const faqs = [
   ["Can PNR status change after booking?", "क्या बुकिंग के बाद PNR स्थिति बदल सकती है?", "Yes. Waiting-list and RAC positions can change as passengers cancel or railway allocation changes, including around chart preparation.", "हाँ। यात्रियों के टिकट रद्द करने या रेलवे आवंटन बदलने से WL और RAC स्थिति, चार्ट बनने तक, बदल सकती है।"],
   ["What does chart prepared mean?", "चार्ट तैयार होने का क्या अर्थ है?", "It means the reservation chart for the train has been prepared. Check the current passenger status and official record for the final travel position.", "इसका अर्थ है कि ट्रेन का आरक्षण चार्ट तैयार हो गया है। अंतिम यात्रा स्थिति के लिए वर्तमान यात्री स्थिति और आधिकारिक रिकॉर्ड देखें।"],
   ["Can I travel on a waitlisted ticket?", "क्या वेटलिस्ट टिकट पर यात्रा कर सकते हैं?", "Eligibility depends on the ticket type, final chart status and current railway rules. Do not rely on a generic answer—verify the final status through the official railway enquiry before boarding.", "यात्रा की अनुमति टिकट प्रकार, अंतिम चार्ट स्थिति और मौजूदा रेलवे नियमों पर निर्भर करती है। चढ़ने से पहले आधिकारिक रेलवे पूछताछ से अंतिम स्थिति सत्यापित करें।"],
-  ["Does RailSahayak save my PNR?", "क्या RailSahayak मेरा PNR सेव करता है?", "The implementation does not send the PNR to GA4 or Supabase analytics. The number is used only in the live lookup request.", "यह व्यवस्था PNR को GA4 या Supabase एनालिटिक्स में नहीं भेजती। नंबर केवल लाइव जानकारी माँगने के लिए उपयोग होता है।"],
+  ["Does RailQ save my PNR?", "क्या RailQ मेरा PNR सेव करता है?", "The implementation does not send the PNR to GA4 or Supabase analytics. The number is used only in the live lookup request.", "यह व्यवस्था PNR को GA4 या Supabase एनालिटिक्स में नहीं भेजती। नंबर केवल लाइव जानकारी माँगने के लिए उपयोग होता है।"],
 ] as const;
 
-function asRecord(value: unknown): Record<string, unknown> | null {
-  return value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : null;
-}
-
-function textValue(record: Record<string, unknown>, keys: string[], fallback = "") {
-  for (const key of keys) {
-    const value = record[key];
-    if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") return String(value);
-  }
-  return fallback;
-}
-
-function mapPassengers(source: Record<string, unknown>, fallback: string): Passenger[] {
-  const raw = [source.passengers, source.passengerList, source.passengerStatus].find(Array.isArray) as unknown[] | undefined;
-  if (!raw) return [];
-  return raw.map((item, index) => {
-    const passenger = asRecord(item) ?? {};
-    const coach = textValue(passenger, ["coach", "coachNumber", "currentCoach"], fallback);
-    const berth = textValue(passenger, ["berth", "berthNumber", "currentBerth", "berthType"], fallback);
-    return {
-      number: textValue(passenger, ["number", "passengerNumber", "no"], String(index + 1)),
-      booking: textValue(passenger, ["bookingStatus", "booking_status", "bookStatus"], fallback),
-      current: textValue(passenger, ["currentStatus", "current_status", "status"], fallback),
-      coach,
-      berth: coach === fallback && berth === fallback ? fallback : [coach, berth].filter((value) => value !== fallback).join(" · "),
-    };
-  });
-}
-
 function mapPnrPayload(payload: Record<string, unknown>, hi: boolean, fallback: string): PnrResult {
-  const source = asRecord(payload.data) ?? asRecord(payload.result) ?? payload;
-  const trainNumber = textValue(source, ["trainNumber", "trainNo", "train_number"]);
-  const trainName = textValue(source, ["trainName", "train_name"]);
-  const status = textValue(source, ["status", "currentStatus"]);
+  const summary = pnrSummary(payload);
   return {
-    tone: "success",
+    ...summary,
+    tone: summary.passengers.length ? "success" : "warning",
     eyebrow: hi ? "नवीनतम उपलब्ध PNR उत्तर" : "Latest available PNR response",
-    title: trainName || status || (hi ? "PNR स्थिति मिल गई" : "PNR status received"),
-    description: hi ? "हर यात्री की वर्तमान स्थिति, कोच और बर्थ अलग से जाँचें।" : "Check every passenger’s current status, coach and berth separately.",
-    trainNumber,
-    trainName,
-    journeyDate: textValue(source, ["dateOfJourney", "journeyDate", "doj", "travelDate"]),
-    from: textValue(source, ["boardingPoint", "from", "sourceStation", "source"]),
-    to: textValue(source, ["reservationUpto", "to", "destinationStation", "destination"]),
-    travelClass: textValue(source, ["class", "journeyClass", "travelClass"]),
-    chartStatus: textValue(source, ["chartStatus", "chartPrepared", "chart_status"]),
-    passengers: mapPassengers(source, fallback),
+    title: summary.trainName || (hi ? "PNR स्थिति" : "PNR status"),
+    description: summary.passengers.length ? (hi ? "हर यात्री की वर्तमान स्थिति अलग से जाँचें।" : "Check every passenger’s current status separately.") : (hi ? "प्रदाता ने यात्री स्थिति नहीं दी। आधिकारिक PNR पूछताछ से सत्यापित करें।" : "The provider did not return passenger statuses. Verify through official PNR enquiry."),
+    passengers: summary.passengers.map((p) => ({ ...p, booking: p.booking || fallback, current: p.current || fallback, coach: p.coach || fallback, berth: [p.coach, p.berth, p.berthCode].filter(Boolean).join(" · ") || fallback })),
   };
 }
 
@@ -155,11 +118,11 @@ export function PnrStatusClient() {
     }
     setLoading(true); setResult(null); trackEvent("pnr_lookup_submitted");
     try {
-      const response = await fetch(`/api/rail?action=pnr&pnr=${encodeURIComponent(pnr)}`, { cache: "no-store" });
-      const payload = (await response.json()) as Record<string, unknown>;
-      if (!response.ok) {
-        const notConfigured = payload.code === "PROVIDER_NOT_CONFIGURED";
-        setResult({ tone: notConfigured ? "warning" : "error", eyebrow: notConfigured ? t.ready : t.unavailable, title: notConfigured ? t.readyTitle : t.unavailableTitle, description: notConfigured ? t.readyText : t.unavailableText });
+      const { payload, ok } = await railRequest(new URLSearchParams({ action: "pnr", pnr }));
+      if (!ok) {
+        const problem = railError(payload, hi);
+        const notConfigured = problem.code === "PROVIDER_NOT_CONFIGURED";
+        setResult({ tone: notConfigured ? "warning" : "error", eyebrow: notConfigured ? t.ready : t.unavailable, title: notConfigured ? t.readyTitle : t.unavailableTitle, description: problem.message });
         trackEvent("pnr_lookup_result", { outcome: notConfigured ? "provider_not_configured" : "provider_error" });
         return;
       }

@@ -1,6 +1,5 @@
-import type { Metadata } from "next";
 import { DashboardClient } from "./dashboard-client";
-import { localizedAlternates } from "@/lib/seo";
+import { pageMetadata } from "@/lib/request-seo";
 
-export const metadata: Metadata = { title: "My Journey Dashboard | RailSahayak", description: "Combine PNR, live train, departure, chart, refund, coach, berth, platform and official links on one journey dashboard.", alternates: localizedAlternates("/dashboard") };
-export default function DashboardPage() { return <DashboardClient />; }
+export async function generateMetadata() { return pageMetadata({"path": "/dashboard", "title": "My Journey Dashboard", "titleHi": "मेरी यात्रा का डैशबोर्ड", "description": "Bring PNR, live train status, boarding details and useful journey tools together.", "descriptionHi": "PNR, लाइव ट्रेन स्थिति, बोर्डिंग जानकारी और उपयोगी यात्रा टूल्स एक जगह देखें।"}); }
+export default function Page() { return <DashboardClient />; }

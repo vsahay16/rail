@@ -1,11 +1,5 @@
-import type { Metadata } from "next";
 import { ToolsDirectory } from "./tools-directory";
-import { localizedAlternates } from "@/lib/seo";
+import { pageMetadata } from "@/lib/request-seo";
 
-export const metadata: Metadata = {
-  title: "All Indian Railway Tools | RailSahayak",
-  description: "Explore live railway lookups, booking calculators, refund tools, coach guides and journey-planning utilities in English and Hindi.",
-  alternates: localizedAlternates("/tools"),
-};
-
-export default function ToolsPage() { return <ToolsDirectory />; }
+export async function generateMetadata() { return pageMetadata({"path": "/tools", "title": "All Indian Railway Tools", "titleHi": "सभी भारतीय रेल टूल्स", "description": "Explore live railway lookups, booking calculators, refund tools and journey-planning utilities.", "descriptionHi": "लाइव रेलवे खोज, बुकिंग कैलकुलेटर, रिफंड टूल्स और यात्रा की योजना बनाने की सुविधाएँ देखें।"}); }
+export default function Page() { return <ToolsDirectory />; }

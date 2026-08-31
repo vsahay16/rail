@@ -1,6 +1,5 @@
-import type { Metadata } from "next";
 import { GuidesDirectory } from "./guides-directory";
-import { localizedAlternates } from "@/lib/seo";
+import { pageMetadata } from "@/lib/request-seo";
 
-export const metadata: Metadata = { title: "Indian Railway Travel Guides | RailSahayak", description: "Practical bilingual guides for booking, Tatkal, refunds, PNR, coaches, charting, family and festival travel.", alternates: localizedAlternates("/guides") };
-export default function GuidesPage() { return <GuidesDirectory />; }
+export async function generateMetadata() { return pageMetadata({"path": "/guides", "title": "Indian Railway Travel Guides", "titleHi": "भारतीय रेल यात्रा गाइड", "description": "Practical guides for booking, Tatkal, refunds, PNR, coaches and family travel.", "descriptionHi": "बुकिंग, तत्काल, रिफंड, PNR, कोच और परिवार के साथ यात्रा की उपयोगी गाइड पढ़ें।"}); }
+export default function Page() { return <GuidesDirectory />; }

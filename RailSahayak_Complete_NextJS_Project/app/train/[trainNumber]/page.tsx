@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DynamicRailPage } from "@/components/dynamic-rail-page";
-import { localizedAlternates } from "@/lib/seo";
+import { pageMetadata } from "@/lib/request-seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ trainNumber: string }> }): Promise<Metadata> {
   const { trainNumber } = await params;
-  return { title: `Train ${trainNumber}: Schedule & Live Status | RailSahayak`, description: `Check timetable and live running information for Indian Railways train ${trainNumber}.`, alternates: localizedAlternates(`/train/${trainNumber}`) };
+  return pageMetadata({ path: `/train/${trainNumber}`, title: `Train ${trainNumber}: Schedule & Live Status`, titleHi: `ट्रेन ${trainNumber}: समय-सारणी और लाइव स्थिति`, description: `Check timetable and live running information for train ${trainNumber}.`, descriptionHi: `ट्रेन ${trainNumber} की समय-सारणी और लाइव रनिंग जानकारी देखें।` });
 }
 
 export default async function TrainPage({ params }: { params: Promise<{ trainNumber: string }> }) {
