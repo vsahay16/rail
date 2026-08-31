@@ -45,3 +45,42 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     </html>
   );
 }
+import { Inter } from "next/font/google";
+import "./globals.css";
+import Script from "next/script"; // <-- 1. Add this import at the top
+
+const inter = Inter({ subsets: ["latin"] });
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <head>
+        {/* 2. Add the Google Tag Manager Script below */}
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://googletagmanager.com;
+            })(window,document,'script','dataLayer','GTM-NMXSVRCB');`,
+          }}
+        />
+      </head>
+      <body className={inter.className}>
+        {/* 3. Add the noscript iframe fallback right below the body tag */}
+        <noscript>
+          <iframe
+            src="https://googletagmanager.com"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+        {children}
+      </body>
+    </html>
+  );
+}
+
