@@ -13,6 +13,7 @@ function sanitize(properties: Record<string, unknown>) {
 
 export function trackEvent(name: string, properties: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
+  try {
   if (window.localStorage.getItem("railsahayak_consent") !== "analytics_ads") return;
   let sessionId = window.localStorage.getItem("rs_session_id");
   if (!sessionId) {
@@ -27,4 +28,5 @@ export function trackEvent(name: string, properties: Record<string, unknown> = {
     keepalive: true,
     body: JSON.stringify({ eventName: name, path: window.location.pathname, sessionId, properties: safeProperties }),
   }).catch(() => undefined);
+  } catch { /* Optional analytics must never block a railway tool. */ }
 }

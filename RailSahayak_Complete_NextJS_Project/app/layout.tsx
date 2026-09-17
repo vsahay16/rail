@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { StructuredData } from "@/components/structured-data";
 import { siteUrl } from "@/lib/seo";
 import "./globals.css";
+import "./service-quality.css";
 
 const siteTitle = "RailQ — Indian Railway Tools";
 const siteDescription = "PNR status, live train tracking, booking dates, Tatkal timing, refunds and trusted Indian railway journey tools in one simple place.";

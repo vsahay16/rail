@@ -1,7 +1,11 @@
 "use client";
+import { rememberTrain } from "@/lib/local-journeys";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { StationInput } from "@/components/station-input";
+import { SavedPlaces } from "@/components/saved-places";
+import { ResultHelp } from "@/components/result-help";
 import { AdSlot } from "@/components/ad-slot";
 import { Icon } from "@/components/icon";
 import { LocalizedLink as Link } from "@/components/localized-link";
@@ -11,6 +15,8 @@ import { pnrSummary, liveSummary, railData, rows, railRequest, railError } from 
 
 type SearchTab = "pnr" | "live" | "between" | "booking";
 type SearchResult = {
+  code?: string;
+  fetchedAt?: string;
   tone: "success" | "warning" | "error";
   eyebrow: string;
   title: string;
@@ -30,14 +36,14 @@ const copy = {
     train: "Train", from: "From", to: "To", liveConnection: "Live data connection",
     officialNote: "Independent service · Always verify critical information with official railway channels",
     toolsKicker: "Everything in one place", toolsTitle: "Rail tools for every moment of your journey", toolsDescription: "Fast answers first. Clear explanations when you need them.", openTool: "Open tool",
-    journeyKicker: "Coming together as one flow", journeyTitle: "Your entire train journey on one calm screen.", journeyDescription: "Save a journey once and RailQ can bring together live status, chart timing, coach information and useful alerts.", journeyCta: "Start with your PNR",
-    pulseTitle: "Live journey pulse", pulseText: "Delay, next halt and arrival changes.", alertTitle: "Only useful alerts", alertText: "Booking window, chart and station reminders.", privacyTitle: "Privacy by design", privacyText: "No raw PNR in analytics or public links.",
+    journeyKicker: "Coming together as one flow", journeyTitle: "Plan your journey, one clear step at a time.", journeyDescription: "Check live status, estimate chart timing and create calendar reminders. PNR email alerts are coming soon.", journeyCta: "Start with your PNR",
+    pulseTitle: "Live journey pulse", pulseText: "Delay, next halt and arrival changes.", alertTitle: "Only useful alerts", alertText: "Booking and Tatkal calendar reminders. Email alerts are not active.", privacyTitle: "Privacy by design", privacyText: "No raw PNR in analytics or public links.",
     myJourney: "Example journey", tracking: "Demo", onTime: "On time", depart: "Depart", next: "Next", arrive: "Arrive", confirmed: "Confirmed", chartTime: "Chart time", finalTomorrow: "Final · tomorrow", demoNote: "Illustrative example only. Check your PNR or open My journey for your own results.",
     rulesKicker: "Trust before traffic", rulesTitle: "Railway rules, with dates and sources.", readGuidance: "Read verified guidance",
     indiaKicker: "Designed around Indian travellers", indiaTitleA: "Fast on every phone.", indiaTitleB: "Clear in every language.", indiaText: "English and Hindi come first, with Bengali, Marathi, Tamil and Telugu planned next. The important answer always appears before the explanation or advertisement.",
     answerFirst: "Answer first", answerFirstText: "The tool result is always the clearest element on the page.", sourceVisible: "Source visible", sourceVisibleText: "Important rules show the official source and review date.", adsRestraint: "Ads with restraint", adsRestraintText: "Clearly labelled placements that never interrupt a critical action.",
     ctaKicker: "Next journey", ctaTitle: "Know before you go.", ctaText: "Start with a PNR, train number or travel date.", ctaButton: "Check your journey",
-    invalidPnr: "Invalid PNR", invalidPnrTitle: "Enter the 10-digit number printed on your ticket.", invalidPnrText: "Spaces and letters are not accepted. We do not save this number in analytics.", invalidTrain: "Check the train number", invalidTrainTitle: "Enter a valid 5-digit train number.", invalidTrainText: "For example, enter 12951 for Mumbai Rajdhani.", stationsNeeded: "Both stations are needed", stationsNeededTitle: "Enter your origin and destination station codes.", stationsNeededText: "Station name autocomplete will be added with the live directory connection.",
+    invalidPnr: "Invalid PNR", invalidPnrTitle: "Enter the 10-digit number printed on your ticket.", invalidPnrText: "Spaces and letters are not accepted. We do not save this number in analytics.", invalidTrain: "Check the train number", invalidTrainTitle: "Enter a valid 5-digit train number.", invalidTrainText: "For example, enter 12951 for Mumbai Rajdhani.", stationsNeeded: "Both stations are needed", stationsNeededTitle: "Enter your origin and destination station codes.", stationsNeededText: "Choose station suggestions or enter the exact codes on your ticket.",
   },
   hi: {
     badge: "स्वतंत्र रेलवे यात्रा सुविधा", titleA: "रेलवे का हर जवाब।", titleB: "एक आसान यात्रा में।",
@@ -50,8 +56,8 @@ const copy = {
     train: "ट्रेन", from: "कहाँ से", to: "कहाँ तक", liveConnection: "लाइव डेटा कनेक्शन",
     officialNote: "स्वतंत्र सेवा · जरूरी जानकारी हमेशा आधिकारिक रेलवे माध्यम से सत्यापित करें",
     toolsKicker: "हर सुविधा एक जगह", toolsTitle: "आपकी यात्रा के हर पड़ाव के लिए रेल टूल्स", toolsDescription: "पहले तेज़ उत्तर। जरूरत पर साफ़ और पूरी जानकारी।", openTool: "टूल खोलें",
-    journeyKicker: "एक आसान यात्रा अनुभव", journeyTitle: "आपकी पूरी रेल यात्रा, एक शांत और सरल स्क्रीन पर।", journeyDescription: "यात्रा एक बार सेव करें और RailQ लाइव स्थिति, चार्ट समय, कोच जानकारी और जरूरी अलर्ट एक साथ दिखा सकता है।", journeyCta: "अपने PNR से शुरू करें",
-    pulseTitle: "लाइव यात्रा स्थिति", pulseText: "देरी, अगला स्टेशन और आगमन बदलाव।", alertTitle: "केवल जरूरी अलर्ट", alertText: "बुकिंग विंडो, चार्ट और स्टेशन रिमाइंडर।", privacyTitle: "गोपनीयता पहले", privacyText: "एनालिटिक्स या सार्वजनिक लिंक में PNR सेव नहीं होता।",
+    journeyKicker: "एक आसान यात्रा अनुभव", journeyTitle: "आपकी पूरी रेल यात्रा, एक शांत और सरल स्क्रीन पर।", journeyDescription: "लाइव स्थिति, अनुमानित चार्ट समय और कैलेंडर रिमाइंडर देखें। PNR ईमेल अलर्ट अभी शुरू नहीं हैं।", journeyCta: "अपने PNR से शुरू करें",
+    pulseTitle: "लाइव यात्रा स्थिति", pulseText: "देरी, अगला स्टेशन और आगमन बदलाव।", alertTitle: "केवल जरूरी अलर्ट", alertText: "बुकिंग और तत्काल के कैलेंडर रिमाइंडर। ईमेल अलर्ट अभी शुरू नहीं हैं।", privacyTitle: "गोपनीयता पहले", privacyText: "एनालिटिक्स या सार्वजनिक लिंक में PNR सेव नहीं होता।",
     myJourney: "उदाहरण यात्रा", tracking: "डेमो", onTime: "समय पर", depart: "प्रस्थान", next: "अगला", arrive: "आगमन", confirmed: "कन्फर्म", chartTime: "चार्ट समय", finalTomorrow: "अंतिम · कल", demoNote: "यह केवल एक उदाहरण है। अपनी जानकारी के लिए PNR जाँचें या मेरी यात्रा खोलें।",
     rulesKicker: "ट्रैफिक से पहले भरोसा", rulesTitle: "तारीख और स्रोत के साथ रेलवे नियम।", readGuidance: "सत्यापित जानकारी पढ़ें",
     indiaKicker: "भारतीय यात्रियों के लिए बनाया गया", indiaTitleA: "हर फोन पर तेज़।", indiaTitleB: "हर भाषा में स्पष्ट।", indiaText: "पहले अंग्रेज़ी और हिंदी, फिर बंगाली, मराठी, तमिल और तेलुगु। जरूरी उत्तर हमेशा विवरण या विज्ञापन से पहले दिखाई देगा।",
@@ -73,9 +79,9 @@ const tools = [
 ];
 
 const updates = [
-  { date: "Verified Aug 2026", dateHi: "अगस्त 2026 में सत्यापित", title: "Advance booking window", titleHi: "अग्रिम बुकिंग विंडो", value: "60 days", valueHi: "60 दिन", note: "Excluding the journey date; exceptions may apply.", noteHi: "यात्रा की तारीख शामिल नहीं; कुछ अपवाद लागू हो सकते हैं।" },
-  { date: "Live rule card", dateHi: "लाइव नियम कार्ड", title: "Tatkal opens", titleHi: "तत्काल बुकिंग खुलती है", value: "10 AM / 11 AM", valueHi: "सुबह 10 / 11 बजे", note: "AC at 10 AM and non-AC at 11 AM, one day earlier.", noteHi: "AC सुबह 10 बजे और नॉन-AC सुबह 11 बजे, एक दिन पहले।" },
-  { date: "Source-first guidance", dateHi: "स्रोत आधारित जानकारी", title: "Final authority", titleHi: "अंतिम आधिकारिक स्रोत", value: "IRCTC / NTES", valueHi: "IRCTC / NTES", note: "Every critical result will include an official verification link.", noteHi: "हर महत्वपूर्ण परिणाम के साथ आधिकारिक सत्यापन लिंक होगा।" },
+  { date: "Verified Aug 2026", dateHi: "अगस्त 2026 में सत्यापित", title: "Advance booking window", titleHi: "अग्रिम बुकिंग विंडो", value: "60 days", valueHi: "60 दिन", note: "Excluding the journey date; exceptions may apply.", noteHi: "यात्रा की तारीख शामिल नहीं; कुछ अपवाद लागू हो सकते हैं।", href: "/guides/booking-and-advance-reservation" },
+  { date: "Live rule card", dateHi: "लाइव नियम कार्ड", title: "Tatkal opens", titleHi: "तत्काल बुकिंग खुलती है", value: "10 AM / 11 AM", valueHi: "सुबह 10 / 11 बजे", note: "AC at 10 AM and non-AC at 11 AM, one day earlier.", noteHi: "AC सुबह 10 बजे और नॉन-AC सुबह 11 बजे, एक दिन पहले।", href: "/guides/tatkal" },
+  { date: "Source-first guidance", dateHi: "स्रोत आधारित जानकारी", title: "Final authority", titleHi: "अंतिम आधिकारिक स्रोत", value: "IRCTC / NTES", valueHi: "IRCTC / NTES", note: "Every critical result will include an official verification link.", noteHi: "हर महत्वपूर्ण परिणाम के साथ आधिकारिक सत्यापन लिंक होगा।", href: "/official-services" },
 ];
 
 function getGeneralBookingDate(journeyDate: string, language: Language): SearchResult {
@@ -138,13 +144,13 @@ export default function Home() {
     if (activeTab === "live" && !/^\d{5}$/.test(form.train)) {
       setResult({ tone: "error", eyebrow: t.invalidTrain, title: t.invalidTrainTitle, description: t.invalidTrainText }); return;
     }
-    if (activeTab === "between" && (!form.from.trim() || !form.to.trim())) {
+    if (activeTab === "between" && (!/^[A-Z0-9]{2,6}$/i.test(form.from.trim()) || !/^[A-Z0-9]{2,6}$/i.test(form.to.trim()) || form.from.trim().toUpperCase() === form.to.trim().toUpperCase())) {
       setResult({ tone: "error", eyebrow: t.stationsNeeded, title: t.stationsNeededTitle, description: t.stationsNeededText }); return;
     }
     const params = new URLSearchParams({ action: activeTab });
     if (activeTab === "pnr") params.set("pnr", form.pnr);
     if (activeTab === "live") { params.set("train", form.train); if (form.date) params.set("date", form.date); }
-    if (activeTab === "between") { params.set("from", form.from.toUpperCase()); params.set("to", form.to.toUpperCase()); }
+    if (activeTab === "between") { params.set("from", form.from.trim().toUpperCase()); params.set("to", form.to.trim().toUpperCase()); }
     setLoading(true); trackEvent("live_tool_submitted", { tool: activeTab });
     try {
       const { payload, ok } = await railRequest(params);
@@ -154,12 +160,13 @@ export default function Home() {
         setResult({
           tone: notConfigured ? "warning" : "error",
           eyebrow: notConfigured ? (language === "hi" ? "लाइव कनेक्शन तैयार है" : "Live connection ready") : (language === "hi" ? "लाइव डेटा नहीं मिल सका" : "Could not fetch live data"),
-          title: notConfigured ? (language === "hi" ? "खोज सक्रिय करने के लिए अपनी रेलवे API कुंजी जोड़ें।" : "Add your free railway API key to activate this search.") : (language === "hi" ? "कुछ देर बाद फिर प्रयास करें।" : "Please try again in a moment."),
+          title: problem.title, code: problem.code,
           description: problem.message,
         });
         trackEvent("live_tool_result", { tool: activeTab, outcome: notConfigured ? "not_configured" : "error" }); return;
       }
-      setResult(mapProviderResult(activeTab, payload, language)); trackEvent("live_tool_result", { tool: activeTab, outcome: "success" });
+      if (activeTab === "live") rememberTrain(form.train);
+      setResult({ ...mapProviderResult(activeTab, payload, language), fetchedAt: String((payload.railq as Record<string, unknown> | undefined)?.fetchedAt || new Date().toISOString()) }); trackEvent("live_tool_result", { tool: activeTab, outcome: "success" });
     } catch {
       setResult({ tone: "error", eyebrow: language === "hi" ? "कनेक्शन रुक गया" : "Connection interrupted", title: language === "hi" ? "लाइव रेलवे सेवा अपेक्षा से अधिक समय ले रही है।" : "The live railway service is taking longer than expected.", description: language === "hi" ? "फिर प्रयास करें। महत्वपूर्ण यात्रा जानकारी IRCTC या NTES पर सत्यापित करें।" : "Please try again. Critical journey information should always be verified on IRCTC or NTES." });
       trackEvent("live_tool_result", { tool: activeTab, outcome: "network_error" });
@@ -182,17 +189,19 @@ export default function Home() {
           <form className="search-form" onSubmit={handleSubmit}>
             {activeTab === "pnr" && <label className="single-field"><span>PNR</span><input inputMode="numeric" autoComplete="off" maxLength={10} value={form.pnr} onChange={(e) => setForm({ ...form, pnr: e.target.value.replace(/\D/g, "") })} placeholder={t.pnrPlaceholder} aria-label={t.pnrPlaceholder} /></label>}
             {activeTab === "live" && <><label><span>{t.train}</span><input inputMode="numeric" maxLength={5} value={form.train} onChange={(e) => setForm({ ...form, train: e.target.value.replace(/\D/g, "") })} placeholder={t.trainPlaceholder} aria-label={t.trainPlaceholder} /></label><label><span>{t.journeyDate}</span><input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} aria-label={t.journeyDate} /></label></>}
-            {activeTab === "between" && <><label><span>{t.from}</span><input value={form.from} onChange={(e) => setForm({ ...form, from: e.target.value })} placeholder={t.fromPlaceholder} aria-label={t.fromPlaceholder} /></label><span className="swap-icon"><Icon name="swap" size={19} /></span><label><span>{t.to}</span><input value={form.to} onChange={(e) => setForm({ ...form, to: e.target.value })} placeholder={t.toPlaceholder} aria-label={t.toPlaceholder} /></label></>}
+            {activeTab === "between" && <><label><span>{t.from}</span><StationInput name="from" hi={language === "hi"} value={form.from} onChange={(value) => setForm({ ...form, from: value })} /></label><span className="swap-icon"><Icon name="swap" size={19} /></span><label><span>{t.to}</span><StationInput name="to" hi={language === "hi"} value={form.to} onChange={(value) => setForm({ ...form, to: value })} /></label></>}
             {activeTab === "booking" && <label className="single-field"><span>{t.journeyDate}</span><input type="date" required value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} aria-label={t.journeyDate} /></label>}
             <button className="primary-button" type="submit" disabled={loading}>{loading ? <span className="spinner" /> : buttonLabel} <Icon name="arrow" size={18} /></button>
           </form>
           {result && <div className={`search-result ${result.tone}`} aria-live="polite"><div><span>{result.eyebrow}</span><h3>{result.title}</h3><p>{result.description}</p></div>{result.details && <dl>{result.details.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>}</div>}
+          {result && activeTab !== "booking" && <ResultHelp hi={language === "hi"} pnr={activeTab === "pnr"} tool={activeTab === "pnr" ? "pnr-status" : activeTab === "live" ? "live-train-status" : "trains-between-stations"} code={result.code} fetchedAt={result.fetchedAt} />}
           <div className="search-footnote"><span><Icon name="shield" size={15} /> {t.noLogin}</span><span>{t.officialNote}</span></div>
         </section>
       </section>
 
       <AdSlot placement="top" format="970 × 90 / 320 × 100" className="top-ad" />
 
+      <SavedPlaces hi={language === "hi"} />
       <section className="section tools-section" id="tools">
         <div className="section-heading"><div><span className="kicker">{t.toolsKicker}</span><h2>{t.toolsTitle}</h2></div><p>{t.toolsDescription}</p></div>
         <div className="tool-grid">{tools.map((tool, index) => <Link className="tool-card" key={tool.title} href={tool.href} onClick={() => trackEvent("tool_card_clicked", { tool: tool.title })}><span className={`tool-icon ${tool.accent}`}><Icon name={tool.icon} /></span><span className="tool-number">0{index + 1}</span><h3>{language === "hi" ? tool.titleHi : tool.title}</h3><p>{language === "hi" ? tool.descriptionHi : tool.description}</p><span className="tool-link">{t.openTool} <Icon name="arrow" size={16} /></span></Link>)}</div>
@@ -203,7 +212,7 @@ export default function Home() {
         <div className="journey-dashboard"><div className="dash-top"><span>{t.myJourney}</span><b><span className="live-dot" /> {t.tracking}</b></div><div className="train-title"><span>12952</span><div><h3>Mumbai Rajdhani</h3><p>New Delhi → Mumbai Central</p></div><strong>{t.onTime}</strong></div><div className="rail-progress"><i /><i /><i /><i /><span /></div><div className="station-row"><div><small>{t.depart}</small><b>NDLS</b><span>16:55</span></div><div><small>{t.next}</small><b>KOTA</b><span>21:40</span></div><div><small>{t.arrive}</small><b>MMCT</b><span>08:35</span></div></div><div className="dash-cards"><div><small>{t.pnr}</small><b>{t.confirmed}</b><span>B4 · 31 LB</span></div><div><small>{t.chartTime}</small><b>08:55 AM</b><span>{t.finalTomorrow}</span></div></div><p className="demo-note">{t.demoNote}</p></div>
       </section>
 
-      <div className="content-with-ad"><section className="section updates-section" id="updates"><div className="section-heading compact"><div><span className="kicker">{t.rulesKicker}</span><h2>{t.rulesTitle}</h2></div></div><div className="update-grid">{updates.map((update) => <article key={update.title}><span>{language === "hi" ? update.dateHi : update.date}</span><h3>{language === "hi" ? update.titleHi : update.title}</h3><b>{language === "hi" ? update.valueHi : update.value}</b><p>{language === "hi" ? update.noteHi : update.note}</p><Link href="/guides">{t.readGuidance} <Icon name="arrow" size={15} /></Link></article>)}</div></section><AdSlot placement="square" format="300 × 250" className="square-ad" /></div>
+      <div className="content-with-ad"><section className="section updates-section" id="updates"><div className="section-heading compact"><div><span className="kicker">{t.rulesKicker}</span><h2>{t.rulesTitle}</h2></div></div><div className="update-grid">{updates.map((update) => <article key={update.title}><span>{language === "hi" ? update.dateHi : update.date}</span><h3>{language === "hi" ? update.titleHi : update.title}</h3><b>{language === "hi" ? update.valueHi : update.value}</b><p>{language === "hi" ? update.noteHi : update.note}</p><Link href={update.href}>{t.readGuidance} <Icon name="arrow" size={15} /></Link></article>)}</div></section><AdSlot placement="square" format="300 × 250" className="square-ad" /></div>
 
       <section className="india-section" id="guides"><div className="india-copy"><span className="kicker">{t.indiaKicker}</span><h2>{t.indiaTitleA}<br />{t.indiaTitleB}</h2><p>{t.indiaText}</p><div className="language-pills"><span>English</span><span>हिंदी</span><span>বাংলা</span><span>मराठी</span><span>தமிழ்</span><span>తెలుగు</span></div></div><div className="principles-card"><span className="principle-number">01</span><div><b>{t.answerFirst}</b><p>{t.answerFirstText}</p></div><span className="principle-number">02</span><div><b>{t.sourceVisible}</b><p>{t.sourceVisibleText}</p></div><span className="principle-number">03</span><div><b>{t.adsRestraint}</b><p>{t.adsRestraintText}</p></div></div></section>
 

@@ -1,4 +1,5 @@
 "use client";
+import { ResultHelp } from "@/components/result-help";
 
 import { LocalizedLink as Link } from "@/components/localized-link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
@@ -101,6 +102,8 @@ export function PnrStatusClient() {
   const { language } = useLanguage();
   const t = content[language];
   const hi = language === "hi";
+  const [resultCode, setResultCode] = useState("DISPLAY_ISSUE");
+  const [fetchedAt, setFetchedAt] = useState<string>();
   const [pnr, setPnr] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<PnrResult | null>(null);
@@ -110,7 +113,7 @@ export function PnrStatusClient() {
   const trainLabel = useMemo(() => [result?.trainNumber, result?.trainName].filter(Boolean).join(" · "), [result]);
 
   async function checkPnr(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    event.preventDefault(); setResultCode("DISPLAY_ISSUE"); setFetchedAt(undefined);
     if (!/^\d{10}$/.test(pnr)) {
       setResult({ tone: "error", eyebrow: t.invalid, title: t.invalid, description: t.invalidText });
       trackEvent("pnr_validation_error", { reason: "invalid_length" });
@@ -120,15 +123,17 @@ export function PnrStatusClient() {
     try {
       const { payload, ok } = await railRequest(new URLSearchParams({ action: "pnr", pnr }));
       if (!ok) {
-        const problem = railError(payload, hi);
+        const problem = railError(payload, hi); setResultCode(problem.code);
         const notConfigured = problem.code === "PROVIDER_NOT_CONFIGURED";
-        setResult({ tone: notConfigured ? "warning" : "error", eyebrow: notConfigured ? t.ready : t.unavailable, title: notConfigured ? t.readyTitle : t.unavailableTitle, description: problem.message });
+        setResult({ tone: notConfigured ? "warning" : "error", eyebrow: notConfigured ? t.ready : t.unavailable, title: problem.title, description: problem.message });
         trackEvent("pnr_lookup_result", { outcome: notConfigured ? "provider_not_configured" : "provider_error" });
         return;
       }
       setResult(mapPnrPayload(payload, hi, t.notAvailable));
+      setFetchedAt(String((payload.railq as Record<string, unknown> | undefined)?.fetchedAt || new Date().toISOString()));
       trackEvent("pnr_lookup_result", { outcome: "success" });
     } catch {
+      setResultCode("NETWORK_ERROR");
       setResult({ tone: "error", eyebrow: t.connection, title: t.connectionTitle, description: t.connectionText });
       trackEvent("pnr_lookup_result", { outcome: "network_error" });
     } finally { setLoading(false); }
@@ -180,5 +185,6 @@ export function PnrStatusClient() {
     <section className="pnr-faq-section"><div className="pnr-section-heading"><span className="kicker">{t.faqKicker}</span><h2>{t.faqTitle}</h2></div><div className="faq-list">{faqs.map(([enQuestion, hiQuestion, enAnswer, hiAnswer], index) => <details key={enQuestion}><summary><span>0{index + 1}</span>{hi ? hiQuestion : enQuestion}<Icon name="chevron" size={18} /></summary><p>{hi ? hiAnswer : enAnswer}</p></details>)}</div></section>
 
     <section className="related-tools"><div><span className="kicker light">{t.relatedKicker}</span><h2>{t.relatedTitle}</h2></div><div><Link href="/live-train-status"><Icon name="pulse" size={19} />{hi ? "लाइव ट्रेन स्थिति" : "Live train status"}<Icon name="arrow" size={16} /></Link><Link href="/chart-preparation-calculator"><Icon name="chart" size={19} />{hi ? "चार्ट तैयारी" : "Chart preparation"}<Icon name="arrow" size={16} /></Link><Link href="/seat-berth-finder"><Icon name="seat" size={19} />{hi ? "बर्थ पहचानें" : "Berth finder"}<Icon name="arrow" size={16} /></Link></div></section>
+  {result && <ResultHelp hi={hi} tool="pnr-status" pnr code={resultCode} fetchedAt={fetchedAt} />}
   </main>;
 }

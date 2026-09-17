@@ -1,7 +1,9 @@
+import { guideAdditions } from "@/lib/guide-additions";
 export type GuideSection = { title: string; titleHi: string; body: string; bodyHi: string; points?: string[]; pointsHi?: string[] };
 export type GuideConfig = { slug: string; title: string; titleHi: string; description: string; descriptionHi: string; icon: string; sections: GuideSection[] };
 
 export const guides: GuideConfig[] = [
+  { slug: "pnr-status-explained", title: "How to Read Your PNR Result", titleHi: "PNR परिणाम कैसे समझें", description: "Check each passenger, compare booking and current status, and decide what to verify next.", descriptionHi: "हर यात्री, बुकिंग और वर्तमान स्थिति की तुलना करें और अगली जाँच समझें।", icon: "ticket", sections: [] },
   { slug: "booking-and-advance-reservation", title: "Booking and Advance Reservation", titleHi: "बुकिंग और अग्रिम आरक्षण", description: "Plan when to book, which details to prepare and how to verify the final reservation.", descriptionHi: "कब बुक करना है, कौन-सी जानकारी तैयार रखनी है और अंतिम आरक्षण कैसे सत्यापित करना है।", icon: "calendar", sections: [
     { title: "Start with the journey, not the train", titleHi: "ट्रेन नहीं, यात्रा से शुरुआत करें", body: "Fix your acceptable departure window, arrival deadline, boarding station and class before comparing trains. This keeps a popular train from becoming the only plan.", bodyHi: "ट्रेनें देखने से पहले प्रस्थान का समय, पहुँचने की सीमा, बोर्डिंग स्टेशन और श्रेणी तय करें। इससे किसी एक लोकप्रिय ट्रेन पर निर्भरता कम होती है।", points: ["Compare nearby stations and dates", "Keep passenger names and ages ready", "Check the train’s originating-date rule"], pointsHi: ["पास के स्टेशन और तारीखें भी देखें", "यात्रियों के नाम और आयु तैयार रखें", "ट्रेन के शुरुआती स्टेशन की तारीख जाँचें"] },
     { title: "Use the opening date as a reminder", titleHi: "बुकिंग खुलने की तारीख का रिमाइंडर रखें", body: "Reservation windows and exceptions can change. Use the booking-date calculator for planning, then confirm the current rule on IRCTC before payment.", bodyHi: "आरक्षण अवधि और अपवाद बदल सकते हैं। योजना के लिए बुकिंग तारीख कैलकुलेटर इस्तेमाल करें और भुगतान से पहले IRCTC पर मौजूदा नियम जाँचें।" },
@@ -54,4 +56,8 @@ export const guides: GuideConfig[] = [
   ]},
 ];
 
+for (const guide of guides) {
+  const addition = guideAdditions[guide.slug];
+  if (addition) guide.sections = [...addition.sections, ...guide.sections];
+}
 export function getGuide(slug: string) { return guides.find((guide) => guide.slug === slug); }

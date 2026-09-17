@@ -35,7 +35,7 @@ export function SiteHeader() {
     trackEvent("language_changed", { language: hi ? "en" : "hi" });
     const current = window.location.pathname;
     const nextPath = hi ? (current === "/hi" ? "/" : current.replace(/^\/hi(?=\/)/, "")) : (current.startsWith("/hi") ? current : `/hi${current}`);
-    window.localStorage.setItem("railsahayak_language", hi ? "en" : "hi");
+    try { window.localStorage.setItem("railsahayak_language", hi ? "en" : "hi"); } catch {}
     window.location.assign(`${nextPath}${window.location.search}${window.location.hash}`);
   }
 

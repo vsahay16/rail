@@ -67,6 +67,9 @@ export function railError(payload: unknown, hi = false) {
   const root = record(payload), error = record(root.error);
   const code = scalar(error.code, root.code) || "PROVIDER_ERROR";
   const copy: Record<string, [string, string]> = {
+    INVALID_INPUT: ["Check the input and try again. Select station suggestions or use exact station codes; keep your original search in the form.", "जानकारी जाँचकर फिर प्रयास करें। स्टेशन सुझाव चुनें या सही कोड डालें। फॉर्म की जानकारी बनी रहेगी।"],
+    NETWORK_ERROR: ["The connection was interrupted. Your input is still in the form; reconnect and submit again.", "कनेक्शन रुक गया। आपकी जानकारी फॉर्म में है; इंटरनेट जाँचकर फिर प्रयास करें।"],
+    PROVIDER_UNAVAILABLE: ["The railway provider could not return a usable result. Your input is preserved. Try later or check the official service.", "रेलवे प्रदाता से उपयोगी परिणाम नहीं मिला। जानकारी फॉर्म में है। बाद में या आधिकारिक सेवा पर जाँचें।"],
     NOT_FOUND: ["No result was found. Check your input; the record may be expired or unavailable.", "परिणाम नहीं मिला। जानकारी जाँचें; रिकॉर्ड पुराना या अनुपलब्ध हो सकता है।"],
     RATE_LIMITED: ["Too many lookups. Please wait before trying again.", "बहुत अधिक खोज हुई हैं। थोड़ी देर बाद फिर प्रयास करें।"],
     API_BUDGET_REACHED: ["Live lookups are temporarily paused to protect the site's API allowance. Please use an official railway service.", "API सीमा की सुरक्षा के लिए लाइव खोज अस्थायी रूप से रुकी है। आधिकारिक रेलवे सेवा देखें।"],
@@ -75,13 +78,21 @@ export function railError(payload: unknown, hi = false) {
     PROVIDER_NOT_CONFIGURED: ["The live service has not been connected yet.", "लाइव सेवा अभी जुड़ी नहीं है।"],
   };
   const message = copy[code]?.[hi ? 1 : 0] ?? (hi ? "जानकारी नहीं मिली। इनपुट जाँचें और कुछ देर बाद फिर प्रयास करें।" : scalar(error.message, root.message) || "Information is unavailable. Check your input and try again shortly.");
-  return { code, message: message.replace(/\b\d{10}\b/g, "[PNR hidden]") };
+  const titles: Record<string, [string, string]> = {
+    INVALID_INPUT: ["Check your search", "खोज की जानकारी जाँचें"], NOT_FOUND: ["No matching result", "मिलता-जुलता परिणाम नहीं मिला"],
+    RATE_LIMITED: ["Please wait before another lookup", "अगली खोज से पहले प्रतीक्षा करें"],
+    API_BUDGET_REACHED: ["Live lookups are paused", "लाइव खोज रुकी है"], API_BURST_LIMIT: ["The service is busy", "सेवा व्यस्त है"],
+    PROVIDER_NOT_CONFIGURED: ["Live service unavailable", "लाइव सेवा अनुपलब्ध है"],
+    PROTECTION_UNAVAILABLE: ["Live service temporarily unavailable", "लाइव सेवा अस्थायी रूप से अनुपलब्ध है"],
+    NETWORK_ERROR: ["Check your connection", "इंटरनेट कनेक्शन जाँचें"],
+  };
+  return { code, title: titles[code]?.[hi ? 1 : 0] || (hi ? "अभी परिणाम उपलब्ध नहीं है" : "Result unavailable right now"), message: message.replace(/\b\d{10}\b/g, "[PNR hidden]") };
 }
 export async function railRequest(params: URLSearchParams, signal?: AbortSignal) {
   const pnr = params.get("action") === "pnr";
   const response = await fetch(pnr ? "/api/rail" : `/api/rail?${params}`, {
     ...(pnr ? { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "pnr", pnr: params.get("pnr") }) } : {}),
-    cache: "no-store", signal,
+    cache: "no-store", signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(25000)]) : AbortSignal.timeout(25000),
   });
   const payload = record(await response.json().catch(() => ({ success: false, message: "Invalid service response." })));
   return { response, payload, ok: response.ok && payload.success !== false };

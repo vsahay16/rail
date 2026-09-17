@@ -1,0 +1,23 @@
+.station-picker { display:block; position:relative; min-width:0; }
+.station-picker > small { display:block; color:#52677b; font-size:.76rem; padding-top:5px; }
+.station-options { position:absolute; z-index:40; left:0; right:0; top:48px; background:white; border:1px solid #c8d6df; border-radius:10px; box-shadow:0 8px 25px #10243d20; max-height:280px; overflow:auto; }
+.station-options > span { display:block; padding:10px 12px; cursor:pointer; font-size:.9rem; color:#10243d; }
+.station-options > span:hover,.station-options > span[aria-selected=true] { background:#edf7f5; }
+.station-options small { display:block; color:#52677b; }
+.saved-places,.result-help { padding:22px; margin:20px 0; border:1px solid #dfe5e7; background:#f5faf9; border-radius:14px; }
+.saved-places { max-width:1180px; margin:24px auto; }
+.saved-places p,.result-help p { color:#40586c; line-height:1.65; }
+.saved-controls,.result-help > div { display:flex; flex-wrap:wrap; gap:12px; align-items:end; }
+.saved-controls label { display:flex; flex-direction:column; gap:6px; }
+.saved-controls input,.saved-controls select { min-height:44px; border:1px solid #bccdd5; border-radius:8px; padding:8px; background:white; color:#10243d; }
+.saved-places button,.saved-controls button,.result-help button { min-height:44px; border:1px solid #bacbd3; border-radius:8px; background:white; color:#123d64; padding:8px 14px; cursor:pointer; }
+.saved-places ul { display:flex; flex-wrap:wrap; gap:10px; padding:12px 0; list-style:none; }
+.saved-places li { display:flex; align-items:center; gap:10px; border:1px solid #dfe5e7; border-radius:8px; padding-left:12px; }
+.result-help a { text-decoration:underline; color:#123d64; padding:10px 0; }
+.result-help small { display:block; margin-top:12px; }
+.guide-references { margin:24px 0; padding:24px; background:#f5faf9; border-radius:12px; }
+.guide-references a { text-decoration:underline; color:#123d64; }
+.guide-references li { margin:10px 0; }
+.saved-controls button:disabled,.result-help button:disabled { opacity:.6; cursor:wait; }
+.station-picker input:focus-visible,.saved-places button:focus-visible,.result-help button:focus-visible { outline:3px solid #007b70; outline-offset:2px; }
+@media(max-width:640px) { .saved-places { margin:16px; padding:16px; } .saved-controls { align-items:stretch; } .saved-controls label { flex:1; min-width:120px; } .result-help { padding:16px; } }

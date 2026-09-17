@@ -11,16 +11,16 @@ function configuration() {
   if (!url || !key) throw new RailServiceError("PROTECTION_UNAVAILABLE", "Live lookups are temporarily unavailable.");
   return { url, key };
 }
-async function database(path: string, body?: RailRecord, method?: string) {
+export async function database(path: string, body?: RailRecord, method?: string) {
   const config = configuration();
   try {
     const response = await fetch(`${config.url}/rest/v1/${path}`, {
       method: method ?? (body ? "POST" : "GET"),
-      headers: { apikey: config.key, authorization: `Bearer ${config.key}`, "content-type": "application/json", ...(path.startsWith("rail_api_cache") && body ? { prefer: "resolution=merge-duplicates,return=minimal" } : {}) },
+      headers: { apikey: config.key, authorization: `Bearer ${config.key}`, "content-type": "application/json", ...(path.startsWith("rail_api_cache") && body ? { prefer: "resolution=merge-duplicates,return=minimal" } : path === "railq_tool_reports" ? { prefer: "return=minimal" } : {}) },
       ...(body ? { body: JSON.stringify(body) } : {}), cache: "no-store", signal: AbortSignal.timeout(5000),
     });
     if (!response.ok) throw new Error("Storage unavailable");
-    return response.status === 204 || (body && path.startsWith("rail_api_cache")) ? null : await response.json();
+    return response.status === 204 || (body && (path.startsWith("rail_api_cache") || path === "railq_tool_reports")) ? null : await response.json();
   } catch { throw new RailServiceError("PROTECTION_UNAVAILABLE", "Live lookups are temporarily unavailable."); }
 }
 function integerSetting(name: string, fallback: number, max: number) {
@@ -39,6 +39,18 @@ export async function limitVisitor(request: NextRequest, action: string) {
   const limit = group === "pnr" ? 5 : group === "reservation" ? 10 : 30;
   const rate = record(await database("rpc/rail_api_take", { p_key: `${group}:${fingerprint}`, p_limit: limit, p_window: 600 }));
   if (rate.allowed !== true) throw new RailServiceError("RATE_LIMITED", "Too many lookups. Please wait before trying again.", 429, Number(rate.retry_after) || 600);
+}
+export async function limitPublicForm(request: NextRequest) {
+  const config = configuration();
+  const ip = (process.env.VERCEL ? request.headers.get("x-vercel-forwarded-for") ?? "unknown" : "local").split(",")[0].trim();
+  const key = createHmac("sha256", config.key).update(ip || "unknown").digest("hex");
+  const rate = record(await database("rpc/rail_api_take", { p_key: `forms:${key}`, p_limit: 5, p_window: 600 }));
+  if (rate.allowed !== true) throw new RailServiceError("RATE_LIMITED", "Too many submissions. Please wait ten minutes.", 429);
+}
+
+export async function recordHealth(action: string, outcome: string, duration: number, cached: boolean) {
+  try { await database("rpc/railq_record_health", { p_action: action, p_outcome: outcome, p_ms: Math.max(0, Math.round(duration)), p_cached: cached }); }
+  catch { console.warn("RailQ monitoring write unavailable"); }
 }
 export async function fetchRailway(endpoint: string, action: string) {
   const key = process.env.RAILRADAR_API_KEY;

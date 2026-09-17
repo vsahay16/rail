@@ -1,0 +1,12 @@
+"use client";
+import { useState, type FormEvent } from "react";
+type Snapshot = { stats: { used: number; calls: number; failures: number; average_ms: number; cached: number; reports: number; outcomes: Array<{ action: string; outcome: string; calls: number }> }; quota: number; safetyLimit: number; providerConfigured: boolean; note: string };
+export function ServiceHealth() {
+  const [token, setToken] = useState(""); const [data, setData] = useState<Snapshot | null>(null); const [error, setError] = useState(""); const [loading, setLoading] = useState(false);
+  async function load(e: FormEvent) {
+    e.preventDefault(); setLoading(true); setData(null); setError("");
+    try { const r = await fetch("/api/admin/service-health", { headers: { authorization: `Bearer ${token}` }, cache: "no-store", signal: AbortSignal.timeout(10000) }); const body = await r.json(); if (!r.ok) setError(body.error || "Unable to load"); else setData(body); }
+    catch { setError("Connection unavailable"); } finally { setLoading(false); setToken(""); }
+  }
+  return <main className="section"><h1>Private service monitor</h1><p>Enter the owner token. It is sent in an authorization header and is never saved in this browser.</p><form className="saved-controls" onSubmit={load}><label>Owner token<input type="password" autoComplete="off" value={token} onChange={(e) => setToken(e.target.value)} required /></label><button disabled={loading}>Load snapshot</button></form><p role="status">{error}</p>{data && <section><h2>Current API cycle</h2><p>{data.stats.used} reserved attempts of {data.quota}. Safety stop: {data.safetyLimit}. Remaining before stop: {Math.max(0, data.safetyLimit - data.stats.used)}.</p><p role="status">{data.stats.used >= data.safetyLimit ? "Safety limit reached." : data.stats.used >= data.quota * .5 ? "Usage warning: at least 50% of the allowance is reserved." : "Below the warning threshold."}</p><p>Provider key configured: {data.providerConfigured ? "Yes" : "No"}</p><h2>Last 24 hours</h2><p>Calls: {data.stats.calls} · Failures: {data.stats.failures} · Cached: {data.stats.cached} · Average response: {Math.round(data.stats.average_ms)} ms · Problem reports: {data.stats.reports}</p><table><thead><tr><th>Action</th><th>Outcome</th><th>Count</th></tr></thead><tbody>{data.stats.outcomes.map((r) => <tr key={`${r.action}:${r.outcome}`}><td>{r.action}</td><td>{r.outcome}</td><td>{r.calls}</td></tr>)}</tbody></table><p>{data.note}</p><button onClick={() => setData(null)}>Clear snapshot</button></section>}</main>;
+}

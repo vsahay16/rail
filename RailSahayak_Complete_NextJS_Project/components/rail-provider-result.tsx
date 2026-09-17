@@ -1,3 +1,4 @@
+import { ResultHelp } from "@/components/result-help";
 import type { ReactNode } from "react";
 import { Icon } from "@/components/icon";
 import { LocalizedLink as Link } from "@/components/localized-link";
@@ -151,5 +152,5 @@ export function RailProviderResult({ toolSlug, payload, hi }: { toolSlug: string
     : toolSlug === "station-arrivals-departures" ? <StationResult data={data} hi={hi} />
     : toolSlug === "coach-position" ? <CoachResult data={data} hi={hi} platform={false} />
     : toolSlug === "platform-number" ? <CoachResult data={data} hi={hi} platform /> : <GenericResult hi={hi} />;
-  return <>{cache?.cached === true && <p className="rail-cache-note">{hi ? "हाल में प्राप्त प्रदाता डेटा" : "Recently fetched provider data"} · {dateTime(cache.fetchedAt, hi)}</p>}{content}</>;
+  return <>{cache?.cached === true && <p className="rail-cache-note">{hi ? "हाल में प्राप्त प्रदाता डेटा" : "Recently fetched provider data"} · {dateTime(cache.fetchedAt, hi)}</p>}{content}<ResultHelp hi={hi} tool={toolSlug} fetchedAt={typeof cache?.fetchedAt === "string" ? cache.fetchedAt : undefined} /></>;
 }
