@@ -32,7 +32,7 @@ const copy = {
     toolsKicker: "Everything in one place", toolsTitle: "Rail tools for every moment of your journey", toolsDescription: "Fast answers first. Clear explanations when you need them.", openTool: "Open tool",
     journeyKicker: "Coming together as one flow", journeyTitle: "Your entire train journey on one calm screen.", journeyDescription: "Save a journey once and RailQ can bring together live status, chart timing, coach information and useful alerts.", journeyCta: "Start with your PNR",
     pulseTitle: "Live journey pulse", pulseText: "Delay, next halt and arrival changes.", alertTitle: "Only useful alerts", alertText: "Booking window, chart and station reminders.", privacyTitle: "Privacy by design", privacyText: "No raw PNR in analytics or public links.",
-    myJourney: "My journey", tracking: "Tracking", onTime: "On time", depart: "Depart", next: "Next", arrive: "Arrive", confirmed: "Confirmed", chartTime: "Chart time", finalTomorrow: "Final · tomorrow", demoNote: "Representative dashboard preview. Live values appear after API connection.",
+    myJourney: "Example journey", tracking: "Demo", onTime: "On time", depart: "Depart", next: "Next", arrive: "Arrive", confirmed: "Confirmed", chartTime: "Chart time", finalTomorrow: "Final · tomorrow", demoNote: "Illustrative example only. Check your PNR or open My journey for your own results.",
     rulesKicker: "Trust before traffic", rulesTitle: "Railway rules, with dates and sources.", readGuidance: "Read verified guidance",
     indiaKicker: "Designed around Indian travellers", indiaTitleA: "Fast on every phone.", indiaTitleB: "Clear in every language.", indiaText: "English and Hindi come first, with Bengali, Marathi, Tamil and Telugu planned next. The important answer always appears before the explanation or advertisement.",
     answerFirst: "Answer first", answerFirstText: "The tool result is always the clearest element on the page.", sourceVisible: "Source visible", sourceVisibleText: "Important rules show the official source and review date.", adsRestraint: "Ads with restraint", adsRestraintText: "Clearly labelled placements that never interrupt a critical action.",
@@ -52,7 +52,7 @@ const copy = {
     toolsKicker: "हर सुविधा एक जगह", toolsTitle: "आपकी यात्रा के हर पड़ाव के लिए रेल टूल्स", toolsDescription: "पहले तेज़ उत्तर। जरूरत पर साफ़ और पूरी जानकारी।", openTool: "टूल खोलें",
     journeyKicker: "एक आसान यात्रा अनुभव", journeyTitle: "आपकी पूरी रेल यात्रा, एक शांत और सरल स्क्रीन पर।", journeyDescription: "यात्रा एक बार सेव करें और RailQ लाइव स्थिति, चार्ट समय, कोच जानकारी और जरूरी अलर्ट एक साथ दिखा सकता है।", journeyCta: "अपने PNR से शुरू करें",
     pulseTitle: "लाइव यात्रा स्थिति", pulseText: "देरी, अगला स्टेशन और आगमन बदलाव।", alertTitle: "केवल जरूरी अलर्ट", alertText: "बुकिंग विंडो, चार्ट और स्टेशन रिमाइंडर।", privacyTitle: "गोपनीयता पहले", privacyText: "एनालिटिक्स या सार्वजनिक लिंक में PNR सेव नहीं होता।",
-    myJourney: "मेरी यात्रा", tracking: "लाइव ट्रैकिंग", onTime: "समय पर", depart: "प्रस्थान", next: "अगला", arrive: "आगमन", confirmed: "कन्फर्म", chartTime: "चार्ट समय", finalTomorrow: "अंतिम · कल", demoNote: "यह डैशबोर्ड का उदाहरण है। API जुड़ने के बाद लाइव जानकारी दिखाई जाएगी।",
+    myJourney: "उदाहरण यात्रा", tracking: "डेमो", onTime: "समय पर", depart: "प्रस्थान", next: "अगला", arrive: "आगमन", confirmed: "कन्फर्म", chartTime: "चार्ट समय", finalTomorrow: "अंतिम · कल", demoNote: "यह केवल एक उदाहरण है। अपनी जानकारी के लिए PNR जाँचें या मेरी यात्रा खोलें।",
     rulesKicker: "ट्रैफिक से पहले भरोसा", rulesTitle: "तारीख और स्रोत के साथ रेलवे नियम।", readGuidance: "सत्यापित जानकारी पढ़ें",
     indiaKicker: "भारतीय यात्रियों के लिए बनाया गया", indiaTitleA: "हर फोन पर तेज़।", indiaTitleB: "हर भाषा में स्पष्ट।", indiaText: "पहले अंग्रेज़ी और हिंदी, फिर बंगाली, मराठी, तमिल और तेलुगु। जरूरी उत्तर हमेशा विवरण या विज्ञापन से पहले दिखाई देगा।",
     answerFirst: "उत्तर पहले", answerFirstText: "टूल का उत्तर हमेशा पेज का सबसे स्पष्ट हिस्सा रहेगा।", sourceVisible: "स्रोत साफ़", sourceVisibleText: "महत्वपूर्ण नियमों के साथ आधिकारिक स्रोत और समीक्षा तारीख दिखाई जाएगी।", adsRestraint: "संतुलित विज्ञापन", adsRestraintText: "साफ़ लेबल वाले विज्ञापन जो जरूरी काम में बाधा नहीं डालते।",
@@ -62,14 +62,14 @@ const copy = {
 };
 
 const tools = [
-  { icon: "ticket", title: "PNR Status", titleHi: "PNR स्थिति", description: "Current status, coach, berth and chart details.", descriptionHi: "वर्तमान स्थिति, कोच, बर्थ और चार्ट की जानकारी।", accent: "orange", tab: "pnr" as SearchTab },
-  { icon: "pulse", title: "Live Train Status", titleHi: "लाइव ट्रेन स्थिति", description: "Running position, delay and next halt.", descriptionHi: "ट्रेन की स्थिति, देरी और अगला स्टेशन।", accent: "teal", tab: "live" as SearchTab },
-  { icon: "route", title: "Trains Between Stations", titleHi: "स्टेशनों के बीच ट्रेनें", description: "Direct options between any two stations.", descriptionHi: "दो स्टेशनों के बीच सीधी ट्रेनों के विकल्प।", accent: "blue", tab: "between" as SearchTab },
-  { icon: "calendar", title: "Booking Date", titleHi: "बुकिंग तारीख", description: "Know exactly when your 60-day window opens.", descriptionHi: "जानें आपकी 60-दिन की बुकिंग विंडो कब खुलेगी।", accent: "violet", tab: "booking" as SearchTab },
-  { icon: "clock", title: "Tatkal Time", titleHi: "तत्काल समय", description: "AC and non-AC opening time with reminders.", descriptionHi: "AC और नॉन-AC बुकिंग समय और रिमाइंडर।", accent: "rose" },
-  { icon: "refund", title: "Refund Calculator", titleHi: "रिफंड कैलकुलेटर", description: "Estimate deductions before cancellation.", descriptionHi: "टिकट रद्द करने से पहले संभावित कटौती जानें।", accent: "green" },
-  { icon: "seat", title: "Berth Finder", titleHi: "बर्थ पहचानें", description: "Lower, middle, upper or side—know your seat.", descriptionHi: "लोअर, मिडिल, अपर या साइड—अपनी सीट पहचानें।", accent: "amber" },
-  { icon: "chart", title: "Chart Preparation", titleHi: "चार्ट तैयारी", description: "See first and final chart windows clearly.", descriptionHi: "पहले और अंतिम चार्ट का समय साफ़ देखें।", accent: "slate" },
+  { icon: "ticket", title: "PNR Status", titleHi: "PNR स्थिति", description: "Current status, coach, berth and chart details.", descriptionHi: "वर्तमान स्थिति, कोच, बर्थ और चार्ट की जानकारी।", accent: "orange", href: "/pnr-status" },
+  { icon: "pulse", title: "Live Train Status", titleHi: "लाइव ट्रेन स्थिति", description: "Running position, delay and next halt.", descriptionHi: "ट्रेन की स्थिति, देरी और अगला स्टेशन।", accent: "teal", href: "/live-train-status" },
+  { icon: "route", title: "Trains Between Stations", titleHi: "स्टेशनों के बीच ट्रेनें", description: "Direct options between any two stations.", descriptionHi: "दो स्टेशनों के बीच सीधी ट्रेनों के विकल्प।", accent: "blue", href: "/trains-between-stations" },
+  { icon: "calendar", title: "Booking Date", titleHi: "बुकिंग तारीख", description: "Know exactly when your 60-day window opens.", descriptionHi: "जानें आपकी 60-दिन की बुकिंग विंडो कब खुलेगी।", accent: "violet", href: "/booking-date-calculator" },
+  { icon: "clock", title: "Tatkal Time", titleHi: "तत्काल समय", description: "AC and non-AC opening time with reminders.", descriptionHi: "AC और नॉन-AC बुकिंग समय और रिमाइंडर।", accent: "rose", href: "/tatkal-time-calculator" },
+  { icon: "refund", title: "Refund Calculator", titleHi: "रिफंड कैलकुलेटर", description: "Estimate deductions before cancellation.", descriptionHi: "टिकट रद्द करने से पहले संभावित कटौती जानें।", accent: "green", href: "/refund-calculator" },
+  { icon: "seat", title: "Berth Finder", titleHi: "बर्थ पहचानें", description: "Lower, middle, upper or side—know your seat.", descriptionHi: "लोअर, मिडिल, अपर या साइड—अपनी सीट पहचानें।", accent: "amber", href: "/seat-berth-finder" },
+  { icon: "chart", title: "Chart Preparation", titleHi: "चार्ट तैयारी", description: "See first and final chart windows clearly.", descriptionHi: "पहले और अंतिम चार्ट का समय साफ़ देखें।", accent: "slate", href: "/chart-preparation-calculator" },
 ];
 
 const updates = [
@@ -195,7 +195,7 @@ export default function Home() {
 
       <section className="section tools-section" id="tools">
         <div className="section-heading"><div><span className="kicker">{t.toolsKicker}</span><h2>{t.toolsTitle}</h2></div><p>{t.toolsDescription}</p></div>
-        <div className="tool-grid">{tools.map((tool, index) => <button className="tool-card" key={tool.title} onClick={() => { trackEvent("tool_card_clicked", { tool: tool.title }); if (tool.tab) switchTab(tool.tab); }}><span className={`tool-icon ${tool.accent}`}><Icon name={tool.icon} /></span><span className="tool-number">0{index + 1}</span><h3>{language === "hi" ? tool.titleHi : tool.title}</h3><p>{language === "hi" ? tool.descriptionHi : tool.description}</p><span className="tool-link">{t.openTool} <Icon name="arrow" size={16} /></span></button>)}</div>
+        <div className="tool-grid">{tools.map((tool, index) => <Link className="tool-card" key={tool.title} href={tool.href} onClick={() => trackEvent("tool_card_clicked", { tool: tool.title })}><span className={`tool-icon ${tool.accent}`}><Icon name={tool.icon} /></span><span className="tool-number">0{index + 1}</span><h3>{language === "hi" ? tool.titleHi : tool.title}</h3><p>{language === "hi" ? tool.descriptionHi : tool.description}</p><span className="tool-link">{t.openTool} <Icon name="arrow" size={16} /></span></Link>)}</div>
       </section>
 
       <section className="journey-section" id="journey">
