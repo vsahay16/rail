@@ -4,14 +4,14 @@ export type ContentPage = { slug: string; title: string; titleHi: string; eyebro
 export const contentPages: ContentPage[] = [
   { slug: "about", title: "Built around the Indian passenger", titleHi: "भारतीय यात्री के लिए बनाया गया", eyebrow: "About RailQ", eyebrowHi: "RailQ के बारे में", description: "RailQ brings railway tools, explanations and official verification links into one calm bilingual experience.", descriptionHi: "RailQ रेलवे टूल्स, सरल जानकारी और आधिकारिक सत्यापन लिंक को एक सहज द्विभाषी अनुभव में लाता है।", sections: [
     { title: "Our purpose", titleHi: "हमारा उद्देश्य", body: "A railway journey creates many small questions. Our purpose is to answer them in the order a traveller needs them—without hiding the answer behind noise.", bodyHi: "रेल यात्रा में कई छोटे सवाल आते हैं। हमारा उद्देश्य उन्हें यात्री की जरूरत के क्रम में जवाब देना है—बिना अनावश्यक शोर के।" },
-    { title: "Independent by design", titleHi: "स्वतंत्र सेवा", body: "RailQ is not Indian Railways or IRCTC. We connect approved data providers, clearly label estimates and point passengers back to official services for final decisions.", bodyHi: "RailQ भारतीय रेल या IRCTC नहीं है। हम स्वीकृत डेटा प्रदाता जोड़ते हैं, अनुमानों को स्पष्ट दिखाते हैं और अंतिम निर्णय के लिए आधिकारिक सेवाओं की ओर ले जाते हैं।" },
+    { title: "Independent by design", titleHi: "स्वतंत्र सेवा", body: "RailQ is not Indian Railways or IRCTC. We use third-party railway data, clearly label estimates and point passengers back to official services for final decisions.", bodyHi: "RailQ भारतीय रेल या IRCTC नहीं है। हम तीसरे पक्ष से रेलवे डेटा लेते हैं, अनुमानों को स्पष्ट दिखाते हैं और अंतिम निर्णय के लिए आधिकारिक सेवाओं की ओर ले जाते हैं।" },
     { title: "What we optimise for", titleHi: "हमारी प्राथमिकताएँ", body: "Fast mobile pages, accessible forms, Hindi and English, honest confidence labels, privacy-aware analytics and advertising that never disguises itself as a result.", bodyHi: "तेज़ मोबाइल पेज, सुगम फॉर्म, हिंदी और English, ईमानदार भरोसा लेबल, गोपनीय एनालिटिक्स और परिणाम जैसा न दिखने वाला विज्ञापन।" },
   ]},
   { slug: "contact", title: "Contact RailQ", titleHi: "RailQ से संपर्क", eyebrow: "Questions and feedback", eyebrowHi: "सवाल और प्रतिक्रिया", description: "Send a correction, partnership query, accessibility issue or product suggestion through the secure contact form.", descriptionHi: "सुधार, साझेदारी, सुगमता समस्या या उत्पाद सुझाव सुरक्षित संपर्क फॉर्म से भेजें।", sections: [
     { title: "Before you send", titleHi: "भेजने से पहले", body: "Never include a full PNR, OTP, password, card number, Aadhaar number or another passenger’s personal information. RailQ cannot book, cancel or modify an official railway ticket.", bodyHi: "पूरा PNR, OTP, पासवर्ड, कार्ड नंबर, आधार नंबर या किसी दूसरे यात्री की निजी जानकारी न भेजें। RailQ आधिकारिक टिकट बुक, रद्द या बदल नहीं सकता।" },
   ]},
   { slug: "methodology", title: "How RailQ reaches an answer", titleHi: "RailQ उत्तर कैसे तैयार करता है", eyebrow: "Methodology", eyebrowHi: "हमारी प्रक्रिया", description: "A transparent separation between provider data, calculations, historical signals and official authority.", descriptionHi: "प्रदाता डेटा, गणना, ऐतिहासिक संकेत और आधिकारिक स्रोत के बीच स्पष्ट अंतर।", sections: [
-    { title: "Provider data", titleHi: "प्रदाता डेटा", body: "PNR, live running and reservation-dependent results are requested server-side from an approved provider. The browser never receives the provider key.", bodyHi: "PNR, लाइव रनिंग और आरक्षण-आधारित परिणाम सर्वर से स्वीकृत प्रदाता द्वारा लिए जाते हैं। ब्राउज़र को प्रदाता कुंजी नहीं मिलती।" },
+    { title: "Provider data", titleHi: "प्रदाता डेटा", body: "PNR, live running and reservation-dependent results are requested server-side from the configured railway-data provider. The browser never receives the provider key.", bodyHi: "PNR, लाइव रनिंग और आरक्षण-आधारित परिणाम सर्वर से जुड़े रेलवे डेटा प्रदाता द्वारा लिए जाते हैं। ब्राउज़र को प्रदाता कुंजी नहीं मिलती।" },
     { title: "Calculations and estimates", titleHi: "गणना और अनुमान", body: "Date, berth and connection tools apply documented rules or transparent heuristics. Every estimate is labelled and should be rechecked when the underlying rule can change.", bodyHi: "तारीख, बर्थ और कनेक्शन टूल्स स्पष्ट नियम या अनुमान उपयोग करते हैं। हर अनुमान पर लेबल है और बदलने वाले नियमों को फिर जाँचना चाहिए।" },
     { title: "Confidence labels", titleHi: "भरोसा लेबल", body: "Provider data means it came from the connected feed. Planning estimate means it was calculated. Official link means the final decision belongs on the linked railway service. Not available means we do not know.", bodyHi: "प्रदाता डेटा जुड़ी फ़ीड से आता है। योजना अनुमान गणना है। आधिकारिक लिंक पर अंतिम निर्णय होता है। उपलब्ध नहीं का अर्थ है कि हमें जानकारी नहीं मिली।" },
   ]},
@@ -65,3 +65,60 @@ export const contentPages: ContentPage[] = [
 ];
 
 export function getContentPage(slug: string) { return contentPages.find((page) => page.slug === slug); }
+
+// Substantive editorial replacements; original URLs remain unchanged.
+const editorialUpdates: Record<string, Partial<ContentPage>> = {
+  "blog": {
+    "title": "Railway reading: choose a guide for your journey",
+    "titleHi": "रेल यात्रा की पढ़ाई: जरूरत के अनुसार गाइड चुनें",
+    "eyebrow": "Travel reading",
+    "eyebrowHi": "यात्रा की पढ़ाई",
+    "description": "Find the right RailQ guide for booking, reading a ticket, family travel and festival planning.",
+    "descriptionHi": "बुकिंग, टिकट समझने, परिवार और त्योहार यात्रा के लिए सही RailQ गाइड चुनें।",
+    "sections": [
+      {
+        "title": "Before booking",
+        "titleHi": "बुकिंग से पहले",
+        "body": "Compare stations, dates and classes before treating one train as your only option. The booking guide explains how to prepare a usable alternative and verify the issued ticket after payment.",
+        "bodyHi": "एक ट्रेन पर निर्भर होने से पहले स्टेशन, तारीख और श्रेणी मिलाएँ। बुकिंग गाइड उपयोग योग्य विकल्प और भुगतान के बाद जारी टिकट जाँचना समझाती है।"
+      },
+      {
+        "title": "After receiving a ticket",
+        "titleHi": "टिकट मिलने के बाद",
+        "body": "Read booking status and current status for every passenger. The PNR guide uses illustrative examples to explain missing allocations and why a waiting number is not a berth.",
+        "bodyHi": "हर यात्री की बुकिंग और वर्तमान स्थिति पढ़ें। PNR गाइड उदाहरणों से खाली आवंटन और वेटलिस्ट संख्या बर्थ न होने का अंतर समझाती है।"
+      }
+    ]
+  },
+  "railway-updates": {
+    "title": "Railway notices behind the planning tools",
+    "titleHi": "योजना टूल्स से संबंधित रेलवे सूचनाएँ",
+    "eyebrow": "Railway rule references",
+    "eyebrowHi": "रेलवे नियम संदर्भ",
+    "description": "Dated official notices relevant to advance reservation, Tatkal preparation and chart estimates, with practical next steps.",
+    "descriptionHi": "अग्रिम आरक्षण, तत्काल तैयारी और चार्ट अनुमान की तारीख सहित आधिकारिक सूचनाएँ और अगले कदम।",
+    "sections": [
+      {
+        "title": "Advance reservation: effective 1 November 2024",
+        "titleHi": "अग्रिम आरक्षण: 1 नवंबर 2024 से लागू",
+        "body": "The Ministry of Railways notice dated 17 October 2024 reduced the general window to 60 days, with exceptions. Use the booking-date calculator with the correct train-origin date and check the actual service before planning payment.",
+        "bodyHi": "17 अक्टूबर 2024 की रेल मंत्रालय सूचना ने अपवादों के साथ सामान्य अवधि 60 दिन की। सही शुरुआती तारीख से बुकिंग कैलकुलेटर चलाएँ और भुगतान योजना से पहले वास्तविक सेवा जाँचें।"
+      },
+      {
+        "title": "Tatkal authentication: July 2025 changes",
+        "titleHi": "तत्काल सत्यापन: जुलाई 2025 बदलाव",
+        "body": "The 11 June 2025 notice introduced Aadhaar-authenticated online users from 1 July and online Aadhaar OTP from 15 July. Prepare account access in advance and follow the current steps shown by IRCTC; RailQ does not perform identity verification.",
+        "bodyHi": "11 जून 2025 की सूचना में 1 जुलाई से आधार-सत्यापित ऑनलाइन उपयोगकर्ता और 15 जुलाई से ऑनलाइन आधार OTP लागू किया गया। खाते की पहुँच पहले तैयार करें और IRCTC के मौजूदा चरण अपनाएँ; RailQ पहचान सत्यापन नहीं करता।"
+      },
+      {
+        "title": "Chart estimates: check the actual status",
+        "titleHi": "चार्ट अनुमान: वास्तविक स्थिति देखें",
+        "body": "The linked Central Railway notice from July 2025 explains earlier first-chart preparation. A calculator gives a planning time, not proof that your chart is ready. Use the PNR chart status and the relevant charting location for a boarding decision.",
+        "bodyHi": "जुड़ी जुलाई 2025 मध्य रेलवे सूचना पहले चार्ट को जल्दी बनाने का नियम समझाती है। कैलकुलेटर योजना का समय है, आपका चार्ट तैयार होने का प्रमाण नहीं। बोर्डिंग निर्णय में PNR चार्ट स्थिति और लागू चार्टिंग स्थान देखें।"
+      }
+    ]
+  }
+};
+for (const page of contentPages) {
+  if (editorialUpdates[page.slug]) Object.assign(page, editorialUpdates[page.slug], { updated: "3 October 2026" });
+}

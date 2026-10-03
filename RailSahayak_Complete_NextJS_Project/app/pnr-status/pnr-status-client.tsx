@@ -1,4 +1,5 @@
 "use client";
+import { PageGuidance } from "@/components/page-guidance";
 import { ResultHelp } from "@/components/result-help";
 
 import { LocalizedLink as Link } from "@/components/localized-link";
@@ -186,5 +187,5 @@ export function PnrStatusClient() {
 
     <section className="related-tools"><div><span className="kicker light">{t.relatedKicker}</span><h2>{t.relatedTitle}</h2></div><div><Link href="/live-train-status"><Icon name="pulse" size={19} />{hi ? "लाइव ट्रेन स्थिति" : "Live train status"}<Icon name="arrow" size={16} /></Link><Link href="/chart-preparation-calculator"><Icon name="chart" size={19} />{hi ? "चार्ट तैयारी" : "Chart preparation"}<Icon name="arrow" size={16} /></Link><Link href="/seat-berth-finder"><Icon name="seat" size={19} />{hi ? "बर्थ पहचानें" : "Berth finder"}<Icon name="arrow" size={16} /></Link></div></section>
   {result && <ResultHelp hi={hi} tool="pnr-status" pnr code={resultCode} fetchedAt={fetchedAt} />}
-  </main>;
+  <PageGuidance slug="pnr-status" /></main>;
 }

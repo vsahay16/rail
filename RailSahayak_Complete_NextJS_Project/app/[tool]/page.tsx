@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ tool: str
   const config = getToolConfig(slug);
   const page = getContentPage(slug);
   if (!config && !page) return {};
-  return pageMetadata({ path: `/${slug}`, title: config?.title ?? page!.eyebrow, titleHi: config?.titleHi ?? page!.eyebrowHi, description: config?.description ?? page!.description, descriptionHi: config?.descriptionHi ?? page!.descriptionHi });
+  return pageMetadata({ path: `/${slug}`, title: config?.title ?? page!.title, titleHi: config?.titleHi ?? page!.titleHi, description: config?.description ?? page!.description, descriptionHi: config?.descriptionHi ?? page!.descriptionHi });
 }
 
 export default async function GenericToolPage({ params }: { params: Promise<{ tool: string }> }) {
@@ -25,7 +25,7 @@ export default async function GenericToolPage({ params }: { params: Promise<{ to
   if (!config && !page) notFound();
   const hi = await requestLanguage() === "hi";
   const path = `${hi ? "/hi" : ""}/${slug}`;
-  const title = hi ? config?.titleHi ?? page!.eyebrowHi : config?.title ?? page!.eyebrow;
+  const title = hi ? config?.titleHi ?? page!.titleHi : config?.title ?? page!.title;
   const description = hi ? config?.descriptionHi ?? page!.descriptionHi : config?.description ?? page!.description;
   return <>
     <StructuredData data={{

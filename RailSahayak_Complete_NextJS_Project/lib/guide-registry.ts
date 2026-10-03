@@ -58,6 +58,6 @@ export const guides: GuideConfig[] = [
 
 for (const guide of guides) {
   const addition = guideAdditions[guide.slug];
-  if (addition) guide.sections = [...addition.sections, ...guide.sections];
+  if (addition) guide.sections = addition.sections;
 }
 export function getGuide(slug: string) { return guides.find((guide) => guide.slug === slug); }

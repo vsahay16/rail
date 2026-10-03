@@ -21,3 +21,18 @@
 .saved-controls button:disabled,.result-help button:disabled { opacity:.6; cursor:wait; }
 .station-picker input:focus-visible,.saved-places button:focus-visible,.result-help button:focus-visible { outline:3px solid #007b70; outline-offset:2px; }
 @media(max-width:640px) { .saved-places { margin:16px; padding:16px; } .saved-controls { align-items:stretch; } .saved-controls label { flex:1; min-width:120px; } .result-help { padding:16px; } }
+
+/* Page-specific help and guide navigation, 2026-10-03. */
+.journey-help,.guide-contents { max-width:1100px; margin:48px auto; padding:28px; background:#fff; border:1px solid #d9e6e4; border-radius:20px; color:#263b50; }
+.journey-help h2,.guide-contents h2 { margin:0 0 24px; font-size:clamp(1.4rem,3vw,1.9rem); }
+.journey-help h3 { margin:0 0 10px; font-size:1.13rem; }
+.journey-help p { line-height:1.8; margin:0 0 20px; }
+.journey-help-sections { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; }
+.journey-help a,.guide-contents a { color:#076b65; text-decoration:underline; text-underline-offset:3px; overflow-wrap:anywhere; }
+.journey-help ul,.guide-contents ol { padding-left:24px; line-height:1.8; }
+.journey-help nav,.journey-help-note { border-top:1px solid #e0e9e8; padding-top:20px; }
+.guide-contents ol { columns:2; column-gap:32px; }
+.guide-contents li { break-inside:avoid; margin-bottom:8px; }
+.guide-article section[id] { scroll-margin-top:100px; }
+.journey-help-note { font-size:.9rem; margin-top:24px!important; }
+@media(max-width:700px) { .journey-help,.guide-contents { margin:28px 16px; padding:20px; } .journey-help-sections { grid-template-columns:1fr; gap:12px; } .guide-contents ol { columns:1; } }
