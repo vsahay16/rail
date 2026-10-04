@@ -17,8 +17,9 @@ export function PageGuidance({ slug }: { slug: string }) {
     const item = guide ?? getToolConfig(path) ?? getContentPage(path);
     return item ? hi ? item.titleHi : item.title : path;
   }
+  const pageTitle = slug === "dashboard" ? (hi ? "यात्रा डैशबोर्ड" : "Journey dashboard") : label(slug);
   return <section className="journey-help" aria-labelledby={`help-${slug}`}>
-    <h2 id={`help-${slug}`}>{hi ? "इस जानकारी का उपयोग कैसे करें" : "How to use this information"}</h2>
+    <h2 id={`help-${slug}`}>{hi ? `${pageTitle}: उपयोग की जानकारी` : `${pageTitle}: how to use the result`}</h2>
     <div className="journey-help-sections">{help.sections.map((section) => <section key={section.title}>
       <h3>{hi ? section.titleHi : section.title}</h3><p>{hi ? section.bodyHi : section.body}</p>
     </section>)}</div>

@@ -122,3 +122,92 @@ const editorialUpdates: Record<string, Partial<ContentPage>> = {
 for (const page of contentPages) {
   if (editorialUpdates[page.slug]) Object.assign(page, editorialUpdates[page.slug], { updated: "3 October 2026" });
 }
+
+// Service-specific policy detail, reviewed with this release.
+const policyUpdates: Record<string, ContentSection[]> = {
+  "terms": [
+    {
+      "title": "What you can use RailQ for",
+      "titleHi": "RailQ का उपयोग किसलिए करें",
+      "body": "RailQ is an independent information service for planning Indian railway journeys. You can look up provider data, compare journey options, read guides and use planning calculators. RailQ does not issue tickets, collect railway fares, change reservations or process railway refunds. A result on this website is not a ticket or permission to board.",
+      "bodyHi": "RailQ भारतीय रेल यात्रा की योजना के लिए स्वतंत्र सूचना सेवा है। यहाँ प्रदाता की जानकारी, यात्रा विकल्प, गाइड और योजना कैलकुलेटर मिलते हैं। RailQ टिकट जारी नहीं करता, रेलवे किराया नहीं लेता और आरक्षण या रेलवे रिफंड नहीं बदलता। यहाँ दिखा परिणाम टिकट या यात्रा की अनुमति नहीं है।"
+    },
+    {
+      "title": "Check your inputs and the official record",
+      "titleHi": "अपनी जानकारी और आधिकारिक रिकॉर्ड जाँचें",
+      "body": "Choose the correct train, stations, date, class and ticket type. Read each passenger’s current status separately. Before paying, cancelling or boarding, verify the relevant details with the official railway service. If a RailQ estimate differs from the amount or status shown there, do not assume that the estimate overrides the official record.",
+      "bodyHi": "सही ट्रेन, स्टेशन, तारीख, श्रेणी और टिकट प्रकार चुनें। हर यात्री की वर्तमान स्थिति अलग पढ़ें। भुगतान, रद्दीकरण या यात्रा से पहले आधिकारिक सेवा पर विवरण जाँचें। RailQ के अनुमान और वहाँ दिखी राशि या स्थिति में अंतर हो तो अनुमान को आधिकारिक रिकॉर्ड से ऊपर न मानें।"
+    },
+    {
+      "title": "Use searches responsibly",
+      "titleHi": "खोज का जिम्मेदारी से उपयोग करें",
+      "body": "Search only for journeys you are entitled to check. Do not submit another passenger’s private information without permission, attempt to obtain secret keys, bypass request limits or overwhelm the service with automated requests. Repeated refreshes can consume a shared data allowance without producing a newer result. Respect any wait message before retrying.",
+      "bodyHi": "केवल वही यात्रा खोजें जिसे जाँचने का आपको अधिकार हो। बिना अनुमति दूसरे यात्री की निजी जानकारी न दें, गुप्त कुंजी लेने, अनुरोध सीमा तोड़ने या स्वचालित खोज से सेवा पर भार डालने की कोशिश न करें। बार-बार रीफ्रेश से नया परिणाम मिले बिना साझा डेटा सीमा खर्च हो सकती है। दोबारा खोजने से पहले प्रतीक्षा संदेश मानें।"
+    },
+    {
+      "title": "Privacy when asking for help",
+      "titleHi": "सहायता लेते समय गोपनीयता",
+      "body": "Use Contact for product questions and Corrections for factual problems. Include the affected page and a short description of what happened. Remove full PNRs, passenger names, phone numbers and account details from screenshots. Never send an OTP, password, payment-card number or identity document. The Privacy page explains how searches and messages are handled.",
+      "bodyHi": "उत्पाद के सवाल के लिए संपर्क और तथ्य की गलती के लिए सुधार पेज उपयोग करें। प्रभावित पेज और समस्या का छोटा विवरण दें। स्क्रीनशॉट से पूरा PNR, यात्री का नाम, फोन और खाता विवरण हटाएँ। OTP, पासवर्ड, कार्ड नंबर या पहचान दस्तावेज न भेजें। गोपनीयता पेज खोज और संदेशों का प्रबंधन समझाता है।"
+    },
+    {
+      "title": "Links, advertising and other providers",
+      "titleHi": "लिंक, विज्ञापन और अन्य प्रदाता",
+      "body": "Following an external link takes you to a separate service with its own terms and privacy policy. Check the destination before sharing information or paying. An advertisement or partner placement does not change a railway rule, reserve a seat or guarantee a third-party service. Direct questions about an external purchase to the provider that accepted it.",
+      "bodyHi": "बाहरी लिंक की सेवा की अपनी शर्तें और गोपनीयता नीति होती हैं। जानकारी या भुगतान देने से पहले गंतव्य जाँचें। विज्ञापन या साझेदारी रेलवे नियम नहीं बदलती, सीट आरक्षित नहीं करती और अन्य सेवा की गारंटी नहीं देती। बाहरी खरीद के सवाल उसी प्रदाता से पूछें जिसने खरीद स्वीकार की।"
+    },
+    {
+      "title": "Availability and reminders",
+      "titleHi": "उपलब्धता और रिमाइंडर",
+      "body": "Tools may be temporarily unavailable because of provider outages, maintenance or usage limits. PNR email alerts are currently paused; do not rely on them to monitor a ticket. A downloaded calendar reminder only works after you import it into your chosen calendar and check its time and notification settings. Keep your own record of important journey deadlines.",
+      "bodyHi": "प्रदाता समस्या, रखरखाव या उपयोग सीमा से टूल अस्थायी रूप से बंद हो सकते हैं। PNR ईमेल अलर्ट अभी बंद हैं; टिकट की निगरानी के लिए उन पर निर्भर न रहें। डाउनलोड किया कैलेंडर रिमाइंडर तभी काम करेगा जब उसे कैलेंडर में जोड़कर समय और सूचना सेटिंग जाँचें। यात्रा की जरूरी समय-सीमाएँ अपने पास रखें।"
+    },
+    {
+      "title": "Updates and questions about these terms",
+      "titleHi": "इन शर्तों में बदलाव और सवाल",
+      "body": "These terms describe the current use of RailQ. Features and the wording on this page may change as the service changes; the displayed update date identifies this revision. If a statement is unclear, use the contact page and identify the section you mean. For the limitations of individual results, also read the Disclaimer and Methodology pages.",
+      "bodyHi": "ये शर्तें RailQ के वर्तमान उपयोग को समझाती हैं। सेवा के साथ सुविधाएँ और इस पेज की भाषा बदल सकती है; अपडेट तारीख इस संस्करण की पहचान है। कोई बात अस्पष्ट हो तो संपर्क पेज पर संबंधित खंड बताएँ। परिणामों की सीमाओं के लिए अस्वीकरण और कार्यप्रणाली पेज भी पढ़ें।"
+    }
+  ],
+  "disclaimer": [
+    {
+      "title": "An independent planning service",
+      "titleHi": "स्वतंत्र योजना सेवा",
+      "body": "RailQ is not Indian Railways or IRCTC. It brings third-party data, explanatory guides and calculations together to help you plan. It cannot confirm a reservation, authorise travel, allocate a berth or settle a railway claim. Use the official record and the instructions of railway staff for actions that affect your journey.",
+      "bodyHi": "RailQ भारतीय रेल या IRCTC नहीं है। यह योजना में मदद के लिए अन्य प्रदाताओं का डेटा, गाइड और गणना साथ लाता है। यह आरक्षण पक्का, यात्रा अधिकृत, बर्थ आवंटित या रेलवे दावा तय नहीं कर सकता। यात्रा पर असर डालने वाली कार्रवाई में आधिकारिक रिकॉर्ड और रेलवे कर्मचारियों के निर्देश मानें।"
+    },
+    {
+      "title": "What a live result does and does not show",
+      "titleHi": "लाइव परिणाम क्या बताता है",
+      "body": "A provider response describes the information available when it was fetched. Network delays, caching or an incomplete response can make it older than the situation at the station. Read the displayed update time where available. “Not available” means a field was not supplied; it does not mean a cancellation, an empty train or a confirmed seat.",
+      "bodyHi": "प्रदाता का जवाब जानकारी प्राप्त किए जाने के समय की स्थिति बताता है। नेटवर्क देरी, कैश या अधूरे जवाब से यह स्टेशन की स्थिति से पुराना हो सकता है। उपलब्ध हो तो अपडेट समय पढ़ें। “उपलब्ध नहीं” का अर्थ विवरण नहीं मिला है; यह रद्द ट्रेन, खाली ट्रेन या पक्की सीट का प्रमाण नहीं है।"
+    },
+    {
+      "title": "PNR and passenger allocations",
+      "titleHi": "PNR और यात्री आवंटन",
+      "body": "Booking status and current status answer different questions. Check the current status for every passenger, not just the first row or the train name. A waitlist position is not a berth number. Do not infer a confirmed allocation from a missing coach field or from a prediction. Verify the latest PNR and applicable boarding conditions with the official service before travelling.",
+      "bodyHi": "बुकिंग और वर्तमान स्थिति अलग जानकारी हैं। केवल पहली पंक्ति या ट्रेन नाम नहीं, हर यात्री की वर्तमान स्थिति जाँचें। वेटलिस्ट संख्या बर्थ नंबर नहीं है। खाली कोच विवरण या अनुमान से आवंटन पक्का न मानें। यात्रा से पहले आधिकारिक सेवा पर नवीनतम PNR और लागू बोर्डिंग शर्तें जाँचें।"
+    },
+    {
+      "title": "Times, refunds and other estimates",
+      "titleHi": "समय, रिफंड और अन्य अनुमान",
+      "body": "Calculators apply the inputs and assumptions shown on the page. Train-origin dates, ticket type, quota, charting location and special conditions may affect the actual outcome. A refund estimate does not submit a cancellation or TDR claim. A booking reminder does not make a reservation. Complete the required action through the official service and retain its confirmation.",
+      "bodyHi": "कैलकुलेटर पेज की जानकारी और मान्यताओं से गणना करते हैं। ट्रेन की शुरुआती तारीख, टिकट प्रकार, कोटा, चार्टिंग स्थान और विशेष शर्तें वास्तविक परिणाम बदल सकती हैं। रिफंड अनुमान रद्दीकरण या TDR दावा जमा नहीं करता। बुकिंग रिमाइंडर आरक्षण नहीं करता। जरूरी कार्रवाई आधिकारिक सेवा पर करके पुष्टि संभालें।"
+    },
+    {
+      "title": "At the station and when changing trains",
+      "titleHi": "स्टेशन पर और ट्रेन बदलते समय",
+      "body": "Platform numbers, coach positions and arrival estimates can change. Check station displays and announcements and ask railway staff if the information conflicts. A suggested connection buffer cannot guarantee that you will catch another train. Allow for walking, luggage, accessibility needs and delays when choosing a connection; make a backup plan when missing it would cause a serious problem.",
+      "bodyHi": "प्लेटफॉर्म, कोच स्थिति और आगमन अनुमान बदल सकते हैं। स्टेशन डिस्प्ले और घोषणाएँ देखें; विरोधी जानकारी पर रेलवे कर्मचारी से पूछें। सुझाया कनेक्शन अंतर अगली ट्रेन मिलने की गारंटी नहीं है। पैदल दूरी, सामान, सुगमता की जरूरत और देरी के लिए समय रखें; कनेक्शन छूटने से बड़ी परेशानी हो तो वैकल्पिक योजना बनाएँ।"
+    },
+    {
+      "title": "If information is missing or looks wrong",
+      "titleHi": "जानकारी गायब या गलत लगे तो",
+      "body": "Do not treat an error screen as a railway decision. Retry after the suggested wait or use the official service linked on the page. To report a RailQ problem, send the page URL, the field that looks wrong and the time you saw it through Contact. Use a redacted screenshot if helpful. Do not include a full PNR, OTP or another passenger’s personal details.",
+      "bodyHi": "त्रुटि स्क्रीन को रेलवे का निर्णय न मानें। सुझाई प्रतीक्षा के बाद प्रयास करें या पेज की आधिकारिक सेवा उपयोग करें। RailQ समस्या बताने के लिए संपर्क पर पेज URL, गलत विवरण और देखने का समय भेजें। जरूरत पर निजी जानकारी हटाया स्क्रीनशॉट दें। पूरा PNR, OTP या दूसरे यात्री का निजी विवरण न भेजें।"
+    }
+  ]
+};
+for (const page of contentPages) {
+  if (policyUpdates[page.slug]) Object.assign(page, { sections: policyUpdates[page.slug], updated: "4 October 2026" });
+}

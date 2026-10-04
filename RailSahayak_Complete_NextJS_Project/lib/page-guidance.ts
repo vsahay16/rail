@@ -580,13 +580,13 @@ export const pageGuidance: Record<string, PageGuidance> = {
       {
         "title": "This is a planning check",
         "titleHi": "यह योजना की जाँच है",
-        "body": "The assistant uses the answers you provide; it cannot inspect your booking or enrol you in VIKALP. Open your official booking history to see whether the option is offered and which alternate trains you can select.",
+        "body": "This tool uses your answers. It cannot open your ticket or sign you up for VIKALP. Check your booking history on IRCTC to see whether VIKALP is offered. Review the other trains listed there.",
         "bodyHi": "सहायक आपके जवाब इस्तेमाल करता है; बुकिंग देख या VIKALP में नाम दर्ज नहीं कर सकता। विकल्प और वैकल्पिक ट्रेनें देखने के लिए आधिकारिक बुकिंग इतिहास खोलें।"
       },
       {
         "title": "An option is not an allocation",
         "titleHi": "विकल्प चुनना आवंटन नहीं है",
-        "body": "IRCTC states that choosing VIKALP does not guarantee accommodation. If an alternate is allotted, recheck its boarding station, departure, destination and final PNR. Nearby cluster stations may differ from your original journey.",
+        "body": "Choosing VIKALP does not guarantee a seat. If you get another train, check its boarding station, departure time, destination and final PNR. It may use a nearby station instead of the one on your first ticket.",
         "bodyHi": "IRCTC के अनुसार VIKALP चुनने से जगह की गारंटी नहीं है। विकल्प आवंटित हो तो बोर्डिंग स्टेशन, प्रस्थान, गंतव्य और अंतिम PNR फिर देखें। पास के समूह स्टेशन मूल यात्रा से अलग हो सकते हैं।"
       },
       {

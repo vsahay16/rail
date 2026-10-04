@@ -178,7 +178,7 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-copy"><div className="eyebrow"><span className="live-dot" /> {t.badge}</div><h1>{t.titleA}<br /><em>{t.titleB}</em></h1><p>{t.intro}</p><div className="trust-inline"><span><Icon name="shield" size={17} /> {t.privacy}</span><span><Icon name="pulse" size={17} /> {t.updated}</span></div></div>
         <div className="hero-visual" aria-label={language === "hi" ? "आधुनिक भारतीय यात्री ट्रेन यात्रा" : "Modern Indian passenger train journey"}>
-          <Image src="/rail-hero.webp" alt={language === "hi" ? "सूर्योदय के समय आधुनिक भारतीय यात्री ट्रेन" : "Modern Indian passenger train at sunrise"} fill priority sizes="(max-width: 760px) 100vw, 55vw" />
+          <Image src="/rail-hero.webp" alt={language === "hi" ? "सूर्योदय के समय आधुनिक भारतीय यात्री ट्रेन" : "Modern Indian passenger train at sunrise"} width={1672} height={941} priority sizes="(max-width: 760px) 100vw, (max-width: 1440px) 55vw, 792px" />
           <div className="route-card"><div><span>NDLS</span><b>New Delhi</b></div><span className="route-line"><i /><i /><i /></span><div><span>MMCT</span><b>Mumbai Central</b></div></div>
           <div className="status-pill"><span className="live-dot" /> {t.liveConnection}</div>
         </div>
