@@ -1,6 +1,7 @@
+import { octoberGuides } from "@/lib/guides-october";
 import { guideAdditions } from "@/lib/guide-additions";
-export type GuideSection = { title: string; titleHi: string; body: string; bodyHi: string; points?: string[]; pointsHi?: string[] };
-export type GuideConfig = { slug: string; title: string; titleHi: string; description: string; descriptionHi: string; icon: string; sections: GuideSection[] };
+export type GuideSection = { title: string; titleHi: string; body: string; bodyHi: string; points?: string[]; pointsHi?: string[]; links?: { href: string; label: string; labelHi: string }[] };
+export type GuideConfig = { slug: string; title: string; titleHi: string; description: string; descriptionHi: string; icon: string; updated?: string; sections: GuideSection[] };
 
 export const guides: GuideConfig[] = [
   { slug: "pnr-status-explained", title: "How to Read Your PNR Result", titleHi: "PNR परिणाम कैसे समझें", description: "Check each passenger, compare booking and current status, and decide what to verify next.", descriptionHi: "हर यात्री, बुकिंग और वर्तमान स्थिति की तुलना करें और अगली जाँच समझें।", icon: "ticket", sections: [] },
@@ -55,6 +56,8 @@ export const guides: GuideConfig[] = [
     { title: "Protect onward plans", titleHi: "आगे की योजना सुरक्षित रखें", body: "Avoid non-refundable onward bookings with a tight connection. Build a delay buffer and keep essential accommodation or ground-transport contacts offline.", bodyHi: "बहुत कम कनेक्शन समय के साथ नॉन-रिफंडेबल आगे की बुकिंग से बचें। देरी का समय रखें और जरूरी होटल या परिवहन संपर्क ऑफलाइन रखें।" },
   ]},
 ];
+
+guides.push(...octoberGuides);
 
 for (const guide of guides) {
   const addition = guideAdditions[guide.slug];

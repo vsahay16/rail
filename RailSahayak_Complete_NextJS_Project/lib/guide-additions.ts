@@ -1,8 +1,9 @@
+import { octoberAdditions } from "@/lib/guides-october";
 import { editorialSources } from "@/lib/editorial-sources";
 import { guideExpansions } from "@/lib/guide-expansions";
 import type { GuideSection } from "@/lib/guide-registry";
 export type GuideReference = { label: string; url: string };
-export type GuideAddition = { checked: string; sources: GuideReference[]; tools: string[]; sections: GuideSection[] };
+export type GuideAddition = { checked: string; checkedHi?: string; sources: GuideReference[]; tools: string[]; sections: GuideSection[] };
 const pnrSource = { label: "Indian Railways: PNR enquiry and status legend", url: "https://www.indianrail.gov.in/enquiry/PNR/PnrEnquiry.html?locale=en" };
 const refundSource = { label: "IRCTC: e-ticket cancellation", url: "https://contents.irctc.co.in/en/eticketCancel.html" };
 const waitingSource = { label: "IRCTC: fully waitlisted e-tickets", url: "https://contents.irctc.co.in/en/Waitlisted_E-Ticket.html" };
@@ -43,3 +44,5 @@ export const guideAdditions: Record<string, GuideAddition> = {
 };
 
 Object.assign(guideAdditions, guideExpansions);
+
+Object.assign(guideAdditions, octoberAdditions);
