@@ -15,7 +15,26 @@ export const stations = [
   ["KOTA", "Kota Junction", "Kota", "कोटा"], ["AGC", "Agra Cantt", "Agra", "आगरा कैंट"],
 ] as const;
 
-export function stationMatches(query: string) {
-  const q = query.trim().toLocaleLowerCase();
-  return stations.filter((s) => s.join(" ").toLocaleLowerCase().includes(q)).slice(0, 8);
+export type Station = readonly [string, string, string, string];
+function normalize(value: string) { return value.toLocaleLowerCase().normalize("NFKC").replace(/[^\p{L}\p{N}]+/gu, " ").trim(); }
+export function stationMatches(query: string, directory: readonly Station[] = stations): Station[] {
+  const q = normalize(query);
+  if (!q) return [...stations].slice(0, 8);
+  const tokens = q.split(/\s+/);
+  return directory.map((station, index) => {
+    const code = station[0].toLowerCase(), name = normalize(station[1]), text = normalize(station.join(" "));
+    const score = code === q ? 0 : name === q ? 1 : code.startsWith(q) ? 2 : name.startsWith(q) ? 3 : tokens.every(token => text.includes(token)) ? 4 : 99;
+    return { station, score, index };
+  }).filter(item => item.score < 99).sort((a, b) => a.score - b.score || a.index - b.index).slice(0, 12).map(item => item.station);
+}
+let directoryPromise: Promise<Station[]> | undefined;
+export function loadStationDirectory(): Promise<Station[]> {
+  if (!directoryPromise) directoryPromise = import("./station-directory.json").then(module => {
+    const merged = new Map<string, Station>(stations.map(station => [station[0], station]));
+    for (const row of module.default) {
+      if (row.length === 4 && !merged.has(row[0])) merged.set(row[0], [row[0], row[1], row[2], row[3]]);
+    }
+    return [...merged.values()];
+  }).catch(error => { directoryPromise = undefined; throw error; });
+  return directoryPromise;
 }
