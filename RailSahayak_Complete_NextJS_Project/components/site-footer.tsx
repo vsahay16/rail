@@ -17,7 +17,7 @@ export function SiteFooter() {
   return <footer className="site-footer">
     <div className="footer-top">
       <div className="footer-identity"><Brand inverse /><p>{hi ? "भारत के यात्रियों के लिए तेज़, सरल और भरोसेमंद स्वतंत्र रेलवे यात्रा सुविधा।" : "A fast, calm and trustworthy independent railway travel utility built around Indian passengers."}</p><span className="independent-badge"><Icon name="shield" size={15} />{hi ? "स्वतंत्र · गोपनीयता पहले" : "Independent · Privacy first"}</span></div>
-      <div className="footer-alert"><span>{hi ? "अगली यात्रा के लिए तैयार रहें" : "Be ready before your next journey"}</span><h2>{hi ? "समय पर जरूरी रेलवे अपडेट पाएँ।" : "Get useful railway updates at the right time."}</h2><Link href="/alerts">{hi ? "अपडेट अलर्ट शुरू करें" : "Set up update alerts"}<Icon name="arrow" size={17} /></Link></div>
+      <div className="footer-alert"><span>{hi ? "अगली यात्रा के लिए तैयार रहें" : "Be ready before your next journey"}</span><h2>{hi ? "बुकिंग खुलने का समय याद रखें।" : "Remember when your booking opens."}</h2><Link href="/booking-reminders">{hi ? "बुकिंग रिमाइंडर बनाएँ" : "Create a booking reminder"}<Icon name="arrow" size={17} /></Link></div>
     </div>
     <div className="footer-links">
       <div><b>{hi ? "लोकप्रिय टूल्स" : "Popular tools"}</b><Link href="/pnr-status">{hi ? "PNR स्थिति" : "PNR status"}</Link><Link href="/live-train-status">{hi ? "लाइव ट्रेन स्थिति" : "Live train status"}</Link><Link href="/trains-between-stations">{hi ? "स्टेशनों के बीच ट्रेनें" : "Trains between stations"}</Link><Link href="/booking-date-calculator">{hi ? "बुकिंग तारीख" : "Booking date calculator"}</Link><Link href="/tatkal-time-calculator">{hi ? "तत्काल समय" : "Tatkal timing"}</Link></div>

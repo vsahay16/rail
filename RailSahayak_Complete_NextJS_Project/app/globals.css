@@ -402,3 +402,62 @@ main { overflow: hidden; }
 .dashboard-card-grid strong { overflow-wrap: anywhere; }
 .brand small { max-width: 190px; font-size: 8px; letter-spacing: .01em; }
 @media (max-width: 520px) { .brand small { max-width: 150px; font-size: 7px; } }
+
+/* RailQ usability refinement: keep the search and result ahead of decoration. */
+.hero { min-height: 0; padding-top: 34px; padding-bottom: 32px; row-gap: 24px; }
+.hero-copy { padding-top: 0; }
+.hero h1 { font-size: clamp(38px, 4vw, 55px); line-height: 1.08; letter-spacing: -2px; margin: 16px 0; }
+.hero h1 em { letter-spacing: -1.5px; }
+.hero-copy > p { font-size: 16px; line-height: 1.55; }
+.hero-visual { height: 265px; }
+.search-shell { width: 100%; margin: 0; }
+.search-tabs button { min-height: 44px; font-size: 13px; }
+.search-form input { font-size: 16px; }
+.search-footnote { font-size: 11px; }
+.pnr-hero { padding-top: 22px; padding-bottom: 36px; gap: 20px 36px; }
+.pnr-hero-copy { padding: 8px 0; }
+.pnr-hero-copy h1 { font-size: clamp(35px, 4vw, 52px); line-height: 1.08; letter-spacing: -2px; margin: 14px 0; }
+.pnr-hero-copy h1 em { letter-spacing: -1.5px; }
+.pnr-hero-copy > p { font-size: 15px; line-height: 1.6; }
+.pnr-trust { margin-top: 14px; font-size: 12px; }
+.pnr-form > label { font-size: 12px; letter-spacing: .3px; }
+.pnr-input-row button { font-size: 14px; }
+.pnr-form > p { font-size: 12px; }
+.pnr-result-head > div > span, .pnr-result-head p { font-size: 13px; }
+.pnr-result-head > button { min-height: 44px; font-size: 13px; }
+.pnr-summary dt { font-size: 11px; letter-spacing: .2px; }
+.pnr-summary dd { font-size: 14px; }
+.passenger-table { font-size: 14px; }
+.passenger-table caption { text-align: left; padding: 14px; font-weight: 700; color: var(--ink); }
+.passenger-table th { font-size: 11px; letter-spacing: .2px; }
+.passenger-table td strong { color: var(--ink); }
+.passenger-current { background: #eef6f4; }
+.passenger-current strong { font-size: 16px; }
+.pnr-missing-note { font-size: 13px; line-height: 1.6; color: #53687a; }
+.saved-toggle { min-height: 44px; margin-bottom: 12px; }
+.saved-places [hidden] { display: none !important; }
+.hero button:focus-visible, .pnr-page button:focus-visible, .saved-places button:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+@media (max-width: 760px) {
+  .hero { padding: 24px 16px; gap: 20px; align-items: stretch; }
+  .hero-copy { padding: 0; order: 0; }
+  .hero h1 { font-size: clamp(32px, 8vw, 43px); letter-spacing: -1.5px; margin: 12px 0; }
+  .hero-copy > p { font-size: 15px; }
+  .hero .trust-inline { display: none; }
+  .search-shell { order: 1; margin: 0; width: 100%; }
+  .hero-visual { order: 2; margin-top: 0; height: 170px; width: 100%; }
+  .search-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; gap: 4px; }
+  .search-tabs button { white-space: normal; font-size: 12px; min-height: 44px; }
+  .pnr-hero { padding: 18px 16px 26px; gap: 16px; }
+  .pnr-hero-copy { padding: 0; }
+  .pnr-hero-copy h1 { font-size: 34px; letter-spacing: -1.5px; }
+  .pnr-hero-copy > p { margin-bottom: 0; }
+  .pnr-trust { gap: 8px; font-size: 11px; }
+  .pnr-tool-card { padding: 16px; min-width: 0; }
+  .pnr-summary { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .passenger-table caption { display: block; padding: 12px 0; }
+  .passenger-table tr { padding: 10px 14px; }
+  .passenger-table td { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.25fr); gap: 12px; overflow-wrap: anywhere; align-items: start; }
+  .passenger-table td::before { font-size: 12px; color: #52677a; text-transform: none; }
+  .passenger-table .passenger-current { padding: 12px 8px; border-radius: 8px; }
+  .pnr-result-head h2 { overflow-wrap: anywhere; }
+}

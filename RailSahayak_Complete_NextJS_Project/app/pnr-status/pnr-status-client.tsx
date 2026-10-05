@@ -40,9 +40,9 @@ const content = {
     latest: "Latest available PNR response", received: "PNR status received", receivedText: "Review every passenger separately because booking and current status can be different.",
     train: "Train", journeyDate: "Journey date", route: "Journey", travelClass: "Class", chart: "Chart", passenger: "Passenger", bookingStatus: "Booking status", currentStatus: "Current status", coachBerth: "Coach / berth", notAvailable: "Not available",
     verify: "Verify on official Indian Railways", sourceNote: "RailQ is independent. The official railway record remains the final authority.",
-    privacyTitle: "Private by design", privacyText: "The PNR is sent only to the secure railway-data route. It is not included in GA4 or Supabase analytics events.",
+    privacyTitle: "Private by design", privacyText: "Your PNR is used to request your result. It is not included in our analytics.",
     guideKicker: "Read the result calmly", guideTitle: "What common PNR codes mean", guideText: "A booking code can change until chart preparation. Read the current status for each passenger, not only the original booking status.",
-    howKicker: "Three simple steps", howTitle: "How this PNR checker works", step1Title: "Enter the ticket number", step1Text: "Use the 10-digit PNR printed on the ticket or booking confirmation.", step2Title: "We request the latest record", step2Text: "The request goes through a protected server route so the provider key is not exposed.", step3Title: "Review each passenger", step3Text: "Check current status, coach, berth and whether the chart has been prepared.",
+    howKicker: "Three simple steps", howTitle: "How this PNR checker works", step1Title: "Enter the ticket number", step1Text: "Use the 10-digit PNR printed on the ticket or booking confirmation.", step2Title: "We request the latest record", step2Text: "We ask the connected railway-data provider for the latest available status.", step3Title: "Review each passenger", step3Text: "Check current status, coach, berth and whether the chart has been prepared.",
     findTitle: "Where can I find my PNR?", findText: "On an e-ticket, it normally appears near the top of the booking confirmation. It may also be present in the SMS or email received after booking.",
     faqKicker: "Questions travellers ask", faqTitle: "PNR status FAQs",
     relatedKicker: "Continue your journey", relatedTitle: "Useful tools after checking PNR",
@@ -59,9 +59,9 @@ const content = {
     latest: "नवीनतम उपलब्ध PNR उत्तर", received: "PNR स्थिति मिल गई", receivedText: "हर यात्री की जानकारी अलग देखें क्योंकि बुकिंग और वर्तमान स्थिति अलग हो सकती है।",
     train: "ट्रेन", journeyDate: "यात्रा तारीख", route: "यात्रा", travelClass: "श्रेणी", chart: "चार्ट", passenger: "यात्री", bookingStatus: "बुकिंग स्थिति", currentStatus: "वर्तमान स्थिति", coachBerth: "कोच / बर्थ", notAvailable: "उपलब्ध नहीं",
     verify: "आधिकारिक भारतीय रेल पर सत्यापित करें", sourceNote: "RailQ एक स्वतंत्र सेवा है। आधिकारिक रेलवे रिकॉर्ड ही अंतिम मान्य स्रोत है।",
-    privacyTitle: "गोपनीयता पहले", privacyText: "PNR केवल सुरक्षित रेलवे डेटा रूट को भेजा जाता है। इसे GA4 या Supabase एनालिटिक्स में शामिल नहीं किया जाता।",
+    privacyTitle: "गोपनीयता पहले", privacyText: "आपका PNR केवल परिणाम माँगने के लिए उपयोग होता है। यह हमारे एनालिटिक्स में शामिल नहीं होता।",
     guideKicker: "स्थिति को आसानी से समझें", guideTitle: "सामान्य PNR कोड का अर्थ", guideText: "चार्ट बनने तक बुकिंग कोड बदल सकता है। केवल शुरुआती बुकिंग स्थिति नहीं, हर यात्री की वर्तमान स्थिति देखें।",
-    howKicker: "तीन आसान चरण", howTitle: "यह PNR चेकर कैसे काम करता है", step1Title: "टिकट नंबर डालें", step1Text: "टिकट या बुकिंग पुष्टिकरण पर दिया गया 10 अंकों का PNR इस्तेमाल करें।", step2Title: "नवीनतम रिकॉर्ड माँगा जाता है", step2Text: "अनुरोध सुरक्षित सर्वर रूट से जाता है, इसलिए प्रदाता की कुंजी दिखाई नहीं देती।", step3Title: "हर यात्री की स्थिति देखें", step3Text: "वर्तमान स्थिति, कोच, बर्थ और चार्ट तैयार हुआ है या नहीं—सब जाँचें।",
+    howKicker: "तीन आसान चरण", howTitle: "यह PNR चेकर कैसे काम करता है", step1Title: "टिकट नंबर डालें", step1Text: "टिकट या बुकिंग पुष्टिकरण पर दिया गया 10 अंकों का PNR इस्तेमाल करें।", step2Title: "नवीनतम रिकॉर्ड माँगा जाता है", step2Text: "हम जुड़े रेलवे डेटा प्रदाता से नवीनतम उपलब्ध स्थिति माँगते हैं।", step3Title: "हर यात्री की स्थिति देखें", step3Text: "वर्तमान स्थिति, कोच, बर्थ और चार्ट तैयार हुआ है या नहीं—सब जाँचें।",
     findTitle: "PNR कहाँ मिलेगा?", findText: "ई-टिकट में यह आम तौर पर बुकिंग पुष्टिकरण के ऊपर दिखाई देता है। बुकिंग के बाद आए SMS या ईमेल में भी मिल सकता है।",
     faqKicker: "यात्रियों के सामान्य सवाल", faqTitle: "PNR स्थिति से जुड़े सवाल",
     relatedKicker: "यात्रा आगे बढ़ाएँ", relatedTitle: "PNR देखने के बाद उपयोगी टूल्स",
@@ -84,7 +84,7 @@ const faqs = [
   ["Can PNR status change after booking?", "क्या बुकिंग के बाद PNR स्थिति बदल सकती है?", "Yes. Waiting-list and RAC positions can change as passengers cancel or railway allocation changes, including around chart preparation.", "हाँ। यात्रियों के टिकट रद्द करने या रेलवे आवंटन बदलने से WL और RAC स्थिति, चार्ट बनने तक, बदल सकती है।"],
   ["What does chart prepared mean?", "चार्ट तैयार होने का क्या अर्थ है?", "It means the reservation chart for the train has been prepared. Check the current passenger status and official record for the final travel position.", "इसका अर्थ है कि ट्रेन का आरक्षण चार्ट तैयार हो गया है। अंतिम यात्रा स्थिति के लिए वर्तमान यात्री स्थिति और आधिकारिक रिकॉर्ड देखें।"],
   ["Can I travel on a waitlisted ticket?", "क्या वेटलिस्ट टिकट पर यात्रा कर सकते हैं?", "Eligibility depends on the ticket type, final chart status and current railway rules. Do not rely on a generic answer—verify the final status through the official railway enquiry before boarding.", "यात्रा की अनुमति टिकट प्रकार, अंतिम चार्ट स्थिति और मौजूदा रेलवे नियमों पर निर्भर करती है। चढ़ने से पहले आधिकारिक रेलवे पूछताछ से अंतिम स्थिति सत्यापित करें।"],
-  ["Does RailQ save my PNR?", "क्या RailQ मेरा PNR सेव करता है?", "The implementation does not send the PNR to GA4 or Supabase analytics. The number is used only in the live lookup request.", "यह व्यवस्था PNR को GA4 या Supabase एनालिटिक्स में नहीं भेजती। नंबर केवल लाइव जानकारी माँगने के लिए उपयोग होता है।"],
+  ["Does RailQ save my PNR?", "क्या RailQ मेरा PNR सेव करता है?", "Your PNR is not included in our analytics. The number is used to request your result.", "आपका PNR हमारे एनालिटिक्स में शामिल नहीं होता। नंबर परिणाम माँगने के लिए उपयोग होता है।"],
 ] as const;
 
 function mapPnrPayload(payload: Record<string, unknown>, hi: boolean, fallback: string): PnrResult {
@@ -166,8 +166,10 @@ export function PnrStatusClient() {
             <div><dt>{t.travelClass}</dt><dd>{result.travelClass || t.notAvailable}</dd></div>
             <div><dt>{t.chart}</dt><dd>{result.chartStatus || t.notAvailable}</dd></div>
           </dl>
-          {result.passengers && result.passengers.length > 0 && <div className="passenger-table-wrap"><table className="passenger-table"><thead><tr><th>{t.passenger}</th><th>{t.bookingStatus}</th><th>{t.currentStatus}</th><th>{t.coachBerth}</th></tr></thead><tbody>{result.passengers.map((passenger) => <tr key={passenger.number}><td data-label={t.passenger}>{passenger.number}</td><td data-label={t.bookingStatus}>{passenger.booking}</td><td data-label={t.currentStatus}><strong>{passenger.current}</strong></td><td data-label={t.coachBerth}>{passenger.berth}</td></tr>)}</tbody></table></div>}
+          {result.passengers && result.passengers.length > 0 && <div className="passenger-table-wrap"><table className="passenger-table"><caption>{hi ? "हर यात्री की वर्तमान स्थिति अलग जाँचें" : "Check each passenger’s current status separately"}</caption><thead><tr><th scope="col">{t.passenger}</th><th scope="col">{t.bookingStatus}</th><th scope="col">{t.currentStatus}</th><th scope="col">{t.coachBerth}</th></tr></thead><tbody>{result.passengers.map((passenger) => <tr key={passenger.number}><td data-label={t.passenger}>{passenger.number}</td><td data-label={t.bookingStatus}>{passenger.booking}</td><td className="passenger-current" data-label={t.currentStatus}><strong>{passenger.current}</strong></td><td data-label={t.coachBerth}>{passenger.berth}</td></tr>)}</tbody></table></div>}
         </>}
+        {result.tone === "success" && <p className="pnr-missing-note">{hi ? "कोई विवरण उपलब्ध न हो तो उससे टिकट पक्का या रद्द होना न मानें। आधिकारिक PNR रिकॉर्ड जाँचें।" : "Missing details do not mean a ticket is confirmed or cancelled. Check the official PNR record if anything is unclear."}</p>}
+        <ResultHelp hi={hi} tool="pnr-status" pnr code={resultCode} fetchedAt={fetchedAt} />
         <div className="result-actions"><a href={officialPnrUrl} target="_blank" rel="noreferrer">{t.verify}<Icon name="external" size={15} /></a><span>{t.sourceNote}</span></div>
       </section>}
     </section>
@@ -186,6 +188,6 @@ export function PnrStatusClient() {
     <section className="pnr-faq-section"><div className="pnr-section-heading"><span className="kicker">{t.faqKicker}</span><h2>{t.faqTitle}</h2></div><div className="faq-list">{faqs.map(([enQuestion, hiQuestion, enAnswer, hiAnswer], index) => <details key={enQuestion}><summary><span>0{index + 1}</span>{hi ? hiQuestion : enQuestion}<Icon name="chevron" size={18} /></summary><p>{hi ? hiAnswer : enAnswer}</p></details>)}</div></section>
 
     <section className="related-tools"><div><span className="kicker light">{t.relatedKicker}</span><h2>{t.relatedTitle}</h2></div><div><Link href="/live-train-status"><Icon name="pulse" size={19} />{hi ? "लाइव ट्रेन स्थिति" : "Live train status"}<Icon name="arrow" size={16} /></Link><Link href="/chart-preparation-calculator"><Icon name="chart" size={19} />{hi ? "चार्ट तैयारी" : "Chart preparation"}<Icon name="arrow" size={16} /></Link><Link href="/seat-berth-finder"><Icon name="seat" size={19} />{hi ? "बर्थ पहचानें" : "Berth finder"}<Icon name="arrow" size={16} /></Link></div></section>
-  {result && <ResultHelp hi={hi} tool="pnr-status" pnr code={resultCode} fetchedAt={fetchedAt} />}
+
   <PageGuidance slug="pnr-status" /></main>;
 }
