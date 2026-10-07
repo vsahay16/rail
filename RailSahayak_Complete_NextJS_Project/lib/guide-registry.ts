@@ -1,7 +1,8 @@
+import { nextGuides } from "@/lib/guides-october-next";
 import { octoberGuides } from "@/lib/guides-october";
 import { guideAdditions } from "@/lib/guide-additions";
 export type GuideSection = { title: string; titleHi: string; body: string; bodyHi: string; points?: string[]; pointsHi?: string[]; links?: { href: string; label: string; labelHi: string }[] };
-export type GuideConfig = { slug: string; title: string; titleHi: string; description: string; descriptionHi: string; icon: string; updated?: string; sections: GuideSection[] };
+export type GuideConfig = { slug: string; title: string; titleHi: string; description: string; descriptionHi: string; icon: string; updated?: string; related?: string[]; sections: GuideSection[] };
 
 export const guides: GuideConfig[] = [
   { slug: "pnr-status-explained", title: "How to Read Your PNR Result", titleHi: "PNR परिणाम कैसे समझें", description: "Check each passenger, compare booking and current status, and decide what to verify next.", descriptionHi: "हर यात्री, बुकिंग और वर्तमान स्थिति की तुलना करें और अगली जाँच समझें।", icon: "ticket", sections: [] },
@@ -57,9 +58,10 @@ export const guides: GuideConfig[] = [
   ]},
 ];
 
-guides.push(...octoberGuides);
+guides.push(...octoberGuides, ...nextGuides);
 
 for (const guide of guides) {
+  if (guide.slug === "cancellation-and-refunds") guide.updated = "2026-10-07";
   const addition = guideAdditions[guide.slug];
   if (addition) guide.sections = addition.sections;
 }
