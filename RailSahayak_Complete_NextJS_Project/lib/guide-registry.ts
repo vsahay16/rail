@@ -61,7 +61,7 @@ export const guides: GuideConfig[] = [
 guides.push(...octoberGuides, ...nextGuides);
 
 for (const guide of guides) {
-  if (guide.slug === "cancellation-and-refunds") guide.updated = "2026-10-07";
+  if (["cancellation-and-refunds", "chart-preparation", "festival-travel-planning"].includes(guide.slug)) guide.updated = "2026-10-13";
   const addition = guideAdditions[guide.slug];
   if (addition) guide.sections = addition.sections;
 }

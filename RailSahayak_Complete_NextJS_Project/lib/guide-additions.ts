@@ -1,3 +1,4 @@
+import { guideRefresh } from "@/lib/guide-refresh-oct13";
 import { nextAdditions } from "@/lib/guides-october-next";
 import { octoberAdditions } from "@/lib/guides-october";
 import { editorialSources } from "@/lib/editorial-sources";
@@ -53,3 +54,5 @@ Object.assign(guideAdditions, nextAdditions);
 guideAdditions["cancellation-and-refunds"].checked = "7 October 2026";
 guideAdditions["cancellation-and-refunds"].checkedHi = "7 अक्टूबर 2026";
 guideAdditions["cancellation-and-refunds"].sources.push({ label: "Ministry of Railways: March 2026 reforms", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2244597" });
+
+Object.assign(guideAdditions, guideRefresh);
