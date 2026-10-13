@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { AdSlot } from "@/components/ad-slot";
 import { Icon } from "@/components/icon";
 import { PageGuidance } from "@/components/page-guidance";
+import { BerthTools } from "@/components/berth-tools";
 import { ToolEngine } from "@/components/tool-engine";
 import { useLanguage } from "@/components/language-provider";
 import { trackEvent } from "@/lib/analytics";
@@ -19,7 +20,7 @@ export function ToolPageClient({ config }: { config: ToolConfig }) {
   useEffect(() => { trackEvent("tool_page_view", { tool: config.slug, language }); }, [config.slug, language]);
 
   return <main className="generic-tool-page">
-    <section className="generic-tool-hero"><nav className="breadcrumbs"><Link href="/">{hi ? "होम" : "Home"}</Link><span>/</span><Link href="/tools">{hi ? "टूल्स" : "Tools"}</Link><span>/</span><span>{title}</span></nav><div className="generic-tool-intro"><span className="kicker"><Icon name={config.icon} size={17} />{config.slug === "pnr-alerts" ? (hi ? "जल्द आ रहा है" : "Coming soon") : config.live ? (hi ? "लाइव डेटा टूल" : "Live-data tool") : (hi ? "स्मार्ट यात्रा कैलकुलेटर" : "Smart journey calculator")}</span><h1>{title}</h1><p>{description}</p><div><span><Icon name="shield" size={16} />{hi ? "गोपनीयता पहले" : "Privacy first"}</span><span><Icon name="globe" size={16} />{hi ? "हिंदी और English" : "English and हिंदी"}</span></div></div><ToolEngine tool={config} /></section>
+    <section className="generic-tool-hero"><nav className="breadcrumbs"><Link href="/">{hi ? "होम" : "Home"}</Link><span>/</span><Link href="/tools">{hi ? "टूल्स" : "Tools"}</Link><span>/</span><span>{title}</span></nav><div className="generic-tool-intro"><span className="kicker"><Icon name={config.icon} size={17} />{config.slug === "pnr-alerts" ? (hi ? "जल्द आ रहा है" : "Coming soon") : config.live ? (hi ? "लाइव डेटा टूल" : "Live-data tool") : (hi ? "स्मार्ट यात्रा कैलकुलेटर" : "Smart journey calculator")}</span><h1>{title}</h1><p>{description}</p><div><span><Icon name="shield" size={16} />{hi ? "गोपनीयता पहले" : "Privacy first"}</span><span><Icon name="globe" size={16} />{hi ? "हिंदी और English" : "English and हिंदी"}</span></div></div>{config.slug === "coach-layout" || config.slug === "seat-berth-finder" ? <BerthTools hi={hi} finder={config.slug === "seat-berth-finder"} /> : <ToolEngine tool={config} />}</section>
 
     <AdSlot placement="top" format="970 × 90 / 320 × 100" className="tool-page-ad" />
 

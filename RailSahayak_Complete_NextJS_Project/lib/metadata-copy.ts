@@ -127,3 +127,8 @@ export const metadataCopy: Record<string, { title?: string; titleHi?: string; de
     "titleHi": "PNR अलर्ट: जल्द आएँगे"
   }
 };
+
+Object.assign(metadataCopy, {
+ "/coach-layout": {title:"Train Coach Layout: Sleeper, 3A & 2A", titleHi:"ट्रेन कोच लेआउट: स्लीपर, 3A और 2A", description:"Explore standard Sleeper, 3A and 2A berth layouts. Understand lower, middle, upper and side berths, with examples and coach-variant limitations.", descriptionHi:"स्लीपर, 3A और 2A की सामान्य बर्थ व्यवस्था देखें। उदाहरणों से लोअर, मिडिल, अपर और साइड बर्थ समझें तथा कोच के अंतर जानें।"},
+ "/seat-berth-finder": {title:"Train Berth Finder by Seat Number", titleHi:"सीट नंबर से ट्रेन की बर्थ जानें", description:"Enter an allocated berth number and matching coach pattern to find its expected type. See a highlighted diagram and learn when to verify the official layout.", descriptionHi:"आवंटित बर्थ नंबर और मिलता कोच पैटर्न चुनकर बर्थ प्रकार व चित्र देखें। जानें कब आधिकारिक लेआउट से पुष्टि जरूरी है।"}
+});

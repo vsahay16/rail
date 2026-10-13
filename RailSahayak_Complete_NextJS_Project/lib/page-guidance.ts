@@ -885,3 +885,67 @@ export const pageGuidance: Record<string, PageGuidance> = {
     ]
   }
 };
+
+pageGuidance["coach-layout"] = {
+  "related": [
+    "seat-berth-finder",
+    "coach-position",
+    "guides/train-classes-and-coaches",
+    "pnr-status"
+  ],
+  "sources": [
+    "pnr"
+  ],
+  "sections": [
+    {
+      "title": "Why is no coach layout available for this train?",
+      "titleHi": "इस ट्रेन का कोच लेआउट क्यों नहीं मिल रहा?",
+      "body": "An unavailable layout does not prove that a train has no reserved coaches. The service may not supply a map for that coach variant, or the train, journey date or boarding station may not match. Check those details once. Use IRCTC Charts / Vacancy when available, your allocated ticket details or railway staff. RailQ’s diagrams are illustrative and are not fetched for a particular train.",
+      "bodyHi": "लेआउट न मिलने का अर्थ यह नहीं कि ट्रेन में आरक्षित कोच नहीं हैं। सेवा में उस कोच का नक्शा न हो सकता है, या ट्रेन, यात्रा तारीख और बोर्डिंग स्टेशन का चयन अलग हो सकता है। जानकारी एक बार मिलाएँ। उपलब्ध होने पर IRCTC चार्ट / वैकेंसी, टिकट आवंटन या रेलवे कर्मचारी से पुष्टि करें। RailQ के चित्र उदाहरण हैं, किसी खास ट्रेन से प्राप्त नक्शे नहीं।"
+    },
+    {
+      "title": "Sleeper and 3A compared with 2A",
+      "titleHi": "स्लीपर और 3A की तुलना 2A से",
+      "body": "The selected standard Sleeper and 3A patterns use an eight-berth sequence: two lower, two middle, two upper and two side berths. The selected 2A pattern uses six: two lower, two upper and two side berths, without middle berths. Coach capacities and end sections vary; do not infer the whole train’s arrangement from its class name alone.",
+      "bodyHi": "चुने सामान्य स्लीपर और 3A पैटर्न में आठ बर्थ का क्रम है: दो लोअर, दो मिडिल, दो अपर और दो साइड बर्थ। चुने 2A पैटर्न में छह हैं: दो लोअर, दो अपर और दो साइड; मिडिल बर्थ नहीं। कोच की क्षमता और आखिरी खंड बदल सकते हैं। केवल श्रेणी से पूरी ट्रेन की व्यवस्था तय न करें।"
+    },
+    {
+      "title": "Coach position is a different question",
+      "titleHi": "कोच की स्थिति अलग जानकारी है",
+      "body": "A coach layout explains accommodation inside a coach. Coach position tells you where that coach sits along the train. Use the coach-position tool for the latter, then confirm the platform display and announcements. A berth map cannot determine which end of the platform you should stand at.",
+      "bodyHi": "कोच लेआउट अंदर की सीट और बर्थ बताता है। कोच स्थिति ट्रेन में उस डिब्बे की जगह बताती है। इसके लिए कोच स्थिति टूल देखें और प्लेटफॉर्म डिस्प्ले व घोषणा से पुष्टि करें। बर्थ नक्शा प्लेटफॉर्म पर खड़े होने की जगह नहीं बताता।"
+    }
+  ]
+};
+
+pageGuidance["seat-berth-finder"] = {
+  "related": [
+    "coach-layout",
+    "coach-position",
+    "guides/train-classes-and-coaches",
+    "pnr-status"
+  ],
+  "sources": [
+    "pnr"
+  ],
+  "sections": [
+    {
+      "title": "Berth 7 means different things in different patterns",
+      "titleHi": "अलग पैटर्न में बर्थ 7 का अर्थ अलग है",
+      "body": "In the selected eight-berth Sleeper/3A pattern, 7 is side lower and 8 is side upper. In the six-berth 2A pattern, 7 starts the next bay as a lower berth and 8 is upper. Select the matching pattern before entering the number. This explains why a seat number without the class is not enough.",
+      "bodyHi": "चुने आठ-बर्थ स्लीपर/3A पैटर्न में 7 साइड लोअर और 8 साइड अपर है। छह-बर्थ 2A पैटर्न में 7 अगले खंड की लोअर और 8 अपर है। नंबर भरने से पहले मिलता पैटर्न चुनें। इसलिए केवल सीट नंबर पर्याप्त नहीं है।"
+    },
+    {
+      "title": "WL and RAC numbers are not berth allocations",
+      "titleHi": "WL और RAC नंबर बर्थ आवंटन नहीं हैं",
+      "body": "Use the allocated berth number shown for the individual passenger. WL/12 is a waiting position; it does not identify berth 12. Likewise, a RAC queue number is not a numbered berth. A finder result cannot confirm a ticket or grant travel permission. Read the passenger’s current official allocation.",
+      "bodyHi": "हर यात्री के लिए दिखा आवंटित बर्थ नंबर लें। WL/12 प्रतीक्षा क्रम है, बर्थ 12 नहीं। RAC का प्रतीक्षा क्रम भी बर्थ नंबर नहीं है। इस टूल का परिणाम टिकट कन्फर्म या यात्रा की अनुमति नहीं देता। यात्री का वर्तमान आधिकारिक आवंटन देखें।"
+    },
+    {
+      "title": "Can this find a Chair Car window seat?",
+      "titleHi": "क्या इससे चेयर कार की विंडो सीट मिलती है?",
+      "body": "Not reliably without the exact coach layout. CC, 2S, 1A, 3E and special variants are deliberately not decoded with a universal formula. Select Other / unsure and check the official map. If the printed berth type differs from this illustration, follow the official allocation and ask the TTE about any discrepancy.",
+      "bodyHi": "सटीक कोच लेआउट के बिना भरोसेमंद ढंग से नहीं। CC, 2S, 1A, 3E और विशेष कोच पर एक सार्वभौमिक फॉर्मूला लागू नहीं किया गया है। अन्य / निश्चित नहीं चुनें और आधिकारिक नक्शा देखें। टिकट का बर्थ प्रकार चित्र से अलग हो तो आधिकारिक आवंटन मानें और अंतर के बारे में TTE से पूछें।"
+    }
+  ]
+};

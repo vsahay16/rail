@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const paths = ["", "/tools", "/dashboard", "/guides", "/pnr-status", ...toolConfigs.map(tool => `/${tool.slug}`), ...guides.map(guide => `/guides/${guide.slug}`), ...contentPages.map(page => `/${page.slug}`)];
   return [...new Set(paths)].flatMap(path => {
     const languages = localizedAlternates(path || "/").languages as Record<string, string>;
-    const calculatorUpdated = ["/refund-calculator", "/cancellation-deadline-calculator", "/chart-preparation-calculator"].includes(path);
+    const calculatorUpdated = ["/coach-layout", "/seat-berth-finder", "/refund-calculator", "/cancellation-deadline-calculator", "/chart-preparation-calculator"].includes(path);
     const guideDate = guides.find(guide => path === `/guides/${guide.slug}`)?.updated;
     const shared = { alternates: { languages }, ...((calculatorUpdated || updatedPaths.has(path)) ? { lastModified: calculatorUpdated ? "2026-10-13" : path === "/guides" ? "2026-10-07" : guideDate ?? contentRevision } : {}) };
     return [{ url: `${siteUrl}${path || "/"}`, ...shared }, { url: `${siteUrl}/hi${path}`, ...shared }];
