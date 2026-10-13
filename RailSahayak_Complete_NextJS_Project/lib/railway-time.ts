@@ -18,3 +18,15 @@ export function formatRailwayDate(date: Date, hi: boolean, withTime = true): str
 export function railwayCalendarIso(wall: Date): string {
   return new Date(wall.valueOf() - 330 * 60_000).toISOString();
 }
+
+/** Broad planning window from the Ministry's 24 March 2026 announcement.
+ * Not a train-specific timetable, live chart status, or guaranteed deadline.
+ * Dates use railway wall-clock representation, as documented above.
+ */
+export function chartPlanningWindow(departure: Date) {
+  if (!Number.isFinite(departure.valueOf())) throw new Error("Invalid departure");
+  return {
+    start: new Date(departure.valueOf() - 18 * 60 * 60_000),
+    end: new Date(departure.valueOf() - 9 * 60 * 60_000),
+  };
+}
