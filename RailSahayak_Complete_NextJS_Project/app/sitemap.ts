@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const languages = localizedAlternates(path || "/").languages as Record<string, string>;
     const calculatorUpdated = ["/coach-layout", "/seat-berth-finder", "/refund-calculator", "/cancellation-deadline-calculator", "/chart-preparation-calculator"].includes(path);
     const guideDate = guides.find(guide => path === `/guides/${guide.slug}`)?.updated;
-    const shared = { alternates: { languages }, ...((calculatorUpdated || updatedPaths.has(path)) ? { lastModified: calculatorUpdated ? "2026-10-13" : path === "/guides" ? "2026-10-07" : guideDate ?? contentRevision } : {}) };
+    const shared = { alternates: { languages }, ...((calculatorUpdated || updatedPaths.has(path) || !!guideDate) ? { lastModified: calculatorUpdated ? "2026-10-13" : path === "/guides" ? "2026-10-15" : guideDate ?? contentRevision } : {}) };
     return [{ url: `${siteUrl}${path || "/"}`, ...shared }, { url: `${siteUrl}/hi${path}`, ...shared }];
   });
 }

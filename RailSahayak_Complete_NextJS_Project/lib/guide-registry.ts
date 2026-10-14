@@ -1,3 +1,4 @@
+import { travelArticles } from "@/lib/travel-articles";
 import { nextGuides } from "@/lib/guides-october-next";
 import { octoberGuides } from "@/lib/guides-october";
 import { guideAdditions } from "@/lib/guide-additions";
@@ -59,10 +60,31 @@ export const guides: GuideConfig[] = [
 ];
 
 guides.push(...octoberGuides, ...nextGuides);
+guides.unshift(...travelArticles.map(article => ({
+  slug: article.slug, title: article.title.en, titleHi: article.title.hi,
+  description: article.description.en, descriptionHi: article.description.hi,
+  updated: article.updated, icon: "route", sections: [],
+  related: article.related.filter(link => link.href.startsWith("/guides/")).map(link => link.href.replace("/guides/", "")),
+})));
 
 for (const guide of guides) {
   if (["cancellation-and-refunds", "chart-preparation", "festival-travel-planning"].includes(guide.slug)) guide.updated = "2026-10-13";
   const addition = guideAdditions[guide.slug];
   if (addition) guide.sections = addition.sections;
+}
+// Contextual discovery from existing guides, without repeating the new articles.
+const practicalLinks: Record<string, { href: string; label: string; labelHi: string }[]> = {
+  "station-and-onboard-travel": [{href:"/guides/train-food-ordering-checklist", label:"10 checks before ordering food on a train", labelHi:"ट्रेन में भोजन ऑर्डर करने से पहले 10 जाँचें"}, {href:"/guides/useful-apps-indian-train-travel", label:"Choose railway apps by task", labelHi:"काम के अनुसार रेलवे ऐप चुनें"}],
+  "family-and-senior-citizen-travel": [{href:"/guides/overnight-train-journey-checklist",label:"Prepare a small overnight travel bag",labelHi:"रात की यात्रा का छोटा बैग तैयार करें"}],
+  "new-delhi-station-ajmeri-gate-paharganj": [{href:"/guides/hotel-near-railway-station-checklist",label:"Check the hotel route and arrival arrangements",labelHi:"होटल का रास्ता और आगमन व्यवस्था जाँचें"}],
+};
+for (const guide of guides) {
+  const links = practicalLinks[guide.slug];
+  if (links && guide.sections.length) {
+    const last = guide.sections[guide.sections.length - 1];
+    last.links = [...(last.links ?? []), ...links.filter(link => !last.links?.some(existing => existing.href === link.href))];
+    if (guide.related) guide.related = [...new Set([...guide.related, ...links.map(link => link.href.replace("/guides/", ""))])];
+    guide.updated = "2026-10-15";
+  }
 }
 export function getGuide(slug: string) { return guides.find((guide) => guide.slug === slug); }
