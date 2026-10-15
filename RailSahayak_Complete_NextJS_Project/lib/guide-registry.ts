@@ -1,3 +1,4 @@
+import { confirmationGuide } from "@/lib/journey-content";
 import { travelArticles } from "@/lib/travel-articles";
 import { nextGuides } from "@/lib/guides-october-next";
 import { octoberGuides } from "@/lib/guides-october";
@@ -59,7 +60,7 @@ export const guides: GuideConfig[] = [
   ]},
 ];
 
-guides.push(...octoberGuides, ...nextGuides);
+guides.push(...octoberGuides, ...nextGuides, confirmationGuide);
 guides.unshift(...travelArticles.map(article => ({
   slug: article.slug, title: article.title.en, titleHi: article.title.hi,
   description: article.description.en, descriptionHi: article.description.hi,
@@ -87,4 +88,8 @@ for (const guide of guides) {
     guide.updated = "2026-10-15";
   }
 }
+for (const guide of guides) {
+  if (["pnr-status-explained", "pnr-and-waiting-lists", "vikalp-and-alternate-routes"].includes(guide.slug)) guide.updated = "2026-10-15";
+}
 export function getGuide(slug: string) { return guides.find((guide) => guide.slug === slug); }
+

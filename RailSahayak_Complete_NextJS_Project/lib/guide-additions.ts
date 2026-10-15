@@ -1,3 +1,4 @@
+import { confirmationReferences, journeyExpansions } from "@/lib/journey-content";
 import { guideRefresh } from "@/lib/guide-refresh-oct13";
 import { nextAdditions } from "@/lib/guides-october-next";
 import { octoberAdditions } from "@/lib/guides-october";
@@ -56,3 +57,11 @@ guideAdditions["cancellation-and-refunds"].checkedHi = "7 अक्टूबर 
 guideAdditions["cancellation-and-refunds"].sources.push({ label: "Ministry of Railways: March 2026 reforms", url: "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2244597" });
 
 Object.assign(guideAdditions, guideRefresh);
+
+
+guideAdditions["pnr-confirmation-probability"] = confirmationReferences;
+for (const [slug, sections] of Object.entries(journeyExpansions)) {
+ const existing = guideAdditions[slug];
+ if (existing) { existing.sections = [...existing.sections, ...sections]; existing.checked = "15 October 2026"; existing.checkedHi = "15 अक्टूबर 2026"; }
+}
+guideAdditions["vikalp-and-alternate-routes"].sources.push({ label: "RailRadar: journey planner API", url: "https://railradar.in/docs/journey-plan" });

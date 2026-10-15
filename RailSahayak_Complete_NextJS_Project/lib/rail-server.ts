@@ -35,7 +35,7 @@ export async function limitVisitor(request: NextRequest, action: string) {
   // Vercel overwrites this header at its trusted ingress; local development shares a bucket.
   const ip = (process.env.VERCEL ? (request.headers.get("x-vercel-forwarded-for") ?? "unknown") : "local").split(",")[0].trim();
   const fingerprint = createHmac("sha256", config.key).update(ip || "unknown").digest("hex");
-  const group = ["pnr", "prediction"].includes(action) ? "pnr" : ["fare", "availability"].includes(action) ? "reservation" : "general";
+  const group = ["pnr", "prediction"].includes(action) ? "pnr" : ["fare", "availability", "journey"].includes(action) ? "reservation" : "general";
   const limit = group === "pnr" ? 5 : group === "reservation" ? 10 : 30;
   const rate = record(await database("rpc/rail_api_take", { p_key: `${group}:${fingerprint}`, p_limit: limit, p_window: 600 }));
   if (rate.allowed !== true) throw new RailServiceError("RATE_LIMITED", "Too many lookups. Please wait before trying again.", 429, Number(rate.retry_after) || 600);
@@ -52,14 +52,14 @@ export async function recordHealth(action: string, outcome: string, duration: nu
   try { await database("rpc/railq_record_health", { p_action: action, p_outcome: outcome, p_ms: Math.max(0, Math.round(duration)), p_cached: cached }); }
   catch { console.warn("RailQ monitoring write unavailable"); }
 }
-export async function fetchRailway(endpoint: string, action: string) {
+export async function fetchRailway(endpoint: string, action: string, body?: RailRecord) {
   const key = process.env.RAILRADAR_API_KEY;
   if (!key) throw new RailServiceError("PROVIDER_NOT_CONFIGURED", "The live railway service has not been connected yet.");
   const base = (process.env.RAILRADAR_API_BASE_URL ?? "https://api.railradar.in/v1").replace(/\/$/, "");
-  const ttl: Record<string, number> = { live: 45, schedule: 3600, between: 900, station: 45, coach: 3600, platform: 60 };
+  const ttl: Record<string, number> = { live: 45, schedule: 3600, between: 900, station: 45, coach: 3600, platform: 60, journey: 300 };
   const seconds = ttl[action] ?? 0;
   // PNR, availability and fare are never persisted. Cache keys contain no personal data.
-  const cacheKey = seconds ? createHash("sha256").update(`${base}${endpoint}`).digest("hex") : "";
+  const cacheKey = seconds ? createHash("sha256").update(`${base}${endpoint}${body ? JSON.stringify(body) : ""}`).digest("hex") : "";
   if (seconds) {
     const cached = await database(`rail_api_cache?cache_key=eq.${cacheKey}&expires_at=gt.${encodeURIComponent(new Date().toISOString())}&select=payload,fetched_at&limit=1`);
     if (Array.isArray(cached) && cached.length) {
@@ -74,7 +74,7 @@ export async function fetchRailway(endpoint: string, action: string) {
   if (budget.allowed !== true) throw new RailServiceError(String(budget.reason || "API_BUDGET_REACHED"), "Live requests are temporarily limited.", 429, Number(budget.retry_after) || 60);
   // Every upstream attempt is reserved, including timeouts/errors. No hidden retries.
   let response: Response;
-  try { response = await fetch(`${base}${endpoint}`, { headers: { authorization: `Bearer ${key}`, accept: "application/json" }, cache: "no-store", signal: AbortSignal.timeout(9000) }); }
+  try { response = await fetch(`${base}${endpoint}`, { ...(body ? { method: "POST", body: JSON.stringify(body) } : {}), headers: { authorization: `Bearer ${key}`, accept: "application/json", ...(body ? { "content-type": "application/json" } : {}) }, cache: "no-store", signal: AbortSignal.timeout(9000) }); }
   catch { throw new RailServiceError("PROVIDER_UNAVAILABLE", "The railway data provider is unavailable. Please try again later.", 502); }
   const payload = record(await response.json().catch(() => null));
   if (!response.ok || payload.success === false || !payload.data) {
@@ -91,4 +91,5 @@ export async function fetchRailway(endpoint: string, action: string) {
   }
   return { ...payload, railq: { cached: false, fetchedAt, cacheSeconds: seconds } };
 }
+
 

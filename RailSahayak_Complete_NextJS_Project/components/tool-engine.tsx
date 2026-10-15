@@ -59,8 +59,17 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
   const fields = fieldMap[tool.slug] ?? [];
   const [form, setForm] = useState<Record<string, string>>(() => initialForm(fields));
   useEffect(() => {
-    const train = new URLSearchParams(window.location.search).get("train");
-    if (train && /^\d{5}$/.test(train)) setForm(current => ({...current, train}));
+    const query = new URLSearchParams(window.location.search);
+    const prefill: Record<string, string> = {};
+    const train = query.get("train");
+    if (train && /^\d{5}$/.test(train)) prefill.train = train;
+    for (const name of ["from", "to"]) {
+      const code = query.get(name)?.toUpperCase();
+      if (code && /^[A-Z0-9]{2,6}$/.test(code)) prefill[name] = code;
+    }
+    const date = query.get("date");
+    if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) prefill.date = date;
+    setForm(current => ({ ...current, ...Object.fromEntries(Object.entries(prefill).filter(([key]) => key in current)) }));
   }, []);
   const [loading, setLoading] = useState(false);
   const [localResult, setLocalResult] = useState<LocalResult | null>(null);
@@ -171,4 +180,5 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
     {providerResult && <RailProviderResult toolSlug={tool.slug} payload={providerResult} hi={hi} />}
   </section>;
 }
+
 
