@@ -189,6 +189,7 @@ export default function Home() {
           <div className="search-tabs" role="tablist" aria-label="Choose a railway tool">
             {([["pnr", t.pnr, "ticket"], ["live", t.live, "pulse"], ["between", t.between, "route"], ["booking", t.booking, "calendar"]] as Array<[SearchTab, string, string]>).map(([tab, label, icon]) => <button key={tab} className={activeTab === tab ? "active" : ""} onClick={() => switchTab(tab)} role="tab" aria-selected={activeTab === tab}><Icon name={icon} size={18} /> {label}</button>)}
           </div>
+          {activeTab === "pnr" && <div style={{padding:"12px 0"}}><strong>{language === "hi" ? "PNR स्थिति और कन्फर्म होने की अनुमानित संभावना देखें" : "Check PNR status and estimated confirmation chances"}</strong><p style={{fontSize:14,lineHeight:1.6,margin:"6px 0"}}>{language === "hi" ? "पहले हर यात्री की नवीनतम स्थिति देखें। WL/RAC परिणाम मिलने पर ‘कन्फर्म होने की संभावना देखें’ चुनें। अनुमान हर बुकिंग के लिए उपलब्ध नहीं होता और गारंटी नहीं है।" : "See each passenger’s latest status first. For WL/RAC results, select ‘Check confirmation chance’. Estimates may not be available for every booking and are not guaranteed."}</p></div>}
           <form className="search-form" onSubmit={handleSubmit}>
             {activeTab === "pnr" && <label className="single-field"><span>PNR</span><input inputMode="numeric" autoComplete="off" maxLength={10} value={form.pnr} onChange={(e) => setForm({ ...form, pnr: e.target.value.replace(/\D/g, "") })} placeholder={t.pnrPlaceholder} aria-label={t.pnrPlaceholder} /></label>}
             {activeTab === "live" && <><label><span>{t.train}</span><input inputMode="numeric" maxLength={5} value={form.train} onChange={(e) => setForm({ ...form, train: e.target.value.replace(/\D/g, "") })} placeholder={t.trainPlaceholder} aria-label={t.trainPlaceholder} /></label><label><span>{t.journeyDate}</span><input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} aria-label={t.journeyDate} /></label></>}
@@ -225,4 +226,5 @@ export default function Home() {
     </main>
   );
 }
+
 
