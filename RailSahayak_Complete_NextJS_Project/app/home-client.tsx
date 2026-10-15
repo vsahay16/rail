@@ -17,6 +17,7 @@ import { pnrSummary, liveSummary, railData, rows, railRequest, railError } from 
 type SearchTab = "pnr" | "live" | "between" | "booking";
 type SearchResult = {
   journey?: ReturnType<typeof pnrSummary>;
+  lookupPnr?: string;
   code?: string;
   fetchedAt?: string;
   tone: "success" | "warning" | "error";
@@ -168,7 +169,7 @@ export default function Home() {
         trackEvent("live_tool_result", { tool: activeTab, outcome: notConfigured ? "not_configured" : "error" }); return;
       }
       if (activeTab === "live") rememberTrain(form.train);
-      setResult({ ...mapProviderResult(activeTab, payload, language), fetchedAt: String((payload.railq as Record<string, unknown> | undefined)?.fetchedAt || new Date().toISOString()) }); trackEvent("live_tool_result", { tool: activeTab, outcome: "success" });
+      setResult({ ...mapProviderResult(activeTab, payload, language), lookupPnr: activeTab === "pnr" ? form.pnr : undefined, fetchedAt: String((payload.railq as Record<string, unknown> | undefined)?.fetchedAt || new Date().toISOString()) }); trackEvent("live_tool_result", { tool: activeTab, outcome: "success" });
     } catch {
       setResult({ tone: "error", eyebrow: language === "hi" ? "कनेक्शन रुक गया" : "Connection interrupted", title: language === "hi" ? "लाइव रेलवे सेवा अपेक्षा से अधिक समय ले रही है।" : "The live railway service is taking longer than expected.", description: language === "hi" ? "फिर प्रयास करें। महत्वपूर्ण यात्रा जानकारी IRCTC या NTES पर सत्यापित करें।" : "Please try again. Critical journey information should always be verified on IRCTC or NTES." });
       trackEvent("live_tool_result", { tool: activeTab, outcome: "network_error" });
@@ -195,7 +196,7 @@ export default function Home() {
             {activeTab === "booking" && <label className="single-field"><span>{t.journeyDate}</span><input type="date" required value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} aria-label={t.journeyDate} /></label>}
             <button className="primary-button" type="submit" disabled={loading}>{loading ? <span className="spinner" /> : buttonLabel} <Icon name="arrow" size={18} /></button>
           </form>
-          {result?.journey && <PnrJourneyCard summary={result.journey} hi={language === "hi"} />}
+          {result?.journey && <PnrJourneyCard summary={result.journey} pnr={result.lookupPnr} hi={language === "hi"} />}
           {result && !result.journey && <div className={`search-result ${result.tone}`} aria-live="polite"><div><span>{result.eyebrow}</span><h3>{result.title}</h3><p>{result.description}</p></div>{result.details && <dl>{result.details.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>}</div>}
           {result && activeTab !== "booking" && <ResultHelp hi={language === "hi"} pnr={activeTab === "pnr"} tool={activeTab === "pnr" ? "pnr-status" : activeTab === "live" ? "live-train-status" : "trains-between-stations"} code={result.code} fetchedAt={result.fetchedAt} />}
           <div className="search-footnote"><span><Icon name="shield" size={15} /> {t.noLogin}</span><span>{t.officialNote}</span></div>

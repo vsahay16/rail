@@ -348,11 +348,22 @@ export function railError(payload: unknown, hi = false) {
   };
 }
 
+const pendingLookups = new Set<string>();
+
 export async function railRequest(
   params: URLSearchParams,
   signal?: AbortSignal
 ) {
-  const pnr = params.get("action") === "pnr";
+  const pnr = ["pnr", "prediction"].includes(params.get("action") || "");
+  // A transient browser-only fingerprint; neither PNR nor results are persisted.
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(params.toString()));
+  const fingerprint = Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2,"0")).join("");
+  if (pendingLookups.has(fingerprint)) {
+    const payload = { success: false, code: "RATE_LIMITED", message: "Please wait before repeating this lookup." };
+    return {response: new Response(JSON.stringify(payload), {status:429}), payload: record(payload), ok:false};
+  }
+  pendingLookups.add(fingerprint);
+  try {
 
   const response = await fetch(
     pnr ? "/api/rail" : `/api/rail?${params}`,
@@ -362,7 +373,7 @@ export async function railRequest(
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
-              action: "pnr",
+              action: params.get("action"),
               pnr: params.get("pnr"),
             }),
           }
@@ -386,4 +397,6 @@ export async function railRequest(
     payload,
     ok: response.ok && payload.success !== false,
   };
+  } finally { setTimeout(() => pendingLookups.delete(fingerprint), 15000); }
 }
+

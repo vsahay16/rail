@@ -104,6 +104,7 @@ export function PnrStatusClient() {
   const { language } = useLanguage();
   const t = content[language];
   const hi = language === "hi";
+  const [lookupPnr, setLookupPnr] = useState("");
   const [journey, setJourney] = useState<ReturnType<typeof pnrSummary> | null>(null);
   const [resultCode, setResultCode] = useState("DISPLAY_ISSUE");
   const [fetchedAt, setFetchedAt] = useState<string>();
@@ -132,6 +133,7 @@ export function PnrStatusClient() {
         trackEvent("pnr_lookup_result", { outcome: notConfigured ? "provider_not_configured" : "provider_error" });
         return;
       }
+      setLookupPnr(pnr);
       setJourney(pnrSummary(payload));
       setResult(mapPnrPayload(payload, hi, t.notAvailable));
       setFetchedAt(String((payload.railq as Record<string, unknown> | undefined)?.fetchedAt || new Date().toISOString()));
@@ -161,7 +163,7 @@ export function PnrStatusClient() {
 
       {result && <section className={`pnr-result ${result.tone}`} aria-live="polite">
         <div className="pnr-result-head"><div><span>{result.eyebrow}</span><h2>{trainLabel || result.title}</h2><p>{result.description}</p></div><button onClick={reset}>{t.clear}</button></div>
-        {journey && <PnrJourneyCard summary={journey} hi={hi} />}
+        {journey && <PnrJourneyCard summary={journey} pnr={lookupPnr} hi={hi} />}
         {result.tone === "success" && <p className="pnr-missing-note">{hi ? "कोई विवरण उपलब्ध न हो तो उससे टिकट पक्का या रद्द होना न मानें। आधिकारिक PNR रिकॉर्ड जाँचें।" : "Missing details do not mean a ticket is confirmed or cancelled. Check the official PNR record if anything is unclear."}</p>}
         <ResultHelp hi={hi} tool="pnr-status" pnr code={resultCode} fetchedAt={fetchedAt} />
         <div className="result-actions"><a href={officialPnrUrl} target="_blank" rel="noreferrer">{t.verify}<Icon name="external" size={15} /></a><span>{t.sourceNote}</span></div>

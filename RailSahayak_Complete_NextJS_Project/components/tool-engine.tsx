@@ -1,7 +1,7 @@
 "use client";
 import { rememberTrain } from "@/lib/local-journeys";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { StationInput } from "@/components/station-input";
 import { ResultHelp } from "@/components/result-help";
 import { Icon } from "@/components/icon";
@@ -58,6 +58,10 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
   const { language } = useLanguage(); const hi = language === "hi";
   const fields = fieldMap[tool.slug] ?? [];
   const [form, setForm] = useState<Record<string, string>>(() => initialForm(fields));
+  useEffect(() => {
+    const train = new URLSearchParams(window.location.search).get("train");
+    if (train && /^\d{5}$/.test(train)) setForm(current => ({...current, train}));
+  }, []);
   const [loading, setLoading] = useState(false);
   const [localResult, setLocalResult] = useState<LocalResult | null>(null);
   const [providerResult, setProviderResult] = useState<Record<string, unknown> | null>(null);
@@ -167,3 +171,4 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
     {providerResult && <RailProviderResult toolSlug={tool.slug} payload={providerResult} hi={hi} />}
   </section>;
 }
+

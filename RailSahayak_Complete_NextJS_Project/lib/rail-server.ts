@@ -35,7 +35,7 @@ export async function limitVisitor(request: NextRequest, action: string) {
   // Vercel overwrites this header at its trusted ingress; local development shares a bucket.
   const ip = (process.env.VERCEL ? (request.headers.get("x-vercel-forwarded-for") ?? "unknown") : "local").split(",")[0].trim();
   const fingerprint = createHmac("sha256", config.key).update(ip || "unknown").digest("hex");
-  const group = action === "pnr" ? "pnr" : ["fare", "availability"].includes(action) ? "reservation" : "general";
+  const group = ["pnr", "prediction"].includes(action) ? "pnr" : ["fare", "availability"].includes(action) ? "reservation" : "general";
   const limit = group === "pnr" ? 5 : group === "reservation" ? 10 : 30;
   const rate = record(await database("rpc/rail_api_take", { p_key: `${group}:${fingerprint}`, p_limit: limit, p_window: 600 }));
   if (rate.allowed !== true) throw new RailServiceError("RATE_LIMITED", "Too many lookups. Please wait before trying again.", 429, Number(rate.retry_after) || 600);
@@ -91,3 +91,4 @@ export async function fetchRailway(endpoint: string, action: string) {
   }
   return { ...payload, railq: { cached: false, fetchedAt, cacheSeconds: seconds } };
 }
+

@@ -1,3 +1,4 @@
+import { predictionPercent } from "@/lib/journey-options";
 import { NextRequest, NextResponse } from "next/server";
 import { fetchRailway, limitVisitor, RailServiceError } from "@/lib/rail-server";
 
@@ -15,11 +16,12 @@ function endpointFor(params: URLSearchParams, privatePost: boolean) {
   const train = params.get("train") ?? "";
   const date = params.get("date") ?? "";
   for (const field of ["from", "to", "station", "class", "quota"]) if (params.has(field)) params.set(field, params.get(field)!.trim().toUpperCase());
-  if (action === "pnr") {
+  if (action === "pnr" || action === "prediction") {
+    if (action === "prediction" && process.env.RAILRADAR_PREDICTION_ENABLED !== "true") throw new RailServiceError("PREDICTION_DISABLED", "Prediction is not enabled.", 503, 0);
     if (!privatePost) throw new RailServiceError("POST_REQUIRED", "Use a private POST request for PNR lookup.", 405, 0);
     const pnr = params.get("pnr") ?? "";
     if (!/^\d{10}$/.test(pnr)) invalid("A valid 10-digit PNR is required.");
-    return { action, endpoint: `/pnr/${pnr}` };
+    return { action, endpoint: `/pnr/${pnr}${action === "prediction" ? "/prediction" : ""}` };
   }
   if (privatePost) invalid("POST only supports PNR lookup.");
   if (!["live", "schedule", "between", "availability", "fare", "station", "coach", "platform"].includes(action)) invalid("Unsupported railway lookup.");
@@ -58,12 +60,19 @@ async function handle(request: NextRequest, privatePost: boolean) {
       const raw = await request.text();
       if (raw.length > 1024) invalid("Request body is too large.");
       const body = JSON.parse(raw) as Record<string, unknown>;
-      if (!body || typeof body !== "object" || Array.isArray(body) || typeof body.pnr !== "string" || body.action !== "pnr") invalid("A PNR lookup is required.");
-      params = new URLSearchParams({ action: "pnr", pnr: body.pnr.trim() });
+      if (!body || typeof body !== "object" || Array.isArray(body) || typeof body.pnr !== "string" || !["pnr", "prediction"].includes(String(body.action))) invalid("A PNR lookup is required.");
+      params = new URLSearchParams({ action: String(body.action), pnr: body.pnr.trim() });
     } else params = new URLSearchParams(request.nextUrl.searchParams);
     const { action, endpoint } = endpointFor(params, privatePost);
     await limitVisitor(request, action);
-    return NextResponse.json(await fetchRailway(endpoint, action), { headers: { "Cache-Control": "no-store" } });
+    const payload = await fetchRailway(endpoint, action);
+    if (action === "prediction") {
+      const data = (payload as { data?: { probability?: unknown } }).data;
+      const percentage = predictionPercent(data?.probability);
+      if (percentage === null) throw new RailServiceError("PREDICTION_UNAVAILABLE", "No supported prediction was returned.", 502, 0);
+      return NextResponse.json({ success: true, data: { percentage, scope: "pnr", source: "RailRadar" }, railq: payload.railq }, { headers: { "Cache-Control": "no-store" } });
+    }
+    return NextResponse.json(payload, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     const problem = error instanceof RailServiceError ? error : error instanceof SyntaxError ? new RailServiceError("INVALID_INPUT", "Invalid JSON body.", 400, 0) : new RailServiceError("SERVICE_UNAVAILABLE", "The live service is temporarily unavailable.");
     return NextResponse.json({ success: false, code: problem.code, message: problem.message, error: { code: problem.code, message: problem.message } }, { status: problem.status, headers: { "Cache-Control": "no-store", ...(problem.retryAfter ? { "Retry-After": String(problem.retryAfter) } : {}), ...(problem.status === 405 ? { Allow: "POST" } : {}) } });
@@ -71,3 +80,4 @@ async function handle(request: NextRequest, privatePost: boolean) {
 }
 export async function GET(request: NextRequest) { return handle(request, false); }
 export async function POST(request: NextRequest) { return handle(request, true); }
+

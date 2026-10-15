@@ -1,3 +1,4 @@
+import { AvailabilityCalendar } from "@/components/availability-calendar";
 import { ResultHelp } from "@/components/result-help";
 import type { ReactNode } from "react";
 import { Icon } from "@/components/icon";
@@ -105,7 +106,7 @@ function AvailabilityResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
   const entries = [data.calendar, data.avlDayList, data.availability, data.days, data.results, data.dates].map(list).find((items) => items.length > 0) ?? [];
   return <ResultShell hi={hi} updated={data.lastUpdatedAt}>
     <div className="rail-result-heading"><div><span>{first(data.trainNumber, data.trainNo)}</span><h2>{hi ? "सीट उपलब्धता" : "Seat availability"}</h2><p>{(stationLabel(data.sourceStation ?? data.source ?? data.from) || "—")} → {(stationLabel(data.destinationStation ?? data.destination ?? data.to) || "—")} · {first(data.classCode, data.class)} · {first(data.quotaCode, data.quota)}</p></div><div className="rail-status-badge neutral">{entries.length} {hi ? "तारीखें" : "dates"}</div></div>
-    {entries.length === 0 && <p className="rail-empty">{hi ? "प्रदाता ने तारीखवार उपलब्धता नहीं दी। बाद में जाँचें।" : "The provider did not return date-by-date availability. Please check again later."}</p>}<div className="rail-availability-grid">{entries.map((item, index) => { const row = record(item) ?? {}; const status = first(row.currentStatus, row.status, row.availablityStatus, row.availabilityStatus, row.availability); return <article key={`${first(row.journeyDate, row.date, row.availablityDate, row.availabilityDate)}-${index}`}><small>{dateTime(first(row.journeyDate, row.date, row.availablityDate, row.availabilityDate), hi)}</small><strong>{status}</strong><span>{first(row.prediction, row.confirmationProbability, row.racStatus, hi ? "लाइव प्रदाता स्थिति" : "Live provider status")}</span></article>; })}</div>
+    <AvailabilityCalendar data={data} hi={hi} />
   </ResultShell>;
 }
 
@@ -154,3 +155,4 @@ export function RailProviderResult({ toolSlug, payload, hi }: { toolSlug: string
     : toolSlug === "platform-number" ? <CoachResult data={data} hi={hi} platform /> : <GenericResult hi={hi} />;
   return <>{cache?.cached === true && <p className="rail-cache-note">{hi ? "हाल में प्राप्त प्रदाता डेटा" : "Recently fetched provider data"} · {dateTime(cache.fetchedAt, hi)}</p>}{content}<ResultHelp hi={hi} tool={toolSlug} fetchedAt={typeof cache?.fetchedAt === "string" ? cache.fetchedAt : undefined} /></>;
 }
+
