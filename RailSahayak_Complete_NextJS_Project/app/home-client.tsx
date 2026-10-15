@@ -1,4 +1,5 @@
 "use client";
+import { PnrJourneyCard } from "@/components/pnr-journey-card";
 import { rememberTrain } from "@/lib/local-journeys";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
@@ -15,6 +16,7 @@ import { pnrSummary, liveSummary, railData, rows, railRequest, railError } from 
 
 type SearchTab = "pnr" | "live" | "between" | "booking";
 type SearchResult = {
+  journey?: ReturnType<typeof pnrSummary>;
   code?: string;
   fetchedAt?: string;
   tone: "success" | "warning" | "error";
@@ -106,7 +108,7 @@ function mapProviderResult(tab: SearchTab, payload: Record<string, unknown>, lan
   const hi = language === "hi";
   if (tab === "pnr") {
     const data = pnrSummary(payload);
-    return { tone: data.passengers.length ? "success" : "warning", eyebrow: hi ? "नवीनतम PNR उत्तर" : "Latest PNR response", title: data.trainName || (hi ? "PNR जानकारी" : "PNR information"), description: hi ? "हर यात्री की स्थिति अलग से जाँचें।" : "Review the current status for each passenger.", details: [{ label: hi ? "ट्रेन" : "Train", value: data.trainNumber || "—" }, { label: hi ? "वर्तमान स्थिति" : "Current status", value: data.status || (hi ? "स्थिति उपलब्ध नहीं" : "Status unavailable") }, { label: hi ? "चार्ट" : "Chart", value: data.chartStatus || "—" }, { label: hi ? "यात्रा" : "Journey", value: [data.from, data.to].filter(Boolean).join(" → ") || "—" }] };
+    return { journey: data, tone: data.passengers.length ? "success" : "warning", eyebrow: hi ? "नवीनतम PNR उत्तर" : "Latest PNR response", title: data.trainName || (hi ? "PNR जानकारी" : "PNR information"), description: hi ? "हर यात्री की स्थिति अलग से जाँचें।" : "Review the current status for each passenger.", details: [{ label: hi ? "ट्रेन" : "Train", value: data.trainNumber || "—" }, { label: hi ? "वर्तमान स्थिति" : "Current status", value: data.status || (hi ? "स्थिति उपलब्ध नहीं" : "Status unavailable") }, { label: hi ? "चार्ट" : "Chart", value: data.chartStatus || "—" }, { label: hi ? "यात्रा" : "Journey", value: [data.from, data.to].filter(Boolean).join(" → ") || "—" }] };
   }
   if (tab === "live") {
     const data = liveSummary(payload);
@@ -193,7 +195,8 @@ export default function Home() {
             {activeTab === "booking" && <label className="single-field"><span>{t.journeyDate}</span><input type="date" required value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} aria-label={t.journeyDate} /></label>}
             <button className="primary-button" type="submit" disabled={loading}>{loading ? <span className="spinner" /> : buttonLabel} <Icon name="arrow" size={18} /></button>
           </form>
-          {result && <div className={`search-result ${result.tone}`} aria-live="polite"><div><span>{result.eyebrow}</span><h3>{result.title}</h3><p>{result.description}</p></div>{result.details && <dl>{result.details.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>}</div>}
+          {result?.journey && <PnrJourneyCard summary={result.journey} hi={language === "hi"} />}
+          {result && !result.journey && <div className={`search-result ${result.tone}`} aria-live="polite"><div><span>{result.eyebrow}</span><h3>{result.title}</h3><p>{result.description}</p></div>{result.details && <dl>{result.details.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>}</div>}
           {result && activeTab !== "booking" && <ResultHelp hi={language === "hi"} pnr={activeTab === "pnr"} tool={activeTab === "pnr" ? "pnr-status" : activeTab === "live" ? "live-train-status" : "trains-between-stations"} code={result.code} fetchedAt={result.fetchedAt} />}
           <div className="search-footnote"><span><Icon name="shield" size={15} /> {t.noLogin}</span><span>{t.officialNote}</span></div>
         </section>
@@ -221,3 +224,4 @@ export default function Home() {
     </main>
   );
 }
+

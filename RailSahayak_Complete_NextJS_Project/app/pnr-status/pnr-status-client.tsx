@@ -1,4 +1,5 @@
 "use client";
+import { PnrJourneyCard } from "@/components/pnr-journey-card";
 import { PageGuidance } from "@/components/page-guidance";
 import { ResultHelp } from "@/components/result-help";
 
@@ -103,6 +104,7 @@ export function PnrStatusClient() {
   const { language } = useLanguage();
   const t = content[language];
   const hi = language === "hi";
+  const [journey, setJourney] = useState<ReturnType<typeof pnrSummary> | null>(null);
   const [resultCode, setResultCode] = useState("DISPLAY_ISSUE");
   const [fetchedAt, setFetchedAt] = useState<string>();
   const [pnr, setPnr] = useState("");
@@ -114,7 +116,7 @@ export function PnrStatusClient() {
   const trainLabel = useMemo(() => [result?.trainNumber, result?.trainName].filter(Boolean).join(" · "), [result]);
 
   async function checkPnr(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setResultCode("DISPLAY_ISSUE"); setFetchedAt(undefined);
+    event.preventDefault(); setJourney(null); setResultCode("DISPLAY_ISSUE"); setFetchedAt(undefined);
     if (!/^\d{10}$/.test(pnr)) {
       setResult({ tone: "error", eyebrow: t.invalid, title: t.invalid, description: t.invalidText });
       trackEvent("pnr_validation_error", { reason: "invalid_length" });
@@ -130,6 +132,7 @@ export function PnrStatusClient() {
         trackEvent("pnr_lookup_result", { outcome: notConfigured ? "provider_not_configured" : "provider_error" });
         return;
       }
+      setJourney(pnrSummary(payload));
       setResult(mapPnrPayload(payload, hi, t.notAvailable));
       setFetchedAt(String((payload.railq as Record<string, unknown> | undefined)?.fetchedAt || new Date().toISOString()));
       trackEvent("pnr_lookup_result", { outcome: "success" });
@@ -140,7 +143,7 @@ export function PnrStatusClient() {
     } finally { setLoading(false); }
   }
 
-  function reset() { setPnr(""); setResult(null); document.getElementById("pnr-number")?.focus(); }
+  function reset() { setJourney(null); setPnr(""); setResult(null); document.getElementById("pnr-number")?.focus(); }
 
   return <main className="tool-page pnr-page">
     <section className="pnr-hero">
@@ -158,16 +161,7 @@ export function PnrStatusClient() {
 
       {result && <section className={`pnr-result ${result.tone}`} aria-live="polite">
         <div className="pnr-result-head"><div><span>{result.eyebrow}</span><h2>{trainLabel || result.title}</h2><p>{result.description}</p></div><button onClick={reset}>{t.clear}</button></div>
-        {result.tone === "success" && <>
-          <dl className="pnr-summary">
-            <div><dt>{t.train}</dt><dd>{trainLabel || t.notAvailable}</dd></div>
-            <div><dt>{t.journeyDate}</dt><dd>{result.journeyDate || t.notAvailable}</dd></div>
-            <div><dt>{t.route}</dt><dd>{result.from || result.to ? `${result.from || "—"} → ${result.to || "—"}` : t.notAvailable}</dd></div>
-            <div><dt>{t.travelClass}</dt><dd>{result.travelClass || t.notAvailable}</dd></div>
-            <div><dt>{t.chart}</dt><dd>{result.chartStatus || t.notAvailable}</dd></div>
-          </dl>
-          {result.passengers && result.passengers.length > 0 && <div className="passenger-table-wrap"><table className="passenger-table"><caption>{hi ? "हर यात्री की वर्तमान स्थिति अलग जाँचें" : "Check each passenger’s current status separately"}</caption><thead><tr><th scope="col">{t.passenger}</th><th scope="col">{t.bookingStatus}</th><th scope="col">{t.currentStatus}</th><th scope="col">{t.coachBerth}</th></tr></thead><tbody>{result.passengers.map((passenger) => <tr key={passenger.number}><td data-label={t.passenger}>{passenger.number}</td><td data-label={t.bookingStatus}>{passenger.booking}</td><td className="passenger-current" data-label={t.currentStatus}><strong>{passenger.current}</strong></td><td data-label={t.coachBerth}>{passenger.berth}</td></tr>)}</tbody></table></div>}
-        </>}
+        {journey && <PnrJourneyCard summary={journey} hi={hi} />}
         {result.tone === "success" && <p className="pnr-missing-note">{hi ? "कोई विवरण उपलब्ध न हो तो उससे टिकट पक्का या रद्द होना न मानें। आधिकारिक PNR रिकॉर्ड जाँचें।" : "Missing details do not mean a ticket is confirmed or cancelled. Check the official PNR record if anything is unclear."}</p>}
         <ResultHelp hi={hi} tool="pnr-status" pnr code={resultCode} fetchedAt={fetchedAt} />
         <div className="result-actions"><a href={officialPnrUrl} target="_blank" rel="noreferrer">{t.verify}<Icon name="external" size={15} /></a><span>{t.sourceNote}</span></div>
@@ -191,3 +185,4 @@ export function PnrStatusClient() {
 
   <PageGuidance slug="pnr-status" /></main>;
 }
+
