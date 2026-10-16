@@ -155,3 +155,170 @@ Object.assign(metadataCopy, {
   }
 });
 
+
+
+// Intent-specific copy reviewed 16 October 2026.
+Object.assign(metadataCopy, {
+  "/tools": {
+    "title": "Indian Railway Tools & Calculators",
+    "titleHi": "भारतीय रेल टूल्स और कैलकुलेटर",
+    "description": "Choose a railway tool for PNR status, confirmation estimates, train routes, seats, booking dates or refunds. Available in English and Hindi.",
+    "descriptionHi": "PNR स्थिति, कन्फर्मेशन अनुमान, ट्रेन मार्ग, सीट, बुकिंग तारीख और रिफंड के लिए सही रेलवे टूल चुनें। हिंदी और अंग्रेज़ी में उपलब्ध।"
+  },
+  "/guides": {
+    "title": "Indian Railway Travel Guides",
+    "titleHi": "भारतीय रेल यात्रा गाइड",
+    "description": "Find practical guides to PNR status, waiting lists, booking, refunds and station transfers. Follow examples and links to the right railway tools.",
+    "descriptionHi": "PNR स्थिति, वेटलिस्ट, बुकिंग, रिफंड और स्टेशन ट्रांसफर की व्यावहारिक गाइड पढ़ें। उदाहरण समझें और संबंधित रेलवे टूल तक पहुँचें।"
+  },
+  "/connecting-trains": {
+    "title": "Connecting Train Journey Planner",
+    "titleHi": "कनेक्टिंग ट्रेन यात्रा प्लानर",
+    "description": "Find direct trains and one-change routes. Compare travel dates, interchange stations and transfer gaps, then check seats for each leg separately.",
+    "descriptionHi": "सीधी ट्रेन और एक बदलाव वाले मार्ग खोजें। यात्रा तारीख, बदलने वाले स्टेशन और ट्रांसफर अंतर मिलाएँ, फिर हर ट्रेन की सीट अलग जाँचें।"
+  },
+  "/booking-date-calculator": {
+    "title": "Train Advance Booking Date Calculator",
+    "titleHi": "ट्रेन अग्रिम बुकिंग तारीख कैलकुलेटर",
+    "description": "Estimate when advance train booking opens using the journey details. Check the relevant departure date and verify the booking window on IRCTC.",
+    "descriptionHi": "यात्रा विवरण से अग्रिम ट्रेन बुकिंग खुलने की तारीख अनुमानित करें। संबंधित प्रस्थान तारीख जाँचें और IRCTC पर बुकिंग अवधि की पुष्टि करें।"
+  },
+  "/waitlist-guide": {
+    "title": "Train Waiting List Codes Explained",
+    "titleHi": "ट्रेन वेटलिस्ट कोड का अर्थ",
+    "description": "Understand waiting-list categories and passenger status. Compare WL, RAC and CNF without assuming that a smaller number guarantees confirmation.",
+    "descriptionHi": "वेटलिस्ट श्रेणियाँ और यात्री स्थिति समझें। WL, RAC और CNF की तुलना करें; छोटा वेटलिस्ट नंबर कन्फर्मेशन की गारंटी नहीं है।"
+  },
+  "/guides/pnr-status-explained": {
+    "title": "How to Read Your PNR Status",
+    "titleHi": "अपना PNR परिणाम कैसे पढ़ें",
+    "description": "Read booking and current status for every passenger. Understand missing coach details, mixed results and where confirmation estimates fit in.",
+    "descriptionHi": "हर यात्री की बुकिंग और वर्तमान स्थिति पढ़ें। खाली कोच विवरण, मिली-जुली स्थिति और कन्फर्मेशन अनुमान की भूमिका समझें।"
+  },
+  "/guides/pnr-and-waiting-lists": {
+    "title": "PNR Waiting List: Changes & Next Steps",
+    "titleHi": "PNR वेटलिस्ट: बदलाव और अगले कदम",
+    "description": "Understand why your waiting-list number changes, why movement is not a guarantee, and when to compare other trains or check official status.",
+    "descriptionHi": "वेटलिस्ट नंबर क्यों बदलता है, बदलाव गारंटी क्यों नहीं और कब दूसरी ट्रेन या आधिकारिक स्थिति देखनी चाहिए—सरल उदाहरणों से समझें।"
+  },
+  "/guides/booking-and-advance-reservation": {
+    "title": "Train Booking & Advance Reservation Guide",
+    "titleHi": "ट्रेन बुकिंग और अग्रिम आरक्षण गाइड",
+    "description": "Plan your train booking with the right journey date, station, class and passenger details. Check the booking window and verify the issued ticket.",
+    "descriptionHi": "सही यात्रा तारीख, स्टेशन, श्रेणी और यात्री विवरण के साथ ट्रेन बुकिंग की योजना बनाएँ। बुकिंग अवधि और जारी टिकट की पुष्टि करें।"
+  },
+  "/guides/tatkal": {
+    "title": "Tatkal Booking Preparation Guide",
+    "titleHi": "तत्काल टिकट बुकिंग की तैयारी",
+    "description": "Prepare your journey details, passenger information and payment before Tatkal booking. Check the correct opening time and keep practical alternatives.",
+    "descriptionHi": "तत्काल बुकिंग से पहले यात्रा विवरण, यात्री जानकारी और भुगतान तैयार रखें। सही खुलने का समय जाँचें और व्यावहारिक विकल्प रखें।"
+  },
+  "/guides/cancellation-and-refunds": {
+    "title": "Train Cancellation & Refund Guide",
+    "titleHi": "ट्रेन रद्दीकरण और रिफंड गाइड",
+    "description": "Choose the right process for ticket cancellation, a disrupted train or a failed booking. Check applicable conditions and keep refund evidence.",
+    "descriptionHi": "टिकट रद्द करने, प्रभावित ट्रेन या असफल बुकिंग के लिए सही प्रक्रिया चुनें। लागू शर्तें पढ़ें और रिफंड के प्रमाण सुरक्षित रखें।"
+  },
+  "/guides/chart-preparation": {
+    "title": "Train Chart Preparation Explained",
+    "titleHi": "ट्रेन का चार्ट बनना क्या है?",
+    "description": "Understand what chart preparation changes, how to use a chart-time estimate and why you should check each passenger’s current status before travel.",
+    "descriptionHi": "चार्ट बनने पर क्या बदलता है, समय के अनुमान का उपयोग कैसे करें और यात्रा से पहले हर यात्री की वर्तमान स्थिति क्यों जाँचें—जानें।"
+  },
+  "/guides/vikalp-and-alternate-routes": {
+    "title": "VIKALP & Alternative Train Routes",
+    "titleHi": "VIKALP और वैकल्पिक ट्रेन मार्ग",
+    "description": "Compare VIKALP, another direct train and a connecting route. Check station changes, dates, seats and transfer time before changing your travel plan.",
+    "descriptionHi": "VIKALP, दूसरी सीधी ट्रेन और कनेक्टिंग मार्ग की तुलना करें। योजना बदलने से पहले स्टेशन, तारीख, सीट और ट्रांसफर समय जाँचें।"
+  },
+  "/guides/train-classes-and-coaches": {
+    "title": "Indian Train Classes & Coaches Guide",
+    "titleHi": "भारतीय ट्रेन श्रेणी और कोच गाइड",
+    "description": "Compare train accommodation and berth patterns before choosing a class. Understand coach labels and check the actual allocation on your ticket.",
+    "descriptionHi": "श्रेणी चुनने से पहले ट्रेन में बैठने-सोने की व्यवस्था और बर्थ पैटर्न मिलाएँ। कोच लेबल समझें और टिकट का वास्तविक आवंटन जाँचें।"
+  },
+  "/guides/family-and-senior-citizen-travel": {
+    "title": "Train Travel With Family & Seniors",
+    "titleHi": "परिवार और बुजुर्गों के साथ रेल यात्रा",
+    "description": "Plan station access, lower-berth needs, medicines, food and transfer time for family or senior travellers. Prepare around each passenger’s needs.",
+    "descriptionHi": "परिवार या बुजुर्ग यात्रियों के लिए स्टेशन पहुँच, लोअर बर्थ की जरूरत, दवा, भोजन और ट्रांसफर समय की योजना बनाएँ। हर यात्री की जरूरत देखें।"
+  },
+  "/guides/station-and-onboard-travel": {
+    "title": "Railway Station & Onboard Travel Guide",
+    "titleHi": "रेलवे स्टेशन और ट्रेन में यात्रा गाइड",
+    "description": "Prepare for station entry, platform checks, coach location and onboard help. Know which information can change and where to verify it.",
+    "descriptionHi": "स्टेशन प्रवेश, प्लेटफॉर्म, कोच खोजने और ट्रेन में सहायता की तैयारी करें। बदल सकने वाली जानकारी और उसकी पुष्टि का सही माध्यम जानें।"
+  },
+  "/guides/festival-travel-planning": {
+    "title": "Festival Train Travel Planning Guide",
+    "titleHi": "त्योहार में रेल यात्रा की योजना",
+    "description": "Plan festival travel with alternative trains, realistic station time and a backup journey. Check availability and avoid relying on one uncertain option.",
+    "descriptionHi": "त्योहार में वैकल्पिक ट्रेन, स्टेशन पहुँचने का पर्याप्त समय और दूसरी यात्रा योजना रखें। उपलब्धता जाँचें और एक अनिश्चित विकल्प पर निर्भर न रहें।"
+  },
+  "/about": {
+    "title": "About Our Independent Railway Tools",
+    "titleHi": "हमारे बारे में: स्वतंत्र रेल टूल्स",
+    "description": "Learn what RailQ offers in English and Hindi, how its railway tools help passengers and why official railway records remain the final authority.",
+    "descriptionHi": "हिंदी और अंग्रेज़ी में RailQ की सुविधाएँ, यात्रियों के लिए रेलवे टूल्स और आधिकारिक रेलवे रिकॉर्ड की अंतिम मान्यता के बारे में जानें।"
+  },
+  "/methodology": {
+    "title": "Data Sources & Methodology",
+    "titleHi": "डेटा स्रोत और प्रक्रिया",
+    "description": "See how RailQ uses RailRadar data, confirmation estimates and planning calculations. Understand missing results, limitations and official verification.",
+    "descriptionHi": "RailQ में RailRadar डेटा, कन्फर्मेशन अनुमान और योजना की गणना कैसे उपयोग होते हैं, जानें। अधूरे परिणाम, सीमाएँ और आधिकारिक पुष्टि समझें।"
+  },
+  "/corrections": {
+    "title": "Report an Error or Correction",
+    "titleHi": "गलती या सुधार बताएँ",
+    "description": "Report incorrect information or a tool problem with the page URL and supporting source. Learn which details to share and which ticket data to hide.",
+    "descriptionHi": "पेज URL और स्रोत के साथ गलत जानकारी या टूल की समस्या बताएँ। जानें कौन-सा विवरण भेजें और टिकट की कौन-सी निजी जानकारी छिपाएँ।"
+  },
+  "/contact": {
+    "title": "Contact: Help & Feedback",
+    "titleHi": "संपर्क: सहायता और सुझाव",
+    "description": "Contact RailQ about a website problem, factual correction, accessibility need or partnership. Do not send full PNRs, passwords or payment details.",
+    "descriptionHi": "वेबसाइट समस्या, तथ्य सुधार, सुगमता जरूरत या साझेदारी के लिए RailQ से संपर्क करें। पूरा PNR, पासवर्ड या भुगतान जानकारी न भेजें।"
+  },
+  "/privacy": {
+    "title": "Privacy Policy",
+    "titleHi": "गोपनीयता नीति",
+    "description": "Read how RailQ handles railway searches, optional analytics, browser favourites and contact messages, including the information you should not share.",
+    "descriptionHi": "रेलवे खोज, वैकल्पिक एनालिटिक्स, ब्राउज़र में पसंदीदा और संपर्क संदेशों की RailQ प्रक्रिया पढ़ें। जानें कौन-सी जानकारी साझा नहीं करनी चाहिए।"
+  },
+  "/terms": {
+    "title": "Terms of Use",
+    "titleHi": "उपयोग की शर्तें",
+    "description": "Review the terms for using RailQ’s railway information, tools and estimates. Understand service limits and your responsibility to verify travel details.",
+    "descriptionHi": "RailQ की रेलवे जानकारी, टूल्स और अनुमानों के उपयोग की शर्तें पढ़ें। सेवा की सीमाएँ और यात्रा विवरण सत्यापित करने की जिम्मेदारी समझें।"
+  },
+  "/disclaimer": {
+    "title": "Railway Information Disclaimer",
+    "titleHi": "रेलवे जानकारी संबंधी अस्वीकरण",
+    "description": "Understand the limits of railway feeds, predictions and calculators on RailQ. Verify ticket status, train details and applicable rules before acting.",
+    "descriptionHi": "RailQ के रेलवे डेटा, भविष्यवाणी और कैलकुलेटर की सीमाएँ समझें। निर्णय से पहले टिकट स्थिति, ट्रेन विवरण और लागू नियम सत्यापित करें।"
+  },
+  "/advertise": {
+    "title": "Advertising & Partnerships",
+    "titleHi": "विज्ञापन और साझेदारी",
+    "description": "Explore relevant advertising and partnership enquiries for RailQ’s railway audience. Read the approach to labelled offers and passenger-first placements.",
+    "descriptionHi": "RailQ के रेलवे यात्रियों के लिए संबंधित विज्ञापन और साझेदारी की जानकारी लें। स्पष्ट लेबल वाले ऑफर और यात्री सुविधा वाली जगहों का तरीका जानें।"
+  },
+  "/blog": {
+    "title": "Railway Travel Articles & Guides",
+    "titleHi": "रेल यात्रा लेख और गाइड",
+    "description": "Browse RailQ articles on PNR status, booking, food, station transfers and family travel. Choose a practical guide for your next journey.",
+    "descriptionHi": "PNR स्थिति, बुकिंग, भोजन, स्टेशन ट्रांसफर और परिवार की यात्रा पर RailQ लेख पढ़ें। अपनी अगली यात्रा के लिए उपयोगी गाइड चुनें।"
+  },
+  "/official-services": {
+    "title": "Official Indian Railway Services",
+    "titleHi": "आधिकारिक भारतीय रेल सेवाएँ",
+    "description": "Find official links for train booking, PNR enquiry, live running and passenger assistance. Choose the right service for your railway question.",
+    "descriptionHi": "ट्रेन बुकिंग, PNR पूछताछ, लाइव स्थिति और यात्री सहायता के आधिकारिक लिंक पाएँ। अपने रेलवे सवाल के लिए सही सेवा चुनें।"
+  },
+  "/alerts": {
+    "title": "Railway Reminders & Alert Availability",
+    "titleHi": "रेलवे रिमाइंडर और अलर्ट की उपलब्धता",
+    "description": "Create booking calendar reminders and check which RailQ alerts are available. PNR email monitoring is paused and does not accept new subscriptions.",
+    "descriptionHi": "बुकिंग कैलेंडर रिमाइंडर बनाएँ और RailQ अलर्ट की उपलब्धता देखें। PNR ईमेल निगरानी बंद है और नए अनुरोध स्वीकार नहीं किए जा रहे हैं।"
+  }
+});
