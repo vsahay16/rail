@@ -132,3 +132,26 @@ Object.assign(metadataCopy, {
  "/coach-layout": {title:"Train Coach Layout: Sleeper, 3A & 2A", titleHi:"ट्रेन कोच लेआउट: स्लीपर, 3A और 2A", description:"Explore standard Sleeper, 3A and 2A berth layouts. Understand lower, middle, upper and side berths, with examples and coach-variant limitations.", descriptionHi:"स्लीपर, 3A और 2A की सामान्य बर्थ व्यवस्था देखें। उदाहरणों से लोअर, मिडिल, अपर और साइड बर्थ समझें तथा कोच के अंतर जानें।"},
  "/seat-berth-finder": {title:"Train Berth Finder by Seat Number", titleHi:"सीट नंबर से ट्रेन की बर्थ जानें", description:"Enter an allocated berth number and matching coach pattern to find its expected type. See a highlighted diagram and learn when to verify the official layout.", descriptionHi:"आवंटित बर्थ नंबर और मिलता कोच पैटर्न चुनकर बर्थ प्रकार व चित्र देखें। जानें कब आधिकारिक लेआउट से पुष्टि जरूरी है।"}
 });
+
+// Search copy refreshed 16 October 2026; estimates are not guarantees.
+Object.assign(metadataCopy, {
+  "/": {
+    "title": "PNR Status, Confirmation Chances & Train Tools",
+    "titleHi": "PNR स्थिति, कन्फर्मेशन संभावना और रेल टूल्स",
+    "description": "Check PNR status and estimated confirmation chances on RailQ. Track live trains, compare seats and plan your railway journey in English or Hindi.",
+    "descriptionHi": "RailQ पर PNR स्थिति और कन्फर्म होने की अनुमानित संभावना देखें। लाइव ट्रेन, सीट उपलब्धता और यात्रा की योजना के टूल हिंदी व अंग्रेज़ी में पाएँ।"
+  },
+  "/pnr-status": {
+    "title": "PNR Status & Confirmation Probability",
+    "titleHi": "PNR स्थिति और कन्फर्म होने की संभावना",
+    "description": "Enter your PNR to check passenger status, coach and berth. For eligible WL/RAC bookings, request a confirmation estimate. Predictions are not guaranteed.",
+    "descriptionHi": "PNR डालकर हर यात्री की स्थिति, कोच और बर्थ देखें। पात्र WL/RAC बुकिंग के लिए कन्फर्म होने का अनुमान जाँचें। यह कन्फर्म टिकट की गारंटी नहीं है।"
+  },
+  "/chart-preparation-calculator": {
+    "title": "Train Chart Preparation Time Calculator",
+    "titleHi": "ट्रेन चार्ट बनने का समय कैलकुलेटर",
+    "description": "Estimate your train's first chart preparation time using the charting station's departure date and time. Verify the actual chart status before travel.",
+    "descriptionHi": "चार्टिंग स्टेशन से ट्रेन के प्रस्थान की तारीख और समय डालकर पहला चार्ट बनने का अनुमान जानें। यात्रा से पहले वास्तविक चार्ट स्थिति की पुष्टि करें।"
+  }
+});
+
