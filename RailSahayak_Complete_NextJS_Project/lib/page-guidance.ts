@@ -949,3 +949,13 @@ pageGuidance["seat-berth-finder"] = {
     }
   ]
 };
+
+
+// Help users continue after a valid but unsuitable availability result.
+pageGuidance["seat-availability"].sections.push({
+  "title": "No suitable seats? Compare a different journey",
+  "titleHi": "उपयुक्त सीट नहीं मिली? दूसरा यात्रा विकल्प देखें",
+  "body": "First verify the exact date, stations, class and quota. If the result is valid but unsuitable, compare another date or a connecting route. For a two-train journey, check seats and fares for both legs before paying for either. Leave time to change platforms or stations; a route result does not reserve seats or guarantee the connection.",
+  "bodyHi": "पहले सही तारीख, स्टेशन, श्रेणी और कोटा मिलाएँ। परिणाम सही है लेकिन आपके लिए उपयुक्त नहीं है तो दूसरी तारीख या कनेक्टिंग मार्ग की तुलना करें। दो ट्रेनों की यात्रा में किसी भी टिकट का भुगतान करने से पहले दोनों हिस्सों की सीट और किराया जाँचें। प्लेटफॉर्म या स्टेशन बदलने का समय रखें; मार्ग मिलने से सीट आरक्षित या कनेक्शन की गारंटी नहीं होती।"
+});
+pageGuidance["seat-availability"].related = [...new Set([...pageGuidance["seat-availability"].related, "connecting-trains", "trains-between-stations", "connection-buffer-calculator"])];

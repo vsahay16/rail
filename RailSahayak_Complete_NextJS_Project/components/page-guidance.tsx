@@ -13,6 +13,7 @@ export function PageGuidance({ slug }: { slug: string }) {
   const help = pageGuidance[slug];
   if (!help) return null;
   function label(path: string) {
+    if (path === "connecting-trains") return hi ? "कनेक्टिंग ट्रेनें खोजें" : "Find connecting trains";
     const guide = path.startsWith("guides/") ? getGuide(path.slice(7)) : undefined;
     const item = guide ?? getToolConfig(path) ?? getContentPage(path);
     return item ? hi ? item.titleHi : item.title : path;
@@ -33,3 +34,4 @@ export function PageGuidance({ slug }: { slug: string }) {
     <p className="journey-help-note">{hi ? "उदाहरण केवल समझाने के लिए हैं। किसी जानकारी में गलती मिले तो पेज का पता और सुधार का स्रोत भेजें।" : "Examples are illustrative. If you find an error, send the page address and a source for the correction."} <Link href="/corrections">{hi ? "सुधार प्रक्रिया" : "Corrections process"}</Link></p>
   </section>;
 }
+
