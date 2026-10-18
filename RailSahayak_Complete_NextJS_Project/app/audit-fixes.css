@@ -1,0 +1,26 @@
+/* Loaded after existing styles. Scoped selectors win over older tool rules. */
+.generic-tool-hero .generic-tool-intro,
+.generic-tool-hero .tool-engine { align-self: start; }
+.generic-tool-hero .generic-tool-intro { padding-top: 12px; }
+.generic-tool-hero .generic-tool-intro h1 {
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+}
+.tool-engine .engine-fields label > span,
+.tool-engine .engine-disclaimer { font-size: 12px; line-height: 1.5; }
+.tool-engine .engine-fields input,
+.tool-engine .engine-fields select { font-size: 16px; min-height: 44px; }
+.tool-engine .engine-submit { min-height: 44px; }
+:where(a, button, input, select, summary):focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
