@@ -130,7 +130,7 @@ export const metadataCopy: Record<string, { title?: string; titleHi?: string; de
 
 Object.assign(metadataCopy, {
  "/coach-layout": {title:"Train Coach Layout: Sleeper, 3A & 2A", titleHi:"ट्रेन कोच लेआउट: स्लीपर, 3A और 2A", description:"Explore standard Sleeper, 3A and 2A berth layouts. Understand lower, middle, upper and side berths, with examples and coach-variant limitations.", descriptionHi:"स्लीपर, 3A और 2A की सामान्य बर्थ व्यवस्था देखें। उदाहरणों से लोअर, मिडिल, अपर और साइड बर्थ समझें तथा कोच के अंतर जानें।"},
- "/seat-berth-finder": {title:"Train Berth Finder by Seat Number", titleHi:"सीट नंबर से ट्रेन की बर्थ जानें", description:"Enter an allocated berth number and matching coach pattern to find its expected type. See a highlighted diagram and learn when to verify the official layout.", descriptionHi:"आवंटित बर्थ नंबर और मिलता कोच पैटर्न चुनकर बर्थ प्रकार व चित्र देखें। जानें कब आधिकारिक लेआउट से पुष्टि जरूरी है।"}
+ "/seat-berth-finder": {title:"Train Berth Calculator: Find Berth by Seat Number", titleHi:"सीट नंबर से ट्रेन की बर्थ जानें", description:"Enter an allocated berth number and matching coach pattern to find its expected type. See a highlighted diagram and learn when to verify the official layout.", descriptionHi:"आवंटित बर्थ नंबर और मिलता कोच पैटर्न चुनकर बर्थ प्रकार व चित्र देखें। जानें कब आधिकारिक लेआउट से पुष्टि जरूरी है।"}
 });
 
 // Search copy refreshed 16 October 2026; estimates are not guarantees.
@@ -142,8 +142,8 @@ Object.assign(metadataCopy, {
     "descriptionHi": "RailQ पर PNR स्थिति और कन्फर्म होने की अनुमानित संभावना देखें। लाइव ट्रेन, सीट उपलब्धता और यात्रा की योजना के टूल हिंदी व अंग्रेज़ी में पाएँ।"
   },
   "/pnr-status": {
-    "title": "PNR Status & Confirmation Probability",
-    "titleHi": "PNR स्थिति और कन्फर्म होने की संभावना",
+    "title": "PNR Status Check: Train Ticket Status & Chances",
+    "titleHi": "पीएनआर स्टेटस चेक: टिकट और बर्थ की जानकारी",
     "description": "Enter your PNR to check passenger status, coach and berth. For eligible WL/RAC bookings, request a confirmation estimate. Predictions are not guaranteed.",
     "descriptionHi": "PNR डालकर हर यात्री की स्थिति, कोच और बर्थ देखें। पात्र WL/RAC बुकिंग के लिए कन्फर्म होने का अनुमान जाँचें। यह कन्फर्म टिकट की गारंटी नहीं है।"
   },

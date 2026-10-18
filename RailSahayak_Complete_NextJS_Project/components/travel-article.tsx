@@ -1,4 +1,5 @@
 "use client";
+import { travelImageAlt } from "@/lib/travel-image-alt";
 import Image from "next/image";
 import { LocalizedLink as Link } from "@/components/localized-link";
 import { AdSlot } from "@/components/ad-slot";
@@ -18,7 +19,7 @@ export function TravelArticlePage({ article }: { article: TravelArticle }) {
       <h1>{article.title[lang]}</h1><p className={styles.description}>{article.description[lang]}</p>
       <p className={styles.byline}>{hi ? "प्रकाशक: RailQ" : "Published by RailQ"} <span aria-hidden="true">·</span> <time dateTime={article.updated}>{hi ? "समीक्षा: " : "Reviewed: "}{date}</time></p>
     </header>
-    <figure className={styles.figure}><Image src={`/images/travel-guides/${article.visual}-${lang}.svg`} width={1200} height={630} unoptimized priority alt={hi ? `${article.title.hi} — RailQ का मूल व्याख्यात्मक चित्र` : `${article.title.en} — original RailQ explanatory illustration`} sizes="(max-width: 1000px) 100vw, 1000px" /><figcaption>{hi ? "RailQ का मूल चित्र। यह ऐप का स्क्रीनशॉट या वास्तविक ऑर्डर नहीं है।" : "Original RailQ illustration. Not an app screenshot or a real order."}</figcaption></figure>
+    <figure className={styles.figure}><Image src={`/images/travel-guides/${article.visual}-${lang}.svg`} width={1200} height={630} unoptimized priority alt={travelImageAlt[article.visual]?.[lang] ?? article.title[lang]} sizes="(max-width: 1000px) 100vw, 1000px" /><figcaption>{hi ? "RailQ का मूल चित्र। यह ऐप का स्क्रीनशॉट या वास्तविक ऑर्डर नहीं है।" : "Original RailQ illustration. Not an app screenshot or a real order."}</figcaption></figure>
     <div className={styles.layout}>
       <aside className={styles.contents}><nav aria-label={hi ? "इस लेख में" : "On this page"}><h2>{hi ? "इस लेख में" : "On this page"}</h2><ol>{article.sections.map((s,i)=><li key={i}><a href={`#section-${i+1}`}>{s.title[lang]}</a></li>)}</ol><a href="#sources">{hi ? "स्रोत और जाँच का तरीका" : "Sources and method"}</a></nav></aside>
       <article className={styles.article}>

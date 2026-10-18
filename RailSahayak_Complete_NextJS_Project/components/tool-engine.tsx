@@ -1,7 +1,8 @@
 "use client";
 import { rememberTrain } from "@/lib/local-journeys";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { StationInput } from "@/components/station-input";
 import { ResultHelp } from "@/components/result-help";
 import { Icon } from "@/components/icon";
@@ -57,9 +58,9 @@ function money(value: number) { return new Intl.NumberFormat("en-IN", { style: "
 export function ToolEngine({ tool }: { tool: ToolConfig }) {
   const { language } = useLanguage(); const hi = language === "hi";
   const fields = fieldMap[tool.slug] ?? [];
-  const [form, setForm] = useState<Record<string, string>>(() => initialForm(fields));
-  useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
+  const query = useSearchParams();
+  const [form, setForm] = useState<Record<string, string>>(() => {
+    const defaults = initialForm(fields);
     const prefill: Record<string, string> = {};
     const train = query.get("train");
     if (train && /^\d{5}$/.test(train)) prefill.train = train;
@@ -69,15 +70,15 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
     }
     const date = query.get("date");
     if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) prefill.date = date;
-    setForm(current => ({ ...current, ...Object.fromEntries(Object.entries(prefill).filter(([key]) => key in current)) }));
-  }, []);
+    return { ...defaults, ...Object.fromEntries(Object.entries(prefill).filter(([key]) => key in defaults)) };
+  });
   const [loading, setLoading] = useState(false);
   const [localResult, setLocalResult] = useState<LocalResult | null>(null);
   const [providerResult, setProviderResult] = useState<Record<string, unknown> | null>(null);
   const submitLabel = tool.live ? (hi ? "लाइव जानकारी देखें" : "Check live information") : (hi ? "परिणाम निकालें" : "Calculate result");
   function error(title: string, description: string) { setLocalResult({ tone: "error", eyebrow: hi ? "जानकारी जाँचें" : "Check the information", title, description }); }
 
-  function calculate(): LocalResult | null {
+  function calculate(form: Record<string, string>): LocalResult | null {
     const slug = tool.slug;
     if (["refund-calculator", "cancellation-deadline-calculator"].includes(slug) && form.ticketType === "special") {
       return { tone: "warning", eyebrow: hi ? "विशेष रिफंड नीति" : "Separate refund policy", title: hi ? "बुकिंग में लागू नियम देखें" : "Check the policy in your booking", description: hi ? "वंदे भारत स्लीपर, अमृत भारत II और विशेष नीति वाली सेवाओं पर सामान्य गणना लागू न करें। टिकट या अधिकृत बुकिंग सेवा में रद्दीकरण राशि और अंतिम समय देखें। यह विकल्प जानबूझकर रुपये या समय का अनुमान नहीं देता।" : "Do not apply the ordinary estimate to Vande Bharat Sleeper, Amrit Bharat II or services with a separate policy. Check the cancellation quote and deadline in your ticket or authorised booking service. No amount or deadline is estimated for this selection." };
@@ -144,7 +145,7 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setLocalResult(null); setProviderResult(null);
-    if (!tool.live) { const calculated = calculate(); if (calculated) { setLocalResult(calculated); trackEvent("calculator_completed", { tool: tool.slug, outcome: calculated.tone }); } return; }
+    if (!tool.live) { const submitted = new FormData(event.currentTarget); const calculated = calculate({ ...form, ...Object.fromEntries(fields.filter(field => field.type !== "checkbox").map(field => [field.name, String(submitted.get(field.name) ?? form[field.name] ?? "")])) }); if (calculated) { setLocalResult(calculated); trackEvent("calculator_completed", { tool: tool.slug, outcome: calculated.tone }); } return; }
     const trainTools = ["live-train-status", "seat-availability", "train-schedule", "train-fare", "coach-position", "platform-number"];
     if (trainTools.includes(tool.slug) && !/^\d{5}$/.test(form.train ?? "")) { error(hi ? "सही 5 अंकों का ट्रेन नंबर डालें" : "Enter a valid 5-digit train number", hi ? "उदाहरण: 12952" : "For example: 12952"); return; }
     if (["trains-between-stations", "seat-availability", "train-fare"].includes(tool.slug) && (!/^[A-Z0-9]{2,6}$/i.test(form.from ?? "") || !/^[A-Z0-9]{2,6}$/i.test(form.to ?? ""))) { error(hi ? "दोनों स्टेशन कोड जाँचें" : "Check both station codes", hi ? "उदाहरण: NDLS से MMCT" : "For example: NDLS to MMCT"); return; }
@@ -169,7 +170,7 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
 
   if (tool.slug === "pnr-alerts") return <section className="tool-engine"><div className="engine-result warning"><span>{hi ? "जल्द आ रहा है" : "Coming soon"}</span><h2>{hi ? "PNR ईमेल अलर्ट अभी शुरू नहीं हैं" : "PNR email alerts are not active yet"}</h2><p>{hi ? "ईमेल सत्यापन और डिलीवरी परीक्षण पूरे होने तक हम PNR या ईमेल अनुरोध नहीं ले रहे हैं। बुकिंग और तत्काल के कैलेंडर रिमाइंडर उपलब्ध हैं।" : "We are not collecting PNR or email requests until email verification and delivery testing are complete. Booking and Tatkal calendar reminders remain available."}</p></div></section>;
 
-  return <section className="tool-engine"><form onSubmit={submit}><div className={`engine-fields fields-${Math.min(fields.length, 3)}`}>{fields.map((field) => <label className={field.type === "checkbox" ? "engine-checkbox" : ""} key={field.name}>{field.type === "checkbox" ? <><input type="checkbox" checked={form[field.name] === "true"} onChange={(event) => setForm({ ...form, [field.name]: String(event.target.checked) })} /><span>{hi ? field.labelHi : field.label}</span></> : <><span>{hi ? field.labelHi : field.label}</span>{["from", "to", "station"].includes(field.name) ? <StationInput name={field.name} hi={hi} value={form[field.name]} onChange={(value) => setForm({ ...form, [field.name]: value })} /> : field.type === "select" ? <select value={form[field.name]} onChange={(event) => setForm({ ...form, [field.name]: event.target.value })}>{field.options?.map(([value, en, hindi]) => <option key={value} value={value}>{hi ? hindi : en}</option>)}</select> : <input type={field.type ?? "text"} min={field.min} max={field.max} step={field.step ?? (field.name === "fare" ? "0.01" : undefined)} value={form[field.name]} onChange={(event) => setForm({ ...form, [field.name]: event.target.value.replace(field.type === "number" && ["train", "pnr", "seat"].includes(field.name) ? /\D/g : /$^/, "") })} placeholder={hi ? field.placeholderHi ?? field.placeholder : field.placeholder} />}</>}</label>)}</div><button className="engine-submit" type="submit" disabled={loading}>{loading ? <><span className="spinner" />{hi ? "जानकारी मिल रही है" : "Getting information"}</> : <>{submitLabel}<Icon name="arrow" size={18} /></>}</button><p className="engine-disclaimer"><Icon name="shield" size={14} />{tool.live ? (hi ? "लाइव डेटा प्रदाता की उपलब्धता पर निर्भर करता है।" : "Live data depends on provider availability.") : (hi ? "यह योजना के लिए सहायक अनुमान है; महत्वपूर्ण नियम सत्यापित करें।" : "This is a planning aid; verify important rules.")}</p></form>
+  return <section className="tool-engine"><form onSubmit={submit}><div className={`engine-fields fields-${Math.min(fields.length, 3)}`}>{fields.map((field) => <label className={field.type === "checkbox" ? "engine-checkbox" : ""} key={field.name}>{field.type === "checkbox" ? <><input type="checkbox" checked={form[field.name] === "true"} onChange={(event) => setForm({ ...form, [field.name]: String(event.target.checked) })} /><span>{hi ? field.labelHi : field.label}</span></> : <><span>{hi ? field.labelHi : field.label}</span>{["from", "to", "station"].includes(field.name) ? <StationInput name={field.name} hi={hi} value={form[field.name]} onChange={(value) => setForm({ ...form, [field.name]: value })} /> : field.type === "select" ? <select name={field.name} value={form[field.name]} onChange={(event) => setForm({ ...form, [field.name]: event.target.value })}>{field.options?.map(([value, en, hindi]) => <option key={value} value={value}>{hi ? hindi : en}</option>)}</select> : <input name={field.name} type={field.type ?? "text"} min={field.min} max={field.max} step={field.step ?? (field.name === "fare" ? "0.01" : undefined)} value={form[field.name]} onChange={(event) => setForm({ ...form, [field.name]: event.target.value.replace(field.type === "number" && ["train", "pnr", "seat"].includes(field.name) ? /\D/g : /$^/, "") })} placeholder={hi ? field.placeholderHi ?? field.placeholder : field.placeholder} />}</>}</label>)}</div><button className="engine-submit" type="submit" disabled={loading}>{loading ? <><span className="spinner" />{hi ? "जानकारी मिल रही है" : "Getting information"}</> : <>{submitLabel}<Icon name="arrow" size={18} /></>}</button><p className="engine-disclaimer"><Icon name="shield" size={14} />{tool.live ? (hi ? "लाइव डेटा प्रदाता की उपलब्धता पर निर्भर करता है।" : "Live data depends on provider availability.") : (hi ? "यह योजना के लिए सहायक अनुमान है; महत्वपूर्ण नियम सत्यापित करें।" : "This is a planning aid; verify important rules.")}</p></form>
 
     {tool.slug === "coach-layout" && <div className="coach-visual"><div className="coach-corridor">{hi ? "गलियारा / Aisle" : "Aisle"}</div><div className={`coach-seat-map map-${form.coach}`}>{Array.from({ length: 24 }, (_, index) => <span className={layoutPattern[index % layoutPattern.length].toLowerCase()} key={index}><b>{index + 1}</b><small>{layoutPattern[index % layoutPattern.length]}</small></span>)}</div><p>{hi ? "यह प्रतिनिधि लेआउट है। वास्तविक रेक संरचना अलग हो सकती है।" : "Representative layout only. The actual rake formation may differ."}</p></div>}
 

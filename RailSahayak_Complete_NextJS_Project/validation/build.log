@@ -1,0 +1,50 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> railsahayak@1.0.0 build
+> next build
+
+▲ Next.js 16.2.6 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.0s
+  Running TypeScript ...
+  Finished TypeScript in 4.1s ...
+  Collecting page data using 8 workers ...
+⚠ Using edge runtime on a page currently disables static generation for that page
+  Generating static pages using 8 workers (0/82) ...
+  Generating static pages using 8 workers (20/82) 
+  Generating static pages using 8 workers (40/82) 
+  Generating static pages using 8 workers (61/82) 
+✓ Generating static pages using 8 workers (82/82) in 182ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /[tool]
+├ ƒ /admin/service-health
+├ ƒ /api/contact
+├ ƒ /api/cron/reminders
+├ ƒ /api/events
+├ ƒ /api/rail
+├ ƒ /api/rail/capabilities
+├ ƒ /api/reminders
+├ ƒ /connecting-trains
+├ ƒ /dashboard
+├ ƒ /guides
+├ ƒ /guides/[topic]
+├ ƒ /hi/[[...path]]
+├ ƒ /pnr-status
+├ ○ /robots.txt
+├ ○ /sitemap.xml
+├ ƒ /station/[stationCode]
+├ ƒ /tools
+├ ƒ /train/[trainNumber]
+└ ƒ /trains/[route]
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
