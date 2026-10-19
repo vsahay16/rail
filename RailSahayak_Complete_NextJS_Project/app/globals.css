@@ -461,3 +461,16 @@ main { overflow: hidden; }
   .passenger-table .passenger-current { padding: 12px 8px; border-radius: 8px; }
   .pnr-result-head h2 { overflow-wrap: anywhere; }
 }
+
+/* Audit fixes: keep tall diagrams from pushing the tool's heading down. */
+.generic-tool-intro, .tool-engine { align-self: start; }
+.generic-tool-intro { padding-top: 12px; }
+.generic-tool-intro h1 { font-size: clamp(32px, 4vw, 48px); line-height: 1.12; letter-spacing: -1.5px; }
+.engine-fields label > span, .engine-disclaimer { font-size: 12px; line-height: 1.5; }
+.engine-fields input, .engine-fields select { font-size: 16px; min-height: 44px; }
+.engine-submit { min-height: 44px; }
+:where(a, button, input, select, summary):focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

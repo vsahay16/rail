@@ -959,11 +959,3 @@ pageGuidance["seat-availability"].sections.push({
   "bodyHi": "पहले सही तारीख, स्टेशन, श्रेणी और कोटा मिलाएँ। परिणाम सही है लेकिन आपके लिए उपयुक्त नहीं है तो दूसरी तारीख या कनेक्टिंग मार्ग की तुलना करें। दो ट्रेनों की यात्रा में किसी भी टिकट का भुगतान करने से पहले दोनों हिस्सों की सीट और किराया जाँचें। प्लेटफॉर्म या स्टेशन बदलने का समय रखें; मार्ग मिलने से सीट आरक्षित या कनेक्शन की गारंटी नहीं होती।"
 });
 pageGuidance["seat-availability"].related = [...new Set([...pageGuidance["seat-availability"].related, "connecting-trains", "trains-between-stations", "connection-buffer-calculator"])];
-
-// Clarify inputs without inventing a universal operational charting time.
-pageGuidance["chart-preparation-calculator"].sections.push({
-  title: "Example: your boarding time may not be the charting departure",
-  titleHi: "उदाहरण: बोर्डिंग समय और चार्टिंग प्रस्थान अलग हो सकते हैं",
-  body: "Suppose a train leaves its origin at 18:00 and reaches your boarding station at 22:30. Those are two different inputs. First establish which charting station applies to your booking, then enter that station’s scheduled departure date and time. Read the calculator’s assumption with its output. Neither the estimate nor a passed countdown proves that your passenger chart is prepared; check the actual chart field in your PNR result.",
-  bodyHi: "मान लें ट्रेन शुरुआती स्टेशन से 18:00 बजे चलती है और आपके बोर्डिंग स्टेशन पर 22:30 बजे पहुँचती है। ये दो अलग इनपुट हैं। पहले पता करें कि आपकी बुकिंग पर कौन-सा चार्टिंग स्टेशन लागू है, फिर उसी स्टेशन की निर्धारित प्रस्थान तारीख और समय डालें। परिणाम के साथ गणना की धारणा पढ़ें। अनुमान या बीता काउंटडाउन चार्ट तैयार होने का प्रमाण नहीं है; अपने PNR परिणाम में वास्तविक चार्ट स्थिति देखें।"
-});

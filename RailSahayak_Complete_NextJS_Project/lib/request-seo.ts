@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import { metadataCopy } from "@/lib/metadata-copy";
-import { headers } from "next/headers";
 import { localizedAlternates } from "@/lib/seo";
 
-export async function requestLanguage(): Promise<"en" | "hi"> {
-  return (await headers()).get("x-railsahayak-language") === "hi" ? "hi" : "en";
-}
-export async function pageMetadata(input: { path: string; title: string; titleHi: string; description: string; descriptionHi: string }): Promise<Metadata> {
-  const hi = await requestLanguage() === "hi";
+export async function pageMetadata(input: { locale: string; path: string; title: string; titleHi: string; description: string; descriptionHi: string }): Promise<Metadata> {
+  const hi = input.locale === "hi";
   const copy = { ...input, ...metadataCopy[input.path] };
   const title = `${hi ? copy.titleHi : copy.title} | RailQ`;
   const description = hi ? copy.descriptionHi : copy.description;
