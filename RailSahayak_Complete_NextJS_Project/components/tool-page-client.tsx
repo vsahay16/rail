@@ -37,7 +37,7 @@ export function ToolPageClient({ config }: { config: ToolConfig }) {
     <TopicPath slug={config.slug} expandable />
     <p className={styles.verification}>{config.live
       ? (hi ? "RailQ स्वतंत्र है। प्रदाता की जानकारी बदल सकती है।" : "RailQ is independent. Provider information can change.")
-      : (hi ? "यह योजना बनाने की सहायता है। लागू नियम और अंतिम जानकारी सत्यापित करें।" : "This is a planning aid. Verify applicable rules and final journey details.")}{" "}<Link href="/official-services">{hi ? "आधिकारिक रेलवे सेवाएँ" : "Official railway services"}</Link></p>
+      : (hi ? "यह योजना बनाने की सहायता है। लागू नियम और अंतिम जानकारी सत्यापित करें।" : "This is a planning aid. Verify applicable rules and final journey details.")}{" "}<a href="https://www.indianrail.gov.in/" target="_blank" rel="noopener noreferrer">{hi ? "आधिकारिक रेलवे पूछताछ" : "Official railway enquiry"}</a>{" · "}<Link href="/official-services">{hi ? "अन्य आधिकारिक सेवाएँ" : "More official services"}</Link></p>
     <PageFeedback page={`/${config.slug}`} hi={hi} />
 
   </main>;
