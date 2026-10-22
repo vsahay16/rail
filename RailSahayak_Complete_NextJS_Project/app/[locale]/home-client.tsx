@@ -29,8 +29,8 @@ type SearchResult = {
 
 const copy = {
   en: {
-    badge: "Independent railway travel utility", titleA: "Every railway answer.", titleB: "One simple journey.",
-    intro: "Check the details that matter before you book, while you wait, and until you arrive—without jumping between five different websites.",
+    badge: "Independent railway travel utility", titleA: "PNR status and train tools.", titleB: "Plan your next step.",
+    intro: "Check each passenger’s ticket status, track your train or compare routes. Use the tools and clear explanations in English or Hindi to plan what to do next.",
     pnr: "PNR status", live: "Live train", between: "Between stations", booking: "Booking date",
     pnrPlaceholder: "Enter 10-digit PNR", trainPlaceholder: "Train number, e.g. 12951",
     fromPlaceholder: "From station code, e.g. NDLS", toPlaceholder: "To station code, e.g. MMCT", journeyDate: "Journey date",
@@ -43,14 +43,14 @@ const copy = {
     pulseTitle: "Live journey pulse", pulseText: "Delay, next halt and arrival changes.", alertTitle: "Only useful alerts", alertText: "Booking and Tatkal calendar reminders. Email alerts are not active.", privacyTitle: "Privacy by design", privacyText: "No raw PNR in analytics or public links.",
     myJourney: "Example journey", tracking: "Demo", onTime: "On time", depart: "Depart", next: "Next", arrive: "Arrive", confirmed: "Confirmed", chartTime: "Chart time", finalTomorrow: "Final · tomorrow", demoNote: "Illustrative example only. Check your PNR or open My journey for your own results.",
     rulesKicker: "Trust before traffic", rulesTitle: "Railway rules, with dates and sources.", readGuidance: "Read verified guidance",
-    indiaKicker: "Designed around Indian travellers", indiaTitleA: "Fast on every phone.", indiaTitleB: "Clear in every language.", indiaText: "English and Hindi come first, with Bengali, Marathi, Tamil and Telugu planned next. The important answer always appears before the explanation or advertisement.",
+    indiaKicker: "Designed around Indian travellers", indiaTitleA: "Made for everyday journeys.", indiaTitleB: "In English and Hindi.", indiaText: "Check your journey details, understand unfamiliar status codes and choose a useful next step. Switch between English and Hindi without changing your task.",
     answerFirst: "Answer first", answerFirstText: "The tool result is always the clearest element on the page.", sourceVisible: "Source visible", sourceVisibleText: "Important rules show the official source and review date.", adsRestraint: "Ads with restraint", adsRestraintText: "Clearly labelled placements that never interrupt a critical action.",
     ctaKicker: "Next journey", ctaTitle: "Know before you go.", ctaText: "Start with a PNR, train number or travel date.", ctaButton: "Check your journey",
     invalidPnr: "Invalid PNR", invalidPnrTitle: "Enter the 10-digit number printed on your ticket.", invalidPnrText: "Spaces and letters are not accepted. We do not save this number in analytics.", invalidTrain: "Check the train number", invalidTrainTitle: "Enter a valid 5-digit train number.", invalidTrainText: "For example, enter 12951 for Mumbai Rajdhani.", stationsNeeded: "Both stations are needed", stationsNeededTitle: "Enter your origin and destination station codes.", stationsNeededText: "Choose station suggestions or enter the exact codes on your ticket.",
   },
   hi: {
-    badge: "स्वतंत्र रेलवे यात्रा सुविधा", titleA: "रेलवे का हर जवाब।", titleB: "एक आसान यात्रा में।",
-    intro: "बुकिंग से पहले, वेटिंग के दौरान और मंज़िल तक—ज़रूरी जानकारी एक ही जगह पाएँ।",
+    badge: "स्वतंत्र रेलवे यात्रा सुविधा", titleA: "PNR स्टेटस और रेल टूल्स।", titleB: "यात्रा का अगला कदम तय करें।",
+    intro: "हर यात्री का टिकट स्टेटस देखें, ट्रेन की स्थिति जाँचें या मार्ग की तुलना करें। हिंदी और अंग्रेज़ी के टूल्स और सरल जानकारी से यात्रा का अगला कदम तय करें।",
     pnr: "PNR स्थिति", live: "लाइव ट्रेन", between: "स्टेशन के बीच", booking: "बुकिंग तारीख",
     pnrPlaceholder: "10 अंकों का PNR डालें", trainPlaceholder: "ट्रेन नंबर, जैसे 12951",
     fromPlaceholder: "स्टेशन कोड, जैसे NDLS", toPlaceholder: "स्टेशन कोड, जैसे MMCT", journeyDate: "यात्रा की तारीख",
@@ -63,10 +63,10 @@ const copy = {
     pulseTitle: "लाइव यात्रा स्थिति", pulseText: "देरी, अगला स्टेशन और आगमन बदलाव।", alertTitle: "केवल जरूरी अलर्ट", alertText: "बुकिंग और तत्काल के कैलेंडर रिमाइंडर। ईमेल अलर्ट अभी शुरू नहीं हैं।", privacyTitle: "गोपनीयता पहले", privacyText: "एनालिटिक्स या सार्वजनिक लिंक में PNR सेव नहीं होता।",
     myJourney: "उदाहरण यात्रा", tracking: "डेमो", onTime: "समय पर", depart: "प्रस्थान", next: "अगला", arrive: "आगमन", confirmed: "कन्फर्म", chartTime: "चार्ट समय", finalTomorrow: "अंतिम · कल", demoNote: "यह केवल एक उदाहरण है। अपनी जानकारी के लिए PNR जाँचें या मेरी यात्रा खोलें।",
     rulesKicker: "ट्रैफिक से पहले भरोसा", rulesTitle: "तारीख और स्रोत के साथ रेलवे नियम।", readGuidance: "सत्यापित जानकारी पढ़ें",
-    indiaKicker: "भारतीय यात्रियों के लिए बनाया गया", indiaTitleA: "हर फोन पर तेज़।", indiaTitleB: "हर भाषा में स्पष्ट।", indiaText: "पहले अंग्रेज़ी और हिंदी, फिर बंगाली, मराठी, तमिल और तेलुगु। जरूरी उत्तर हमेशा विवरण या विज्ञापन से पहले दिखाई देगा।",
+    indiaKicker: "भारतीय यात्रियों के लिए बनाया गया", indiaTitleA: "रोज़मर्रा की यात्रा के लिए।", indiaTitleB: "हिंदी और अंग्रेज़ी में।", indiaText: "यात्रा का विवरण जाँचें, अनजान स्टेटस कोड समझें और अगला उपयोगी कदम चुनें। अपना काम बदले बिना हिंदी और अंग्रेज़ी में जानकारी पढ़ें।",
     answerFirst: "उत्तर पहले", answerFirstText: "टूल का उत्तर हमेशा पेज का सबसे स्पष्ट हिस्सा रहेगा।", sourceVisible: "स्रोत साफ़", sourceVisibleText: "महत्वपूर्ण नियमों के साथ आधिकारिक स्रोत और समीक्षा तारीख दिखाई जाएगी।", adsRestraint: "संतुलित विज्ञापन", adsRestraintText: "साफ़ लेबल वाले विज्ञापन जो जरूरी काम में बाधा नहीं डालते।",
     ctaKicker: "अगली यात्रा", ctaTitle: "जाने से पहले जानें।", ctaText: "PNR, ट्रेन नंबर या यात्रा तारीख से शुरू करें।", ctaButton: "अपनी यात्रा देखें",
-    invalidPnr: "PNR सही नहीं है", invalidPnrTitle: "टिकट पर दिया गया 10 अंकों का PNR डालें।", invalidPnrText: "अक्षर या खाली जगह मान्य नहीं हैं। यह नंबर एनालिटिक्स में सेव नहीं होता।", invalidTrain: "ट्रेन नंबर जाँचें", invalidTrainTitle: "सही 5 अंकों का ट्रेन नंबर डालें।", invalidTrainText: "उदाहरण के लिए मुंबई राजधानी के लिए 12951 डालें।", stationsNeeded: "दोनों स्टेशन जरूरी हैं", stationsNeededTitle: "शुरुआती और मंज़िल स्टेशन का कोड डालें।", stationsNeededText: "लाइव स्टेशन डायरेक्टरी जुड़ने पर नाम से खोज भी उपलब्ध होगी।",
+    invalidPnr: "PNR सही नहीं है", invalidPnrTitle: "टिकट पर दिया गया 10 अंकों का PNR डालें।", invalidPnrText: "अक्षर या खाली जगह मान्य नहीं हैं। यह नंबर एनालिटिक्स में सेव नहीं होता।", invalidTrain: "ट्रेन नंबर जाँचें", invalidTrainTitle: "सही 5 अंकों का ट्रेन नंबर डालें।", invalidTrainText: "उदाहरण के लिए मुंबई राजधानी के लिए 12951 डालें।", stationsNeeded: "दोनों स्टेशन जरूरी हैं", stationsNeededTitle: "शुरुआती और मंज़िल स्टेशन का कोड डालें।", stationsNeededText: "सुझाव से स्टेशन चुनें या टिकट पर दिया सही स्टेशन कोड डालें।",
   },
 };
 
@@ -186,10 +186,10 @@ export default function Home() {
           <div className="status-pill"><span className="live-dot" /> {t.liveConnection}</div>
         </div>
         <section className="search-shell" id="rail-search" aria-label="Railway search tools">
-          <div className="search-tabs" role="tablist" aria-label="Choose a railway tool">
+          <div className="search-tabs" role="tablist" aria-label={language === "hi" ? "रेलवे टूल चुनें" : "Choose a railway tool"}>
             {([["pnr", t.pnr, "ticket"], ["live", t.live, "pulse"], ["between", t.between, "route"], ["booking", t.booking, "calendar"]] as Array<[SearchTab, string, string]>).map(([tab, label, icon]) => <button key={tab} className={activeTab === tab ? "active" : ""} onClick={() => switchTab(tab)} role="tab" aria-selected={activeTab === tab}><Icon name={icon} size={18} /> {label}</button>)}
           </div>
-          {activeTab === "pnr" && <div style={{padding:"12px 0"}}><strong>{language === "hi" ? "PNR स्थिति और कन्फर्म होने की अनुमानित संभावना देखें" : "Check PNR status and estimated confirmation chances"}</strong><p style={{fontSize:14,lineHeight:1.6,margin:"6px 0"}}>{language === "hi" ? "पहले हर यात्री की नवीनतम स्थिति देखें। WL/RAC परिणाम मिलने पर ‘कन्फर्म होने की संभावना देखें’ चुनें। अनुमान हर बुकिंग के लिए उपलब्ध नहीं होता और गारंटी नहीं है।" : "See each passenger’s latest status first. For WL/RAC results, select ‘Check confirmation chance’. Estimates may not be available for every booking and are not guaranteed."}</p></div>}
+          {activeTab === "pnr" && <p className="home-pnr-hint">{language === "hi" ? "टिकट का 10 अंकों का PNR डालें। समर्थित बुकिंग पर परिणाम के बाद वैकल्पिक कन्फर्मेशन अनुमान माँग सकते हैं।" : "Enter the 10-digit PNR from your ticket. An optional confirmation estimate can be requested after supported results."}</p>}
           <form className="search-form" onSubmit={handleSubmit}>
             {activeTab === "pnr" && <label className="single-field"><span>PNR</span><input inputMode="numeric" autoComplete="off" maxLength={10} value={form.pnr} onChange={(e) => setForm({ ...form, pnr: e.target.value.replace(/\D/g, "") })} placeholder={t.pnrPlaceholder} aria-label={t.pnrPlaceholder} /></label>}
             {activeTab === "live" && <><label><span>{t.train}</span><input inputMode="numeric" maxLength={5} value={form.train} onChange={(e) => setForm({ ...form, train: e.target.value.replace(/\D/g, "") })} placeholder={t.trainPlaceholder} aria-label={t.trainPlaceholder} /></label><label><span>{t.journeyDate}</span><input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} aria-label={t.journeyDate} /></label></>}
