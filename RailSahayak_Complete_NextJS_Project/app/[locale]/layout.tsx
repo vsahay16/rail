@@ -1,3 +1,4 @@
+import localFont from "next/font/local";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LanguageProvider } from "@/components/language-provider";
@@ -9,6 +10,9 @@ import { siteUrl } from "@/lib/seo";
 import "../globals.css";
 import "../service-quality.css";
 import "../audit-fixes.css";
+import "../readability.css";
+
+const devanagari = localFont({ src: "../fonts/NotoSansDevanagari.woff", weight: "100 900", variable: "--font-devanagari", display: "swap", preload: false, fallback: ["Nirmala UI", "Mangal", "sans-serif"] });
 
 const siteTitle = "RailQ — Indian Railway Tools";
 const siteDescription = "PNR status, live train tracking, booking dates, Tatkal timing, refunds and trusted Indian railway journey tools in one simple place.";
@@ -21,7 +25,7 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   openGraph: {
     type: "website", title: siteTitle, description: siteDescription,
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "RailQ — Every railway answer. One simple journey." }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "RailQ — Indian Railway Tools" }],
   },
   twitter: { card: "summary_large_image", title: siteTitle, description: siteDescription, images: ["/og.jpg"] },
 };
@@ -37,7 +41,7 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
   const initialLanguage = locale;
   return (
     <html lang={initialLanguage === "hi" ? "hi-IN" : "en-IN"}>
-      <body>
+      <body className={`${devanagari.variable} ${initialLanguage === "hi" ? devanagari.className : ""}`}>
         <StructuredData data={{
           "@context": "https://schema.org",
           "@graph": [

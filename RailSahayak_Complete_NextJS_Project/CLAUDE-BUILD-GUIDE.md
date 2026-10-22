@@ -1,4 +1,4 @@
-# Instructions for maintaining RailSahayak with Claude
+# Instructions for maintaining RailQ with Claude
 
 Use this document with the supplied codebase whenever you ask Claude to refine a page or connect another provider. The full route system, tools, dashboard, guides, policies, Hindi URLs, APIs and database schema already exist; extend them instead of recreating them.
 
@@ -13,11 +13,11 @@ Use this document with the supplied codebase whenever you ask Claude to refine a
 - Never send a PNR, passenger name, email address or phone number to analytics.
 - Never expose a railway API key in a client component.
 - Every rule or time-sensitive claim needs a source link and visible review date.
-- Show that RailSahayak is independent and not affiliated with Indian Railways or IRCTC.
+- Show that RailQ is independent and not affiliated with Indian Railways or IRCTC.
 
 ## Reusable prompt
 
-> Build the next RailSahayak page at `[ROUTE]` using the existing Next.js codebase. Reuse the global header, footer, language provider, icons, analytics and ad component. Match the homepage visual system exactly. Implement the complete user flow in English and Hindi, including input, validation, loading, empty, success and error states. Put the primary answer above explanatory content and ads. Use a server-side route for external APIs and never expose secrets. Do not modify global components unless the page genuinely requires a reusable improvement. Add page-specific metadata and structured data where valid. Make it responsive and accessible. Update navigation links only if this page introduces a new permanent section.
+> Build the next RailQ page at `[ROUTE]` using the existing Next.js codebase. Reuse the global header, footer, language provider, icons, analytics and ad component. Match the homepage visual system exactly. Implement the complete user flow in English and Hindi, including input, validation, loading, empty, success and error states. Put the primary answer above explanatory content and ads. Use a server-side route for external APIs and never expose secrets. Do not modify global components unless the page genuinely requires a reusable improvement. Add page-specific metadata and structured data where valid. Make it responsive and accessible. Update navigation links only if this page introduces a new permanent section.
 
 For API work, also say:
 

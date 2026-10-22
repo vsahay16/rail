@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<title id="title">RailQ — Indian Railway Tools</title><desc id="desc">RailQ brand card with a simple train symbol and the website railq.in.</desc>
+<rect width="1200" height="630" fill="#10243d"/><circle cx="1100" cy="70" r="280" fill="#123c48"/>
+<path d="M0 580H1200" stroke="#ff7528" stroke-width="10"/><path d="M0 602H1200" stroke="#0e8379" stroke-width="4"/>
+<g transform="translate(80 95)"><rect width="114" height="138" rx="32" fill="#faf5e9"/><rect x="19" y="21" width="76" height="48" rx="9" fill="#10243d"/><circle cx="32" cy="95" r="9" fill="#ff7528"/><circle cx="82" cy="95" r="9" fill="#ff7528"/><path d="M35 128L18 151M79 128L96 151" stroke="#faf5e9" stroke-width="9"/></g>
+<text x="230" y="218" fill="#faf5e9" font-family="Arial,sans-serif" font-size="134" font-weight="700">Rail<tspan fill="#ff7528">Q</tspan></text>
+<text x="80" y="340" fill="#faf5e9" font-family="Arial,sans-serif" font-size="59" font-weight="600">Indian Railway Tools</text>
+<text x="83" y="409" fill="#c3d4dd" font-family="Arial,sans-serif" font-size="28">Independent travel tools · English and Hindi</text>
+<text x="83" y="512" fill="#ff965a" font-family="Arial,sans-serif" font-size="30">railq.in</text>
+</svg>

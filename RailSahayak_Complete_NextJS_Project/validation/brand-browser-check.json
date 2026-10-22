@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "Main search precedes comparison at 390px and 1440px, English and Hindi",
+    "Query prefill, explicit successful search and error input retention in both languages",
+    "Main form present without JavaScript; no initial loading-only placeholder",
+    "About/blog/guide hubs: mobile and desktop layouts, both languages, no old brand",
+    "Unavailable PNR alerts remain labelled and collect no subscriptions",
+    "No client runtime errors"
+  ],
+  "note": "Local production build, synthetic search fixtures; Hindi QA font loaded for inspection only. No live provider requests or messages sent."
+}

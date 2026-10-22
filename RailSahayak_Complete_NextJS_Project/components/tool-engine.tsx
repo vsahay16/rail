@@ -2,8 +2,8 @@
 import { NextUsefulStep } from "@/components/next-useful-step";
 import { rememberTrain } from "@/lib/local-journeys";
 
-import { FormEvent, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { FormEvent, Suspense, useCallback, useState } from "react";
+import { ToolQueryPrefill } from "./tool-query-prefill";
 import { StationInput } from "@/components/station-input";
 import { ResultHelp } from "@/components/result-help";
 import { Icon } from "@/components/icon";
@@ -54,15 +54,15 @@ const decoder: Record<string, [string, string, string, string]> = {
   CNF: ["Confirmed", "कन्फर्म", "Accommodation is confirmed; allocation details may appear later.", "सीट कन्फर्म है; आवंटन विवरण बाद में दिखाई दे सकता है।"], RAC: ["Reservation Against Cancellation", "रद्दीकरण के विरुद्ध आरक्षण", "Travel is generally permitted with shared accommodation until a berth opens.", "आम तौर पर साझा सीट के साथ यात्रा की अनुमति होती है, पूरी बर्थ बाद में मिल सकती है।"], GNWL: ["General Waiting List", "सामान्य प्रतीक्षा सूची", "A common waitlist category under the general quota.", "सामान्य कोटा की आम प्रतीक्षा सूची।"], RLWL: ["Remote Location Waiting List", "रिमोट लोकेशन प्रतीक्षा सूची", "Waitlist linked to selected intermediate-station quotas.", "चुनिंदा बीच के स्टेशन कोटा से जुड़ी प्रतीक्षा सूची।"], PQWL: ["Pooled Quota Waiting List", "पूल्ड कोटा प्रतीक्षा सूची", "Waitlist under a quota shared by selected stations.", "चुनिंदा स्टेशनों के साझा कोटा की प्रतीक्षा सूची।"], TQWL: ["Tatkal Waiting List", "तत्काल प्रतीक्षा सूची", "Waiting status under the Tatkal quota.", "तत्काल कोटा की प्रतीक्षा स्थिति।"], WL: ["Waiting List", "प्रतीक्षा सूची", "Not confirmed yet; check the final chart and official status.", "अभी कन्फर्म नहीं; अंतिम चार्ट और आधिकारिक स्थिति देखें।"], CAN: ["Cancelled", "रद्द", "The booking or passenger entry has been cancelled.", "बुकिंग या यात्री प्रविष्टि रद्द हो चुकी है।"],
 };
 
+const emptyFields: Field[] = [];
 function initialForm(fields: Field[]) { return Object.fromEntries(fields.map((field) => [field.name, field.type === "checkbox" ? "false" : field.options?.[0]?.[0] ?? ""])); }
 function money(value: number) { return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 2 }).format(Math.max(0, value)); }
 export function ToolEngine({ tool }: { tool: ToolConfig }) {
   const { language } = useLanguage(); const hi = language === "hi";
-  const fields = fieldMap[tool.slug] ?? [];
-  const query = useSearchParams();
-  const [form, setForm] = useState<Record<string, string>>(() => {
-    const defaults = initialForm(fields);
-    const prefill: Record<string, string> = {};
+  const fields = fieldMap[tool.slug] ?? emptyFields;
+  const [form, setForm] = useState<Record<string, string>>(() => initialForm(fields));
+  const applyPrefill = useCallback((query: URLSearchParams) => {
+    const defaults = initialForm(fields), prefill: Record<string, string> = {};
     const train = query.get("train");
     if (train && /^\d{5}$/.test(train)) prefill.train = train;
     for (const name of ["from", "to"]) {
@@ -71,8 +71,9 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
     }
     const date = query.get("date");
     if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) prefill.date = date;
-    return { ...defaults, ...Object.fromEntries(Object.entries(prefill).filter(([key]) => key in defaults)) };
-  });
+    const allowed = Object.fromEntries(Object.entries(prefill).filter(([key]) => key in defaults));
+    if (Object.keys(allowed).length) setForm(current => ({ ...current, ...allowed }));
+  }, [fields]);
   const [loading, setLoading] = useState(false);
   const [localResult, setLocalResult] = useState<LocalResult | null>(null);
   const [providerResult, setProviderResult] = useState<Record<string, unknown> | null>(null);
@@ -164,14 +165,14 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
   }
 
   function downloadCalendar() {
-    if (!localResult?.calendarIso) return; const date = new Date(localResult.calendarIso); const stamp = date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); const end = new Date(date.valueOf() + 30 * 60000).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); const ics = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//RailQ//Journey Reminder//EN\r\nBEGIN:VEVENT\r\nUID:${crypto.randomUUID()}@railsahayak\r\nDTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "")}\r\nDTSTART:${stamp}\r\nDTEND:${end}\r\nSUMMARY:${tool.title}\r\nDESCRIPTION:Verify the final opening time through official railway channels.\r\nEND:VEVENT\r\nEND:VCALENDAR`; const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" })); const anchor = document.createElement("a"); anchor.href = url; anchor.download = "railsahayak-reminder.ics"; anchor.click(); URL.revokeObjectURL(url); trackEvent("calendar_reminder_downloaded", { tool: tool.slug });
+    if (!localResult?.calendarIso) return; const date = new Date(localResult.calendarIso); const stamp = date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); const end = new Date(date.valueOf() + 30 * 60000).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); const ics = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//RailQ//Journey Reminder//EN\r\nBEGIN:VEVENT\r\nUID:${crypto.randomUUID()}@railq.in\r\nDTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "")}\r\nDTSTART:${stamp}\r\nDTEND:${end}\r\nSUMMARY:${tool.title}\r\nDESCRIPTION:Verify the final opening time through official railway channels.\r\nEND:VEVENT\r\nEND:VCALENDAR`; const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" })); const anchor = document.createElement("a"); anchor.href = url; anchor.download = "railq-reminder.ics"; anchor.click(); URL.revokeObjectURL(url); trackEvent("calendar_reminder_downloaded", { tool: tool.slug });
   }
 
   const layoutPattern = form.coach === "2A" ? ["LB", "UB", "LB", "UB", "SL", "SU"] : form.coach === "CC" || form.coach === "2S" ? ["W", "M", "A", "A", "M", "W"] : form.coach === "1A" ? ["Cabin", "Cabin", "Coupe", "Coupe"] : ["LB", "MB", "UB", "LB", "MB", "UB", "SL", "SU"];
 
   if (tool.slug === "pnr-alerts") return <section className="tool-engine"><div className="engine-result warning"><span>{hi ? "जल्द आ रहा है" : "Coming soon"}</span><h2>{hi ? "PNR ईमेल अलर्ट अभी शुरू नहीं हैं" : "PNR email alerts are not active yet"}</h2><p>{hi ? "ईमेल सत्यापन और डिलीवरी परीक्षण पूरे होने तक हम PNR या ईमेल अनुरोध नहीं ले रहे हैं। बुकिंग और तत्काल के कैलेंडर रिमाइंडर उपलब्ध हैं।" : "We are not collecting PNR or email requests until email verification and delivery testing are complete. Booking and Tatkal calendar reminders remain available."}</p></div></section>;
 
-  return <section className="tool-engine"><form id="rail-search" onSubmit={submit}><div className={`engine-fields fields-${Math.min(fields.length, 3)}`}>{fields.map((field) => <label className={field.type === "checkbox" ? "engine-checkbox" : ""} key={field.name}>{field.type === "checkbox" ? <><input type="checkbox" checked={form[field.name] === "true"} onChange={(event) => setForm({ ...form, [field.name]: String(event.target.checked) })} /><span>{hi ? field.labelHi : field.label}</span></> : <><span>{hi ? field.labelHi : field.label}</span>{["from", "to", "station"].includes(field.name) ? <StationInput name={field.name} hi={hi} value={form[field.name]} onChange={(value) => setForm({ ...form, [field.name]: value })} /> : field.type === "select" ? <select name={field.name} value={form[field.name]} onChange={(event) => setForm({ ...form, [field.name]: event.target.value })}>{field.options?.map(([value, en, hindi]) => <option key={value} value={value}>{hi ? hindi : en}</option>)}</select> : <input name={field.name} type={field.type ?? "text"} min={field.min} max={field.max} step={field.step ?? (field.name === "fare" ? "0.01" : undefined)} value={form[field.name]} onChange={(event) => setForm({ ...form, [field.name]: event.target.value.replace(field.type === "number" && ["train", "pnr", "seat"].includes(field.name) ? /\D/g : /$^/, "") })} placeholder={hi ? field.placeholderHi ?? field.placeholder : field.placeholder} />}</>}</label>)}</div><button className="engine-submit" type="submit" disabled={loading}>{loading ? <><span className="spinner" />{hi ? "जानकारी मिल रही है" : "Getting information"}</> : <>{submitLabel}<Icon name="arrow" size={18} /></>}</button><p className="engine-disclaimer"><Icon name="shield" size={14} />{tool.live ? (hi ? "लाइव डेटा प्रदाता की उपलब्धता पर निर्भर करता है।" : "Live data depends on provider availability.") : (hi ? "यह योजना के लिए सहायक अनुमान है; महत्वपूर्ण नियम सत्यापित करें।" : "This is a planning aid; verify important rules.")}</p></form>
+  return <section className="tool-engine"><Suspense fallback={null}><ToolQueryPrefill onPrefill={applyPrefill} /></Suspense>{tool.slug === "trains-between-stations" && <h2>{hi ? "पहले स्टेशन के बीच ट्रेनें खोजें" : "Start with a station-to-station search"}</h2>}<form id="rail-search" onSubmit={submit}><div className={`engine-fields fields-${Math.min(fields.length, 3)}`}>{fields.map((field) => <label className={field.type === "checkbox" ? "engine-checkbox" : ""} key={field.name}>{field.type === "checkbox" ? <><input type="checkbox" checked={form[field.name] === "true"} onChange={(event) => setForm({ ...form, [field.name]: String(event.target.checked) })} /><span>{hi ? field.labelHi : field.label}</span></> : <><span>{hi ? field.labelHi : field.label}</span>{["from", "to", "station"].includes(field.name) ? <StationInput name={field.name} hi={hi} value={form[field.name]} onChange={(value) => setForm({ ...form, [field.name]: value })} /> : field.type === "select" ? <select name={field.name} value={form[field.name]} onChange={(event) => setForm({ ...form, [field.name]: event.target.value })}>{field.options?.map(([value, en, hindi]) => <option key={value} value={value}>{hi ? hindi : en}</option>)}</select> : <input name={field.name} type={field.type ?? "text"} min={field.min} max={field.max} step={field.step ?? (field.name === "fare" ? "0.01" : undefined)} value={form[field.name]} onChange={(event) => setForm({ ...form, [field.name]: event.target.value.replace(field.type === "number" && ["train", "pnr", "seat"].includes(field.name) ? /\D/g : /$^/, "") })} placeholder={hi ? field.placeholderHi ?? field.placeholder : field.placeholder} />}</>}</label>)}</div><button className="engine-submit" type="submit" disabled={loading}>{loading ? <><span className="spinner" />{hi ? "जानकारी मिल रही है" : "Getting information"}</> : <>{submitLabel}<Icon name="arrow" size={18} /></>}</button><p className="engine-disclaimer"><Icon name="shield" size={14} />{tool.live ? (hi ? "लाइव डेटा प्रदाता की उपलब्धता पर निर्भर करता है।" : "Live data depends on provider availability.") : (hi ? "यह योजना के लिए सहायक अनुमान है; महत्वपूर्ण नियम सत्यापित करें।" : "This is a planning aid; verify important rules.")}</p></form>
 
     {tool.slug === "coach-layout" && <div className="coach-visual"><div className="coach-corridor">{hi ? "गलियारा / Aisle" : "Aisle"}</div><div className={`coach-seat-map map-${form.coach}`}>{Array.from({ length: 24 }, (_, index) => <span className={layoutPattern[index % layoutPattern.length].toLowerCase()} key={index}><b>{index + 1}</b><small>{layoutPattern[index % layoutPattern.length]}</small></span>)}</div><p>{hi ? "यह प्रतिनिधि लेआउट है। वास्तविक रेक संरचना अलग हो सकती है।" : "Representative layout only. The actual rake formation may differ."}</p></div>}
 

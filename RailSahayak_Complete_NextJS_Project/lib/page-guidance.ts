@@ -1,5 +1,5 @@
 /** Page-specific editorial help. Examples are illustrative, never live railway records. */
-export type HelpSection = { title: string; titleHi: string; body: string; bodyHi: string };
+export type HelpSection = { title: string; titleHi: string; body: string; bodyHi: string; links?: {href:string;label:string;labelHi:string}[] };
 export type PageGuidance = { related: string[]; sources: string[]; sections: HelpSection[] };
 export const pageGuidance: Record<string, PageGuidance> = {
   "live-train-status": {
@@ -967,3 +967,6 @@ pageGuidance["chart-preparation-calculator"].sections.push({
   body: "Suppose a train leaves its origin at 18:00 and reaches your boarding station at 22:30. Those are two different inputs. First establish which charting station applies to your booking, then enter that station’s scheduled departure date and time. Read the calculator’s assumption with its output. Neither the estimate nor a passed countdown proves that your passenger chart is prepared; check the actual chart field in your PNR result.",
   bodyHi: "मान लें ट्रेन शुरुआती स्टेशन से 18:00 बजे चलती है और आपके बोर्डिंग स्टेशन पर 22:30 बजे पहुँचती है। ये दो अलग इनपुट हैं। पहले पता करें कि आपकी बुकिंग पर कौन-सा चार्टिंग स्टेशन लागू है, फिर उसी स्टेशन की निर्धारित प्रस्थान तारीख और समय डालें। परिणाम के साथ गणना की धारणा पढ़ें। अनुमान या बीता काउंटडाउन चार्ट तैयार होने का प्रमाण नहीं है; अपने PNR परिणाम में वास्तविक चार्ट स्थिति देखें।"
 });
+
+pageGuidance["pnr-status"].sections[0].links = [{href:"/guides/can-you-travel-with-rac-ticket",label:"RAC in your result? Understand seating and travel checks",labelHi:"परिणाम में RAC है? बैठने की व्यवस्था और यात्रा की जाँच समझें"}];
+pageGuidance["status-code-decoder"].sections[0].links = [{href:"/waitlist-guide",label:"Compare the waiting-list categories behind the code",labelHi:"कोड से जुड़ी प्रतीक्षा सूची की श्रेणियाँ समझें"}];

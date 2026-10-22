@@ -1,0 +1,71 @@
+/* Shared reading and interaction scale. Loaded after legacy page styles. */
+body { font-size: 16px; line-height: 1.6; }
+button, input, select, textarea { font-family: inherit; }
+input, select, textarea { font-size: 16px; }
+p, li { line-height: 1.7; }
+button, summary, .header-cta, .language-switch, .demo-action { min-height: 44px; }
+:focus-visible { outline: 3px solid #086b63; outline-offset: 4px; }
+.site-footer :focus-visible { outline-color: #96e4d4; }
+.desktop-nav { font-size: 14px; gap: 16px; }
+.site-header { gap: 16px; }
+.brand { min-width: 155px; }
+.brand small { font-size: 12px; letter-spacing: .01em; }
+.brand.inverse small { color: #ffb485; }
+.brand-mark { flex-shrink: 0; }
+.search-tabs { flex-wrap: wrap; }
+.search-tabs button { font-size: 14px; min-height: 48px; white-space: normal; }
+.engine-fields > *, .search-fields > *, .hero-copy, .pnr-hero-copy { min-width: 0; }
+.demo-action { display: inline-flex; align-items: center; color: var(--teal); font-weight: 700; text-decoration: underline; padding: 8px 0; }
+.status-pill { max-width: calc(100% - 32px); white-space: normal; text-decoration: underline; }
+.hero h1, .pnr-hero-copy h1 { letter-spacing: -.035em; line-height: 1.12; }
+html[lang="hi-IN"] body :is(h1,h2,h3,h4,p,a,button,label,span,small,b,strong,em) { letter-spacing: normal; }
+html[lang="hi-IN"] :is(h1,h2,h3,h4) { line-height: 1.4; }
+html[lang="hi-IN"] :is(p,li,label,button,input,select) { line-height: 1.75; }
+html[lang="hi-IN"] .hero h1 em, html[lang="hi-IN"] .pnr-hero-copy h1 em { font-family: inherit; font-style: normal; }
+.footer-bottom, .footer-description, .footer-columns a { font-size: 14px; }
+@media (max-width: 1100px) {
+  .desktop-nav, .header-cta { display: none; }
+  .menu-button { display: grid; place-items: center; min-width: 44px; }
+  .mobile-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; background: var(--paper); max-height: calc(100dvh - 76px); overflow-y: auto; }
+  .mobile-tools, .mobile-main-links { display: grid; gap: 8px; }
+  .mobile-nav a { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 16px; padding: 8px; }
+  .mobile-tools > span { font-size: 14px; font-weight: 700; }
+}
+@media (max-width: 760px) {
+  .hero { min-height: auto; }
+  .hero h1, .pnr-hero-copy h1 { font-size: clamp(32px, 8.5vw, 48px); }
+  .hero-copy > p, .pnr-hero-copy > p, .content-section p { font-size: 16px; }
+  .search-tabs { display: grid; grid-template-columns: 1fr 1fr; }
+  .search-tabs button { justify-content: flex-start; padding: 12px; }
+  .engine-fields, .train-comparison-fields { grid-template-columns: 1fr; }
+  .route-card { gap: 10px; padding: 14px; }
+  .route-card b { font-size: 14px; }
+  .station-row { gap: 12px; flex-wrap: wrap; }
+  .dash-cards { grid-template-columns: 1fr; }
+  .rail-result-head { flex-wrap: wrap; }
+  .cookie-actions { flex-wrap: wrap; }
+}
+@media (max-width: 480px) {
+  .site-header { width: calc(100% - 24px); gap: 8px; }
+  .brand { min-width: 0; gap: 7px; }
+  .mobile-nav { grid-template-columns: 1fr; padding: 16px; }
+  .hero, .pnr-hero { padding-left: 16px; padding-right: 16px; }
+  .hero-copy, .pnr-hero-copy { padding-left: 0; padding-right: 0; }
+  .tool-engine, .pnr-tool-card, .journey-dashboard { padding: 16px; }
+  .search-tabs button { font-size: 14px; padding: 10px 8px; gap: 6px; }
+  .train-title { flex-wrap: wrap; }
+  .train-title > div { min-width: 0; }
+  .route-line { min-width: 20px; }
+}
+html[lang="hi-IN"] :is(h1,h2,h3,h4,em,.update-grid article > b,.principle-number) { font-family: inherit; }
+.footer-links > div { min-width: 0; }
+.footer-links a { overflow-wrap: anywhere; }
+.footer-bottom, .footer-links a { color: #aebfce; }
+@media (max-width: 480px) {
+  .site-footer { padding-left: 20px; padding-right: 20px; }
+  .footer-links { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 28px 18px; }
+  .footer-alert { padding: 20px; }
+  .footer-alert a { width: auto; max-width: 100%; height: auto; padding: 10px 14px; }
+}
+/* Render Hindi labels on English pages even on devices without a Devanagari font. */
+[lang="hi"], .consent-banner { font-family: var(--font-devanagari), Arial, sans-serif; }

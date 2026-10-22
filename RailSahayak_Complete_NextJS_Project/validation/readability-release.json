@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "baseline": "375ade0",
+  "build": "passed",
+  "lint": "passed",
+  "pages": 148,
+  "internal_destinations": 155,
+  "page_level_schema": "148/148 (arrays and @graph parsed)",
+  "layouts": 48,
+  "widths": [
+    360,
+    390,
+    768,
+    1440
+  ],
+  "languages": [
+    "en",
+    "hi"
+  ],
+  "public_cache": "148 pages passed",
+  "navigation": "Outside-click close, Escape and focus return, all six mobile tools in EN/HI, search-tab arrow keys",
+  "published": false,
+  "limitations": [
+    "Local Chromium emulation, not physical devices or full WCAG certification.",
+    "No production Core Web Vitals or Lighthouse result claimed.",
+    "No real provider searches or contact delivery tested in this release."
+  ]
+}

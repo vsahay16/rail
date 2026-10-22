@@ -1,0 +1,11 @@
+PASS Monitor authentication before storage access
+PASS Personal-data fields, URL queries, cross-origin and oversized feedback rejected
+PASS Synthetic PNR/journey requests, metric totals, preserved quota and no PNR storage
+PASS Feedback rate limit enforced
+PASS Analytics rejects raw/nested PNR values and strips URL queries
+PASS Bilingual coach chooser and mobile width
+PASS Guide tables, self-canonicals and mobile widths in both languages
+PASS Video deferred until play with bilingual tracks
+PASS Feedback browser flow
+PASS Chart result contextual links
+PASS No client runtime errors

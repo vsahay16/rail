@@ -1,7 +1,7 @@
 .station-picker { display:block; position:relative; min-width:0; }
-.station-picker > small { display:block; color:#52677b; font-size:.76rem; padding-top:5px; }
+.station-picker > small { display:block; color:#52677b; font-size:0.875rem; padding-top:5px; }
 .station-options { position:absolute; z-index:40; left:0; right:0; top:48px; background:white; border:1px solid #c8d6df; border-radius:10px; box-shadow:0 8px 25px #10243d20; max-height:280px; overflow:auto; }
-.station-options > span { display:block; padding:10px 12px; cursor:pointer; font-size:.9rem; color:#10243d; }
+.station-options > span { display:block; padding:10px 12px; cursor:pointer; font-size:0.9rem; color:#10243d; }
 .station-options > span:hover,.station-options > span[aria-selected=true] { background:#edf7f5; }
 .station-options small { display:block; color:#52677b; }
 .saved-places,.result-help { padding:22px; margin:20px 0; border:1px solid #dfe5e7; background:#f5faf9; border-radius:14px; }
@@ -34,7 +34,7 @@
 .guide-contents ol { columns:2; column-gap:32px; }
 .guide-contents li { break-inside:avoid; margin-bottom:8px; }
 .guide-article section[id] { scroll-margin-top:100px; }
-.journey-help-note { font-size:.9rem; margin-top:24px!important; }
+.journey-help-note { font-size:0.9rem; margin-top:24px!important; }
 @media(max-width:700px) { .journey-help,.guide-contents { margin:28px 16px; padding:20px; } .journey-help-sections { grid-template-columns:1fr; gap:12px; } .guide-contents ol { columns:1; } }
 
 /* Isolate autocomplete from generic form-label typography. */
@@ -43,11 +43,11 @@ label:has(> .station-picker):focus-within { position: relative; z-index: 20; }
 .station-picker, .station-picker span { font-size: 14px; font-weight: 400; line-height: 1.4; letter-spacing: normal; text-transform: none; color: #10243d; margin: 0; }
 .station-picker { position: relative; width: 100%; display: block; }
 .station-picker > input { display: block; width: 100%; min-width: 0; min-height: 30px; font-size: 16px !important; font-weight: 400; letter-spacing: normal; }
-.station-picker > .station-hint { display: block; font-size: 12px; font-weight: 400; line-height: 1.4; text-transform: none; letter-spacing: normal; color: #52677b; padding: 5px 0 0; white-space: normal; }
+.station-picker > .station-hint { display: block; font-size: 14px; font-weight: 400; line-height: 1.4; text-transform: none; letter-spacing: normal; color: #52677b; padding: 5px 0 0; white-space: normal; }
 .station-picker .station-dropdown { position: absolute; top: calc(100% + 8px); left: 0; right: 0; display: block; z-index: 50; background: #fff; border: 1px solid #c8d6df; border-radius: 12px; box-shadow: 0 12px 28px #10243d26; overflow: hidden; }
 .station-picker .station-options { position: static; display: block; max-height: 280px; overflow-y: auto; overscroll-behavior: contain; border: 0; border-radius: 0; box-shadow: none; }
 .station-picker .station-options > span { display: flex; align-items: flex-start; gap: 10px; min-height: 48px; padding: 12px; cursor: pointer; border-bottom: 1px solid #edf1f3; }
-.station-picker .station-options b { flex: 0 0 52px; font-size: 13px; font-weight: 700; color: #08796e; }
+.station-picker .station-options b { flex: 0 0 52px; font-size: 14px; font-weight: 700; color: #08796e; }
 .station-picker .station-option-name { display: block; min-width: 0; overflow-wrap: anywhere; }
-.station-picker .station-options small { display: block; font-size: 11px; line-height: 1.4; color: #52677b; margin-top: 3px; }
-.station-picker .station-search-note { display: block; padding: 9px 12px; background: #f4f7f8; font-size: 11px; color: #52677b; }
+.station-picker .station-options small { display: block; font-size: 14px; line-height: 1.4; color: #52677b; margin-top: 3px; }
+.station-picker .station-search-note { display: block; padding: 9px 12px; background: #f4f7f8; font-size: 14px; color: #52677b; }

@@ -5,22 +5,30 @@
     {
       "path": "/",
       "status": 200,
-      "title": "PNR Status, Confirmation Chances & Train Tools | RailQ",
+      "title": "PNR Status, Live Trains & Railway Tools | RailQ",
       "h1": 1,
       "canonical": "https://railq.in",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage"
+      ]
     },
     {
       "path": "/hi",
       "status": 200,
-      "title": "PNR स्थिति, कन्फर्मेशन संभावना और रेल टूल्स | RailQ",
+      "title": "PNR स्टेटस, लाइव ट्रेन और रेल टूल्स | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/hi",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage"
+      ]
     },
     {
       "path": "/connecting-trains",
@@ -30,7 +38,11 @@
       "canonical": "https://railq.in/connecting-trains",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication"
+      ]
     },
     {
       "path": "/hi/connecting-trains",
@@ -40,7 +52,11 @@
       "canonical": "https://railq.in/hi/connecting-trains",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication"
+      ]
     },
     {
       "path": "/tools",
@@ -50,7 +66,11 @@
       "canonical": "https://railq.in/tools",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "CollectionPage"
+      ]
     },
     {
       "path": "/hi/tools",
@@ -60,7 +80,11 @@
       "canonical": "https://railq.in/hi/tools",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "CollectionPage"
+      ]
     },
     {
       "path": "/dashboard",
@@ -70,7 +94,11 @@
       "canonical": "https://railq.in/dashboard",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage"
+      ]
     },
     {
       "path": "/hi/dashboard",
@@ -80,182 +108,68 @@
       "canonical": "https://railq.in/hi/dashboard",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage"
+      ]
     },
     {
       "path": "/guides",
       "status": 200,
-      "title": "Indian Railway Travel Guides | RailQ",
+      "title": "Railway Travel Guides: Booking, Tickets & Stations | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/guides",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "CollectionPage"
+      ]
     },
     {
       "path": "/hi/guides",
       "status": 200,
-      "title": "भारतीय रेल यात्रा गाइड | RailQ",
+      "title": "रेल यात्रा गाइड: बुकिंग, टिकट और स्टेशन | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/hi/guides",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "CollectionPage"
+      ]
     },
     {
       "path": "/pnr-status",
       "status": 200,
-      "title": "PNR Status Check: Train Ticket Status & Chances | RailQ",
+      "title": "PNR Status Check Online | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/pnr-status",
       "lang": "en-IN",
       "missing_alt": 0,
       "schemas": [
-        {
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "Organization",
-              "@id": "https://railq.in/#organization",
-              "name": "RailQ",
-              "url": "https://railq.in",
-              "logo": "https://railq.in/favicon.svg"
-            },
-            {
-              "@type": "WebSite",
-              "@id": "https://railq.in/#website",
-              "url": "https://railq.in",
-              "name": "RailQ",
-              "inLanguage": [
-                "en-IN",
-                "hi-IN"
-              ],
-              "publisher": {
-                "@id": "https://railq.in/#organization"
-              }
-            }
-          ]
-        },
-        [
-          {
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "@id": "https://railq.in/pnr-status#application",
-            "name": "PNR Status Check",
-            "url": "https://railq.in/pnr-status",
-            "applicationCategory": "TravelApplication",
-            "operatingSystem": "Any",
-            "browserRequirements": "Requires JavaScript",
-            "inLanguage": "en-IN",
-            "description": "Check each passenger’s current ticket status, coach and berth information.",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "INR"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "RailQ",
-              "url": "https://railq.in/"
-            }
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://railq.in/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "PNR Status Check",
-                "item": "https://railq.in/pnr-status"
-              }
-            ]
-          }
-        ]
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
       ]
     },
     {
       "path": "/hi/pnr-status",
       "status": 200,
-      "title": "पीएनआर स्टेटस चेक: टिकट और बर्थ की जानकारी | RailQ",
+      "title": "PNR स्थिति ऑनलाइन देखें | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/hi/pnr-status",
       "lang": "hi-IN",
       "missing_alt": 0,
       "schemas": [
-        {
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "Organization",
-              "@id": "https://railq.in/#organization",
-              "name": "RailQ",
-              "url": "https://railq.in",
-              "logo": "https://railq.in/favicon.svg"
-            },
-            {
-              "@type": "WebSite",
-              "@id": "https://railq.in/#website",
-              "url": "https://railq.in",
-              "name": "RailQ",
-              "inLanguage": [
-                "en-IN",
-                "hi-IN"
-              ],
-              "publisher": {
-                "@id": "https://railq.in/#organization"
-              }
-            }
-          ]
-        },
-        [
-          {
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "@id": "https://railq.in/hi/pnr-status#application",
-            "name": "पीएनआर स्टेटस चेक",
-            "url": "https://railq.in/hi/pnr-status",
-            "applicationCategory": "TravelApplication",
-            "operatingSystem": "Any",
-            "browserRequirements": "Requires JavaScript",
-            "inLanguage": "hi-IN",
-            "description": "हर यात्री की वर्तमान स्थिति, कोच और बर्थ की जानकारी देखें।",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "INR"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "RailQ",
-              "url": "https://railq.in/"
-            }
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "होम",
-                "item": "https://railq.in/hi"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "पीएनआर स्टेटस चेक",
-                "item": "https://railq.in/hi/pnr-status"
-              }
-            ]
-          }
-        ]
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
       ]
     },
     {
@@ -266,7 +180,12 @@
       "canonical": "https://railq.in/live-train-status",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/live-train-status",
@@ -276,7 +195,12 @@
       "canonical": "https://railq.in/hi/live-train-status",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/trains-between-stations",
@@ -286,7 +210,12 @@
       "canonical": "https://railq.in/trains-between-stations",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/trains-between-stations",
@@ -296,7 +225,12 @@
       "canonical": "https://railq.in/hi/trains-between-stations",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/seat-availability",
@@ -306,7 +240,12 @@
       "canonical": "https://railq.in/seat-availability",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/seat-availability",
@@ -316,7 +255,12 @@
       "canonical": "https://railq.in/hi/seat-availability",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/train-schedule",
@@ -326,7 +270,12 @@
       "canonical": "https://railq.in/train-schedule",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/train-schedule",
@@ -336,7 +285,12 @@
       "canonical": "https://railq.in/hi/train-schedule",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/train-fare",
@@ -346,7 +300,12 @@
       "canonical": "https://railq.in/train-fare",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/train-fare",
@@ -356,7 +315,12 @@
       "canonical": "https://railq.in/hi/train-fare",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/station-arrivals-departures",
@@ -366,7 +330,12 @@
       "canonical": "https://railq.in/station-arrivals-departures",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/station-arrivals-departures",
@@ -376,7 +345,12 @@
       "canonical": "https://railq.in/hi/station-arrivals-departures",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/coach-position",
@@ -386,7 +360,12 @@
       "canonical": "https://railq.in/coach-position",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/coach-position",
@@ -396,7 +375,12 @@
       "canonical": "https://railq.in/hi/coach-position",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/platform-number",
@@ -406,7 +390,12 @@
       "canonical": "https://railq.in/platform-number",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/platform-number",
@@ -416,7 +405,12 @@
       "canonical": "https://railq.in/hi/platform-number",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/pnr-alerts",
@@ -426,7 +420,12 @@
       "canonical": "https://railq.in/pnr-alerts",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/pnr-alerts",
@@ -436,7 +435,12 @@
       "canonical": "https://railq.in/hi/pnr-alerts",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/booking-date-calculator",
@@ -446,7 +450,12 @@
       "canonical": "https://railq.in/booking-date-calculator",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/booking-date-calculator",
@@ -456,7 +465,12 @@
       "canonical": "https://railq.in/hi/booking-date-calculator",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/tatkal-time-calculator",
@@ -466,7 +480,12 @@
       "canonical": "https://railq.in/tatkal-time-calculator",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/tatkal-time-calculator",
@@ -476,7 +495,12 @@
       "canonical": "https://railq.in/hi/tatkal-time-calculator",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/chart-preparation-calculator",
@@ -486,7 +510,12 @@
       "canonical": "https://railq.in/chart-preparation-calculator",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/chart-preparation-calculator",
@@ -496,7 +525,12 @@
       "canonical": "https://railq.in/hi/chart-preparation-calculator",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/booking-reminders",
@@ -506,7 +540,12 @@
       "canonical": "https://railq.in/booking-reminders",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/booking-reminders",
@@ -516,7 +555,12 @@
       "canonical": "https://railq.in/hi/booking-reminders",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/cancellation-deadline-calculator",
@@ -526,7 +570,12 @@
       "canonical": "https://railq.in/cancellation-deadline-calculator",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/cancellation-deadline-calculator",
@@ -536,7 +585,12 @@
       "canonical": "https://railq.in/hi/cancellation-deadline-calculator",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/refund-calculator",
@@ -546,7 +600,12 @@
       "canonical": "https://railq.in/refund-calculator",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/refund-calculator",
@@ -556,7 +615,12 @@
       "canonical": "https://railq.in/hi/refund-calculator",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/seat-berth-finder",
@@ -566,7 +630,12 @@
       "canonical": "https://railq.in/seat-berth-finder",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/seat-berth-finder",
@@ -576,7 +645,12 @@
       "canonical": "https://railq.in/hi/seat-berth-finder",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/coach-layout",
@@ -586,7 +660,12 @@
       "canonical": "https://railq.in/coach-layout",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/coach-layout",
@@ -596,7 +675,12 @@
       "canonical": "https://railq.in/hi/coach-layout",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/status-code-decoder",
@@ -606,7 +690,12 @@
       "canonical": "https://railq.in/status-code-decoder",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/status-code-decoder",
@@ -616,7 +705,12 @@
       "canonical": "https://railq.in/hi/status-code-decoder",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/waitlist-guide",
@@ -626,7 +720,12 @@
       "canonical": "https://railq.in/waitlist-guide",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/waitlist-guide",
@@ -636,7 +735,12 @@
       "canonical": "https://railq.in/hi/waitlist-guide",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/vikalp-eligibility",
@@ -646,7 +750,12 @@
       "canonical": "https://railq.in/vikalp-eligibility",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/vikalp-eligibility",
@@ -656,7 +765,12 @@
       "canonical": "https://railq.in/hi/vikalp-eligibility",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/connection-buffer-calculator",
@@ -666,7 +780,12 @@
       "canonical": "https://railq.in/connection-buffer-calculator",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/connection-buffer-calculator",
@@ -676,7 +795,12 @@
       "canonical": "https://railq.in/hi/connection-buffer-calculator",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/luggage-allowance",
@@ -686,7 +810,12 @@
       "canonical": "https://railq.in/luggage-allowance",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/luggage-allowance",
@@ -696,7 +825,12 @@
       "canonical": "https://railq.in/hi/luggage-allowance",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebApplication",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/when-to-order-food-in-train",
@@ -706,7 +840,13 @@
       "canonical": "https://railq.in/guides/when-to-order-food-in-train",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/when-to-order-food-in-train",
@@ -716,7 +856,13 @@
       "canonical": "https://railq.in/hi/guides/when-to-order-food-in-train",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/useful-apps-indian-train-travel",
@@ -726,7 +872,13 @@
       "canonical": "https://railq.in/guides/useful-apps-indian-train-travel",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/useful-apps-indian-train-travel",
@@ -736,7 +888,13 @@
       "canonical": "https://railq.in/hi/guides/useful-apps-indian-train-travel",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/train-food-delivery-apps-compared",
@@ -746,7 +904,13 @@
       "canonical": "https://railq.in/guides/train-food-delivery-apps-compared",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/train-food-delivery-apps-compared",
@@ -756,7 +920,13 @@
       "canonical": "https://railq.in/hi/guides/train-food-delivery-apps-compared",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/train-food-ordering-checklist",
@@ -766,7 +936,13 @@
       "canonical": "https://railq.in/guides/train-food-ordering-checklist",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/train-food-ordering-checklist",
@@ -776,7 +952,13 @@
       "canonical": "https://railq.in/hi/guides/train-food-ordering-checklist",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/hotel-near-railway-station-checklist",
@@ -786,7 +968,13 @@
       "canonical": "https://railq.in/guides/hotel-near-railway-station-checklist",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/hotel-near-railway-station-checklist",
@@ -796,7 +984,13 @@
       "canonical": "https://railq.in/hi/guides/hotel-near-railway-station-checklist",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/overnight-train-journey-checklist",
@@ -806,7 +1000,13 @@
       "canonical": "https://railq.in/guides/overnight-train-journey-checklist",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/overnight-train-journey-checklist",
@@ -816,7 +1016,13 @@
       "canonical": "https://railq.in/hi/guides/overnight-train-journey-checklist",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/train-food-discounts-final-price",
@@ -826,7 +1032,13 @@
       "canonical": "https://railq.in/guides/train-food-discounts-final-price",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/train-food-discounts-final-price",
@@ -836,7 +1048,13 @@
       "canonical": "https://railq.in/hi/guides/train-food-discounts-final-price",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "Article",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/pnr-status-explained",
@@ -846,7 +1064,12 @@
       "canonical": "https://railq.in/guides/pnr-status-explained",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/pnr-status-explained",
@@ -856,7 +1079,12 @@
       "canonical": "https://railq.in/hi/guides/pnr-status-explained",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/booking-and-advance-reservation",
@@ -866,7 +1094,12 @@
       "canonical": "https://railq.in/guides/booking-and-advance-reservation",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/booking-and-advance-reservation",
@@ -876,7 +1109,12 @@
       "canonical": "https://railq.in/hi/guides/booking-and-advance-reservation",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/tatkal",
@@ -886,7 +1124,12 @@
       "canonical": "https://railq.in/guides/tatkal",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/tatkal",
@@ -896,7 +1139,12 @@
       "canonical": "https://railq.in/hi/guides/tatkal",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/cancellation-and-refunds",
@@ -906,7 +1154,12 @@
       "canonical": "https://railq.in/guides/cancellation-and-refunds",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/cancellation-and-refunds",
@@ -916,7 +1169,12 @@
       "canonical": "https://railq.in/hi/guides/cancellation-and-refunds",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/pnr-and-waiting-lists",
@@ -926,7 +1184,12 @@
       "canonical": "https://railq.in/guides/pnr-and-waiting-lists",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/pnr-and-waiting-lists",
@@ -936,7 +1199,12 @@
       "canonical": "https://railq.in/hi/guides/pnr-and-waiting-lists",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/train-classes-and-coaches",
@@ -946,7 +1214,12 @@
       "canonical": "https://railq.in/guides/train-classes-and-coaches",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/train-classes-and-coaches",
@@ -956,7 +1229,12 @@
       "canonical": "https://railq.in/hi/guides/train-classes-and-coaches",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/chart-preparation",
@@ -966,7 +1244,12 @@
       "canonical": "https://railq.in/guides/chart-preparation",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/chart-preparation",
@@ -976,7 +1259,12 @@
       "canonical": "https://railq.in/hi/guides/chart-preparation",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/vikalp-and-alternate-routes",
@@ -986,7 +1274,12 @@
       "canonical": "https://railq.in/guides/vikalp-and-alternate-routes",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/vikalp-and-alternate-routes",
@@ -996,7 +1289,12 @@
       "canonical": "https://railq.in/hi/guides/vikalp-and-alternate-routes",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/family-and-senior-citizen-travel",
@@ -1006,7 +1304,12 @@
       "canonical": "https://railq.in/guides/family-and-senior-citizen-travel",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/family-and-senior-citizen-travel",
@@ -1016,7 +1319,12 @@
       "canonical": "https://railq.in/hi/guides/family-and-senior-citizen-travel",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/station-and-onboard-travel",
@@ -1026,7 +1334,12 @@
       "canonical": "https://railq.in/guides/station-and-onboard-travel",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/station-and-onboard-travel",
@@ -1036,7 +1349,12 @@
       "canonical": "https://railq.in/hi/guides/station-and-onboard-travel",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/festival-travel-planning",
@@ -1046,7 +1364,12 @@
       "canonical": "https://railq.in/guides/festival-travel-planning",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/festival-travel-planning",
@@ -1056,7 +1379,12 @@
       "canonical": "https://railq.in/hi/guides/festival-travel-planning",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/can-you-travel-with-rac-ticket",
@@ -1066,7 +1394,12 @@
       "canonical": "https://railq.in/guides/can-you-travel-with-rac-ticket",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/can-you-travel-with-rac-ticket",
@@ -1076,7 +1409,12 @@
       "canonical": "https://railq.in/hi/guides/can-you-travel-with-rac-ticket",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/irctc-money-debited-ticket-not-booked",
@@ -1086,7 +1424,12 @@
       "canonical": "https://railq.in/guides/irctc-money-debited-ticket-not-booked",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/irctc-money-debited-ticket-not-booked",
@@ -1096,7 +1439,12 @@
       "canonical": "https://railq.in/hi/guides/irctc-money-debited-ticket-not-booked",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/patna-junction-rajendra-nagar-danapur-stations",
@@ -1106,7 +1454,12 @@
       "canonical": "https://railq.in/guides/patna-junction-rajendra-nagar-danapur-stations",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/patna-junction-rajendra-nagar-danapur-stations",
@@ -1116,7 +1469,12 @@
       "canonical": "https://railq.in/hi/guides/patna-junction-rajendra-nagar-danapur-stations",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/waitlisted-ticket-after-chart-preparation",
@@ -1126,7 +1484,12 @@
       "canonical": "https://railq.in/guides/waitlisted-ticket-after-chart-preparation",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/waitlisted-ticket-after-chart-preparation",
@@ -1136,27 +1499,42 @@
       "canonical": "https://railq.in/hi/guides/waitlisted-ticket-after-chart-preparation",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/gnwl-rlwl-pqwl-tqwl-difference",
       "status": 200,
-      "title": "GNWL, RLWL, PQWL and TQWL Explained | RailQ",
+      "title": "GNWL vs RLWL vs PQWL vs TQWL: Meanings & Examples | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/guides/gnwl-rlwl-pqwl-tqwl-difference",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/gnwl-rlwl-pqwl-tqwl-difference",
       "status": 200,
-      "title": "GNWL, RLWL, PQWL और TQWL का अर्थ | RailQ",
+      "title": "GNWL, RLWL, PQWL और TQWL: अंतर और उदाहरण | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/hi/guides/gnwl-rlwl-pqwl-tqwl-difference",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/change-boarding-station-irctc",
@@ -1166,7 +1544,12 @@
       "canonical": "https://railq.in/guides/change-boarding-station-irctc",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/change-boarding-station-irctc",
@@ -1176,7 +1559,12 @@
       "canonical": "https://railq.in/hi/guides/change-boarding-station-irctc",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/current-booking-after-chart",
@@ -1186,7 +1574,12 @@
       "canonical": "https://railq.in/guides/current-booking-after-chart",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/current-booking-after-chart",
@@ -1196,7 +1589,12 @@
       "canonical": "https://railq.in/hi/guides/current-booking-after-chart",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/3e-vs-3a-train-class",
@@ -1206,7 +1604,12 @@
       "canonical": "https://railq.in/guides/3e-vs-3a-train-class",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/3e-vs-3a-train-class",
@@ -1216,7 +1619,12 @@
       "canonical": "https://railq.in/hi/guides/3e-vs-3a-train-class",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/train-cancelled-delayed-refund",
@@ -1226,7 +1634,12 @@
       "canonical": "https://railq.in/guides/train-cancelled-delayed-refund",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/train-cancelled-delayed-refund",
@@ -1236,7 +1649,12 @@
       "canonical": "https://railq.in/hi/guides/train-cancelled-delayed-refund",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/partially-confirmed-family-ticket",
@@ -1246,7 +1664,12 @@
       "canonical": "https://railq.in/guides/partially-confirmed-family-ticket",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/partially-confirmed-family-ticket",
@@ -1256,7 +1679,12 @@
       "canonical": "https://railq.in/hi/guides/partially-confirmed-family-ticket",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/missed-train-what-to-do",
@@ -1266,7 +1694,12 @@
       "canonical": "https://railq.in/guides/missed-train-what-to-do",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/missed-train-what-to-do",
@@ -1276,27 +1709,42 @@
       "canonical": "https://railq.in/hi/guides/missed-train-what-to-do",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/new-delhi-station-ajmeri-gate-paharganj",
       "status": 200,
-      "title": "New Delhi Station: Ajmeri Gate or Paharganj? | RailQ",
+      "title": "New Delhi Railway Station: Ajmeri Gate or Paharganj? | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/guides/new-delhi-station-ajmeri-gate-paharganj",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/new-delhi-station-ajmeri-gate-paharganj",
       "status": 200,
-      "title": "नई दिल्ली स्टेशन: अजमेरी गेट या पहाड़गंज? | RailQ",
+      "title": "नई दिल्ली रेलवे स्टेशन: अजमेरी गेट या पहाड़गंज? | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/hi/guides/new-delhi-station-ajmeri-gate-paharganj",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/delhi-railway-stations-codes",
@@ -1306,7 +1754,12 @@
       "canonical": "https://railq.in/guides/delhi-railway-stations-codes",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/delhi-railway-stations-codes",
@@ -1316,7 +1769,12 @@
       "canonical": "https://railq.in/hi/guides/delhi-railway-stations-codes",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/mumbai-railway-terminals-codes",
@@ -1326,7 +1784,12 @@
       "canonical": "https://railq.in/guides/mumbai-railway-terminals-codes",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/mumbai-railway-terminals-codes",
@@ -1336,7 +1799,12 @@
       "canonical": "https://railq.in/hi/guides/mumbai-railway-terminals-codes",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/howrah-vs-sealdah-stations",
@@ -1346,7 +1814,12 @@
       "canonical": "https://railq.in/guides/howrah-vs-sealdah-stations",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/howrah-vs-sealdah-stations",
@@ -1356,7 +1829,12 @@
       "canonical": "https://railq.in/hi/guides/howrah-vs-sealdah-stations",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/guides/pnr-confirmation-probability",
@@ -1366,7 +1844,12 @@
       "canonical": "https://railq.in/guides/pnr-confirmation-probability",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/guides/pnr-confirmation-probability",
@@ -1376,27 +1859,42 @@
       "canonical": "https://railq.in/hi/guides/pnr-confirmation-probability",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/about",
       "status": 200,
-      "title": "About Our Independent Railway Tools | RailQ",
+      "title": "About RailQ: Independent Railway Tools | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/about",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/about",
       "status": 200,
-      "title": "हमारे बारे में: स्वतंत्र रेल टूल्स | RailQ",
+      "title": "RailQ के बारे में: स्वतंत्र रेल यात्रा टूल्स | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/hi/about",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/contact",
@@ -1406,7 +1904,12 @@
       "canonical": "https://railq.in/contact",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/contact",
@@ -1416,7 +1919,12 @@
       "canonical": "https://railq.in/hi/contact",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/methodology",
@@ -1426,7 +1934,12 @@
       "canonical": "https://railq.in/methodology",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/methodology",
@@ -1436,7 +1949,12 @@
       "canonical": "https://railq.in/hi/methodology",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/corrections",
@@ -1446,7 +1964,12 @@
       "canonical": "https://railq.in/corrections",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/corrections",
@@ -1456,7 +1979,12 @@
       "canonical": "https://railq.in/hi/corrections",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/privacy",
@@ -1466,7 +1994,12 @@
       "canonical": "https://railq.in/privacy",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/privacy",
@@ -1476,7 +2009,12 @@
       "canonical": "https://railq.in/hi/privacy",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/terms",
@@ -1486,7 +2024,12 @@
       "canonical": "https://railq.in/terms",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/terms",
@@ -1496,7 +2039,12 @@
       "canonical": "https://railq.in/hi/terms",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/disclaimer",
@@ -1506,7 +2054,12 @@
       "canonical": "https://railq.in/disclaimer",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/disclaimer",
@@ -1516,7 +2069,12 @@
       "canonical": "https://railq.in/hi/disclaimer",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/advertise",
@@ -1526,7 +2084,12 @@
       "canonical": "https://railq.in/advertise",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/advertise",
@@ -1536,7 +2099,12 @@
       "canonical": "https://railq.in/hi/advertise",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/alerts",
@@ -1546,7 +2114,12 @@
       "canonical": "https://railq.in/alerts",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/alerts",
@@ -1556,7 +2129,12 @@
       "canonical": "https://railq.in/hi/alerts",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/railway-updates",
@@ -1566,7 +2144,12 @@
       "canonical": "https://railq.in/railway-updates",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/railway-updates",
@@ -1576,27 +2159,42 @@
       "canonical": "https://railq.in/hi/railway-updates",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/blog",
       "status": 200,
-      "title": "Railway Travel Articles & Guides | RailQ",
+      "title": "RailQ Blog: Reading for Your Next Train Journey | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/blog",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/blog",
       "status": 200,
-      "title": "रेल यात्रा लेख और गाइड | RailQ",
+      "title": "RailQ ब्लॉग: अगली रेल यात्रा की तैयारी | RailQ",
       "h1": 1,
       "canonical": "https://railq.in/hi/blog",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/official-services",
@@ -1606,7 +2204,12 @@
       "canonical": "https://railq.in/official-services",
       "lang": "en-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     },
     {
       "path": "/hi/official-services",
@@ -1616,7 +2219,13 @@
       "canonical": "https://railq.in/hi/official-services",
       "lang": "hi-IN",
       "missing_alt": 0,
-      "schemas": []
+      "schemas": [
+        "Organization",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ]
     }
-  ]
+  ],
+  "schemaAuditNote": "Corrected using JSON-LD arrays and @graph expansion from the current local production build. Earlier empty schema lists were a parser limitation. Full current metadata evidence: readability-pages.json."
 }

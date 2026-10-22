@@ -1,0 +1,32 @@
+[
+  {
+    "label": "Orange text on cream",
+    "foreground": "#b5420c",
+    "background": "#f6f1e7",
+    "ratio": 4.98
+  },
+  {
+    "label": "White on primary button",
+    "foreground": "#ffffff",
+    "background": "#b5420c",
+    "ratio": 5.6
+  },
+  {
+    "label": "Muted on cream",
+    "foreground": "#526477",
+    "background": "#f6f1e7",
+    "ratio": 5.41
+  },
+  {
+    "label": "Teal on cream",
+    "foreground": "#086b63",
+    "background": "#f6f1e7",
+    "ratio": 5.66
+  },
+  {
+    "label": "Footer links",
+    "foreground": "#aebfce",
+    "background": "#0d2035",
+    "ratio": 8.74
+  }
+]

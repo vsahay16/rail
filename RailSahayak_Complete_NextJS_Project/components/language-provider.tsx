@@ -21,7 +21,7 @@ export function LanguageProvider({ children, initialLanguage = "en" }: { childre
 
   function setLanguage(next: Language) {
     setLanguageState(next);
-    try { window.localStorage.setItem("railsahayak_language", next); } catch {}
+    try { window.localStorage.setItem("railq_language", next); } catch {}
     document.documentElement.lang = next === "hi" ? "hi-IN" : "en-IN";
   }
 

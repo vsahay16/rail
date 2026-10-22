@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "baseline": "ac56a6a",
+  "build": "passed",
+  "lint": "passed",
+  "public_pages": 148,
+  "internal_destinations": 155,
+  "public_cache": "148 pages passed; locale, metadata, redirects, query isolation, API privacy, RSC",
+  "browser": {
+    "passed": true,
+    "checks": [
+      "Main search precedes comparison at 390px and 1440px, English and Hindi",
+      "Query prefill, explicit successful search and error input retention in both languages",
+      "Main form present without JavaScript; no initial loading-only placeholder",
+      "About/blog/guide hubs: mobile and desktop layouts, both languages, no old brand",
+      "Unavailable PNR alerts remain labelled and collect no subscriptions",
+      "No client runtime errors"
+    ],
+    "note": "Local production build, synthetic search fixtures; Hindi QA font loaded for inspection only. No live provider requests or messages sent."
+  },
+  "visual_review": "Mobile Hindi search and blog, desktop English search, and social card inspected; logo line break corrected.",
+  "limitations": [
+    "Verified legal operator identity/contact information not supplied; existing contact page retained.",
+    "Search responses used synthetic fixtures; live provider service and contact delivery not tested.",
+    "Local verification only; not published."
+  ]
+}

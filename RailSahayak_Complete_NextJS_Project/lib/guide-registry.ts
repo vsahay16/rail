@@ -95,3 +95,9 @@ for (const guide of guides) {
 for (const guide of guides) { const copy=releaseGuideCopy[guide.slug as keyof typeof releaseGuideCopy]; if(copy) {Object.assign(guide,copy);guide.updated="2026-10-22";} }
 export function getGuide(slug: string) { return guides.find((guide) => guide.slug === slug); }
 
+
+const bookingGuide = guides.find(guide => guide.slug === "booking-and-advance-reservation")!;
+const bookingSection = bookingGuide.sections.find(section => /ticket|payment/i.test(section.title)) ?? bookingGuide.sections[bookingGuide.sections.length - 1];
+if (!bookingGuide.sections.some(section => section.links?.some(link => link.href === "/guides/irctc-money-debited-ticket-not-booked"))) {
+ bookingSection.links = [...(bookingSection.links ?? []), {href:"/guides/irctc-money-debited-ticket-not-booked",label:"Payment taken but no ticket? Check before paying again",labelHi:"पैसे कटे पर टिकट नहीं मिला? दोबारा भुगतान से पहले जाँचें"}];
+}

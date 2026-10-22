@@ -8,7 +8,7 @@
   letter-spacing: -1.5px;
 }
 .tool-engine .engine-fields label > span,
-.tool-engine .engine-disclaimer { font-size: 12px; line-height: 1.5; }
+.tool-engine .engine-disclaimer { font-size: 14px; line-height: 1.5; }
 .tool-engine .engine-fields input,
 .tool-engine .engine-fields select { font-size: 16px; min-height: 44px; }
 .tool-engine .engine-submit { min-height: 44px; }
@@ -24,3 +24,11 @@
     transition-duration: .01ms !important;
   }
 }
+
+/* The primary route search remains ahead of optional comparisons at every size. */
+.route-search-hero { grid-template-columns: 1fr; gap: 20px; }
+.route-search-hero .generic-tool-intro { padding: 0; max-width: 900px; }
+.route-search-hero .tool-engine { width: 100%; }
+.route-search-hero .tool-engine > h2 { margin: 0 0 14px; font-size: 1.25rem; }
+.hub-tool-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 24px; }
+.hub-tool-links a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; line-height: 1.5; }

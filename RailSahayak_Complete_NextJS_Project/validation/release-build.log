@@ -1,0 +1,72 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> railsahayak@1.0.0 build
+> next build
+
+▲ Next.js 16.2.6 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.4s
+  Running TypeScript ...
+  Finished TypeScript in 4.3s ...
+  Collecting page data using 8 workers ...
+⚠ Using edge runtime on a page currently disables static generation for that page
+  Generating static pages using 8 workers (0/160) ...
+  Generating static pages using 8 workers (40/160) 
+  Generating static pages using 8 workers (80/160) 
+  Generating static pages using 8 workers (120/160) 
+✓ Generating static pages using 8 workers (160/160) in 680ms
+  Finalizing page optimization ...
+
+Route (app)                                       Revalidate  Expire
+┌ ○ /_not-found
+├ ● /[locale]                                             1h      1y
+│ ├ /en                                                   1h      1y
+│ └ /hi                                                   1h      1y
+├ ● /[locale]/[tool]                                      1h      1y
+│ ├ /en/live-train-status                                 1h      1y
+│ ├ /en/trains-between-stations                           1h      1y
+│ ├ /en/seat-availability                                 1h      1y
+│ └ [+65 more paths]
+├ ƒ /[locale]/admin/service-health
+├ ● /[locale]/connecting-trains                           1h      1y
+│ ├ /en/connecting-trains                                 1h      1y
+│ └ /hi/connecting-trains                                 1h      1y
+├ ● /[locale]/dashboard                                   1h      1y
+│ ├ /en/dashboard                                         1h      1y
+│ └ /hi/dashboard                                         1h      1y
+├ ● /[locale]/guides                                      1h      1y
+│ ├ /en/guides                                            1h      1y
+│ └ /hi/guides                                            1h      1y
+├ ● /[locale]/guides/[topic]                              1h      1y
+│ ├ /en/guides/when-to-order-food-in-train                1h      1y
+│ ├ /en/guides/useful-apps-indian-train-travel            1h      1y
+│ ├ /en/guides/train-food-delivery-apps-compared          1h      1y
+│ └ [+65 more paths]
+├ ● /[locale]/pnr-status                                  1h      1y
+│ ├ /en/pnr-status                                        1h      1y
+│ └ /hi/pnr-status                                        1h      1y
+├ ƒ /[locale]/station/[stationCode]
+├ ● /[locale]/tools                                       1h      1y
+│ ├ /en/tools                                             1h      1y
+│ └ /hi/tools                                             1h      1y
+├ ƒ /[locale]/train/[trainNumber]
+├ ƒ /[locale]/trains/[route]
+├ ƒ /api/admin/service-health
+├ ƒ /api/contact
+├ ƒ /api/cron/reminders
+├ ƒ /api/events
+├ ƒ /api/feedback
+├ ƒ /api/journey-plan
+├ ƒ /api/rail
+├ ƒ /api/rail/capabilities
+├ ƒ /api/reminders
+├ ƒ /api/tool-report
+├ ○ /robots.txt
+└ ○ /sitemap.xml
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

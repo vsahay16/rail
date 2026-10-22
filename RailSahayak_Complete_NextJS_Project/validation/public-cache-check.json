@@ -27,7 +27,7 @@
       "status": 200,
       "cache": "s-maxage=3600, stale-while-revalidate=31532400",
       "locale": "en-IN",
-      "title": "About Our Independent Railway Tools | RailQ"
+      "title": "About RailQ: Independent Railway Tools | RailQ"
     },
     {
       "path": "/advertise",
@@ -48,7 +48,7 @@
       "status": 200,
       "cache": "s-maxage=3600, stale-while-revalidate=31532400",
       "locale": "en-IN",
-      "title": "Railway Travel Articles &amp; Guides | RailQ"
+      "title": "RailQ Blog: Reading for Your Next Train Journey | RailQ"
     },
     {
       "path": "/booking-date-calculator",
@@ -139,7 +139,7 @@
       "status": 200,
       "cache": "s-maxage=3600, stale-while-revalidate=31532400",
       "locale": "en-IN",
-      "title": "Indian Railway Travel Guides | RailQ"
+      "title": "Railway Travel Guides: Booking, Tickets &amp; Stations | RailQ"
     },
     {
       "path": "/guides/3e-vs-3a-train-class",
@@ -391,7 +391,7 @@
       "status": 200,
       "cache": "s-maxage=3600, stale-while-revalidate=31532400",
       "locale": "hi-IN",
-      "title": "हमारे बारे में: स्वतंत्र रेल टूल्स | RailQ"
+      "title": "RailQ के बारे में: स्वतंत्र रेल यात्रा टूल्स | RailQ"
     },
     {
       "path": "/hi/advertise",
@@ -412,7 +412,7 @@
       "status": 200,
       "cache": "s-maxage=3600, stale-while-revalidate=31532400",
       "locale": "hi-IN",
-      "title": "रेल यात्रा लेख और गाइड | RailQ"
+      "title": "RailQ ब्लॉग: अगली रेल यात्रा की तैयारी | RailQ"
     },
     {
       "path": "/hi/booking-date-calculator",
@@ -503,7 +503,7 @@
       "status": 200,
       "cache": "s-maxage=3600, stale-while-revalidate=31532400",
       "locale": "hi-IN",
-      "title": "भारतीय रेल यात्रा गाइड | RailQ"
+      "title": "रेल यात्रा गाइड: बुकिंग, टिकट और स्टेशन | RailQ"
     },
     {
       "path": "/hi/guides/3e-vs-3a-train-class",

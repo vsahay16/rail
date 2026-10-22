@@ -1,4 +1,4 @@
-# RailSahayak
+# RailQ
 
 A complete bilingual Indian railway utility built with Next.js 16, React 19, TypeScript and plain CSS. It is a standalone project for Vercel, with Supabase for data. It does not depend on ChatGPT or Claude at runtime.
 
@@ -11,7 +11,7 @@ A complete bilingual Indian railway utility built with Next.js 16, React 19, Typ
 - Ten bilingual guide clusters
 - Privacy, terms, disclaimer, methodology, corrections, contact and advertising pages
 - Secure server-side railway API proxy; the provider key never reaches the browser
-- Encrypted PNR reminder storage, scheduled rechecks and optional email delivery
+- Reminder infrastructure in the source; public PNR alerts remain unavailable until the service is enabled and verified
 - Consent-gated GA4, Supabase product analytics and AdSense placements
 - Responsive ad inventory, sitemap, robots, Open Graph metadata and mobile-first layouts
 
@@ -151,7 +151,7 @@ Add:
 REMINDER_ENCRYPTION_KEY=base64_32_byte_key
 CRON_SECRET=random_cron_secret
 RESEND_API_KEY=your_resend_key
-REMINDER_FROM_EMAIL=RailSahayak Alerts <alerts@your-domain.in>
+REMINDER_FROM_EMAIL=RailQ Alerts <alerts@your-domain.in>
 ```
 
 `vercel.json` uses a once-daily reminder schedule so the initial project can deploy on Vercel Hobby. The route decrypts PNRs only in server memory, rechecks due records, fingerprints the response and sends a privacy-safe email only after a later status change. For more frequent checks, use a Vercel plan that supports them or configure an approved external scheduler, then verify the sender domain in Resend.
@@ -166,7 +166,7 @@ NEXT_PUBLIC_ADSENSE_SQUARE_SLOT=0000000002
 NEXT_PUBLIC_ADSENSE_BOTTOM_SLOT=0000000003
 ```
 
-Until valid AdSense values are added, the reserved inventory displays useful first-party house promotions for RailSahayak tools and a clearly labelled founding-partner invitation. It never pretends that a paid ad is running. GA4, Supabase analytics and AdSense activate only after the visitor allows them. Full PNRs, emails, names and passenger details are blocked from analytics on both client and server.
+Until valid AdSense values are added, ad slots remain hidden without an empty placeholder. Existing contextual tool links provide useful next steps; no paid advertisement is simulated. GA4, Supabase analytics and AdSense activate only after the visitor allows them. Full PNRs, emails, names and passenger details are blocked from analytics on both client and server.
 
 For AdSense approval, replace placeholder business details with the real legal entity and domain, verify `ads.txt` as instructed by AdSense, and complete the consent configuration required for the countries served.
 
@@ -188,5 +188,5 @@ For AdSense approval, replace placeholder business details with the real legal e
 - Keep PNR and live responses out of CDN caches and logs.
 - Review booking, Tatkal, charting, refund and luggage rules against current official sources.
 - Test keyboard navigation, Hindi text, mobile forms, slow networks and provider outages.
-- Do not describe RailSahayak as affiliated with Indian Railways or IRCTC.
+- Do not describe RailQ as affiliated with Indian Railways or IRCTC.
 - Replace estimates with an official result only when the source actually supports it.

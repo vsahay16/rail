@@ -331,3 +331,9 @@ Object.assign(metadataCopy, {
 
 import { releaseGuideCopy } from "./release-guide-copy";
 for (const [slug,copy] of Object.entries(releaseGuideCopy)) metadataCopy[`/guides/${slug}`]=copy;
+
+Object.assign(metadataCopy, {
+ "/about": {title:"About RailQ: Independent Railway Tools",titleHi:"RailQ के बारे में: स्वतंत्र रेल यात्रा टूल्स",description:"Learn what RailQ’s independent railway tools do, where third-party results come from, their limitations and how to contact us about the website.",descriptionHi:"RailQ के स्वतंत्र रेलवे टूल्स, तीसरे पक्ष के परिणाम, उनकी सीमाएँ और वेबसाइट के बारे में संपर्क करने का तरीका जानें।"},
+ "/blog": {title:"RailQ Blog: Reading for Your Next Train Journey",titleHi:"RailQ ब्लॉग: अगली रेल यात्रा की तैयारी",description:"Choose useful reading before booking, after receiving a ticket and before travel. Find help with RAC, failed payments, waiting lists and journey checks.",descriptionHi:"बुकिंग से पहले, टिकट मिलने के बाद और यात्रा से पहले उपयोगी जानकारी चुनें। RAC, असफल भुगतान, प्रतीक्षा सूची और यात्रा की जाँच समझें।"},
+ "/guides": {title:"Railway Travel Guides: Booking, Tickets & Stations",titleHi:"रेल यात्रा गाइड: बुकिंग, टिकट और स्टेशन",description:"Browse RailQ guides by topic: PNR status, booking, coaches, station transfers and family journeys. Find practical explanations and relevant railway tools.",descriptionHi:"PNR स्थिति, बुकिंग, कोच, स्टेशन बदलने और परिवार की यात्रा पर RailQ गाइड देखें। सरल जानकारी और संबंधित रेलवे टूल्स पाएँ।"}
+});

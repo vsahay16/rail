@@ -1,0 +1,390 @@
+{
+  "results": [
+    {
+      "path": "/",
+      "width": 360,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/pnr-status",
+      "width": 360,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/trains-between-stations",
+      "width": 360,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/guides",
+      "width": 360,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/about",
+      "width": 360,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/connecting-trains",
+      "width": 360,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi",
+      "width": 360,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/pnr-status",
+      "width": 360,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/trains-between-stations",
+      "width": 360,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/guides",
+      "width": 360,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/about",
+      "width": 360,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/connecting-trains",
+      "width": 360,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/pnr-status",
+      "width": 390,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/trains-between-stations",
+      "width": 390,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/guides",
+      "width": 390,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/about",
+      "width": 390,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/connecting-trains",
+      "width": 390,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi",
+      "width": 390,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/pnr-status",
+      "width": 390,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/trains-between-stations",
+      "width": 390,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/guides",
+      "width": 390,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/about",
+      "width": 390,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/connecting-trains",
+      "width": 390,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/",
+      "width": 768,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/pnr-status",
+      "width": 768,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/trains-between-stations",
+      "width": 768,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/guides",
+      "width": 768,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/about",
+      "width": 768,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/connecting-trains",
+      "width": 768,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi",
+      "width": 768,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/pnr-status",
+      "width": 768,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/trains-between-stations",
+      "width": 768,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/guides",
+      "width": 768,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/about",
+      "width": 768,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/connecting-trains",
+      "width": 768,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/pnr-status",
+      "width": 1440,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/trains-between-stations",
+      "width": 1440,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/guides",
+      "width": 1440,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/about",
+      "width": 1440,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/connecting-trains",
+      "width": 1440,
+      "overflow": false,
+      "font": "\"Avenir Next\", \"Segoe UI\", Arial, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi",
+      "width": 1440,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/pnr-status",
+      "width": 1440,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/trains-between-stations",
+      "width": 1440,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/guides",
+      "width": 1440,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/about",
+      "width": 1440,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    },
+    {
+      "path": "/hi/connecting-trains",
+      "width": 1440,
+      "overflow": false,
+      "font": "devanagari, \"devanagari Fallback\", \"Nirmala UI\", Mangal, sans-serif",
+      "small": [],
+      "outside": []
+    }
+  ],
+  "interactionChecks": "Outside-click close, Escape and focus return, all six mobile tools in EN/HI, search-tab arrow keys",
+  "runtimeErrors": []
+}

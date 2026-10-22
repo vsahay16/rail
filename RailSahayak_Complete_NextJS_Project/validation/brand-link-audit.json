@@ -1,0 +1,325 @@
+{
+  "scope": "Main-content contextual links; global navigation excluded",
+  "destinations": [
+    {
+      "destination": "/guides/can-you-travel-with-rac-ticket",
+      "before": [
+        "/guides",
+        "/guides/chart-preparation",
+        "/guides/family-and-senior-citizen-travel",
+        "/guides/festival-travel-planning",
+        "/guides/irctc-money-debited-ticket-not-booked",
+        "/guides/partially-confirmed-family-ticket",
+        "/guides/station-and-onboard-travel",
+        "/guides/waitlisted-ticket-after-chart-preparation"
+      ],
+      "added": [
+        "/blog",
+        "/pnr-status"
+      ],
+      "removed": []
+    },
+    {
+      "destination": "/guides/irctc-money-debited-ticket-not-booked",
+      "before": [
+        "/guides",
+        "/guides/can-you-travel-with-rac-ticket",
+        "/guides/cancellation-and-refunds",
+        "/guides/change-boarding-station-irctc",
+        "/guides/current-booking-after-chart",
+        "/guides/partially-confirmed-family-ticket",
+        "/guides/waitlisted-ticket-after-chart-preparation"
+      ],
+      "added": [
+        "/blog",
+        "/guides/booking-and-advance-reservation"
+      ],
+      "removed": []
+    },
+    {
+      "destination": "/train-schedule",
+      "before": [
+        "/connection-buffer-calculator",
+        "/dashboard",
+        "/guides/change-boarding-station-irctc",
+        "/guides/chart-preparation",
+        "/guides/delhi-railway-stations-codes",
+        "/guides/festival-travel-planning",
+        "/guides/hotel-near-railway-station-checklist",
+        "/guides/howrah-vs-sealdah-stations",
+        "/guides/patna-junction-rajendra-nagar-danapur-stations",
+        "/guides/when-to-order-food-in-train",
+        "/live-train-status",
+        "/station-arrivals-departures",
+        "/tools",
+        "/trains-between-stations"
+      ],
+      "added": [
+        "/blog",
+        "/guides"
+      ],
+      "removed": []
+    },
+    {
+      "destination": "/waitlist-guide",
+      "before": [
+        "/guides/pnr-and-waiting-lists",
+        "/seat-availability",
+        "/tools"
+      ],
+      "added": [
+        "/blog",
+        "/status-code-decoder"
+      ],
+      "removed": []
+    },
+    {
+      "destination": "/guides/pnr-and-waiting-lists",
+      "before": [
+        "/guides",
+        "/guides/can-you-travel-with-rac-ticket",
+        "/guides/gnwl-rlwl-pqwl-tqwl-difference",
+        "/guides/partially-confirmed-family-ticket",
+        "/guides/pnr-confirmation-probability",
+        "/guides/pnr-status-explained",
+        "/guides/waitlisted-ticket-after-chart-preparation",
+        "/pnr-status",
+        "/status-code-decoder",
+        "/waitlist-guide"
+      ],
+      "added": [],
+      "removed": []
+    },
+    {
+      "destination": "/live-train-status",
+      "before": [
+        "/",
+        "/booking-date-calculator",
+        "/booking-reminders",
+        "/cancellation-deadline-calculator",
+        "/chart-preparation-calculator",
+        "/coach-layout",
+        "/coach-position",
+        "/connection-buffer-calculator",
+        "/dashboard",
+        "/guides/hotel-near-railway-station-checklist",
+        "/guides/missed-train-what-to-do",
+        "/guides/station-and-onboard-travel",
+        "/guides/train-cancelled-delayed-refund",
+        "/guides/train-food-delivery-apps-compared",
+        "/guides/vikalp-and-alternate-routes",
+        "/guides/when-to-order-food-in-train",
+        "/live-train-status",
+        "/luggage-allowance",
+        "/official-services",
+        "/platform-number",
+        "/pnr-alerts",
+        "/pnr-status",
+        "/refund-calculator",
+        "/seat-availability",
+        "/seat-berth-finder",
+        "/station-arrivals-departures",
+        "/status-code-decoder",
+        "/tatkal-time-calculator",
+        "/tools",
+        "/train-fare",
+        "/train-schedule",
+        "/trains-between-stations",
+        "/vikalp-eligibility",
+        "/waitlist-guide"
+      ],
+      "added": [
+        "/blog",
+        "/guides"
+      ],
+      "removed": []
+    },
+    {
+      "destination": "/trains-between-stations",
+      "before": [
+        "/",
+        "/guides/booking-and-advance-reservation",
+        "/guides/current-booking-after-chart",
+        "/guides/delhi-railway-stations-codes",
+        "/guides/festival-travel-planning",
+        "/guides/gnwl-rlwl-pqwl-tqwl-difference",
+        "/guides/howrah-vs-sealdah-stations",
+        "/guides/missed-train-what-to-do",
+        "/guides/mumbai-railway-terminals-codes",
+        "/guides/patna-junction-rajendra-nagar-danapur-stations",
+        "/guides/pnr-and-waiting-lists",
+        "/guides/vikalp-and-alternate-routes",
+        "/guides/waitlisted-ticket-after-chart-preparation",
+        "/seat-availability",
+        "/tools",
+        "/train-schedule",
+        "/vikalp-eligibility"
+      ],
+      "added": [
+        "/blog",
+        "/guides"
+      ],
+      "removed": []
+    },
+    {
+      "destination": "/hi/guides/can-you-travel-with-rac-ticket",
+      "before": [
+        "/hi/guides",
+        "/hi/guides/chart-preparation",
+        "/hi/guides/family-and-senior-citizen-travel",
+        "/hi/guides/festival-travel-planning",
+        "/hi/guides/irctc-money-debited-ticket-not-booked",
+        "/hi/guides/partially-confirmed-family-ticket",
+        "/hi/guides/station-and-onboard-travel",
+        "/hi/guides/waitlisted-ticket-after-chart-preparation"
+      ],
+      "added": [
+        "/hi/blog",
+        "/hi/pnr-status"
+      ],
+      "removed": []
+    },
+    {
+      "destination": "/hi/guides/irctc-money-debited-ticket-not-booked",
+      "before": [
+        "/hi/guides",
+        "/hi/guides/can-you-travel-with-rac-ticket",
+        "/hi/guides/cancellation-and-refunds",
+        "/hi/guides/change-boarding-station-irctc",
+        "/hi/guides/current-booking-after-chart",
+        "/hi/guides/partially-confirmed-family-ticket",
+        "/hi/guides/waitlisted-ticket-after-chart-preparation"
+      ],
+      "added": [
+        "/hi/blog",
+        "/hi/guides/booking-and-advance-reservation"
+      ],
+      "removed": []
+    },
+    {
+      "destination": "/hi/train-schedule",
+      "before": [
+        "/hi/connection-buffer-calculator",
+        "/hi/dashboard",
+        "/hi/guides/change-boarding-station-irctc",
+        "/hi/guides/chart-preparation",
+        "/hi/guides/delhi-railway-stations-codes",
+        "/hi/guides/festival-travel-planning",
+        "/hi/guides/hotel-near-railway-station-checklist",
+        "/hi/guides/howrah-vs-sealdah-stations",
+        "/hi/guides/patna-junction-rajendra-nagar-danapur-stations",
+        "/hi/guides/when-to-order-food-in-train",
+        "/hi/live-train-status",
+        "/hi/station-arrivals-departures",
+        "/hi/tools",
+        "/hi/trains-between-stations"
+      ],
+      "added": [
+        "/hi/blog",
+        "/hi/guides"
+      ],
+      "removed": []
+    },
+    {
+      "destination": "/hi/waitlist-guide",
+      "before": [
+        "/hi/guides/pnr-and-waiting-lists",
+        "/hi/seat-availability",
+        "/hi/tools"
+      ],
+      "added": [
+        "/hi/blog",
+        "/hi/status-code-decoder"
+      ],
+      "removed": []
+    },
+    {
+      "destination": "/hi/guides/pnr-and-waiting-lists",
+      "before": [
+        "/hi/guides",
+        "/hi/guides/can-you-travel-with-rac-ticket",
+        "/hi/guides/gnwl-rlwl-pqwl-tqwl-difference",
+        "/hi/guides/partially-confirmed-family-ticket",
+        "/hi/guides/pnr-confirmation-probability",
+        "/hi/guides/pnr-status-explained",
+        "/hi/guides/waitlisted-ticket-after-chart-preparation",
+        "/hi/pnr-status",
+        "/hi/status-code-decoder",
+        "/hi/waitlist-guide"
+      ],
+      "added": [],
+      "removed": []
+    },
+    {
+      "destination": "/hi/live-train-status",
+      "before": [
+        "/hi",
+        "/hi/booking-date-calculator",
+        "/hi/booking-reminders",
+        "/hi/cancellation-deadline-calculator",
+        "/hi/chart-preparation-calculator",
+        "/hi/coach-layout",
+        "/hi/coach-position",
+        "/hi/connection-buffer-calculator",
+        "/hi/dashboard",
+        "/hi/guides/hotel-near-railway-station-checklist",
+        "/hi/guides/missed-train-what-to-do",
+        "/hi/guides/station-and-onboard-travel",
+        "/hi/guides/train-cancelled-delayed-refund",
+        "/hi/guides/train-food-delivery-apps-compared",
+        "/hi/guides/vikalp-and-alternate-routes",
+        "/hi/guides/when-to-order-food-in-train",
+        "/hi/live-train-status",
+        "/hi/luggage-allowance",
+        "/hi/official-services",
+        "/hi/platform-number",
+        "/hi/pnr-alerts",
+        "/hi/pnr-status",
+        "/hi/refund-calculator",
+        "/hi/seat-availability",
+        "/hi/seat-berth-finder",
+        "/hi/station-arrivals-departures",
+        "/hi/status-code-decoder",
+        "/hi/tatkal-time-calculator",
+        "/hi/tools",
+        "/hi/train-fare",
+        "/hi/train-schedule",
+        "/hi/trains-between-stations",
+        "/hi/vikalp-eligibility",
+        "/hi/waitlist-guide"
+      ],
+      "added": [
+        "/hi/blog",
+        "/hi/guides"
+      ],
+      "removed": []
+    },
+    {
+      "destination": "/hi/trains-between-stations",
+      "before": [
+        "/hi",
+        "/hi/guides/booking-and-advance-reservation",
+        "/hi/guides/current-booking-after-chart",
+        "/hi/guides/delhi-railway-stations-codes",
+        "/hi/guides/festival-travel-planning",
+        "/hi/guides/gnwl-rlwl-pqwl-tqwl-difference",
+        "/hi/guides/howrah-vs-sealdah-stations",
+        "/hi/guides/missed-train-what-to-do",
+        "/hi/guides/mumbai-railway-terminals-codes",
+        "/hi/guides/patna-junction-rajendra-nagar-danapur-stations",
+        "/hi/guides/pnr-and-waiting-lists",
+        "/hi/guides/vikalp-and-alternate-routes",
+        "/hi/guides/waitlisted-ticket-after-chart-preparation",
+        "/hi/seat-availability",
+        "/hi/tools",
+        "/hi/train-schedule",
+        "/hi/vikalp-eligibility"
+      ],
+      "added": [
+        "/hi/blog",
+        "/hi/guides"
+      ],
+      "removed": []
+    }
+  ]
+}
