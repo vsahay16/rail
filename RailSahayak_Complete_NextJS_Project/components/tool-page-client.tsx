@@ -1,4 +1,5 @@
 "use client";
+import styles from "./tool-support.module.css";
 import { CoachToolChooser } from "./coach-tool-chooser";
 import { PageFeedback } from "./page-feedback";
 import { TopicPath } from "@/components/topic-path";
@@ -28,13 +29,17 @@ export function ToolPageClient({ config }: { config: ToolConfig }) {
 
     <AdSlot placement="top" format="970 × 90 / 320 × 100" className="tool-page-ad" />
 
-    {["seat-availability", "trains-between-stations"].includes(config.slug) && <TrainComparison hi={hi} />}
-    <TopicPath slug={config.slug} />
-    <PageGuidance slug={config.slug} /><PageFeedback page={`/${config.slug}`} hi={hi} />
+    {["seat-availability", "trains-between-stations"].includes(config.slug) && <details className={styles.optional}>
+      <summary>{hi ? "ट्रेनें चुन ली हैं? सीट और किराए की तुलना करें" : "Shortlisted your trains? Compare seats and fares"}</summary>
+      <TrainComparison hi={hi} />
+    </details>}
+    <PageGuidance slug={config.slug} />
+    <TopicPath slug={config.slug} expandable />
+    <p className={styles.verification}>{config.live
+      ? (hi ? "RailQ स्वतंत्र है। प्रदाता की जानकारी बदल सकती है।" : "RailQ is independent. Provider information can change.")
+      : (hi ? "यह योजना बनाने की सहायता है। लागू नियम और अंतिम जानकारी सत्यापित करें।" : "This is a planning aid. Verify applicable rules and final journey details.")}{" "}<Link href="/official-services">{hi ? "आधिकारिक रेलवे सेवाएँ" : "Official railway services"}</Link></p>
+    <PageFeedback page={`/${config.slug}`} hi={hi} />
 
-    <section className="generic-official-note"><span><Icon name="shield" size={24} /></span><div><h2>{hi ? `${title}: आधिकारिक सत्यापन` : `${title}: official verification`}</h2><p>{hi ? "RailQ एक स्वतंत्र यात्रा सुविधा है। लाइव परिणाम प्रदाता की उपलब्धता पर निर्भर करते हैं और रेलवे का आधिकारिक रिकॉर्ड अंतिम मान्य स्रोत है।" : "RailQ is an independent travel utility. Live results depend on provider availability, and the official railway record remains the final authority."}</p></div><a href="https://www.indianrail.gov.in/" target="_blank" rel="noreferrer">{hi ? "आधिकारिक पूछताछ" : "Official enquiry"}<Icon name="external" size={15} /></a></section>
-
-    <section className="generic-related"><div><span className="kicker light">{hi ? "और उपयोगी टूल्स" : "More useful tools"}</span><h2>{hi ? `${title} के बाद अगला कदम` : `Next steps after ${title.toLowerCase()}`}</h2></div><div><Link href="/pnr-status"><Icon name="ticket" size={18} />{hi ? "PNR स्थिति" : "PNR status"}<Icon name="arrow" size={15} /></Link><Link href="/live-train-status"><Icon name="pulse" size={18} />{hi ? "लाइव ट्रेन" : "Live train"}<Icon name="arrow" size={15} /></Link><Link href="/dashboard"><Icon name="chart" size={18} />{hi ? "यात्रा डैशबोर्ड" : "Journey dashboard"}<Icon name="arrow" size={15} /></Link></div></section>
   </main>;
 }
 

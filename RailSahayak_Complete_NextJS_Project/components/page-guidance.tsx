@@ -25,7 +25,7 @@ export function PageGuidance({ slug }: { slug: string }) {
       <h3>{hi ? section.titleHi : section.title}</h3><p>{hi ? section.bodyHi : section.body}</p>{section.links && <ul>{section.links.map(link => <li key={link.href}><Link href={link.href}>{hi ? link.labelHi : link.label}</Link></li>)}</ul>}{slug === "coach-layout" && section === help.sections[0] && <p><Link href="/coach-position">{hi ? "ट्रेन में कोच का क्रम जाँचें" : "Check coach order along the train"}</Link> · <Link href="/pnr-status">{hi ? "PNR में आवंटित कोच और बर्थ देखें" : "Check allocated coach and berth in PNR status"}</Link></p>}
     </section>)}</div>
     {help.related.length > 0 && <nav aria-label={hi ? "संबंधित गाइड और टूल्स" : "Related guides and tools"}>
-      <h3>{hi ? "अगला कदम" : "Next steps"}</h3><ul>{help.related.map(path => <li key={path}><Link href={`/${path}`}>{label(path)}</Link></li>)}</ul>
+      <h3>{hi ? "अगला कदम" : "Next steps"}</h3><ul>{[...new Set(help.related)].filter(path => path !== slug).map(path => <li key={path}><Link href={`/${path}`}>{label(path)}</Link></li>)}</ul>
     </nav>}
     {help.sources.length > 0 && <div><h3>{hi ? "आधिकारिक संदर्भ" : "Official references"}</h3><ul>{help.sources.map(key => {
       const source = editorialSources[key];

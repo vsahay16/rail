@@ -51,7 +51,7 @@ function stationCode(value: JsonRecord) { return first(value.code, value.station
 
 function ResultShell({ children, hi, updated }: { children: ReactNode; hi: boolean; updated?: unknown }) {
   return <div className="rail-provider-result" aria-live="polite">
-    <div className="rail-result-source"><span className="live-dot" />{hi ? "प्रदाता डेटा" : "Provider data"}{updated !== undefined && updated !== null ? <small>{hi ? "अपडेट" : "Updated"} {dateTime(updated, hi)}</small> : null}</div>
+    <div className="rail-result-source"><span className="live-dot" />{hi ? "प्रदाता डेटा" : "Provider data"}{typeof updated === "string" && updated.trim() && !Number.isNaN(new Date(updated).valueOf()) ? <small>{hi ? "प्रदाता का अपडेट" : "Provider updated"}: {dateTime(updated, hi)} IST</small> : <small>{hi ? "प्रदाता के अपडेट का समय उपलब्ध नहीं है" : "Provider update time unavailable"}</small>}</div>
     {children}
     <div className="rail-result-verification"><Icon name="shield" size={15} /><span>{hi ? "महत्वपूर्ण और अंतिम जानकारी आधिकारिक रेलवे माध्यम पर जाँचें।" : "Verify critical and final journey information through official railway channels."}</span></div>
   </div>;
@@ -83,7 +83,7 @@ function LiveResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
 function ScheduleResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
   const train = objectAt(data, "train"); const source = objectAt(train, "source"); const destination = objectAt(train, "destination");
   const route = (list(data.route).map(record).filter(Boolean) as JsonRecord[]).filter((row) => row.isHalt === true || (row.isHalt === undefined && Boolean(row.arrival || row.departure)));
-  return <ResultShell hi={hi}>
+  return <ResultShell hi={hi} updated={data.lastUpdatedAt}>
     <div className="rail-result-heading"><div><span>{text(train.number)}</span><h2>{first(train.name, hi ? "ट्रेन समय-सारणी" : "Train schedule")}</h2><p>{stationCode(source)} · {stationName(source)} → {stationCode(destination)} · {stationName(destination)}</p></div><div className="rail-status-badge neutral">{titleCase(train.type)}</div></div>
     <div className="rail-summary-grid">
       <Metric label={hi ? "दूरी" : "Distance"} value={`${text(train.distance)} km`} />
@@ -97,7 +97,7 @@ function ScheduleResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
 
 function BetweenResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
   const from = objectAt(data, "from"); const to = objectAt(data, "to"); const trains = list(data.trains).map(record).filter(Boolean) as JsonRecord[];
-  return <ResultShell hi={hi}>
+  return <ResultShell hi={hi} updated={data.lastUpdatedAt}>
     <div className="rail-result-heading"><div><span>{stationCode(from)} → {stationCode(to)}</span><h2>{hi ? "मिलने वाली ट्रेनें" : "Available trains"}</h2><p>{stationName(from)} → {stationName(to)}</p></div><div className="rail-status-badge neutral">{text(data.count, text(trains.length))} {hi ? "ट्रेन" : "trains"}</div></div>
     {trains.length === 0 ? <div className="rail-empty"><Icon name="info" size={20} /><div><h3>{hi ? "सीधी ट्रेन नहीं मिली" : "No direct train found"}</h3><p>{hi ? "स्टेशन कोड जाँचें या पास के मुख्य स्टेशन से खोजें।" : "Check the station codes or try a nearby major station."}</p></div></div> : <div className="rail-train-list">{trains.map((row, index) => { const train = objectAt(row, "train"); const origin = { ...from, ...objectAt(row, "from") }; const destination = { ...to, ...objectAt(row, "to") }; return <article key={`${text(train.number)}-${index}`}><div className="rail-train-title"><span>{text(train.number)}</span><div><h3><Link href={`/train/${text(train.number)}`}>{text(train.name)}</Link></h3><small>{titleCase(train.type)}</small></div></div><div className="rail-train-times"><div><small>{stationCode(origin)}</small><b>{text(origin.departure)}</b><span>{hi ? "दिन" : "Day"} {text(origin.day)}</span></div><i /><div><small>{stationCode(destination)}</small><b>{text(destination.arrival)}</b><span>{hi ? "दिन" : "Day"} {text(destination.day)}</span></div></div><div className="rail-train-meta"><span>{duration(row.duration, hi)}</span><span>{text(row.distance)} km</span><span>{list(train.runDays).map((day) => text(day).slice(0, 3).toUpperCase()).join(" · ")}</span></div></article>; })}</div>}
   </ResultShell>;
