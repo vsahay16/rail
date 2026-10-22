@@ -10,7 +10,7 @@ export async function pageMetadata(input: { locale: string; path: string; title:
   const alternates = localizedAlternates(input.path, hi ? "hi" : "en");
   return {
     title, description, alternates,
-    openGraph: { type: "website", url: String(alternates.canonical), title, description, siteName: "RailQ", locale: hi ? "hi_IN" : "en_IN", alternateLocale: [hi ? "en_IN" : "hi_IN"], images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "RailQ — Indian Railway Tools by RailSahayak" }] },
+    openGraph: { type: "website", url: String(alternates.canonical), title, description, siteName: "RailQ", locale: hi ? "hi_IN" : "en_IN", alternateLocale: [hi ? "en_IN" : "hi_IN"], images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "RailQ — Indian Railway Tools" }] },
     twitter: { card: "summary_large_image", title, description, images: ["/og.jpg"] },
   };
 }

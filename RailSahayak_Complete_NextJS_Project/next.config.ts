@@ -9,6 +9,19 @@ const securityHeaders = [
   { key: "Content-Security-Policy", value: "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'" },
 ];
 const nextConfig: NextConfig = {
+  // Run redirects before internal rewrites. Public English URLs have no prefix.
+  async redirects() {
+    return [
+      { source: "/en", destination: "/", permanent: true },
+      { source: "/en/:path+", destination: "/:path+", permanent: true },
+    ];
+  },
+  async rewrites() {
+    return { beforeFiles: [
+      { source: "/", destination: "/en" },
+      { source: "/:path((?!hi(?:/|$)|en(?:/|$)|api(?:/|$)|_next(?:/|$)|.*\\..*).+)", destination: "/en/:path" },
+    ] };
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
