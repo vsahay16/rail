@@ -5,14 +5,10 @@ declare global {
   }
 }
 
-const blockedKeys = new Set(["pnr", "phone", "email", "name", "passenger", "passengerName"]);
-
-function sanitize(properties: Record<string, unknown>) {
-  return Object.fromEntries(Object.entries(properties).filter(([key]) => !blockedKeys.has(key)).slice(0, 20));
-}
+import { analyticsEvents,safeAnalyticsProperties,safeAnalyticsPath } from "./analytics-safety";
 
 export function trackEvent(name: string, properties: Record<string, unknown> = {}) {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined" || !analyticsEvents.has(name)) return;
   try {
   if (window.localStorage.getItem("railsahayak_consent") !== "analytics_ads") return;
   let sessionId = window.localStorage.getItem("rs_session_id");
@@ -20,13 +16,14 @@ export function trackEvent(name: string, properties: Record<string, unknown> = {
     sessionId = crypto.randomUUID();
     window.localStorage.setItem("rs_session_id", sessionId);
   }
-  const safeProperties = sanitize(properties);
-  window.gtag?.("event", name, safeProperties);
+  const safeProperties = safeAnalyticsProperties(properties);
+  const path=safeAnalyticsPath(window.location.pathname);
+  window.gtag?.("event", name, {...safeProperties,page_location:window.location.origin+path,page_referrer:""});
   void fetch("/api/events", {
     method: "POST",
     headers: { "content-type": "application/json" },
     keepalive: true,
-    body: JSON.stringify({ eventName: name, path: window.location.pathname, sessionId, properties: safeProperties }),
+    body: JSON.stringify({ eventName: name, path, sessionId, properties: safeProperties }),
   }).catch(() => undefined);
   } catch { /* Optional analytics must never block a railway tool. */ }
 }

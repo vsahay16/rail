@@ -1,4 +1,6 @@
 "use client";
+import { PageFeedback } from "@/components/page-feedback";
+import { NextUsefulStep } from "@/components/next-useful-step";
 import { JourneyVideo } from "@/components/journey-video";
 import { TopicPath } from "@/components/topic-path";
 import { FormEvent, useRef, useState } from "react";
@@ -53,9 +55,9 @@ export function JourneyPlanner() {
           <h4>{leg.train} · {leg.name || t("Train", "ट्रेन")}</h4><div className={styles.route}><div><b>{leg.departure}</b><span>{leg.departureDate}</span><strong>{leg.fromName || leg.from} ({leg.from})</strong></div><span aria-hidden="true">→</span><div><b>{leg.arrival}</b><span>{leg.arrivalDate}</span><strong>{leg.toName || leg.to} ({leg.to})</strong></div></div>
           <nav className={styles.links}><Link href={`/train-schedule?train=${leg.train}`}>{t("Timetable", "समय-सारणी")}</Link><Link href={`/live-train-status?train=${leg.train}`}>{t("Check live running", "लाइव स्थिति देखें")}</Link><Link href={`/seat-availability?train=${leg.train}&from=${leg.from}&to=${leg.to}&date=${leg.departureDate}`}>{t("Check seats for this leg", "इस ट्रेन की सीट जाँचें")}</Link></nav>
         </li>)}</ol></article>)}
-      {result.omitted > 0 && <p className={styles.note}>{t("Some options were omitted because dates, timings or transfer margins could not be verified. This is not an exhaustive list of every possible route.", "कुछ विकल्पों की तारीख, समय या ट्रांसफर अंतर सत्यापित नहीं हुआ, इसलिए वे नहीं दिखाए गए। यह हर संभव मार्ग की पूरी सूची नहीं है।")}</p>}
+      <NextUsefulStep tool="connecting-trains" hi={hi} />{result.omitted > 0 && <p className={styles.note}>{t("Some options were omitted because dates, timings or transfer margins could not be verified. This is not an exhaustive list of every possible route.", "कुछ विकल्पों की तारीख, समय या ट्रांसफर अंतर सत्यापित नहीं हुआ, इसलिए वे नहीं दिखाए गए। यह हर संभव मार्ग की पूरी सूची नहीं है।")}</p>}
     </section>}</div>
-    <JourneyVideo topic="connecting-trains" />
+    <PageFeedback page={`/connecting-trains`} hi={hi} /><JourneyVideo topic="connecting-trains" />
     <TopicPath slug="connecting-trains" />
     <section className={styles.panel}><h2>{t("Before you book two trains", "दो ट्रेनें बुक करने से पहले")}</h2><ul><li>{t("Read the arrival date as well as the clock time, especially after midnight.", "आधी रात के बाद खासकर घड़ी के साथ आगमन तारीख भी पढ़ें।")}</li><li>{t("A city can have several railway stations. Match the codes, not just the city name.", "एक शहर में कई स्टेशन हो सकते हैं। शहर के नाम के साथ स्टेशन कोड मिलाएँ।")}</li><li>{t("The displayed gap is scheduled time, not a live delay-adjusted guarantee.", "दिखाया अंतर समय-सारणी के अनुसार है, लाइव देरी के आधार पर गारंटी नहीं।")}</li><li>{t("If the first train is late, check both services again and seek official assistance before changing bookings.", "पहली ट्रेन लेट हो तो दोनों ट्रेनों की जानकारी फिर जाँचें और बुकिंग बदलने से पहले आधिकारिक सहायता लें।")}</li></ul><nav className={styles.links}><Link href="/guides/vikalp-and-alternate-routes">{t("Compare alternatives and connections", "विकल्प और कनेक्शन समझें")}</Link><Link href="/connection-buffer-calculator">{t("Plan your transfer buffer", "ट्रांसफर समय की योजना बनाएँ")}</Link><Link href="/guides/pnr-confirmation-probability">{t("Understand confirmation estimates", "कन्फर्मेशन अनुमान समझें")}</Link></nav></section>
   </main>;

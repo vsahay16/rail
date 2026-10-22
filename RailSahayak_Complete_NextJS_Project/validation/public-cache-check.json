@@ -1,0 +1,1055 @@
+{
+  "pages": 148,
+  "passed": true,
+  "checks": [
+    "public HTML cache",
+    "locale isolation",
+    "canonical URLs",
+    "unique titles",
+    "H1 count",
+    "internal locale redirects",
+    "query isolation",
+    "dynamic routes no-store",
+    "invalid PNR API no-store",
+    "RSC/HTML separation",
+    "404 status"
+  ],
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "PNR Status, Live Trains &amp; Railway Tools | RailQ"
+    },
+    {
+      "path": "/about",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "About Our Independent Railway Tools | RailQ"
+    },
+    {
+      "path": "/advertise",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Advertising &amp; Partnerships | RailQ"
+    },
+    {
+      "path": "/alerts",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Railway Reminders &amp; Alert Availability | RailQ"
+    },
+    {
+      "path": "/blog",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Railway Travel Articles &amp; Guides | RailQ"
+    },
+    {
+      "path": "/booking-date-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Advance Booking Date Calculator | RailQ"
+    },
+    {
+      "path": "/booking-reminders",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Booking &amp; Tatkal Reminders | RailQ"
+    },
+    {
+      "path": "/cancellation-deadline-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Cancellation Deadline Calculator | RailQ"
+    },
+    {
+      "path": "/chart-preparation-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Chart Preparation Time Calculator | RailQ"
+    },
+    {
+      "path": "/coach-layout",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Coach Layout: Sleeper, 3A &amp; 2A | RailQ"
+    },
+    {
+      "path": "/coach-position",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Coach Position | RailQ"
+    },
+    {
+      "path": "/connecting-trains",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Connecting Train Journey Planner | RailQ"
+    },
+    {
+      "path": "/connection-buffer-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Connection Buffer Calculator | RailQ"
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Contact: Help &amp; Feedback | RailQ"
+    },
+    {
+      "path": "/corrections",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Report an Error or Correction | RailQ"
+    },
+    {
+      "path": "/dashboard",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Journey Dashboard | RailQ"
+    },
+    {
+      "path": "/disclaimer",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Railway Information Disclaimer | RailQ"
+    },
+    {
+      "path": "/guides",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Indian Railway Travel Guides | RailQ"
+    },
+    {
+      "path": "/guides/3e-vs-3a-train-class",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "3E vs 3A: Which Class Should You Book? | RailQ"
+    },
+    {
+      "path": "/guides/booking-and-advance-reservation",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Booking &amp; Advance Reservation Guide | RailQ"
+    },
+    {
+      "path": "/guides/can-you-travel-with-rac-ticket",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Can You Travel With an RAC Ticket? | RailQ"
+    },
+    {
+      "path": "/guides/cancellation-and-refunds",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Cancellation &amp; Refund Guide | RailQ"
+    },
+    {
+      "path": "/guides/change-boarding-station-irctc",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Change Your Boarding Station on IRCTC | RailQ"
+    },
+    {
+      "path": "/guides/chart-preparation",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Chart Preparation Explained | RailQ"
+    },
+    {
+      "path": "/guides/current-booking-after-chart",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Current Booking After Chart Preparation | RailQ"
+    },
+    {
+      "path": "/guides/delhi-railway-stations-codes",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Delhi Stations: NDLS, DLI, NZM and ANVT | RailQ"
+    },
+    {
+      "path": "/guides/family-and-senior-citizen-travel",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Travel With Family &amp; Seniors | RailQ"
+    },
+    {
+      "path": "/guides/festival-travel-planning",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Festival Train Travel Planning Guide | RailQ"
+    },
+    {
+      "path": "/guides/gnwl-rlwl-pqwl-tqwl-difference",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "GNWL vs RLWL vs PQWL vs TQWL: Meanings &amp; Examples | RailQ"
+    },
+    {
+      "path": "/guides/hotel-near-railway-station-checklist",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "7 Checks Before Booking a Hotel Near a Station | RailQ"
+    },
+    {
+      "path": "/guides/howrah-vs-sealdah-stations",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Howrah or Sealdah: Which Station? | RailQ"
+    },
+    {
+      "path": "/guides/irctc-money-debited-ticket-not-booked",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Money Debited but Train Ticket Not Booked? | RailQ"
+    },
+    {
+      "path": "/guides/missed-train-what-to-do",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Missed Your Train? What to Do Next | RailQ"
+    },
+    {
+      "path": "/guides/mumbai-railway-terminals-codes",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Mumbai Terminals: CSMT, LTT, MMCT, BDTS | RailQ"
+    },
+    {
+      "path": "/guides/new-delhi-station-ajmeri-gate-paharganj",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "New Delhi Railway Station: Ajmeri Gate or Paharganj? | RailQ"
+    },
+    {
+      "path": "/guides/overnight-train-journey-checklist",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "10 Things to Prepare for an Overnight Train Trip | RailQ"
+    },
+    {
+      "path": "/guides/partially-confirmed-family-ticket",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "One Confirmed, One Waitlisted: Family PNR | RailQ"
+    },
+    {
+      "path": "/guides/patna-junction-rajendra-nagar-danapur-stations",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "PNBE, RJPB or DNR: Which Patna Station? | RailQ"
+    },
+    {
+      "path": "/guides/pnr-and-waiting-lists",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "PNR Waiting List: Changes &amp; Next Steps | RailQ"
+    },
+    {
+      "path": "/guides/pnr-confirmation-probability",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "PNR Confirmation Probability Explained | RailQ"
+    },
+    {
+      "path": "/guides/pnr-status-explained",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "How to Read Your PNR Status | RailQ"
+    },
+    {
+      "path": "/guides/station-and-onboard-travel",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Railway Station &amp; Onboard Travel Guide | RailQ"
+    },
+    {
+      "path": "/guides/tatkal",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Tatkal Booking Preparation Guide | RailQ"
+    },
+    {
+      "path": "/guides/train-cancelled-delayed-refund",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Cancelled or Delayed: Refund Steps | RailQ"
+    },
+    {
+      "path": "/guides/train-classes-and-coaches",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Indian Train Classes &amp; Coaches Guide | RailQ"
+    },
+    {
+      "path": "/guides/train-food-delivery-apps-compared",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "6 Train Food Delivery Services Compared | RailQ"
+    },
+    {
+      "path": "/guides/train-food-discounts-final-price",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Food Discounts: Compare the Final Bill | RailQ"
+    },
+    {
+      "path": "/guides/train-food-ordering-checklist",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "10 Checks Before Ordering Food on a Train | RailQ"
+    },
+    {
+      "path": "/guides/useful-apps-indian-train-travel",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "7 Useful Apps for Indian Train Travel | RailQ"
+    },
+    {
+      "path": "/guides/vikalp-and-alternate-routes",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "VIKALP &amp; Alternative Train Routes | RailQ"
+    },
+    {
+      "path": "/guides/waitlisted-ticket-after-chart-preparation",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Waitlisted After Charting: What Next? | RailQ"
+    },
+    {
+      "path": "/guides/when-to-order-food-in-train",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "When Should You Order Food on a Train? | RailQ"
+    },
+    {
+      "path": "/hi",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "PNR स्टेटस, लाइव ट्रेन और रेल टूल्स | RailQ"
+    },
+    {
+      "path": "/hi/about",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "हमारे बारे में: स्वतंत्र रेल टूल्स | RailQ"
+    },
+    {
+      "path": "/hi/advertise",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "विज्ञापन और साझेदारी | RailQ"
+    },
+    {
+      "path": "/hi/alerts",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "रेलवे रिमाइंडर और अलर्ट की उपलब्धता | RailQ"
+    },
+    {
+      "path": "/hi/blog",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "रेल यात्रा लेख और गाइड | RailQ"
+    },
+    {
+      "path": "/hi/booking-date-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन अग्रिम बुकिंग तारीख कैलकुलेटर | RailQ"
+    },
+    {
+      "path": "/hi/booking-reminders",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "बुकिंग और तत्काल रिमाइंडर | RailQ"
+    },
+    {
+      "path": "/hi/cancellation-deadline-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "टिकट रद्द करने की समय-सीमा | RailQ"
+    },
+    {
+      "path": "/hi/chart-preparation-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन चार्ट बनने का समय कैलकुलेटर | RailQ"
+    },
+    {
+      "path": "/hi/coach-layout",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन कोच लेआउट: स्लीपर, 3A और 2A | RailQ"
+    },
+    {
+      "path": "/hi/coach-position",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "कोच स्थिति | RailQ"
+    },
+    {
+      "path": "/hi/connecting-trains",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "कनेक्टिंग ट्रेन यात्रा प्लानर | RailQ"
+    },
+    {
+      "path": "/hi/connection-buffer-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "कनेक्शन समय कैलकुलेटर | RailQ"
+    },
+    {
+      "path": "/hi/contact",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "संपर्क: सहायता और सुझाव | RailQ"
+    },
+    {
+      "path": "/hi/corrections",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "गलती या सुधार बताएँ | RailQ"
+    },
+    {
+      "path": "/hi/dashboard",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "यात्रा डैशबोर्ड | RailQ"
+    },
+    {
+      "path": "/hi/disclaimer",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "रेलवे जानकारी संबंधी अस्वीकरण | RailQ"
+    },
+    {
+      "path": "/hi/guides",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "भारतीय रेल यात्रा गाइड | RailQ"
+    },
+    {
+      "path": "/hi/guides/3e-vs-3a-train-class",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "3E या 3A: कौन-सी श्रेणी चुनें? | RailQ"
+    },
+    {
+      "path": "/hi/guides/booking-and-advance-reservation",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन बुकिंग और अग्रिम आरक्षण गाइड | RailQ"
+    },
+    {
+      "path": "/hi/guides/can-you-travel-with-rac-ticket",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "RAC टिकट पर यात्रा कर सकते हैं? | RailQ"
+    },
+    {
+      "path": "/hi/guides/cancellation-and-refunds",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन रद्दीकरण और रिफंड गाइड | RailQ"
+    },
+    {
+      "path": "/hi/guides/change-boarding-station-irctc",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "IRCTC पर बोर्डिंग स्टेशन कैसे बदलें | RailQ"
+    },
+    {
+      "path": "/hi/guides/chart-preparation",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन का चार्ट बनना क्या है? | RailQ"
+    },
+    {
+      "path": "/hi/guides/current-booking-after-chart",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "चार्ट बनने के बाद करंट बुकिंग | RailQ"
+    },
+    {
+      "path": "/hi/guides/delhi-railway-stations-codes",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "दिल्ली स्टेशन: NDLS, DLI, NZM और ANVT | RailQ"
+    },
+    {
+      "path": "/hi/guides/family-and-senior-citizen-travel",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "परिवार और बुजुर्गों के साथ रेल यात्रा | RailQ"
+    },
+    {
+      "path": "/hi/guides/festival-travel-planning",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "त्योहार में रेल यात्रा की योजना | RailQ"
+    },
+    {
+      "path": "/hi/guides/gnwl-rlwl-pqwl-tqwl-difference",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "GNWL, RLWL, PQWL और TQWL: अंतर और उदाहरण | RailQ"
+    },
+    {
+      "path": "/hi/guides/hotel-near-railway-station-checklist",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "स्टेशन के पास होटल बुक करने से पहले 7 जाँचें | RailQ"
+    },
+    {
+      "path": "/hi/guides/howrah-vs-sealdah-stations",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "हावड़ा या सियालदह: कौन-सा स्टेशन? | RailQ"
+    },
+    {
+      "path": "/hi/guides/irctc-money-debited-ticket-not-booked",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "पैसे कटे, पर ट्रेन टिकट नहीं बना? | RailQ"
+    },
+    {
+      "path": "/hi/guides/missed-train-what-to-do",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन छूट गई? अब क्या करें? | RailQ"
+    },
+    {
+      "path": "/hi/guides/mumbai-railway-terminals-codes",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "मुंबई टर्मिनल: CSMT, LTT, MMCT, BDTS | RailQ"
+    },
+    {
+      "path": "/hi/guides/new-delhi-station-ajmeri-gate-paharganj",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "नई दिल्ली रेलवे स्टेशन: अजमेरी गेट या पहाड़गंज? | RailQ"
+    },
+    {
+      "path": "/hi/guides/overnight-train-journey-checklist",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "रात की ट्रेन यात्रा से पहले तैयार रखें ये 10 चीजें | RailQ"
+    },
+    {
+      "path": "/hi/guides/partially-confirmed-family-ticket",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "एक कन्फर्म, एक वेटलिस्ट: परिवार का PNR | RailQ"
+    },
+    {
+      "path": "/hi/guides/patna-junction-rajendra-nagar-danapur-stations",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "PNBE, RJPB या DNR: पटना का कौन-सा स्टेशन? | RailQ"
+    },
+    {
+      "path": "/hi/guides/pnr-and-waiting-lists",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "PNR वेटलिस्ट: बदलाव और अगले कदम | RailQ"
+    },
+    {
+      "path": "/hi/guides/pnr-confirmation-probability",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "PNR कन्फर्मेशन संभावना का अर्थ | RailQ"
+    },
+    {
+      "path": "/hi/guides/pnr-status-explained",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "अपना PNR परिणाम कैसे पढ़ें | RailQ"
+    },
+    {
+      "path": "/hi/guides/station-and-onboard-travel",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "रेलवे स्टेशन और ट्रेन में यात्रा गाइड | RailQ"
+    },
+    {
+      "path": "/hi/guides/tatkal",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "तत्काल टिकट बुकिंग की तैयारी | RailQ"
+    },
+    {
+      "path": "/hi/guides/train-cancelled-delayed-refund",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन रद्द या लेट: रिफंड के कदम | RailQ"
+    },
+    {
+      "path": "/hi/guides/train-classes-and-coaches",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "भारतीय ट्रेन श्रेणी और कोच गाइड | RailQ"
+    },
+    {
+      "path": "/hi/guides/train-food-delivery-apps-compared",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन में भोजन की 6 सेवाओं की तुलना | RailQ"
+    },
+    {
+      "path": "/hi/guides/train-food-discounts-final-price",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन भोजन पर छूट: अंतिम बिल की तुलना कैसे करें | RailQ"
+    },
+    {
+      "path": "/hi/guides/train-food-ordering-checklist",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन में खाना ऑर्डर करने से पहले 10 जाँचें | RailQ"
+    },
+    {
+      "path": "/hi/guides/useful-apps-indian-train-travel",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "भारतीय ट्रेन यात्रा के लिए 7 उपयोगी ऐप | RailQ"
+    },
+    {
+      "path": "/hi/guides/vikalp-and-alternate-routes",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "VIKALP और वैकल्पिक ट्रेन मार्ग | RailQ"
+    },
+    {
+      "path": "/hi/guides/waitlisted-ticket-after-chart-preparation",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "चार्ट के बाद वेटलिस्ट: अब क्या करें? | RailQ"
+    },
+    {
+      "path": "/hi/guides/when-to-order-food-in-train",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन में खाना कब ऑर्डर करना चाहिए? | RailQ"
+    },
+    {
+      "path": "/hi/live-train-status",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "लाइव ट्रेन स्थिति | RailQ"
+    },
+    {
+      "path": "/hi/luggage-allowance",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "सामान सीमा गाइड | RailQ"
+    },
+    {
+      "path": "/hi/methodology",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "डेटा स्रोत और प्रक्रिया | RailQ"
+    },
+    {
+      "path": "/hi/official-services",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "आधिकारिक भारतीय रेल सेवाएँ | RailQ"
+    },
+    {
+      "path": "/hi/platform-number",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "प्लेटफॉर्म नंबर | RailQ"
+    },
+    {
+      "path": "/hi/pnr-alerts",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "PNR अलर्ट: जल्द आएँगे | RailQ"
+    },
+    {
+      "path": "/hi/pnr-status",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "PNR स्थिति ऑनलाइन देखें | RailQ"
+    },
+    {
+      "path": "/hi/privacy",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "गोपनीयता नीति | RailQ"
+    },
+    {
+      "path": "/hi/railway-updates",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "योजना टूल्स से संबंधित रेलवे सूचनाएँ | RailQ"
+    },
+    {
+      "path": "/hi/refund-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "रिफंड कैलकुलेटर | RailQ"
+    },
+    {
+      "path": "/hi/seat-availability",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "सीट उपलब्धता | RailQ"
+    },
+    {
+      "path": "/hi/seat-berth-finder",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "सीट नंबर से ट्रेन की बर्थ जानें | RailQ"
+    },
+    {
+      "path": "/hi/station-arrivals-departures",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "स्टेशन आगमन और प्रस्थान | RailQ"
+    },
+    {
+      "path": "/hi/status-code-decoder",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "रेलवे स्थिति कोड समझें | RailQ"
+    },
+    {
+      "path": "/hi/tatkal-time-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "तत्काल तारीख और समय कैलकुलेटर | RailQ"
+    },
+    {
+      "path": "/hi/terms",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "उपयोग की शर्तें | RailQ"
+    },
+    {
+      "path": "/hi/tools",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "भारतीय रेल टूल्स और कैलकुलेटर | RailQ"
+    },
+    {
+      "path": "/hi/train-fare",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन किराया | RailQ"
+    },
+    {
+      "path": "/hi/train-schedule",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन समय-सारणी | RailQ"
+    },
+    {
+      "path": "/hi/trains-between-stations",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "स्टेशनों के बीच ट्रेनें | RailQ"
+    },
+    {
+      "path": "/hi/vikalp-eligibility",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "VIKALP पात्रता सहायक | RailQ"
+    },
+    {
+      "path": "/hi/waitlist-guide",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "hi-IN",
+      "title": "ट्रेन वेटलिस्ट कोड का अर्थ | RailQ"
+    },
+    {
+      "path": "/live-train-status",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Live Train Status | RailQ"
+    },
+    {
+      "path": "/luggage-allowance",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Luggage Allowance Guide | RailQ"
+    },
+    {
+      "path": "/methodology",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Data Sources &amp; Methodology | RailQ"
+    },
+    {
+      "path": "/official-services",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Official Indian Railway Services | RailQ"
+    },
+    {
+      "path": "/platform-number",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Platform Number | RailQ"
+    },
+    {
+      "path": "/pnr-alerts",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "PNR Alerts Coming Soon | RailQ"
+    },
+    {
+      "path": "/pnr-status",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "PNR Status Check Online | RailQ"
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Privacy Policy | RailQ"
+    },
+    {
+      "path": "/railway-updates",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Railway notices behind the planning tools | RailQ"
+    },
+    {
+      "path": "/refund-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Refund Calculator | RailQ"
+    },
+    {
+      "path": "/seat-availability",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Seat Availability | RailQ"
+    },
+    {
+      "path": "/seat-berth-finder",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Berth Calculator: Find Berth by Seat Number | RailQ"
+    },
+    {
+      "path": "/station-arrivals-departures",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Station Arrivals &amp; Departures | RailQ"
+    },
+    {
+      "path": "/status-code-decoder",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Railway Status-Code Decoder | RailQ"
+    },
+    {
+      "path": "/tatkal-time-calculator",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Tatkal Date &amp; Time Calculator | RailQ"
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Terms of Use | RailQ"
+    },
+    {
+      "path": "/tools",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Indian Railway Tools &amp; Calculators | RailQ"
+    },
+    {
+      "path": "/train-fare",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Fare | RailQ"
+    },
+    {
+      "path": "/train-schedule",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Schedule | RailQ"
+    },
+    {
+      "path": "/trains-between-stations",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Trains Between Stations | RailQ"
+    },
+    {
+      "path": "/vikalp-eligibility",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "VIKALP Eligibility Assistant | RailQ"
+    },
+    {
+      "path": "/waitlist-guide",
+      "status": 200,
+      "cache": "s-maxage=3600, stale-while-revalidate=31532400",
+      "locale": "en-IN",
+      "title": "Train Waiting List Codes Explained | RailQ"
+    }
+  ]
+}

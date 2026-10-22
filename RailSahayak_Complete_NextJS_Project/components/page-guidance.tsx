@@ -22,7 +22,7 @@ export function PageGuidance({ slug }: { slug: string }) {
   return <section className="journey-help" aria-labelledby={`help-${slug}`}>
     <h2 id={`help-${slug}`}>{hi ? `${pageTitle}: उपयोग की जानकारी` : `${pageTitle}: how to use the result`}</h2>
     <div className="journey-help-sections">{help.sections.map((section) => <section key={section.title}>
-      <h3>{hi ? section.titleHi : section.title}</h3><p>{hi ? section.bodyHi : section.body}</p>
+      <h3>{hi ? section.titleHi : section.title}</h3><p>{hi ? section.bodyHi : section.body}</p>{slug === "coach-layout" && section === help.sections[0] && <p><Link href="/coach-position">{hi ? "ट्रेन में कोच का क्रम जाँचें" : "Check coach order along the train"}</Link> · <Link href="/pnr-status">{hi ? "PNR में आवंटित कोच और बर्थ देखें" : "Check allocated coach and berth in PNR status"}</Link></p>}
     </section>)}</div>
     {help.related.length > 0 && <nav aria-label={hi ? "संबंधित गाइड और टूल्स" : "Related guides and tools"}>
       <h3>{hi ? "अगला कदम" : "Next steps"}</h3><ul>{help.related.map(path => <li key={path}><Link href={`/${path}`}>{label(path)}</Link></li>)}</ul>

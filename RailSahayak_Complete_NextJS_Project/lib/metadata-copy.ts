@@ -328,3 +328,6 @@ Object.assign(metadataCopy, {
   "/": { title: "PNR Status, Live Trains & Railway Tools", titleHi: "PNR स्टेटस, लाइव ट्रेन और रेल टूल्स", description: "Check PNR status, track live trains and compare seats or routes. Plan your journey with RailQ’s English and Hindi tools and practical guides.", descriptionHi: "PNR स्टेटस, लाइव ट्रेन और सीट उपलब्धता देखें। RailQ के हिंदी और अंग्रेज़ी टूल्स व सरल गाइड से मार्ग की तुलना और यात्रा की योजना बनाएँ।" },
   "/pnr-status": { description: "Check each passenger’s PNR status, coach, berth and chart details. Request an optional confirmation estimate when supported by the data provider.", descriptionHi: "हर यात्री का PNR स्टेटस, कोच, बर्थ और चार्ट विवरण देखें। डेटा प्रदाता से समर्थित बुकिंग पर वैकल्पिक कन्फर्मेशन अनुमान माँगें।" }
 });
+
+import { releaseGuideCopy } from "./release-guide-copy";
+for (const [slug,copy] of Object.entries(releaseGuideCopy)) metadataCopy[`/guides/${slug}`]=copy;

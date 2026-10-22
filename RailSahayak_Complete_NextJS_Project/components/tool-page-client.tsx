@@ -1,4 +1,6 @@
 "use client";
+import { CoachToolChooser } from "./coach-tool-chooser";
+import { PageFeedback } from "./page-feedback";
 import { Suspense } from "react";
 import { TopicPath } from "@/components/topic-path";
 import { TrainComparison } from "@/components/train-comparison";
@@ -23,13 +25,13 @@ export function ToolPageClient({ config }: { config: ToolConfig }) {
   useEffect(() => { trackEvent("tool_page_view", { tool: config.slug, language }); }, [config.slug, language]);
 
   return <main className="generic-tool-page">
-    <section className="generic-tool-hero"><nav className="breadcrumbs"><Link href="/">{hi ? "होम" : "Home"}</Link><span>/</span><Link href="/tools">{hi ? "टूल्स" : "Tools"}</Link><span>/</span><span>{title}</span></nav><div className="generic-tool-intro"><span className="kicker"><Icon name={config.icon} size={17} />{config.slug === "pnr-alerts" ? (hi ? "जल्द आ रहा है" : "Coming soon") : config.live ? (hi ? "लाइव डेटा टूल" : "Live-data tool") : (hi ? "स्मार्ट यात्रा कैलकुलेटर" : "Smart journey calculator")}</span><h1>{title}</h1><p>{description}</p><div><span><Icon name="shield" size={16} />{hi ? "गोपनीयता पहले" : "Privacy first"}</span><span><Icon name="globe" size={16} />{hi ? "हिंदी और English" : "English and हिंदी"}</span></div></div>{config.slug === "coach-layout" || config.slug === "seat-berth-finder" ? <BerthTools hi={hi} finder={config.slug === "seat-berth-finder"} /> : <Suspense fallback={<p role="status">{hi ? "टूल लोड हो रहा है…" : "Loading tool…"}</p>}><ToolEngine key={config.slug} tool={config} /></Suspense>}</section>
+    <section className="generic-tool-hero"><nav className="breadcrumbs"><Link href="/">{hi ? "होम" : "Home"}</Link><span>/</span><Link href="/tools">{hi ? "टूल्स" : "Tools"}</Link><span>/</span><span>{title}</span></nav><div className="generic-tool-intro"><span className="kicker"><Icon name={config.icon} size={17} />{config.slug === "pnr-alerts" ? (hi ? "जल्द आ रहा है" : "Coming soon") : config.live ? (hi ? "लाइव डेटा टूल" : "Live-data tool") : (hi ? "स्मार्ट यात्रा कैलकुलेटर" : "Smart journey calculator")}</span><h1>{title}</h1><p>{description}</p><div><span><Icon name="shield" size={16} />{hi ? "गोपनीयता पहले" : "Privacy first"}</span><span><Icon name="globe" size={16} />{hi ? "हिंदी और English" : "English and हिंदी"}</span></div><CoachToolChooser slug={config.slug} hi={hi} /></div>{config.slug === "coach-layout" || config.slug === "seat-berth-finder" ? <BerthTools hi={hi} finder={config.slug === "seat-berth-finder"} /> : <Suspense fallback={<p role="status">{hi ? "टूल लोड हो रहा है…" : "Loading tool…"}</p>}><ToolEngine key={config.slug} tool={config} /></Suspense>}</section>
 
     <AdSlot placement="top" format="970 × 90 / 320 × 100" className="tool-page-ad" />
 
     {["seat-availability", "trains-between-stations"].includes(config.slug) && <TrainComparison hi={hi} />}
     <TopicPath slug={config.slug} />
-    <PageGuidance slug={config.slug} />
+    <PageGuidance slug={config.slug} /><PageFeedback page={`/${config.slug}`} hi={hi} />
 
     <section className="generic-official-note"><span><Icon name="shield" size={24} /></span><div><h2>{hi ? `${title}: आधिकारिक सत्यापन` : `${title}: official verification`}</h2><p>{hi ? "RailQ एक स्वतंत्र यात्रा सुविधा है। लाइव परिणाम प्रदाता की उपलब्धता पर निर्भर करते हैं और रेलवे का आधिकारिक रिकॉर्ड अंतिम मान्य स्रोत है।" : "RailQ is an independent travel utility. Live results depend on provider availability, and the official railway record remains the final authority."}</p></div><a href="https://www.indianrail.gov.in/" target="_blank" rel="noreferrer">{hi ? "आधिकारिक पूछताछ" : "Official enquiry"}<Icon name="external" size={15} /></a></section>
 

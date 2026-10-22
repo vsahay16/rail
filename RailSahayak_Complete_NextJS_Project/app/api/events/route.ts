@@ -1,22 +1,16 @@
+import { analyticsEvents,safeAnalyticsProperties,safeAnalyticsPath } from "@/lib/analytics-safety";
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "edge";
-const blockedKeys = new Set(["pnr", "phone", "email", "name", "passenger", "passengerName"]);
-
-function sanitizeProperties(input: unknown) {
-  if (!input || typeof input !== "object" || Array.isArray(input)) return {};
-  return Object.fromEntries(Object.entries(input as Record<string, unknown>).filter(([key]) => !blockedKeys.has(key)).slice(0, 20).map(([key, value]) => [key.slice(0, 50), typeof value === "string" ? value.slice(0, 160) : value]));
-}
-
 export async function POST(request: NextRequest) {
   const payload = (await request.json().catch(() => null)) as Record<string, unknown> | null;
   const eventName = typeof payload?.eventName === "string" ? payload.eventName : "";
-  if (!/^[a-z0-9_]{2,60}$/.test(eventName)) return NextResponse.json({ accepted: false }, { status: 400 });
+  if (!analyticsEvents.has(eventName)) return NextResponse.json({ accepted: false }, { status: 400 });
   const event = {
     event_name: eventName,
-    path: typeof payload?.path === "string" ? payload.path.slice(0, 200) : "/",
-    session_id: typeof payload?.sessionId === "string" ? payload.sessionId.slice(0, 80) : null,
-    properties: sanitizeProperties(payload?.properties), occurred_at: new Date().toISOString(),
+    path: safeAnalyticsPath(payload?.path),
+    session_id: typeof payload?.sessionId === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(payload.sessionId) ? payload.sessionId : null,
+    properties: safeAnalyticsProperties(payload?.properties), occurred_at: new Date().toISOString(),
   };
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_ANON_KEY;

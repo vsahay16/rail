@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checks": [
+    "Monitor authentication before storage access",
+    "Personal-data fields, URL queries, cross-origin and oversized feedback rejected",
+    "Synthetic PNR/journey requests, metric totals, preserved quota and no PNR storage",
+    "Feedback rate limit enforced",
+    "Analytics rejects raw/nested PNR values and strips URL queries",
+    "Bilingual coach chooser and mobile width",
+    "Guide tables, self-canonicals and mobile widths in both languages",
+    "Video deferred until play with bilingual tracks",
+    "Feedback browser flow",
+    "Chart result contextual links",
+    "No client runtime errors"
+  ],
+  "environment": "Local production build, synthetic provider fixtures, isolated PostgreSQL-compatible database; no production credentials or live passenger data."
+}

@@ -1,4 +1,5 @@
 "use client";
+import { PageFeedback } from "@/components/page-feedback";
 import { travelImageAlt } from "@/lib/travel-image-alt";
 import Image from "next/image";
 import { LocalizedLink as Link } from "@/components/localized-link";
@@ -29,7 +30,7 @@ export function TravelArticlePage({ article }: { article: TravelArticle }) {
         <section className={styles.related}><h2>{hi ? "अब यह मदद ले सकते हैं" : "Useful next steps"}</h2><ul>{article.related.map(l=><li key={l.href}><Link href={l.href}>{l.label[lang]} <span aria-hidden="true">→</span></Link></li>)}</ul></section>
         {article.faq.length>0 && <section className={styles.faq}><h2>{hi ? "आम सवाल" : "Common questions"}</h2>{article.faq.map((f,i)=><details key={i}><summary>{f.question[lang]}</summary><p>{f.answer[lang]}</p></details>)}</section>}
         <footer className={styles.sources} id="sources"><h2>{hi ? "स्रोत और जाँच का तरीका" : "Sources and method"}</h2><p>{hi ? "यह लेख नीचे दिए सार्वजनिक स्रोतों और RailQ की व्यावहारिक योजना संबंधी सलाह पर आधारित है। ऐप और सेवा विवरण दस्तावेज़ों से जाँचे गए हैं; भुगतान वाले डिलीवरी परीक्षण या होटल निरीक्षण नहीं किए गए। उदाहरणों को वास्तविक ऑफर न मानें।" : "This article combines the public sources below with RailQ’s practical planning advice. App and service details were checked against documentation; no paid delivery tests or hotel inspections were performed. Examples are not live offers."}</p><ol>{article.sources.map((s,i)=><li key={s.url} id={`source-${i+1}`}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.label}</a></li>)}</ol><p>{hi ? "इस संस्करण के लिंक सामान्य संदर्भ लिंक हैं, कमीशन वाले लिंक नहीं। कीमत, उपलब्धता और शर्तें बदल सकती हैं; भुगतान से पहले प्रदाता पर जाँचें।" : "Links in this edition are ordinary reference links, not commission links. Prices, availability and terms can change; verify them with the provider before paying."}</p><Link href="/corrections">{hi ? "गलती मिली? पेज और स्रोत के साथ सुधार भेजें; टिकट विवरण न भेजें।" : "Found an error? Send the page and source for a correction; omit ticket details."}</Link></footer>
-      </article>
+      <PageFeedback page={`/guides/${article.slug}`} hi={hi} /></article>
     </div>
   </main>;
 }

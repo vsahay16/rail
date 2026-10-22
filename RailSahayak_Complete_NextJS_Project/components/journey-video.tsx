@@ -1,4 +1,6 @@
 "use client";
+import { VideoTranscript } from "./video-transcript";
+import { LocalizedLink as Link } from "./localized-link";
 import { useLanguage } from "@/components/language-provider";
 import styles from "./journey-video.module.css";
 const videos = {
@@ -32,9 +34,13 @@ export function JourneyVideo({ topic }: { topic: keyof typeof videos }) {
   return <section className={styles.section} aria-labelledby={`video-${topic}`}>
     <div className={styles.intro}><span>{hi ? `${item.seconds} सेकंड · हिंदी वीडियो` : `${item.seconds} seconds · English video`}</span><h2 id={`video-${topic}`}>{title}</h2></div>
     <video key={base} className={styles.video} controls playsInline preload="none" width="1920" height="1080" poster={`${base}.jpg`} aria-label={title}>
-      <source src={`${base}.mp4`} type="video/mp4" /><a href={`${base}.mp4`}>{hi ? "वीडियो खोलें" : "Open video"}</a>
+      <source src={`${base}.mp4`} type="video/mp4" />
+      <track kind={hi?"subtitles":"captions"} src={`${base}.en.vtt`} srcLang="en" label="English" default={!hi} />
+      <track kind={hi?"captions":"subtitles"} src={`${base}.hi.vtt`} srcLang="hi" label="हिंदी" default={hi} /><a href={`${base}.mp4`}>{hi ? "वीडियो खोलें" : "Open video"}</a>
     </video>
     <p className={styles.note}>{hi ? "उदाहरणात्मक एनीमेशन; लाइव टिकट या समय-सारणी का परिणाम नहीं।" : "Illustrative animation; not a live ticket or timetable result."}</p>
     <p>{hi ? item.summaryHi : item.summary}</p>
+    <VideoTranscript topic={topic} hi={hi} />
+    <Link href={topic==="family-pnr"?"/pnr-status":topic==="station-codes"?"/connection-buffer-calculator":"/connecting-trains"}>{topic==="family-pnr"?(hi?"हर यात्री की PNR स्थिति जाँचें":"Check each passenger’s PNR status"):topic==="station-codes"?(hi?"स्टेशन बदलने का समय जाँचें":"Check your station-transfer buffer"):(hi?"कनेक्टिंग ट्रेनें खोजें":"Find connecting trains")}</Link>
   </section>;
 }

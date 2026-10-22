@@ -1,4 +1,6 @@
 "use client";
+import { PageFeedback } from "@/components/page-feedback";
+import { NextUsefulStep } from "@/components/next-useful-step";
 import { TopicPath } from "@/components/topic-path";
 import { PnrExample } from "@/components/pnr-example";
 import { PnrJourneyCard } from "@/components/pnr-journey-card";
@@ -171,7 +173,7 @@ export function PnrStatusClient() {
         <div className="pnr-result-head"><div><span>{result.eyebrow}</span><h2>{trainLabel || result.title}</h2><p>{result.description}</p></div><button onClick={reset}>{t.clear}</button></div>
         {journey && <PnrJourneyCard summary={journey} pnr={lookupPnr} hi={hi} />}
         {result.tone === "success" && <p className="pnr-missing-note">{hi ? "कोई विवरण उपलब्ध न हो तो उससे टिकट पक्का या रद्द होना न मानें। आधिकारिक PNR रिकॉर्ड जाँचें।" : "Missing details do not mean a ticket is confirmed or cancelled. Check the official PNR record if anything is unclear."}</p>}
-        <ResultHelp hi={hi} tool="pnr-status" pnr code={resultCode} fetchedAt={fetchedAt} />
+        <NextUsefulStep tool="pnr-status" hi={hi} /><ResultHelp hi={hi} tool="pnr-status" pnr code={resultCode} fetchedAt={fetchedAt} />
         <div className="result-actions"><a href={officialPnrUrl} target="_blank" rel="noreferrer">{t.verify}<Icon name="external" size={15} /></a><span>{t.sourceNote}</span></div>
       </section>}
     </section>
@@ -194,7 +196,7 @@ export function PnrStatusClient() {
     <section className="related-tools"><div><span className="kicker light">{t.relatedKicker}</span><h2>{t.relatedTitle}</h2></div><div><Link href="/live-train-status"><Icon name="pulse" size={19} />{hi ? "लाइव ट्रेन स्थिति" : "Live train status"}<Icon name="arrow" size={16} /></Link><Link href="/chart-preparation-calculator"><Icon name="chart" size={19} />{hi ? "चार्ट तैयारी" : "Chart preparation"}<Icon name="arrow" size={16} /></Link><Link href="/seat-berth-finder"><Icon name="seat" size={19} />{hi ? "बर्थ पहचानें" : "Berth finder"}<Icon name="arrow" size={16} /></Link></div></section>
 
   <TopicPath slug="pnr-status" />
-  <PageGuidance slug="pnr-status" /></main>;
+  <PageFeedback page={`/pnr-status`} hi={hi} /><PageGuidance slug="pnr-status" /></main>;
 }
 
 

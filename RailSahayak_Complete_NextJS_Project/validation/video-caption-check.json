@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "tracks": 14,
+  "videos": 7,
+  "checks": [
+    "WebVTT headers and ordered non-overlapping cues",
+    "Cue times within video duration",
+    "Existing poster and preload=none retained"
+  ],
+  "caption_source": "Existing visible video narration captions; translated Hindi subtitles for English-only confirmation video."
+}

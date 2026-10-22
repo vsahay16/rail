@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "checks": [
+    "Additive migration applies twice",
+    "Anonymous snapshot/feedback access denied",
+    "Query strings rejected at database boundary"
+  ]
+}

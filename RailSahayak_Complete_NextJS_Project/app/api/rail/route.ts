@@ -1,6 +1,6 @@
 import { predictionPercent } from "@/lib/journey-options";
-import { NextRequest, NextResponse } from "next/server";
-import { fetchRailway, limitVisitor, RailServiceError } from "@/lib/rail-server";
+import { after, NextRequest, NextResponse } from "next/server";
+import { fetchRailway, limitVisitor, recordHealth, RailServiceError } from "@/lib/rail-server";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -54,6 +54,7 @@ function endpointFor(params: URLSearchParams, privatePost: boolean) {
   return { action, endpoint };
 }
 async function handle(request: NextRequest, privatePost: boolean) {
+  const started=performance.now(); let monitoredAction="",outcome="SERVICE_UNAVAILABLE",cached=false;
   try {
     let params: URLSearchParams;
     if (privatePost) {
@@ -63,19 +64,28 @@ async function handle(request: NextRequest, privatePost: boolean) {
       if (!body || typeof body !== "object" || Array.isArray(body) || typeof body.pnr !== "string" || !["pnr", "prediction"].includes(String(body.action))) invalid("A PNR lookup is required.");
       params = new URLSearchParams({ action: String(body.action), pnr: body.pnr.trim() });
     } else params = new URLSearchParams(request.nextUrl.searchParams);
+    const candidate=params.get("action")??"";
+    if(["pnr","prediction","live","schedule","between","availability","fare","station","coach","platform"].includes(candidate))monitoredAction=candidate;
     const { action, endpoint } = endpointFor(params, privatePost);
     await limitVisitor(request, action);
     const payload = await fetchRailway(endpoint, action);
+    cached=payload.railq.cached===true;
     if (action === "prediction") {
       const data = (payload as { data?: { probability?: unknown } }).data;
       const percentage = predictionPercent(data?.probability);
       if (percentage === null) throw new RailServiceError("PREDICTION_UNAVAILABLE", "No supported prediction was returned.", 502, 0);
+      outcome="SUCCESS";
       return NextResponse.json({ success: true, data: { percentage, scope: "pnr", source: "RailRadar" }, railq: payload.railq }, { headers: { "Cache-Control": "no-store" } });
     }
+    outcome="SUCCESS";
     return NextResponse.json(payload, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     const problem = error instanceof RailServiceError ? error : error instanceof SyntaxError ? new RailServiceError("INVALID_INPUT", "Invalid JSON body.", 400, 0) : new RailServiceError("SERVICE_UNAVAILABLE", "The live service is temporarily unavailable.");
+    outcome=problem.code;
     return NextResponse.json({ success: false, code: problem.code, message: problem.message, error: { code: problem.code, message: problem.message } }, { status: problem.status, headers: { "Cache-Control": "no-store", ...(problem.retryAfter ? { "Retry-After": String(problem.retryAfter) } : {}), ...(problem.status === 405 ? { Allow: "POST" } : {}) } });
+  } finally {
+    const duration=performance.now()-started;
+    if(monitoredAction)after(()=>recordHealth(monitoredAction,outcome,duration,cached));
   }
 }
 export async function GET(request: NextRequest) { return handle(request, false); }
