@@ -1,6 +1,5 @@
 "use client";
 import { PageFeedback } from "@/components/page-feedback";
-import { NextUsefulStep } from "@/components/next-useful-step";
 import { TopicPath } from "@/components/topic-path";
 import { PnrExample } from "@/components/pnr-example";
 import { PnrJourneyCard } from "@/components/pnr-journey-card";
@@ -8,7 +7,9 @@ import { PageGuidance } from "@/components/page-guidance";
 import { ResultHelp } from "@/components/result-help";
 
 import { LocalizedLink as Link } from "@/components/localized-link";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { LookupProgress } from "@/components/lookup-progress";
+import { ShareTool } from "@/components/share-tool";
+import { FormEvent, useEffect, useMemo, useState, useRef } from "react";
 import { AdSlot } from "@/components/ad-slot";
 import { Icon } from "@/components/icon";
 import { useLanguage } from "@/components/language-provider";
@@ -118,39 +119,46 @@ export function PnrStatusClient() {
   const [fetchedAt, setFetchedAt] = useState<string>();
   const [pnr, setPnr] = useState("");
   const [loading, setLoading] = useState(false);
+  const submitting = useRef(false);
+  const resultRef = useRef<HTMLElement>(null);
   const [result, setResult] = useState<PnrResult | null>(null);
+  useEffect(() => {
+    if (!result || loading) return;
+    const frame = requestAnimationFrame(() => { resultRef.current?.scrollIntoView({block:"nearest",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"}); resultRef.current?.focus({preventScroll:true}); });
+    return () => cancelAnimationFrame(frame);
+  }, [result, loading]);
   const officialPnrUrl = "https://www.indianrail.gov.in/enquiry/PNR/PnrEnquiry.html?locale=en";
 
   useEffect(() => { trackEvent("pnr_page_view", { language }); }, [language]);
   const trainLabel = useMemo(() => [result?.trainNumber, result?.trainName].filter(Boolean).join(" · "), [result]);
 
   async function checkPnr(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setJourney(null); setResultCode("DISPLAY_ISSUE"); setFetchedAt(undefined);
+    event.preventDefault(); if(submitting.current) return; (document.activeElement as HTMLElement | null)?.blur(); setJourney(null); setResultCode("DISPLAY_ISSUE"); setFetchedAt(undefined);
     if (!/^\d{10}$/.test(pnr)) {
       setResult({ tone: "error", eyebrow: t.invalid, title: t.invalid, description: t.invalidText });
       trackEvent("pnr_validation_error", { reason: "invalid_length" });
       return;
     }
-    setLoading(true); setResult(null); trackEvent("pnr_lookup_submitted");
+    submitting.current = true; const started = performance.now(); setLoading(true); setResult(null); trackEvent("pnr_lookup_submitted");
     try {
       const { payload, ok } = await railRequest(new URLSearchParams({ action: "pnr", pnr }));
       if (!ok) {
         const problem = railError(payload, hi); setResultCode(problem.code);
         const notConfigured = problem.code === "PROVIDER_NOT_CONFIGURED";
         setResult({ tone: notConfigured ? "warning" : "error", eyebrow: notConfigured ? t.ready : t.unavailable, title: problem.title, description: problem.message });
-        trackEvent("pnr_lookup_result", { outcome: notConfigured ? "provider_not_configured" : "provider_error" });
+        trackEvent("pnr_lookup_result", { language, outcome: notConfigured ? "provider_not_configured" : "provider_error", duration_ms:Math.round(performance.now()-started) });
         return;
       }
       setLookupPnr(pnr);
       setJourney(pnrSummary(payload));
       setResult(mapPnrPayload(payload, hi, t.notAvailable));
       setFetchedAt(String((payload.railq as Record<string, unknown> | undefined)?.fetchedAt || new Date().toISOString()));
-      trackEvent("pnr_lookup_result", { language, outcome: pnrSummary(payload).passengers.length > 0 && pnrSummary(payload).passengers.every(p => p.current.trim()) ? "success" : "incomplete" });
+      trackEvent("pnr_lookup_result", { language, duration_ms:Math.round(performance.now()-started), outcome: pnrSummary(payload).passengers.length > 0 && pnrSummary(payload).passengers.every(p => p.current.trim()) ? "success" : "incomplete" });
     } catch {
       setResultCode("NETWORK_ERROR");
       setResult({ tone: "error", eyebrow: t.connection, title: t.connectionTitle, description: t.connectionText });
-      trackEvent("pnr_lookup_result", { outcome: "network_error" });
-    } finally { setLoading(false); }
+      trackEvent("pnr_lookup_result", { language, outcome: "network_error", duration_ms:Math.round(performance.now()-started) });
+    } finally { setLoading(false); submitting.current = false; }
   }
 
   function reset() { setJourney(null); setPnr(""); setResult(null); document.getElementById("pnr-number")?.focus(); }
@@ -164,31 +172,33 @@ export function PnrStatusClient() {
         <div className="tool-card-heading"><span><Icon name="ticket" size={22} /></span><div><b>{t.breadcrumbPage}</b><small>{hi ? "10 अंकों का नंबर" : "10-digit ticket number"}</small></div></div>
         <form onSubmit={checkPnr} className="pnr-form" noValidate>
           <label htmlFor="pnr-number">{t.label}</label>
-          <div className="pnr-input-row"><input id="pnr-number" name="pnr" inputMode="numeric" autoComplete="off" maxLength={10} value={pnr} onChange={(event) => { setPnr(event.target.value.replace(/\D/g, "")); if (result?.tone === "error") setResult(null); }} placeholder={t.placeholder} aria-describedby="pnr-privacy-note" /><button type="submit" disabled={loading}>{loading ? <><span className="spinner" />{t.checking}</> : <>{t.button}<Icon name="arrow" size={18} /></>}</button></div>
+          <div className="pnr-input-row"><input disabled={loading} enterKeyHint="search" id="pnr-number" name="pnr" inputMode="numeric" autoComplete="off" maxLength={10} value={pnr} onChange={(event) => { setPnr(event.target.value.replace(/\D/g, "")); if (result?.tone === "error") setResult(null); }} placeholder={t.placeholder} aria-describedby="pnr-privacy-note" /><button type="submit" disabled={loading}>{loading ? <><span className="spinner" />{t.checking}</> : <>{t.button}<Icon name="arrow" size={18} /></>}</button></div>
           <p>{hi ? "पहले PNR जाँचें, फिर WL/RAC परिणाम में ‘कन्फर्म होने की संभावना देखें’ चुनें। वैकल्पिक अनुमान · गारंटी नहीं।" : "Check your PNR first, then choose ‘Check confirmation chance’ on a WL/RAC result. Optional estimate · Not a guarantee."}</p>
           <p id="pnr-privacy-note"><Icon name="shield" size={14} />{t.private}</p>
+          {loading && <LookupProgress hi={hi} />}
         </form>
       </div>
 
-      {result && <section className={`pnr-result ${result.tone}`} aria-live="polite">
+      {result && <section ref={resultRef} tabIndex={-1} className={`pnr-result ${result.tone}`} aria-live="polite">
         <div className="pnr-result-head"><div><span>{result.eyebrow}</span><h2>{trainLabel || result.title}</h2><p>{result.description}</p></div><button onClick={reset}>{t.clear}</button></div>
         {journey && <PnrJourneyCard summary={journey} pnr={lookupPnr} hi={hi} />}
         {result.tone === "success" && <p className="pnr-missing-note">{hi ? "कोई विवरण उपलब्ध न हो तो उससे टिकट पक्का या रद्द होना न मानें। आधिकारिक PNR रिकॉर्ड जाँचें।" : "Missing details do not mean a ticket is confirmed or cancelled. Check the official PNR record if anything is unclear."}</p>}
-        <NextUsefulStep tool="pnr-status" hi={hi} /><ResultHelp hi={hi} tool="pnr-status" pnr code={resultCode} fetchedAt={fetchedAt} />
+        {!journey && <p>{hi ? "नंबर जाँचकर उसी फॉर्म से फिर प्रयास करें।" : "Check the number and retry using the same form above."}</p>}<ResultHelp hi={hi} tool="pnr-status" pnr code={resultCode} fetchedAt={fetchedAt} />
         <div className="result-actions"><a href={officialPnrUrl} target="_blank" rel="noreferrer">{t.verify}<Icon name="external" size={15} /></a><span>{t.sourceNote}</span></div>
       </section>}
     </section>
 
     <AdSlot placement="top" format="970 × 90 / 320 × 100" className="tool-page-ad" />
 
-    <PnrExample hi={hi} />
+    <p className="mobile-quick-answer">{hi ? "पहले हर यात्री की वर्तमान स्थिति देखें। कन्फर्मेशन अनुमान अलग है और यात्रा की अनुमति नहीं देता।" : "Read each passenger’s current status first. A confirmation estimate is separate and does not give permission to travel."}</p>
+    <details className="mobile-help"><summary>{hi ? "PNR परिणाम पढ़ने का उदाहरण" : "See an example PNR result"}</summary><PnrExample hi={hi} /></details>
 
-    <section className="pnr-guide-section">
+    <details className="mobile-help"><summary>{hi ? "CNF, RAC और वेटलिस्ट कोड समझें" : "Understand CNF, RAC and waiting-list codes"}</summary><section className="pnr-guide-section">
       <div className="pnr-section-heading"><span className="kicker">{t.guideKicker}</span><h2>{t.guideTitle}</h2><p>{t.guideText}</p></div>
       <div className="status-code-grid">{statusCodes.map(([code, enTitle, hiTitle, enText, hiText]) => <article key={code}><span>{code}</span><div><h3>{hi ? hiTitle : enTitle}</h3><p>{hi ? hiText : enText}</p></div></article>)}</div>
-    </section>
+    </section></details>
 
-    <div className="pnr-content-ad-layout"><section className="pnr-how-section"><div className="pnr-section-heading"><span className="kicker">{t.howKicker}</span><h2>{t.howTitle}</h2></div><div className="how-steps"><article><span>01</span><div><h3>{t.step1Title}</h3><p>{t.step1Text}</p></div></article><article><span>02</span><div><h3>{t.step2Title}</h3><p>{t.step2Text}</p></div></article><article><span>03</span><div><h3>{t.step3Title}</h3><p>{t.step3Text}</p></div></article></div><aside className="find-pnr-card"><Icon name="ticket" size={24} /><div><h3>{t.findTitle}</h3><p>{t.findText}</p></div></aside></section><AdSlot placement="square" format="300 × 250" className="pnr-square-ad" /></div>
+    <details className="mobile-help"><summary>{hi ? "PNR कहाँ मिलेगा और जाँच कैसे करें?" : "Where to find your PNR and how to check it"}</summary><div className="pnr-content-ad-layout"><section className="pnr-how-section"><div className="pnr-section-heading"><span className="kicker">{t.howKicker}</span><h2>{t.howTitle}</h2></div><div className="how-steps"><article><span>01</span><div><h3>{t.step1Title}</h3><p>{t.step1Text}</p></div></article><article><span>02</span><div><h3>{t.step2Title}</h3><p>{t.step2Text}</p></div></article><article><span>03</span><div><h3>{t.step3Title}</h3><p>{t.step3Text}</p></div></article></div><aside className="find-pnr-card"><Icon name="ticket" size={24} /><div><h3>{t.findTitle}</h3><p>{t.findText}</p></div></aside></section></div></details>
 
     <section className="privacy-panel"><span><Icon name="shield" size={25} /></span><div><h2>{t.privacyTitle}</h2><p>{t.privacyText}</p></div></section>
 
@@ -196,8 +206,8 @@ export function PnrStatusClient() {
 
     <section className="related-tools"><div><span className="kicker light">{t.relatedKicker}</span><h2>{t.relatedTitle}</h2></div><div><Link href="/live-train-status"><Icon name="pulse" size={19} />{hi ? "लाइव ट्रेन स्थिति" : "Live train status"}<Icon name="arrow" size={16} /></Link><Link href="/chart-preparation-calculator"><Icon name="chart" size={19} />{hi ? "चार्ट तैयारी" : "Chart preparation"}<Icon name="arrow" size={16} /></Link><Link href="/seat-berth-finder"><Icon name="seat" size={19} />{hi ? "बर्थ पहचानें" : "Berth finder"}<Icon name="arrow" size={16} /></Link></div></section>
 
-  <TopicPath slug="pnr-status" />
-  <PageFeedback page={`/pnr-status`} hi={hi} /><PageGuidance slug="pnr-status" /></main>;
+  <ShareTool hi={hi} /><TopicPath slug="pnr-status" expandable />
+  <PageFeedback page={`/pnr-status`} hi={hi} /><details className="mobile-help"><summary>{hi ? "परिणाम के बारे में और जानकारी" : "More help with your result"}</summary><PageGuidance slug="pnr-status" /></details></main>;
 }
 
 

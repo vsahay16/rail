@@ -1,4 +1,6 @@
 "use client";
+import { SavedJourneys } from "./saved-journeys";
+import { trackEvent } from "@/lib/analytics";
 import { PnrPrediction } from "@/components/pnr-prediction";
 import { pnrSummary } from "@/lib/rail-data";
 import { LocalizedLink as Link } from "@/components/localized-link";
@@ -6,6 +8,12 @@ import styles from "./pnr-journey-card.module.css";
 type Summary = ReturnType<typeof pnrSummary>;
 export function PnrJourneyCard({ summary: s, hi, pnr }: { summary: Summary; hi: boolean; pnr?: string }) {
   const text = (en: string, hindi: string) => hi ? hindi : en;
+  const waiting = s.passengers.some(p => /WL/i.test(p.current));
+  const rac = s.passengers.some(p => /^RAC\b/i.test(p.current));
+  const confirmed = s.passengers.length > 0 && s.passengers.every(p => /^(CNF|CONFIRMED)\b/i.test(p.current));
+  const step = waiting ? "waiting" : rac ? "rac" : confirmed ? "berth" : "chart";
+  const nextHref = waiting ? "/guides/pnr-confirmation-probability" : rac ? "/guides/can-you-travel-with-rac-ticket" : confirmed ? "/seat-berth-finder" : "/guides/pnr-status-explained";
+  const nextLabel = waiting ? text("Understand a waitlisted result and its estimate", "वेटलिस्ट परिणाम और उसका अनुमान समझें") : rac ? text("Understand your RAC result", "अपना RAC परिणाम समझें") : confirmed ? text("Understand your allocated berth", "आवंटित बर्थ समझें") : text("Understand your PNR result", "अपना PNR परिणाम समझें");
   const missing = text("Not provided", "जानकारी नहीं मिली");
   return <section className={styles.card} aria-label={text("Your journey result", "आपकी यात्रा का परिणाम")}>
     <header className={styles.header}><div><span className={styles.kicker}>{text("YOUR JOURNEY", "आपकी यात्रा")}</span><h2>{s.trainName || text("PNR result", "PNR परिणाम")} <small>{s.trainNumber}</small></h2><p>{s.from || missing} <span aria-hidden="true">→</span> {s.to || missing}</p></div><span className={styles.chart}>{s.chartStatus || missing}</span></header>
@@ -18,9 +26,13 @@ export function PnrJourneyCard({ summary: s, hi, pnr }: { summary: Summary; hi: 
     })}</div>
     {pnr && s.passengers.some(p => /WL|^RAC/i.test(p.current)) && <PnrPrediction key={pnr} pnr={pnr} hi={hi} />}
     <nav className={styles.actions} aria-label={text("Next journey steps", "यात्रा के अगले चरण")}>
+      <Link className="primary-next-step" href={nextHref} onClick={() => trackEvent("next_step_clicked", {tool:"pnr-status",step})}>{nextLabel} →</Link>
+      {waiting && <Link href="/connecting-trains" onClick={() => trackEvent("next_step_clicked", {tool:"pnr-status",step:"alternatives"})}>{text("Compare alternative journeys", "वैकल्पिक यात्राएँ देखें")} →</Link>}
+      {waiting && <Link href="/guides/waitlisted-ticket-after-chart-preparation">{text("Chart prepared and still WL?", "चार्ट के बाद भी WL है?")} →</Link>}
       {s.trainNumber && <Link href={`/train/${encodeURIComponent(s.trainNumber)}`}>{text("Train schedule", "ट्रेन समय-सारणी")} →</Link>}
-      <Link href={s.trainNumber ? `/live-train-status?train=${encodeURIComponent(s.trainNumber)}` : "/live-train-status"}>{text("Check live running status", "लाइव ट्रेन स्थिति देखें")} →</Link><Link href="/waitlist-guide">{text("Understand WL / RAC", "WL / RAC समझें")} →</Link>
+      <Link onClick={() => trackEvent("next_step_clicked", {tool:"pnr-status",step:"running"})} href={s.trainNumber ? `/live-train-status?train=${encodeURIComponent(s.trainNumber)}` : "/live-train-status"}>{text("Check live running status", "लाइव ट्रेन स्थिति देखें")} →</Link>
     </nav>
+    <SavedJourneys hi={hi} train={s.trainNumber} />
     <p className={styles.note}>{text("Latest provider response, not a ticket. Check each passenger separately.","प्रदाता से मिला नवीनतम उत्तर, यह टिकट नहीं है। हर यात्री की स्थिति अलग जाँचें।")}</p>
   </section>;
 }

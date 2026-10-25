@@ -11,6 +11,8 @@ import "../globals.css";
 import "../service-quality.css";
 import "../audit-fixes.css";
 import "../readability.css";
+import "../mobile-journeys.css";
+import { MobileMetrics } from "@/components/mobile-metrics";
 
 const devanagari = localFont({ src: "../fonts/NotoSansDevanagari.woff", weight: "100 900", variable: "--font-devanagari", display: "swap", preload: false, fallback: ["Nirmala UI", "Mangal", "sans-serif"] });
 
@@ -49,7 +51,7 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
             { "@type": "WebSite", "@id": `${siteUrl}/#website`, url: siteUrl, name: "RailQ", inLanguage: ["en-IN", "hi-IN"], publisher: { "@id": `${siteUrl}/#organization` } },
           ],
         }} />
-        <LanguageProvider key={initialLanguage} initialLanguage={initialLanguage}><SiteHeader />{children}<SiteFooter /><ConsentManager gaId={gaId} adsenseClient={adsenseClient} /></LanguageProvider>
+        <LanguageProvider key={initialLanguage} initialLanguage={initialLanguage}><SiteHeader /><MobileMetrics />{children}<SiteFooter /><ConsentManager gaId={gaId} adsenseClient={adsenseClient} /></LanguageProvider>
       </body>
     </html>
   );

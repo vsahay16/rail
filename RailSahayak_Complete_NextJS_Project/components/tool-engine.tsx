@@ -1,8 +1,12 @@
 "use client";
+import { LocalizedLink as Link } from "./localized-link";
 import { NextUsefulStep } from "@/components/next-useful-step";
 import { rememberTrain } from "@/lib/local-journeys";
 
-import { FormEvent, Suspense, useCallback, useState } from "react";
+import { LookupProgress } from "./lookup-progress";
+import { SavedJourneys } from "./saved-journeys";
+import { ShareTool } from "./share-tool";
+import { FormEvent, Suspense, useCallback, useState, useRef, useEffect } from "react";
 import { ToolQueryPrefill } from "./tool-query-prefill";
 import { StationInput } from "@/components/station-input";
 import { ResultHelp } from "@/components/result-help";
@@ -11,7 +15,7 @@ import { useLanguage } from "@/components/language-provider";
 import { RailProviderResult } from "@/components/rail-provider-result";
 import { trackEvent } from "@/lib/analytics";
 import { estimateRefund, cancellationHours } from "@/lib/refund";
-import { railRequest, railError } from "@/lib/rail-data";
+import { railRequest, railError, liveResultOutcome } from "@/lib/rail-data";
 import { railwayDateValue as dateValue, formatRailwayDate as formatDate, railwayCalendarIso, chartPlanningWindow } from "@/lib/railway-time";
 import type { ToolConfig } from "@/lib/tool-registry";
 
@@ -75,9 +79,17 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
     if (Object.keys(allowed).length) setForm(current => ({ ...current, ...allowed }));
   }, [fields]);
   const [loading, setLoading] = useState(false);
+  const submitting = useRef(false);
   const [localResult, setLocalResult] = useState<LocalResult | null>(null);
   const [providerResult, setProviderResult] = useState<Record<string, unknown> | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (loading || (!localResult && !providerResult)) return;
+    const frame = requestAnimationFrame(() => { resultRef.current?.scrollIntoView({block:"nearest",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"}); resultRef.current?.focus({preventScroll:true}); });
+    return () => cancelAnimationFrame(frame);
+  }, [localResult, providerResult, loading]);
   const submitLabel = tool.live ? (hi ? "लाइव जानकारी देखें" : "Check live information") : (hi ? "परिणाम निकालें" : "Calculate result");
+  function updateField(name: string, value: string) { setForm(current => ({...current, [name]:value})); setLocalResult(null); setProviderResult(null); }
   function error(title: string, description: string) { setLocalResult({ tone: "error", eyebrow: hi ? "जानकारी जाँचें" : "Check the information", title, description }); }
 
   function calculate(form: Record<string, string>): LocalResult | null {
@@ -146,22 +158,22 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
   }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setLocalResult(null); setProviderResult(null);
+    event.preventDefault(); (document.activeElement as HTMLElement | null)?.blur(); if(submitting.current) return; setLocalResult(null); setProviderResult(null);
     if (!tool.live) { const submitted = new FormData(event.currentTarget); const calculated = calculate({ ...form, ...Object.fromEntries(fields.filter(field => field.type !== "checkbox").map(field => [field.name, String(submitted.get(field.name) ?? form[field.name] ?? "")])) }); if (calculated) { setLocalResult(calculated); trackEvent("calculator_completed", { tool: tool.slug, outcome: calculated.tone }); } return; }
     const trainTools = ["live-train-status", "seat-availability", "train-schedule", "train-fare", "coach-position", "platform-number"];
     if (trainTools.includes(tool.slug) && !/^\d{5}$/.test(form.train ?? "")) { error(hi ? "सही 5 अंकों का ट्रेन नंबर डालें" : "Enter a valid 5-digit train number", hi ? "उदाहरण: 12952" : "For example: 12952"); return; }
     if (["trains-between-stations", "seat-availability", "train-fare"].includes(tool.slug) && (!/^[A-Z0-9]{2,6}$/i.test(form.from ?? "") || !/^[A-Z0-9]{2,6}$/i.test(form.to ?? ""))) { error(hi ? "दोनों स्टेशन कोड जाँचें" : "Check both station codes", hi ? "उदाहरण: NDLS से MMCT" : "For example: NDLS to MMCT"); return; }
     if (["seat-availability", "train-fare"].includes(tool.slug) && !form.date) { error(hi ? "यात्रा तारीख चुनें" : "Select a journey date", hi ? "उपलब्धता और किराए के लिए तारीख जरूरी है।" : "A journey date is required for availability and fare."); return; }
     if (["station-arrivals-departures", "platform-number"].includes(tool.slug) && !/^[A-Z0-9]{2,6}$/i.test(form.station ?? "")) { error(hi ? "सही स्टेशन कोड डालें" : "Enter a valid station code", hi ? "उदाहरण: NDLS" : "For example: NDLS"); return; }
-    setLoading(true); trackEvent("live_tool_submitted", { tool: tool.slug });
+    submitting.current = true; const started = performance.now(); setLoading(true); trackEvent("live_tool_submitted", { tool: tool.slug });
     const actionMap: Record<string, string> = { "live-train-status": "live", "trains-between-stations": "between", "seat-availability": "availability", "train-schedule": "schedule", "train-fare": "fare", "station-arrivals-departures": "station", "coach-position": "coach", "platform-number": "platform" };
     const params = new URLSearchParams({ action: actionMap[tool.slug] ?? tool.slug }); Object.entries(form).forEach(([key, value]) => { if (value) params.set(key, ["from", "to", "station"].includes(key) ? value.toUpperCase() : value); });
     try {
       const { payload, ok } = await railRequest(params);
-      if (!ok) { const problem = railError(payload, hi); setLocalResult({ tone: "warning", eyebrow: hi ? "लाइव जानकारी अनुपलब्ध" : "Live information unavailable", title: problem.title, code: problem.code, description: problem.message }); trackEvent("live_tool_result", { tool: tool.slug, outcome: "error" }); }
-      else { if (form.train) rememberTrain(form.train); setProviderResult(payload); trackEvent("live_tool_result", { tool: tool.slug, outcome: "success" }); }
-    } catch { error(hi ? "कनेक्शन रुक गया" : "Connection interrupted", hi ? "फिर प्रयास करें या आधिकारिक रेलवे सेवा देखें।" : "Try again or use an official railway service."); }
-    finally { setLoading(false); }
+      if (!ok) { const problem = railError(payload, hi); setLocalResult({ tone: "warning", eyebrow: hi ? "लाइव जानकारी अनुपलब्ध" : "Live information unavailable", title: problem.title, code: problem.code, description: problem.message }); trackEvent("live_tool_result", { tool: tool.slug, outcome: "error", duration_ms: Math.round(performance.now() - started) }); }
+      else { if (form.train) rememberTrain(form.train); setProviderResult(payload); trackEvent("live_tool_result", { tool: tool.slug, outcome: liveResultOutcome(tool.slug, payload), duration_ms: Math.round(performance.now() - started) }); }
+    } catch { trackEvent("live_tool_result", { tool:tool.slug, outcome:"network_error", duration_ms:Math.round(performance.now()-started) }); error(hi ? "कनेक्शन रुक गया" : "Connection interrupted", hi ? "फिर प्रयास करें या आधिकारिक रेलवे सेवा देखें।" : "Try again or use an official railway service."); }
+    finally { setLoading(false); submitting.current = false; }
   }
 
   function downloadCalendar() {
@@ -172,16 +184,20 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
 
   if (tool.slug === "pnr-alerts") return <section className="tool-engine"><div className="engine-result warning"><span>{hi ? "जल्द आ रहा है" : "Coming soon"}</span><h2>{hi ? "PNR ईमेल अलर्ट अभी शुरू नहीं हैं" : "PNR email alerts are not active yet"}</h2><p>{hi ? "ईमेल सत्यापन और डिलीवरी परीक्षण पूरे होने तक हम PNR या ईमेल अनुरोध नहीं ले रहे हैं। बुकिंग और तत्काल के कैलेंडर रिमाइंडर उपलब्ध हैं।" : "We are not collecting PNR or email requests until email verification and delivery testing are complete. Booking and Tatkal calendar reminders remain available."}</p></div></section>;
 
-  return <section className="tool-engine"><Suspense fallback={null}><ToolQueryPrefill onPrefill={applyPrefill} /></Suspense>{tool.slug === "trains-between-stations" && <h2>{hi ? "पहले स्टेशन के बीच ट्रेनें खोजें" : "Start with a station-to-station search"}</h2>}<form id="rail-search" onSubmit={submit}><div className={`engine-fields fields-${Math.min(fields.length, 3)}`}>{fields.map((field) => <label className={field.type === "checkbox" ? "engine-checkbox" : ""} key={field.name}>{field.type === "checkbox" ? <><input type="checkbox" checked={form[field.name] === "true"} onChange={(event) => setForm({ ...form, [field.name]: String(event.target.checked) })} /><span>{hi ? field.labelHi : field.label}</span></> : <><span>{hi ? field.labelHi : field.label}</span>{["from", "to", "station"].includes(field.name) ? <StationInput name={field.name} hi={hi} value={form[field.name]} onChange={(value) => setForm({ ...form, [field.name]: value })} /> : field.type === "select" ? <select name={field.name} value={form[field.name]} onChange={(event) => setForm({ ...form, [field.name]: event.target.value })}>{field.options?.map(([value, en, hindi]) => <option key={value} value={value}>{hi ? hindi : en}</option>)}</select> : <input name={field.name} type={field.type ?? "text"} min={field.min} max={field.max} step={field.step ?? (field.name === "fare" ? "0.01" : undefined)} value={form[field.name]} onChange={(event) => setForm({ ...form, [field.name]: event.target.value.replace(field.type === "number" && ["train", "pnr", "seat"].includes(field.name) ? /\D/g : /$^/, "") })} placeholder={hi ? field.placeholderHi ?? field.placeholder : field.placeholder} />}</>}</label>)}</div><button className="engine-submit" type="submit" disabled={loading}>{loading ? <><span className="spinner" />{hi ? "जानकारी मिल रही है" : "Getting information"}</> : <>{submitLabel}<Icon name="arrow" size={18} /></>}</button><p className="engine-disclaimer"><Icon name="shield" size={14} />{tool.live ? (hi ? "लाइव डेटा प्रदाता की उपलब्धता पर निर्भर करता है।" : "Live data depends on provider availability.") : (hi ? "यह योजना के लिए सहायक अनुमान है; महत्वपूर्ण नियम सत्यापित करें।" : "This is a planning aid; verify important rules.")}</p></form>
+  return <section className="tool-engine"><Suspense fallback={null}><ToolQueryPrefill onPrefill={applyPrefill} /></Suspense>{tool.slug === "trains-between-stations" && <h2>{hi ? "पहले स्टेशन के बीच ट्रेनें खोजें" : "Start with a station-to-station search"}</h2>}<form id="rail-search" onSubmit={submit} aria-busy={loading}><fieldset disabled={loading} className={`engine-fields fields-${Math.min(fields.length, 3)}`}>{fields.map((field) => <label className={field.type === "checkbox" ? "engine-checkbox" : ""} key={field.name}>{field.type === "checkbox" ? <><input type="checkbox" checked={form[field.name] === "true"} onChange={(event) => updateField(field.name, String(event.target.checked))} /><span>{hi ? field.labelHi : field.label}</span></> : <><span>{hi ? field.labelHi : field.label}</span>{["from", "to", "station"].includes(field.name) ? <StationInput name={field.name} hi={hi} value={form[field.name]} onChange={(value) => updateField(field.name, value)} /> : field.type === "select" ? <select name={field.name} value={form[field.name]} onChange={(event) => updateField(field.name, event.target.value)}>{field.options?.map(([value, en, hindi]) => <option key={value} value={value}>{hi ? hindi : en}</option>)}</select> : <input name={field.name} type={field.name === "train" ? "text" : field.type ?? "text"} inputMode={field.name === "train" ? "numeric" : undefined} maxLength={field.name === "train" ? 5 : undefined} autoComplete={field.name === "train" ? "off" : undefined} enterKeyHint="go" min={field.min} max={field.max} step={field.step ?? (field.name === "fare" ? "0.01" : undefined)} value={form[field.name]} onChange={(event) => updateField(field.name, event.target.value.replace(field.type === "number" && ["train", "pnr", "seat"].includes(field.name) ? /\D/g : /$^/, ""))} placeholder={hi ? field.placeholderHi ?? field.placeholder : field.placeholder} />}</>}</label>)}</fieldset><button className="engine-submit" type="submit" disabled={loading}>{loading ? <><span className="spinner" />{hi ? "जानकारी मिल रही है" : "Getting information"}</> : <>{submitLabel}<Icon name="arrow" size={18} /></>}</button><p className="engine-disclaimer"><Icon name="shield" size={14} />{tool.live ? (hi ? "लाइव डेटा प्रदाता की उपलब्धता पर निर्भर करता है।" : "Live data depends on provider availability.") : (hi ? "यह योजना के लिए सहायक अनुमान है; महत्वपूर्ण नियम सत्यापित करें।" : "This is a planning aid; verify important rules.")}</p>{loading && <LookupProgress hi={hi} />}</form>
+    {!loading && (fields.some(f => f.name === "train") || fields.some(f => f.name === "from")) && <SavedJourneys hi={hi} acceptsTrain={fields.some(f => f.name === "train")} acceptsRoute={fields.some(f => f.name === "from")} train={form.train} from={form.from} to={form.to} onChoose={values => { setForm(current => ({...current, ...Object.fromEntries(Object.entries(values).filter(([key]) => fields.some(f => f.name === key)))})); setLocalResult(null); setProviderResult(null); document.getElementById("rail-search")?.scrollIntoView({block:"nearest",behavior:"smooth"}); }} />}
 
     {tool.slug === "coach-layout" && <div className="coach-visual"><div className="coach-corridor">{hi ? "गलियारा / Aisle" : "Aisle"}</div><div className={`coach-seat-map map-${form.coach}`}>{Array.from({ length: 24 }, (_, index) => <span className={layoutPattern[index % layoutPattern.length].toLowerCase()} key={index}><b>{index + 1}</b><small>{layoutPattern[index % layoutPattern.length]}</small></span>)}</div><p>{hi ? "यह प्रतिनिधि लेआउट है। वास्तविक रेक संरचना अलग हो सकती है।" : "Representative layout only. The actual rake formation may differ."}</p></div>}
 
-    {localResult && <div className={`engine-result ${localResult.tone}`} aria-live="polite"><span>{localResult.eyebrow}</span><h2>{localResult.title}</h2><p>{localResult.description}</p>{localResult.metrics && <dl>{localResult.metrics.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}{localResult.calendarIso && <button onClick={downloadCalendar}><Icon name="calendar" size={17} />{hi ? "कैलेंडर में जोड़ें" : "Add to calendar"}</button>}</div>}
+    {localResult && <div ref={resultRef} tabIndex={-1} className={`engine-result ${localResult.tone}`} aria-live="polite"><span>{localResult.eyebrow}</span><h2>{localResult.title}</h2><p>{localResult.description}</p>{localResult.metrics && <dl>{localResult.metrics.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}{tool.slug === "booking-date-calculator" && localResult.tone === "success" && <Link className="primary-next-step" href={`/booking-reminders?date=${encodeURIComponent(form.date)}`} onClick={() => trackEvent("next_step_clicked", {tool:tool.slug,step:"reminder"})}>{hi ? "बुकिंग का कैलेंडर रिमाइंडर बनाएँ" : "Create a booking calendar reminder"}</Link>}{localResult.calendarIso && <button onClick={downloadCalendar}><Icon name="calendar" size={17} />{hi ? "कैलेंडर में जोड़ें" : "Add to calendar"}</button>}</div>}
 
     {["refund-calculator", "cancellation-deadline-calculator", "chart-preparation-calculator"].includes(tool.slug) && <div className="engine-disclaimer"><p>{hi ? "स्रोत समीक्षा: 13 अक्टूबर 2026। यह योजना में सहायता है, लाइव रेलवे रिकॉर्ड या रिफंड स्वीकृति नहीं। विशेष नीति वाली ट्रेन पर सामान्य गणना लागू न करें।" : "Sources reviewed: 13 October 2026. A planning aid, not a live railway record or refund approval. Do not use the ordinary calculation for trains with a separate policy."}</p><a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2244597" target="_blank" rel="noreferrer">{hi ? "रेल मंत्रालय: मार्च 2026 घोषणा" : "Ministry of Railways: March 2026 announcement"}</a> · <a href="https://contents.irctc.co.in/en/RefundCancellationRules.pdf" target="_blank" rel="noreferrer">{hi ? "IRCTC के प्रकाशित रिफंड नियम" : "IRCTC published refund rules"}</a> · <a href={hi ? "/hi/guides/cancellation-and-refunds" : "/guides/cancellation-and-refunds"}>{hi ? "रिफंड मार्गदर्शिका" : "Refund guide"}</a> · <a href={hi ? "/hi/guides/chart-preparation" : "/guides/chart-preparation"}>{hi ? "चार्ट मार्गदर्शिका" : "Chart guide"}</a></div>}
     {tool.live && localResult && <ResultHelp hi={hi} tool={tool.slug} code={localResult.code || "INVALID_INPUT"} />}
     {localResult && (localResult.tone !== "error" || localResult.code === "NOT_FOUND") && <NextUsefulStep tool={tool.slug} hi={hi} />}
-    {providerResult && <RailProviderResult toolSlug={tool.slug} payload={providerResult} hi={hi} />}
+    {providerResult && <div ref={resultRef} tabIndex={-1} aria-label={hi ? "खोज परिणाम" : "Search result"}>
+      {liveResultOutcome(tool.slug,providerResult) === "incomplete" && <p role="status" className="lookup-progress">{hi ? "प्रदाता का उत्तर अधूरा है। यात्रा का निर्णय लेने से पहले आधिकारिक सेवा जाँचें। आपकी जानकारी फॉर्म में है; फिर प्रयास कर सकते हैं।" : "The provider response is incomplete. Check the official service before acting. Your details are still in the form if you want to retry."}</p>}
+      <RailProviderResult toolSlug={tool.slug} payload={providerResult} hi={hi} /></div>}
+    {(providerResult || localResult) && <ShareTool hi={hi} />}
   </section>;
 }
 

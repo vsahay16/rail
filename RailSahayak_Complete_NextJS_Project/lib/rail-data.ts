@@ -397,6 +397,22 @@ export async function railRequest(
     payload,
     ok: response.ok && payload.success !== false,
   };
-  } finally { setTimeout(() => pendingLookups.delete(fingerprint), 15000); }
+  } finally { pendingLookups.delete(fingerprint); }
 }
 
+
+/** Whether the displayed tool has useful provider content. No identifiers are returned. */
+export function liveResultOutcome(tool: string, payload: unknown): "success" | "empty" | "incomplete" {
+ const data = railData(payload);
+ if (tool === "live-train-status") return scalar(data.status, data.delayMinutes, record(data.nextHalt).code, record(data.previousHalt).code) ? "success" : "incomplete";
+ if (tool === "train-schedule") return rows(data.route).length ? "success" : "incomplete";
+ if (["trains-between-stations", "station-arrivals-departures"].includes(tool)) return Array.isArray(data.trains) ? data.trains.length ? "success" : "empty" : "incomplete";
+ if (tool === "seat-availability") return [data.calendar,data.avlDayList,data.availability,data.days,data.results,data.dates].some(v => Array.isArray(v) && v.length) ? "success" : "incomplete";
+ if (tool === "train-fare") {
+  const value = record(data.breakdown).totalFare ?? data.totalFare ?? data.fare ?? data.amount;
+  return value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value)) ? "success" : "incomplete";
+ }
+ if (tool === "platform-number") return scalar(record(data.station).platform,data.platform) ? "success" : "incomplete";
+ if (tool === "coach-position") return [data.rake,data.coaches].some(v => Array.isArray(v) && v.length) ? "success" : "incomplete";
+ return "incomplete";
+}

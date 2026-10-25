@@ -16,7 +16,7 @@ export function trackEvent(name: string, properties: Record<string, unknown> = {
     sessionId = crypto.randomUUID();
     window.localStorage.setItem("rs_session_id", sessionId);
   }
-  const safeProperties = safeAnalyticsProperties(properties);
+  const safeProperties = safeAnalyticsProperties({...properties, language:document.documentElement.lang.startsWith("hi")?"hi":"en", device: window.matchMedia("(max-width: 760px)").matches ? "mobile" : "desktop"});
   const path=safeAnalyticsPath(window.location.pathname);
   window.gtag?.("event", name, {...safeProperties,page_location:window.location.origin+path,page_referrer:""});
   void fetch("/api/events", {

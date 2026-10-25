@@ -11,7 +11,7 @@ export function readPlaces(): SavedPlace[] {
   } catch { return []; }
 }
 export function writePlaces(items: SavedPlace[]) {
-  try { localStorage.setItem(KEY, JSON.stringify(items.filter(validPlace).slice(0, 12))); window.dispatchEvent(new Event("railq:saved")); return true; }
+  try { localStorage.setItem(KEY, JSON.stringify(items.filter(validPlace).slice(0, 12).map(({kind,value}) => ({kind,value})))); window.dispatchEvent(new Event("railq:saved")); return true; }
   catch { return false; }
 }
 export function recentTrains(): string[] {
@@ -24,4 +24,18 @@ export function rememberTrain(train: string) {
 }
 export function clearRecent() {
   try { localStorage.removeItem("railq_recent_trains"); window.dispatchEvent(new Event("railq:saved")); return true; } catch { return false; }
+}
+
+export type SavedRoute = { from: string; to: string };
+const ROUTES_KEY = "railq_saved_routes_v1";
+export function validRoute(value: unknown): value is SavedRoute {
+ if (!value || typeof value !== "object") return false;
+ const route = value as SavedRoute;
+ return typeof route.from === "string" && typeof route.to === "string" && /^[A-Z0-9]{2,6}$/.test(route.from) && /^[A-Z0-9]{2,6}$/.test(route.to) && route.from !== route.to;
+}
+export function readRoutes(): SavedRoute[] {
+ try { const raw: unknown = JSON.parse(localStorage.getItem(ROUTES_KEY) || "[]"); return Array.isArray(raw) ? raw.filter(validRoute).slice(0, 6).map(({from,to}) => ({from,to})) : []; } catch { return []; }
+}
+export function writeRoutes(routes: SavedRoute[]) {
+ try { localStorage.setItem(ROUTES_KEY, JSON.stringify(routes.filter(validRoute).slice(0, 6).map(({from,to}) => ({from,to})))); window.dispatchEvent(new Event("railq:saved")); return true; } catch { return false; }
 }
