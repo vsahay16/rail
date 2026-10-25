@@ -3,7 +3,7 @@ export const analyticsEvents=new Set(["tool_page_view","homepage_view","search_t
 const allowed:Record<string,Set<string>>={
  language:new Set(["en","hi"]),tool:new Set([...toolConfigs.flatMap(t=>[t.slug,t.title]),"pnr","live","between","schedule","availability","fare","booking","booking_date"]),
  tab:new Set(["pnr","live","between","schedule","availability","fare","booking"]),
- outcome:new Set(["success","warning","error","empty","unavailable","not_configured","network_error","provider_not_configured","provider_error"]),
+ outcome:new Set(["success","warning","error","empty","unavailable","not_configured","network_error","provider_not_configured","provider_error","incomplete"]),
  reason:new Set(["invalid_length"]),mode:new Set(["pnr","train","station","route"]),placement:new Set(["top","square","bottom"]),format:new Set(["970 × 90 / 320 × 100","300 × 250","Responsive","728 × 90"])
 };
 export function safeAnalyticsProperties(input:unknown){

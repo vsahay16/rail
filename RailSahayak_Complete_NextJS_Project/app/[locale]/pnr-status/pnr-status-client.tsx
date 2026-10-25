@@ -97,12 +97,13 @@ const faqs = [
 
 function mapPnrPayload(payload: Record<string, unknown>, hi: boolean, fallback: string): PnrResult {
   const summary = pnrSummary(payload);
+  const complete = summary.passengers.length > 0 && summary.passengers.every(p => p.current.trim());
   return {
     ...summary,
-    tone: summary.passengers.length ? "success" : "warning",
+    tone: complete ? "success" : "warning",
     eyebrow: hi ? "नवीनतम उपलब्ध PNR उत्तर" : "Latest available PNR response",
     title: summary.trainName || (hi ? "PNR स्थिति" : "PNR status"),
-    description: summary.passengers.length ? (hi ? "हर यात्री की वर्तमान स्थिति अलग से जाँचें।" : "Check every passenger’s current status separately.") : (hi ? "प्रदाता ने यात्री स्थिति नहीं दी। आधिकारिक PNR पूछताछ से सत्यापित करें।" : "The provider did not return passenger statuses. Verify through official PNR enquiry."),
+    description: complete ? (hi ? "हर यात्री की वर्तमान स्थिति अलग से जाँचें।" : "Check every passenger’s current status separately.") : (hi ? "प्रदाता ने सभी यात्रियों की वर्तमान स्थिति नहीं दी। आधिकारिक PNR पूछताछ से सत्यापित करें।" : "The provider did not return complete current passenger statuses. Verify through official PNR enquiry."),
     passengers: summary.passengers.map((p) => ({ ...p, booking: p.booking || fallback, current: p.current || fallback, coach: p.coach || fallback, berth: [p.coach, p.berth, p.berthCode].filter(Boolean).join(" · ") || fallback })),
   };
 }
@@ -144,7 +145,7 @@ export function PnrStatusClient() {
       setJourney(pnrSummary(payload));
       setResult(mapPnrPayload(payload, hi, t.notAvailable));
       setFetchedAt(String((payload.railq as Record<string, unknown> | undefined)?.fetchedAt || new Date().toISOString()));
-      trackEvent("pnr_lookup_result", { outcome: "success" });
+      trackEvent("pnr_lookup_result", { language, outcome: pnrSummary(payload).passengers.length > 0 && pnrSummary(payload).passengers.every(p => p.current.trim()) ? "success" : "incomplete" });
     } catch {
       setResultCode("NETWORK_ERROR");
       setResult({ tone: "error", eyebrow: t.connection, title: t.connectionTitle, description: t.connectionText });
