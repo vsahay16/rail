@@ -1,3 +1,5 @@
+import { seoMetadataBatch } from "./seo-metadata-batch";
+
 /** Concise metadata; display headings remain descriptive. */
 export const metadataCopy: Record<string, { title?: string; titleHi?: string; description?: string; descriptionHi?: string }> = {
   "/status-code-decoder": {
@@ -337,3 +339,6 @@ Object.assign(metadataCopy, {
  "/blog": {title:"RailQ Blog: Reading for Your Next Train Journey",titleHi:"RailQ ब्लॉग: अगली रेल यात्रा की तैयारी",description:"Choose useful reading before booking, after receiving a ticket and before travel. Find help with RAC, failed payments, waiting lists and journey checks.",descriptionHi:"बुकिंग से पहले, टिकट मिलने के बाद और यात्रा से पहले उपयोगी जानकारी चुनें। RAC, असफल भुगतान, प्रतीक्षा सूची और यात्रा की जाँच समझें।"},
  "/guides": {title:"Railway Travel Guides: Booking, Tickets & Stations",titleHi:"रेल यात्रा गाइड: बुकिंग, टिकट और स्टेशन",description:"Browse RailQ guides by topic: PNR status, booking, coaches, station transfers and family journeys. Find practical explanations and relevant railway tools.",descriptionHi:"PNR स्थिति, बुकिंग, कोच, स्टेशन बदलने और परिवार की यात्रा पर RailQ गाइड देखें। सरल जानकारी और संबंधित रेलवे टूल्स पाएँ।"}
 });
+
+// Only the approved first batch overrides earlier copy.
+Object.assign(metadataCopy, seoMetadataBatch);

@@ -2,3 +2,5 @@
 @media(max-width:850px){.layout{grid-template-columns:1fr;gap:25px}.contents{position:static;background:#f7f8f3;border-radius:12px;padding:18px}.contents ol{columns:2;column-gap:25px}.contents li{break-inside:avoid}.figure{margin-bottom:25px}.hero h1{max-width:none}}
 @media(max-width:540px){.page{padding:20px 18px 50px}.breadcrumbs{margin-bottom:25px}.hero h1{font-size:32px}.description{font-size:18px}.contents ol{columns:1}.answer{padding:20px}.article p,.article li{font-size:16px}.section h2{font-size:23px}.figure img{border-radius:12px}.related{padding:20px}.byline{font-size:12px}.section{padding:24px 0}.tableScroll table{font-size:14px}}
 @media print{.contents,.ad{display:none}.layout{display:block}.page{padding:0}.section{break-inside:avoid}.figure{max-width:650px}.faq details p{display:block}.sources a{overflow-wrap:anywhere}}
+
+.optionalVisual{margin:20px 0;border:1px solid #cbded7;border-radius:12px;padding:12px}.optionalVisual summary{min-height:44px;padding:10px;cursor:pointer;font-weight:700}.optionalVisual .figure{width:100%;margin:16px 0}.optionalVisual :focus-visible{outline:3px solid #ce8b22;outline-offset:3px}

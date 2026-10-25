@@ -1,3 +1,4 @@
+import { seoMetadataBatch, seoMetadataDate } from "./seo-metadata-batch";
 import { confirmationGuide } from "@/lib/journey-content";
 import { travelArticles } from "@/lib/travel-articles";
 import { nextGuides } from "@/lib/guides-october-next";
@@ -93,6 +94,12 @@ for (const guide of guides) {
   if (["pnr-status-explained", "pnr-and-waiting-lists", "vikalp-and-alternate-routes"].includes(guide.slug)) guide.updated = "2026-10-15";
 }
 for (const guide of guides) { const copy=releaseGuideCopy[guide.slug as keyof typeof releaseGuideCopy]; if(copy) {Object.assign(guide,copy);guide.updated="2026-10-22";} }
+// Match guide headings and WebPage data to the selected metadata test.
+for (const guide of guides) {
+ const copy = seoMetadataBatch[`/guides/${guide.slug}`];
+ if (copy) Object.assign(guide, copy);
+ if (["train-classes-and-coaches", "missed-train-what-to-do"].includes(guide.slug)) guide.updated = seoMetadataDate;
+}
 export function getGuide(slug: string) { return guides.find((guide) => guide.slug === slug); }
 
 

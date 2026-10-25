@@ -1,3 +1,4 @@
+import { seoChangedPaths, seoMetadataDate } from "@/lib/seo-metadata-batch";
 import type { MetadataRoute } from "next";
 import { contentPages } from "@/lib/content-registry";
 import { guides } from "@/lib/guide-registry";
@@ -12,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const calculatorUpdated = ["/coach-layout", "/seat-berth-finder", "/refund-calculator", "/cancellation-deadline-calculator", "/chart-preparation-calculator"].includes(path);
     const guideDate = guides.find(guide => path === `/guides/${guide.slug}`)?.updated;
     const releaseUpdated = ["/about","/blog","/guides","/trains-between-stations","/coach-layout","/coach-position","/seat-berth-finder","/privacy","/connecting-trains","/seat-availability","/chart-preparation-calculator"].includes(path);
-    const shared = { alternates: { languages }, ...((releaseUpdated || calculatorUpdated || updatedPaths.has(path) || !!guideDate) ? { lastModified: releaseUpdated ? "2026-10-22" : calculatorUpdated ? "2026-10-13" : path === "/guides" ? "2026-10-15" : guideDate ?? contentRevision } : {}) };
+    const shared = { alternates: { languages }, ...((seoChangedPaths.has(path) || releaseUpdated || calculatorUpdated || updatedPaths.has(path) || !!guideDate) ? { lastModified: seoChangedPaths.has(path) ? seoMetadataDate : releaseUpdated ? "2026-10-22" : calculatorUpdated ? "2026-10-13" : path === "/guides" ? "2026-10-15" : guideDate ?? contentRevision } : {}) };
     return [{ url: `${siteUrl}${path || "/"}`, ...shared }, { url: `${siteUrl}/hi${path}`, ...shared }];
   });
 }

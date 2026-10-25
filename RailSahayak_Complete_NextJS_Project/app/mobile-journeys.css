@@ -39,3 +39,7 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.spinner{animation:none}}
 
 @media(max-width:760px){.language-switch,.menu-button{min-height:44px;min-width:44px}.mobile-nav a{min-height:44px}}
+
+.task-entry-note{line-height:1.65;padding:12px 14px;background:#f0f8f5;border:1px solid #d1e2db;border-radius:12px}.task-entry-note a{text-decoration:underline;color:#075f50}.rail-train-list .route-seat-link{display:inline-flex;align-items:center;min-height:44px;padding:10px 14px;border:1px solid #8bb4a8;border-radius:9px;color:#075f50;font-weight:700;text-decoration:none;grid-column:1/-1;overflow-wrap:anywhere}.route-seat-link:focus-visible{outline:3px solid #ce8b22;outline-offset:3px}
+
+.table-scroll-hint{display:none}@media(max-width:760px){.guide-detail-hero{padding:20px 16px}.guide-detail-hero h1{font-size:clamp(28px,7vw,34px);line-height:1.25;letter-spacing:-.4px;margin:12px 0}.guide-detail-hero>p{font-size:16px;line-height:1.65}.guide-detail-hero>div{display:none}html[lang^="hi"] .guide-detail-hero h1{line-height:1.45;letter-spacing:normal}.table-scroll-hint{display:block;font-size:14px;color:#526477}}
