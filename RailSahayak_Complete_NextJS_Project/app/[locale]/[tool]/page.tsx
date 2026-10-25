@@ -1,3 +1,4 @@
+import { getSeoRollout } from "@/lib/seo-rollout";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ToolPageClient } from "@/components/tool-page-client";
@@ -20,8 +21,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function GenericToolPage({ params }: { params: Promise<{ locale: string; tool: string }> }) {
   const { locale, tool: slug } = await params;
-  const config = getToolConfig(slug);
-  const page = getContentPage(slug);
+  const originalConfig = getToolConfig(slug);
+  const originalPage = getContentPage(slug);
+  const rollout = getSeoRollout(`/${slug}`, locale);
+  const fields = rollout ? (locale === "hi" ? { ...(rollout.h1 ? { titleHi: rollout.h1 } : {}), descriptionHi: rollout.description } : { ...(rollout.h1 ? { title: rollout.h1 } : {}), description: rollout.description }) : {};
+  const config = originalConfig ? { ...originalConfig, ...fields } : undefined;
+  const page = originalPage ? { ...originalPage, ...fields } : undefined;
   if (!config && !page) notFound();
   const hi = locale === "hi";
   const path = `${hi ? "/hi" : ""}/${slug}`;

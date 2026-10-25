@@ -1,3 +1,4 @@
+import { getSeoRollout } from "@/lib/seo-rollout";
 import type { Metadata } from "next";
 import { metadataCopy } from "@/lib/metadata-copy";
 import { localizedAlternates } from "@/lib/seo";
@@ -5,8 +6,9 @@ import { localizedAlternates } from "@/lib/seo";
 export async function pageMetadata(input: { locale: string; path: string; title: string; titleHi: string; description: string; descriptionHi: string }): Promise<Metadata> {
   const hi = input.locale === "hi";
   const copy = { ...input, ...metadataCopy[input.path] };
-  const title = `${hi ? copy.titleHi : copy.title} | RailQ`;
-  const description = hi ? copy.descriptionHi : copy.description;
+  const rollout = getSeoRollout(input.path, input.locale);
+  const title = `${rollout?.title ?? (hi ? copy.titleHi : copy.title)} | RailQ`;
+  const description = rollout?.description ?? (hi ? copy.descriptionHi : copy.description);
   const alternates = localizedAlternates(input.path, hi ? "hi" : "en");
   return {
     title, description, alternates,

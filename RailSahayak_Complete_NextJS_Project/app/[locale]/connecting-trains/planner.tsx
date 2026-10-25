@@ -12,7 +12,7 @@ import { trackEvent } from "@/lib/analytics";
 import type { JourneyOption } from "@/lib/connecting-journeys";
 import styles from "./planner.module.css";
 
-export function JourneyPlanner() {
+export function JourneyPlanner({ heading, intro }: { heading?: string; intro?: string }) {
   const { language } = useLanguage(); const hi = language === "hi";
   const t = (en: string, hindi: string) => hi ? hindi : en;
   const [from, setFrom] = useState(""), [to, setTo] = useState(""), [date, setDate] = useState(""), [minimum, setMinimum] = useState(120);
@@ -37,7 +37,7 @@ export function JourneyPlanner() {
   }
   return <main className={styles.page}>
     <nav className={styles.links}><Link href="/tools">{t("Railway tools", "रेलवे टूल्स")}</Link><span>/</span><span>{t("Connecting trains", "कनेक्टिंग ट्रेनें")}</span></nav>
-    <header className={styles.hero}><span className={styles.kicker}>{t("More ways to reach your destination", "मंज़िल तक पहुँचने के और रास्ते")}</span><h1>{t("Find your next connection.", "अगली ट्रेन का कनेक्शन खोजें।")}</h1><p>{t("Compare direct trains and journeys with one change. See every train, travel date and transfer gap before deciding what to book.", "सीधी ट्रेन और एक बार ट्रेन बदलने वाले मार्ग देखें। बुकिंग तय करने से पहले हर ट्रेन, यात्रा तारीख और बीच का समय जाँचें।")}</p></header>
+    <header className={styles.hero}><span className={styles.kicker}>{t("More ways to reach your destination", "मंज़िल तक पहुँचने के और रास्ते")}</span><h1>{heading ?? t("Find your next connection.", "अगली ट्रेन का कनेक्शन खोजें।")}</h1><p>{intro ?? t("Compare direct trains and journeys with one change. See every train, travel date and transfer gap before deciding what to book.", "सीधी ट्रेन और एक बार ट्रेन बदलने वाले मार्ग देखें। बुकिंग तय करने से पहले हर ट्रेन, यात्रा तारीख और बीच का समय जाँचें।")}</p></header>
     <section className={styles.panel} aria-labelledby="journey-search"><h2 id="journey-search">{t("Where are you travelling?", "आप कहाँ जा रहे हैं?")}</h2><form onSubmit={submit}><fieldset disabled={busy} className={styles.fields}>
       <label>{t("From station", "कहाँ से")}<StationInput value={from} onChange={setFrom} hi={hi} name="from" /></label>
       <label>{t("To station", "कहाँ तक")}<StationInput value={to} onChange={setTo} hi={hi} name="to" /></label>

@@ -1,3 +1,4 @@
+import { seoRolloutCopy, seoRolloutDate } from "@/lib/seo-rollout";
 import { seoChangedPaths, seoMetadataDate } from "@/lib/seo-metadata-batch";
 import type { MetadataRoute } from "next";
 import { contentPages } from "@/lib/content-registry";
@@ -14,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const guideDate = guides.find(guide => path === `/guides/${guide.slug}`)?.updated;
     const releaseUpdated = ["/about","/blog","/guides","/trains-between-stations","/coach-layout","/coach-position","/seat-berth-finder","/privacy","/connecting-trains","/seat-availability","/chart-preparation-calculator"].includes(path);
     const shared = { alternates: { languages }, ...((seoChangedPaths.has(path) || releaseUpdated || calculatorUpdated || updatedPaths.has(path) || !!guideDate) ? { lastModified: seoChangedPaths.has(path) ? seoMetadataDate : releaseUpdated ? "2026-10-22" : calculatorUpdated ? "2026-10-13" : path === "/guides" ? "2026-10-15" : guideDate ?? contentRevision } : {}) };
-    return [{ url: `${siteUrl}${path || "/"}`, ...shared }, { url: `${siteUrl}/hi${path}`, ...shared }];
+    return [{ url: `${siteUrl}${path || "/"}`, ...shared, ...(seoRolloutCopy[path || "/"] ? { lastModified: seoRolloutDate } : {}) }, { url: `${siteUrl}/hi${path}`, ...shared, ...(seoRolloutCopy[`/hi${path}`] ? { lastModified: seoRolloutDate } : {}) }];
   });
 }
 

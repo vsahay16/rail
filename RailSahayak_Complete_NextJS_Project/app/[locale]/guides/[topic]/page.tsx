@@ -1,3 +1,4 @@
+import { getSeoRollout } from "@/lib/seo-rollout";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { GuideDetail } from "@/components/guide-detail";
@@ -22,8 +23,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { ...meta, openGraph: { ...meta.openGraph, type:"article", publishedTime:article.published, modifiedTime:article.updated, images:[image] }, twitter:{...meta.twitter, card:"summary_large_image", images:[image.url]} };
 }
 export default async function GuidePage({ params }: { params: Promise<{ locale: string; topic: string }> }) {
-  const { locale, topic } = await params; const guide = getGuide(topic); if (!guide) notFound();
-  const hi = locale === "hi"; const article = getTravelArticle(topic);
+  const { locale, topic } = await params; const originalGuide = getGuide(topic); if (!originalGuide) notFound();
+  const hi = locale === "hi";
+  const rollout = getSeoRollout(`/guides/${topic}`, locale);
+  const guide = rollout ? { ...originalGuide, ...(hi ? { titleHi: rollout.h1 ?? originalGuide.titleHi, descriptionHi: rollout.description } : { title: rollout.h1 ?? originalGuide.title, description: rollout.description }) } : originalGuide;
+  const originalArticle = getTravelArticle(topic);
+  const lang = hi ? "hi" : "en";
+  const article = originalArticle && rollout ? { ...originalArticle, title: { ...originalArticle.title, [lang]: rollout.h1 ?? originalArticle.title[lang] }, description: { ...originalArticle.description, [lang]: rollout.description } } : originalArticle;
   const path = `${hi ? "/hi" : ""}/guides/${guide.slug}`;
   const title = hi ? guide.titleHi : guide.title;
   return <><StructuredData data={{ "@context": "https://schema.org", "@graph": [

@@ -1,0 +1,1334 @@
+[
+  {
+    "path": "/",
+    "title": "PNR Status, Live Trains & Railway Tools | RailQ",
+    "description": "Check PNR status, track live trains and compare seats or routes. Plan your journey with RailQ’s English and Hindi tools and practical guides.",
+    "h1": "PNR status and train tools. Plan your next step.",
+    "canonical": "https://railq.in",
+    "mainText": "Independent railway travel utility PNR status and train tools. Plan your next step. Check each passenger’s ticket status, track your train or compare routes. Use the tools and clear explanations in English or Hindi to plan what to do next. Your PNR is never saved in analytics English and Hindi tools NDLS New Delhi MMCT Mumbai Central Search trains on this route → PNR status Live train Between stations Booking date Enter the 10-digit PNR from your ticket. An optional confirmation estimate can be requested after supported results. PNR Check PNR No login for quick tools Independent service · Always verify critical information with official railway channels Your trains and stations Saved only in this browser. No PNR or travel date is saved. Add a favourite train or station Type Station Train Code / number Save favourite Everything in one place Rail tools for every moment of your journey Fast answers first. Clear explanations when you need them. 0 1 PNR Status Current status, coach, berth and chart details. Open tool 0 2 Live Train Status Running position, delay and next halt. Open tool 0 3 Trains Between Stations Direct options between any two stations. Open tool 0 4 Booking Date Know exactly when your 60-day window opens. Open tool 0 5 Tatkal Time AC and non-AC opening time with reminders. Open tool 0 6 Refund Calculator Estimate deductions before cancellation. Open tool 0 7 Berth Finder Lower, middle, upper or side—know your seat. Open tool 0 8 Chart Preparation See first and final chart windows clearly. Open tool Coming together as one flow Plan your journey, one clear step at a time. Check live status, estimate chart timing and create calendar reminders. PNR email alerts are coming soon. Live journey pulse Delay, next halt and arrival changes. Only useful alerts Booking and Tatkal calendar reminders. Email alerts are not active. Privacy by design No raw PNR in analytics or public links. Start with your PNR Example journey Demo 12952 Mumbai Rajdhani New Delhi → Mumbai Central On time Depart NDLS 16:55 Next KOTA 21:40 Arrive MMCT 08:35 PNR status Confirmed B4 · 31 LB Chart time 08:55 AM Final · tomorrow Illustrative example only. Check your PNR or open My journey for your own results. Check the actual status of 12952 → Trust before traffic Railway rules, with dates and sources. Verified Aug 2026 Advance booking window 60 days Excluding the journey date; exceptions may apply. Read verified guidance Live rule card Tatkal opens 10 AM / 11 AM AC at 10 AM and non-AC at 11 AM, one day earlier. Read verified guidance Source-first guidance Final authority IRCTC / NTES Every critical result will include an official verification link. Read verified guidance Designed around Indian travellers Made for everyday journeys. In English and Hindi. Check your journey details, understand unfamiliar status codes and choose a useful next step. Switch between English and Hindi without changing your task. English हिंदी 01 Answer first The tool result is always the clearest element on the page. 02 Source visible Important rules show the official source and review date. 03 Ads with restraint Clearly labelled placements that never interrupt a critical action. Next journey Know before you go. Start with a PNR, train number or travel date. Check your journey",
+    "protected": true
+  },
+  {
+    "path": "/hi",
+    "title": "PNR स्टेटस, लाइव ट्रेन और रेल टूल्स | RailQ",
+    "description": "PNR स्टेटस, लाइव ट्रेन और सीट उपलब्धता देखें। RailQ के हिंदी और अंग्रेज़ी टूल्स व सरल गाइड से मार्ग की तुलना और यात्रा की योजना बनाएँ।",
+    "h1": "PNR स्टेटस और रेल टूल्स। यात्रा का अगला कदम तय करें।",
+    "canonical": "https://railq.in/hi",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/connecting-trains",
+    "title": "Connecting Train Journey Planner | RailQ",
+    "description": "Find direct trains and one-change routes. Compare travel dates, interchange stations and transfer gaps, then check seats for each leg separately.",
+    "h1": "Find your next connection.",
+    "canonical": "https://railq.in/connecting-trains",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/connecting-trains",
+    "title": "कनेक्टिंग ट्रेन यात्रा प्लानर | RailQ",
+    "description": "सीधी ट्रेन और एक बदलाव वाले मार्ग खोजें। यात्रा तारीख, बदलने वाले स्टेशन और ट्रांसफर अंतर मिलाएँ, फिर हर ट्रेन की सीट अलग जाँचें।",
+    "h1": "अगली ट्रेन का कनेक्शन खोजें।",
+    "canonical": "https://railq.in/hi/connecting-trains",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/tools",
+    "title": "Indian Railway Tools & Calculators | RailQ",
+    "description": "Choose a railway tool for PNR status, confirmation estimates, train routes, seats, booking dates or refunds. Available in English and Hindi.",
+    "h1": "Railway answers. One calm place.",
+    "canonical": "https://railq.in/tools",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/tools",
+    "title": "भारतीय रेल टूल्स और कैलकुलेटर | RailQ",
+    "description": "PNR स्थिति, कन्फर्मेशन अनुमान, ट्रेन मार्ग, सीट, बुकिंग तारीख और रिफंड के लिए सही रेलवे टूल चुनें। हिंदी और अंग्रेज़ी में उपलब्ध।",
+    "h1": "रेलवे की जानकारी। एक सरल जगह पर।",
+    "canonical": "https://railq.in/hi/tools",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/dashboard",
+    "title": "Journey Dashboard | RailQ",
+    "description": "Bring PNR, live train status, boarding details and useful journey tools together.",
+    "h1": "Your journey. Clear and ready.",
+    "canonical": "https://railq.in/dashboard",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/dashboard",
+    "title": "यात्रा डैशबोर्ड | RailQ",
+    "description": "PNR, लाइव ट्रेन स्थिति, बोर्डिंग जानकारी और उपयोगी यात्रा टूल्स एक जगह देखें।",
+    "h1": "आपकी यात्रा। साफ़ और तैयार।",
+    "canonical": "https://railq.in/hi/dashboard",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides",
+    "title": "Railway Travel Guides: Booking, Tickets & Stations | RailQ",
+    "description": "Browse RailQ guides by topic: PNR status, booking, coaches, station transfers and family journeys. Find practical explanations and relevant railway tools.",
+    "h1": "Railway travel guides",
+    "canonical": "https://railq.in/guides",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides",
+    "title": "रेल यात्रा गाइड: बुकिंग, टिकट और स्टेशन | RailQ",
+    "description": "PNR स्थिति, बुकिंग, कोच, स्टेशन बदलने और परिवार की यात्रा पर RailQ गाइड देखें। सरल जानकारी और संबंधित रेलवे टूल्स पाएँ।",
+    "h1": "रेल यात्रा गाइड",
+    "canonical": "https://railq.in/hi/guides",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/pnr-status",
+    "title": "PNR Status Check Online | RailQ",
+    "description": "Check each passenger’s PNR status, coach, berth and chart details. Request an optional confirmation estimate when supported by the data provider.",
+    "h1": "PNR Status Check",
+    "canonical": "https://railq.in/pnr-status",
+    "mainText": "Home / PNR status Live railway journey tool PNR Status Check Enter your 10-digit PNR to see each passenger’s current status, coach, berth and chart details. Confirmation estimates depend on the connected provider and are available only for supported bookings. Your PNR is used only to fetch this result No login needed PNR status 10-digit ticket number 10-digit PNR number Check PNR status Check your PNR first, then choose ‘Check confirmation chance’ on a WL/RAC result. Optional estimate · Not a guarantee. Your PNR is used only to fetch this result Read each passenger’s current status first. A confirmation estimate is separate and does not give permission to travel. See an example PNR result Fictional example · Not a live ticket How to read a PNR result Booking status records the position when the ticket was booked. Current status is the latest status returned by the provider. Passengers on the same PNR can have different results. Example passenger A Booking status WL/9 Current status WL/7 Coach / berth Not supplied The waiting position moved from 9 to 7. This does not mean berth 7 or a confirmed ticket. Example passenger B Booking status WL/4 Current status CNF Coach / berth S2 / 15 This fictional result shows confirmed status and an allocation. It does not determine another passenger’s status. A confirmation percentage is a separate, provider-dependent estimate. It does not change the current status. An unavailable estimate does not mean 0%. Check the official record and applicable travel conditions before travelling. Read the full guide to PNR results → Understand CNF, RAC and waiting-list codes Read the result calmly What common PNR codes mean A booking code can change until chart preparation. Read the current status for each passenger, not only the original booking status. CNF Confirmed A confirmed accommodation. Coach and berth may appear after allocation. RAC Reservation Against Cancellation Travel is generally permitted with shared accommodation until a full berth becomes available. WL Waiting List Not confirmed yet. The final position can change until chart preparation. GNWL General Waiting List A common waitlist category linked to the journey and booking quota. RLWL Remote Location Waiting List Waitlist for certain intermediate or remote-location station quotas. PQWL Pooled Quota Waiting List A waitlist under a pooled quota shared by selected stations. TQWL Tatkal Waiting List Waiting status for a Tatkal quota booking. CAN Cancelled The passenger or ticket entry has been cancelled. Where to find your PNR and how to check it Three simple steps How this PNR checker works 01 Enter the ticket number Use the 10-digit PNR printed on the ticket or booking confirmation. 02 We request the latest record We ask the connected railway-data provider for the latest available status. 03 Review each passenger Check current status, coach, berth and whether the chart has been prepared. Where can I find my PNR? On an e-ticket, it normally appears near the top of the booking confirmation. It may also be present in the SMS or email received after booking. Private by design Your PNR is used to request your result. It is not included in our analytics. Questions travellers ask PNR status FAQs 0 1 How do I check my confirmation chances? Enter your PNR and check the result. For an eligible WL/RAC booking, select Check confirmation chance below the passenger details. The connected third-party provider supplies the optional estimate when available; coverage depends on the provider and booking. 0 2 Is the confirmation prediction guaranteed? No. It is a PNR-level estimate, not a separate score for each passenger or permission to travel. Check each passenger’s final status in the official railway record. 0 3 Why might no confirmation estimate appear? Predictions are not available for every booking. The option is shown for supported WL/RAC results when the feature is enabled. A provider outage or unsupported response can also make an estimate unavailable; your current PNR status remains separate. 0 4 What is a railway PNR number? PNR means Passenger Name Record. Indian railway reservations use a 10-digit number to identify the booking record. 0 5 Can PNR status change after booking? Yes. Waiting-list and RAC positions can change as passengers cancel or railway allocation changes, including around chart preparation. 0 6 What does chart prepared mean? It means the reservation chart for the train has been prepared. Check the current passenger status and official record for the final travel position. 0 7 Can I travel on a waitlisted ticket? Eligibility depends on the ticket type, final chart status and current railway rules. Do not rely on a generic answer—verify the final status through the official railway enquiry before boarding. 0 8 Does RailQ save my PNR? Your PNR is not included in our analytics. The number is used to request your result. Continue your journey Useful tools after checking PNR Live train status Chart preparation Berth finder Share this tool More guidance: Understand your PNR before making a decision Understand your PNR before making a decision Current status describes your booking now. A confirmation estimate concerns a possible future outcome; it is not a confirmed berth. Check every passenger separately. A worked example Illustrative example: Passenger 1 is CNF and Passenger 2 is WL/5. A booking-level estimate of 80% does not mean Passenger 2 has a berth. Verify both rows before deciding to travel. Illustrative only; not a real booking. Understand the confirmation percentage Understand waiting-list movement Read a mixed-status family ticket Reference: Indian Railways: PNR enquiry and prediction notice · Data and estimation methodology · Report a correction Was this explanation helpful? Yes No Report an issue with this page Issue category Explanation is unclear Information may be incorrect Tool or link is not working Translation or captions Display or accessibility Send issue report Do not submit PNRs or passenger details. This form sends only this page’s path and your selected answer/category, without URL queries. It does not use visitor analytics or tracking cookies. More help with your result PNR Status: how to use the result Example: a waiting position is not a berth In an illustrative result, booking WL/9 and current WL/7 mean the passenger moved forward in the waiting list. Neither 9 nor 7 should be shown as an allocated berth. Read each passenger’s current status separately, even when everyone shares one PNR. RAC in your result? Understand seating and travel checks When only part of the result appears A train name without passenger status is an incomplete response. Do not assume confirmation from the presence of train details. Check the official enquiry, and report missing fields using the page name and error description without posting your full ticket. Next steps How to Read Your PNR Result PNR and Waiting Lists Railway Status-Code Decoder Official references Indian Railways: PNR enquiry and status legend IRCTC: waitlisted e-ticket rules Examples are illustrative. If you find an error, send the page address and a source for the correction. Corrections process",
+    "protected": true
+  },
+  {
+    "path": "/hi/pnr-status",
+    "title": "PNR स्थिति ऑनलाइन देखें | RailQ",
+    "description": "हर यात्री का PNR स्टेटस, कोच, बर्थ और चार्ट विवरण देखें। डेटा प्रदाता से समर्थित बुकिंग पर वैकल्पिक कन्फर्मेशन अनुमान माँगें।",
+    "h1": "पीएनआर स्टेटस चेक करें",
+    "canonical": "https://railq.in/hi/pnr-status",
+    "mainText": "होम / PNR स्थिति लाइव रेलवे यात्रा टूल पीएनआर स्टेटस चेक करें 10 अंकों का PNR डालकर हर यात्री की वर्तमान स्थिति, कोच, बर्थ और चार्ट विवरण देखें। कन्फर्मेशन अनुमान जुड़े प्रदाता पर निर्भर हैं और केवल समर्थित बुकिंग के लिए उपलब्ध होते हैं। आपका PNR केवल यह परिणाम लाने के लिए उपयोग होता है लॉगिन की जरूरत नहीं PNR स्थिति 10 अंकों का नंबर 10 अंकों का PNR नंबर PNR स्थिति देखें पहले PNR जाँचें, फिर WL/RAC परिणाम में ‘कन्फर्म होने की संभावना देखें’ चुनें। वैकल्पिक अनुमान · गारंटी नहीं। आपका PNR केवल यह परिणाम लाने के लिए उपयोग होता है पहले हर यात्री की वर्तमान स्थिति देखें। कन्फर्मेशन अनुमान अलग है और यात्रा की अनुमति नहीं देता। PNR परिणाम पढ़ने का उदाहरण काल्पनिक उदाहरण · लाइव टिकट नहीं PNR परिणाम में कौन-सी जानकारी पढ़ें? बुकिंग स्थिति टिकट बनते समय की जानकारी है। वर्तमान स्थिति प्रदाता से मिली नवीनतम स्थिति है। एक ही PNR में हर यात्री का परिणाम अलग हो सकता है। उदाहरण यात्री A बुकिंग स्थिति WL/9 वर्तमान स्थिति WL/7 कोच / बर्थ नहीं दिखाया गया प्रतीक्षा क्रम 9 से 7 हुआ है। इसका अर्थ बर्थ 7 या कन्फर्म टिकट नहीं है। उदाहरण यात्री B बुकिंग स्थिति WL/4 वर्तमान स्थिति CNF कोच / बर्थ S2 / 15 इस काल्पनिक परिणाम में कन्फर्म स्थिति और आवंटन दिख रहे हैं। दूसरे यात्री का परिणाम इससे तय नहीं होता। कन्फर्मेशन प्रतिशत एक अलग, प्रदाता-निर्भर अनुमान है। यह वर्तमान स्थिति नहीं बदलता। अनुमान उपलब्ध न होना 0% नहीं है। यात्रा से पहले आधिकारिक रिकॉर्ड और लागू यात्रा शर्तें जाँचें। PNR परिणाम की पूरी जानकारी पढ़ें → CNF, RAC और वेटलिस्ट कोड समझें स्थिति को आसानी से समझें सामान्य PNR कोड का अर्थ चार्ट बनने तक बुकिंग कोड बदल सकता है। केवल शुरुआती बुकिंग स्थिति नहीं, हर यात्री की वर्तमान स्थिति देखें। CNF कन्फर्म सीट कन्फर्म है। कोच और बर्थ आवंटन के बाद दिख सकते हैं। RAC रद्दीकरण के विरुद्ध आरक्षण आम तौर पर यात्रा की अनुमति होती है; पूरी बर्थ मिलने तक साझा सीट हो सकती है। WL प्रतीक्षा सूची अभी कन्फर्म नहीं है। चार्ट बनने तक स्थिति बदल सकती है। GNWL सामान्य प्रतीक्षा सूची यात्रा और बुकिंग कोटा से जुड़ी सामान्य प्रतीक्षा सूची। RLWL रिमोट लोकेशन प्रतीक्षा सूची कुछ बीच के या रिमोट स्टेशन कोटा की प्रतीक्षा सूची। PQWL पूल्ड कोटा प्रतीक्षा सूची चुनिंदा स्टेशनों के साझा पूल्ड कोटा की प्रतीक्षा सूची। TQWL तत्काल प्रतीक्षा सूची तत्काल कोटा बुकिंग की प्रतीक्षा स्थिति। CAN रद्द यात्री या टिकट प्रविष्टि रद्द हो चुकी है। PNR कहाँ मिलेगा और जाँच कैसे करें? तीन आसान चरण यह PNR चेकर कैसे काम करता है 01 टिकट नंबर डालें टिकट या बुकिंग पुष्टिकरण पर दिया गया 10 अंकों का PNR इस्तेमाल करें। 02 नवीनतम रिकॉर्ड माँगा जाता है हम जुड़े रेलवे डेटा प्रदाता से नवीनतम उपलब्ध स्थिति माँगते हैं। 03 हर यात्री की स्थिति देखें वर्तमान स्थिति, कोच, बर्थ और चार्ट तैयार हुआ है या नहीं—सब जाँचें। PNR कहाँ मिलेगा? ई-टिकट में यह आम तौर पर बुकिंग पुष्टिकरण के ऊपर दिखाई देता है। बुकिंग के बाद आए SMS या ईमेल में भी मिल सकता है। गोपनीयता पहले आपका PNR केवल परिणाम माँगने के लिए उपयोग होता है। यह हमारे एनालिटिक्स में शामिल नहीं होता। यात्रियों के सामान्य सवाल PNR स्थिति से जुड़े सवाल 0 1 कन्फर्म होने की संभावना कैसे देखें? PNR डालकर परिणाम देखें। पात्र WL/RAC बुकिंग के लिए यात्री विवरण के नीचे ‘कन्फर्म होने की संभावना देखें’ चुनें। उपलब्ध होने पर यह वैकल्पिक अनुमान जुड़ा तृतीय-पक्ष प्रदाता देता है; इसका दायरा प्रदाता और बुकिंग पर निर्भर है। 0 2 क्या कन्फर्म होने का अनुमान गारंटी है? नहीं। यह पूरे PNR का अनुमान है, हर यात्री का अलग स्कोर या यात्रा की अनुमति नहीं। आधिकारिक रेलवे रिकॉर्ड में हर यात्री की अंतिम स्थिति जाँचें। 0 3 कन्फर्म होने का अनुमान क्यों नहीं दिख सकता? हर बुकिंग के लिए अनुमान उपलब्ध नहीं होता। सुविधा चालू होने पर समर्थित WL/RAC परिणामों में विकल्प दिखता है। प्रदाता की सेवा या उत्तर में समस्या होने पर भी अनुमान नहीं मिल सकता; वर्तमान PNR स्थिति इससे अलग है। 0 4 रेलवे PNR नंबर क्या है? PNR का अर्थ Passenger Name Record है। भारतीय रेलवे आरक्षण में बुकिंग रिकॉर्ड पहचानने के लिए 10 अंकों का नंबर होता है। 0 5 क्या बुकिंग के बाद PNR स्थिति बदल सकती है? हाँ। यात्रियों के टिकट रद्द करने या रेलवे आवंटन बदलने से WL और RAC स्थिति, चार्ट बनने तक, बदल सकती है। 0 6 चार्ट तैयार होने का क्या अर्थ है? इसका अर्थ है कि ट्रेन का आरक्षण चार्ट तैयार हो गया है। अंतिम यात्रा स्थिति के लिए वर्तमान यात्री स्थिति और आधिकारिक रिकॉर्ड देखें। 0 7 क्या वेटलिस्ट टिकट पर यात्रा कर सकते हैं? यात्रा की अनुमति टिकट प्रकार, अंतिम चार्ट स्थिति और मौजूदा रेलवे नियमों पर निर्भर करती है। चढ़ने से पहले आधिकारिक रेलवे पूछताछ से अंतिम स्थिति सत्यापित करें। 0 8 क्या RailQ मेरा PNR सेव करता है? आपका PNR हमारे एनालिटिक्स में शामिल नहीं होता। नंबर परिणाम माँगने के लिए उपयोग होता है। यात्रा आगे बढ़ाएँ PNR देखने के बाद उपयोगी टूल्स लाइव ट्रेन स्थिति चार्ट तैयारी बर्थ पहचानें टूल का लिंक शेयर करें और समझें: निर्णय से पहले अपना PNR समझें निर्णय से पहले अपना PNR समझें वर्तमान स्थिति अभी की बुकिंग बताती है। कन्फर्मेशन अनुमान संभावित भविष्य का संकेत है, कन्फर्म बर्थ नहीं। हर यात्री की स्थिति अलग जाँचें। एक उदाहरण से समझें उदाहरण: यात्री 1 CNF है और यात्री 2 WL/5 है। बुकिंग स्तर का 80% अनुमान यात्री 2 को बर्थ मिलना नहीं बताता। यात्रा तय करने से पहले दोनों पंक्तियाँ जाँचें। केवल समझाने के लिए; वास्तविक बुकिंग नहीं। कन्फर्मेशन प्रतिशत समझें वेटलिस्ट में बदलाव समझें परिवार की मिली-जुली स्थिति समझें संदर्भ: Indian Railways: PNR enquiry and prediction notice · डेटा और अनुमान की प्रक्रिया · सुधार बताएँ क्या यह जानकारी उपयोगी थी? हाँ नहीं इस पेज की समस्या बताएँ समस्या की श्रेणी जानकारी स्पष्ट नहीं है जानकारी गलत हो सकती है टूल या लिंक काम नहीं करता अनुवाद या कैप्शन दिखावट या सुगम उपयोग समस्या भेजें PNR या यात्री विवरण न भेजें। यह फॉर्म केवल पेज का पथ और चुना उत्तर/श्रेणी भेजता है, URL क्वेरी नहीं। यह विज़िटर एनालिटिक्स या ट्रैकिंग कुकी उपयोग नहीं करता। परिणाम के बारे में और जानकारी PNR स्थिति: उपयोग की जानकारी उदाहरण: वेटलिस्ट संख्या बर्थ नहीं है उदाहरण में बुकिंग WL/9 और वर्तमान WL/7 का अर्थ प्रतीक्षा क्रम आगे बढ़ना है। 9 या 7 को आवंटित बर्थ नहीं दिखाना चाहिए। एक PNR होने पर भी हर यात्री की वर्तमान स्थिति अलग देखें। परिणाम में RAC है? बैठने की व्यवस्था और यात्रा की जाँच समझें परिणाम का कुछ हिस्सा ही मिले तो केवल ट्रेन का नाम और यात्री स्थिति न मिलना अधूरा परिणाम है। ट्रेन विवरण मिलने से कन्फर्मेशन न मानें। आधिकारिक जाँच करें और पूरा टिकट भेजे बिना पेज के नाम व त्रुटि से समस्या बताएँ। अगला कदम PNR परिणाम कैसे समझें PNR और प्रतीक्षा सूची रेलवे स्थिति कोड समझें आधिकारिक संदर्भ Indian Railways: PNR enquiry and status legend IRCTC: waitlisted e-ticket rules उदाहरण केवल समझाने के लिए हैं। किसी जानकारी में गलती मिले तो पेज का पता और सुधार का स्रोत भेजें। सुधार प्रक्रिया",
+    "protected": true
+  },
+  {
+    "path": "/live-train-status",
+    "title": "Live Train Status | RailQ",
+    "description": "Check your train’s latest reported location, delay and next halt. Review the update time and use official enquiry when needed.",
+    "h1": "Live Train Status",
+    "canonical": "https://railq.in/live-train-status",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/live-train-status",
+    "title": "लाइव ट्रेन स्थिति | RailQ",
+    "description": "ट्रेन का आखिरी बताया स्थान, देरी और अगला ठहराव देखें। अपडेट समय जाँचें और जरूरत पर आधिकारिक पूछताछ इस्तेमाल करें।",
+    "h1": "लाइव ट्रेन स्थिति",
+    "canonical": "https://railq.in/hi/live-train-status",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/trains-between-stations",
+    "title": "Trains Between Stations | RailQ",
+    "description": "Find direct trains between two stations. Compare the route and timings, then check seats for your chosen date and travel class.",
+    "h1": "Trains Between Stations",
+    "canonical": "https://railq.in/trains-between-stations",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/trains-between-stations",
+    "title": "स्टेशनों के बीच ट्रेनें | RailQ",
+    "description": "दो स्टेशनों के बीच सीधी ट्रेनें खोजें। रूट और समय मिलाएँ, फिर चुनी तारीख और यात्रा श्रेणी की सीट उपलब्धता देखें।",
+    "h1": "स्टेशनों के बीच ट्रेनें",
+    "canonical": "https://railq.in/hi/trains-between-stations",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/seat-availability",
+    "title": "Train Seat Availability: Check by Date & Class | RailQ",
+    "description": "Check train seat availability by train number, stations, journey date, class and quota. Read available seats or waiting status before booking.",
+    "h1": "Train Seat Availability",
+    "canonical": "https://railq.in/seat-availability",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/seat-availability",
+    "title": "ट्रेन सीट उपलब्धता: तारीख और श्रेणी से जाँचें | RailQ",
+    "description": "ट्रेन नंबर, स्टेशन, यात्रा तारीख, श्रेणी और कोटा से सीट उपलब्धता जाँचें। बुकिंग से पहले उपलब्ध सीट और वेटलिस्ट स्थिति समझें।",
+    "h1": "ट्रेन सीट उपलब्धता",
+    "canonical": "https://railq.in/hi/seat-availability",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/train-schedule",
+    "title": "Train Schedule | RailQ",
+    "description": "View your train’s planned stops and arrival or departure times. Check journey days and use live status for current delays.",
+    "h1": "Train Schedule",
+    "canonical": "https://railq.in/train-schedule",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/train-schedule",
+    "title": "ट्रेन समय-सारणी | RailQ",
+    "description": "ट्रेन के तय ठहराव, आगमन और प्रस्थान समय देखें। यात्रा के दिन मिलाएँ और वर्तमान देरी के लिए लाइव स्थिति जाँचें।",
+    "h1": "ट्रेन समय-सारणी",
+    "canonical": "https://railq.in/hi/train-schedule",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/train-fare",
+    "title": "Train Fare | RailQ",
+    "description": "Check the available fare for your train, route, class and quota. Compare included charges and verify the total before booking.",
+    "h1": "Train Fare",
+    "canonical": "https://railq.in/train-fare",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/train-fare",
+    "title": "ट्रेन किराया | RailQ",
+    "description": "ट्रेन, रूट, श्रेणी और कोटा का उपलब्ध किराया देखें। शामिल शुल्कों की तुलना करें और बुकिंग से पहले कुल रकम सत्यापित करें।",
+    "h1": "ट्रेन किराया",
+    "canonical": "https://railq.in/hi/train-fare",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/station-arrivals-departures",
+    "title": "Station Arrivals & Departures | RailQ",
+    "description": "View available train arrivals and departures for a station. Compare scheduled and expected times and verify local updates.",
+    "h1": "Station Arrivals & Departures",
+    "canonical": "https://railq.in/station-arrivals-departures",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/station-arrivals-departures",
+    "title": "स्टेशन आगमन और प्रस्थान | RailQ",
+    "description": "स्टेशन पर ट्रेनों के उपलब्ध आगमन और प्रस्थान देखें। निर्धारित और अपेक्षित समय की तुलना करें और स्थानीय अपडेट जाँचें।",
+    "h1": "स्टेशन आगमन और प्रस्थान",
+    "canonical": "https://railq.in/hi/station-arrivals-departures",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/coach-position",
+    "title": "Train Coach Position: Check Your Coach Order | RailQ",
+    "description": "Enter your train number and journey date to check available coach order. Match your ticket’s coach label and verify its position at the station.",
+    "h1": "Train Coach Position",
+    "canonical": "https://railq.in/coach-position",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/coach-position",
+    "title": "ट्रेन कोच पोज़िशन: अपने कोच का क्रम देखें | RailQ",
+    "description": "ट्रेन नंबर और यात्रा तारीख से उपलब्ध कोच क्रम देखें। टिकट का कोच लेबल मिलाएँ और स्टेशन के डिस्प्ले पर स्थिति की पुष्टि करें।",
+    "h1": "ट्रेन कोच पोज़िशन",
+    "canonical": "https://railq.in/hi/coach-position",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/platform-number",
+    "title": "Platform Number | RailQ",
+    "description": "Look up available platform information for your train and station. Treat it as provisional and confirm at the station.",
+    "h1": "Platform Number",
+    "canonical": "https://railq.in/platform-number",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/platform-number",
+    "title": "प्लेटफॉर्म नंबर | RailQ",
+    "description": "ट्रेन और स्टेशन की उपलब्ध प्लेटफॉर्म जानकारी देखें। इसे बदल सकने वाली सूचना मानें और स्टेशन पर पुष्टि करें।",
+    "h1": "प्लेटफॉर्म नंबर",
+    "canonical": "https://railq.in/hi/platform-number",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/pnr-alerts",
+    "title": "PNR Alerts Coming Soon | RailQ",
+    "description": "Coming soon: PNR status-change emails. Calendar booking reminders are available now.",
+    "h1": "PNR Change Alerts",
+    "canonical": "https://railq.in/pnr-alerts",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/pnr-alerts",
+    "title": "PNR अलर्ट: जल्द आएँगे | RailQ",
+    "description": "जल्द आ रहा है: PNR बदलाव के ईमेल। कैलेंडर बुकिंग रिमाइंडर अभी उपलब्ध हैं।",
+    "h1": "PNR बदलाव अलर्ट",
+    "canonical": "https://railq.in/hi/pnr-alerts",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/booking-date-calculator",
+    "title": "Train Advance Booking Date Calculator | RailQ",
+    "description": "Estimate when advance train booking opens using the journey details. Check the relevant departure date and verify the booking window on IRCTC.",
+    "h1": "Advance Booking Date Calculator",
+    "canonical": "https://railq.in/booking-date-calculator",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/booking-date-calculator",
+    "title": "ट्रेन अग्रिम बुकिंग तारीख कैलकुलेटर | RailQ",
+    "description": "यात्रा विवरण से अग्रिम ट्रेन बुकिंग खुलने की तारीख अनुमानित करें। संबंधित प्रस्थान तारीख जाँचें और IRCTC पर बुकिंग अवधि की पुष्टि करें।",
+    "h1": "अग्रिम बुकिंग तारीख कैलकुलेटर",
+    "canonical": "https://railq.in/hi/booking-date-calculator",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/tatkal-time-calculator",
+    "title": "Tatkal Date & Time Calculator | RailQ",
+    "description": "Find the expected Tatkal booking date and time for AC or non-AC travel. Use the train’s origin date and check the result in IST.",
+    "h1": "Tatkal Date & Time Calculator",
+    "canonical": "https://railq.in/tatkal-time-calculator",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/tatkal-time-calculator",
+    "title": "तत्काल तारीख और समय कैलकुलेटर | RailQ",
+    "description": "AC या नॉन-AC यात्रा का अपेक्षित तत्काल बुकिंग दिन और समय जानें। ट्रेन की शुरुआती तारीख भरें और भारतीय समय में परिणाम देखें।",
+    "h1": "तत्काल तारीख और समय कैलकुलेटर",
+    "canonical": "https://railq.in/hi/tatkal-time-calculator",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/chart-preparation-calculator",
+    "title": "Train Chart Preparation Time Calculator | RailQ",
+    "description": "Estimate your train's first chart preparation time using the charting station's departure date and time. Verify the actual chart status before travel.",
+    "h1": "Chart Preparation Calculator",
+    "canonical": "https://railq.in/chart-preparation-calculator",
+    "mainText": "Home / Tools / Chart Preparation Calculator Smart journey calculator Chart Preparation Calculator Estimate the first reservation-chart preparation window. Privacy first English and हिंदी Departure from the relevant charting station (IST) Calculate result This is a planning aid; verify important rules. Sources reviewed: 13 October 2026. A planning aid, not a live railway record or refund approval. Do not use the ordinary calculation for trains with a separate policy. Ministry of Railways: March 2026 announcement · IRCTC published refund rules · Refund guide · Chart guide Chart Preparation Calculator: how to use the result Use the relevant charting departure The input is a planning reference, not a live chart feed. The origin or previous charting station may control your booking. Entering an intermediate boarding time without checking the charting location can give a misleading estimate. Do not confuse a countdown with chart status When the estimated time passes, check your PNR’s chart field. Do not assume chart preparation has finished or infer a confirmed berth. The first chart and final chart are different events. Plan your decision before leaving home Set a private check before travelling to the station and another before boarding. Keep cancellation decisions separate: their deadlines and applicable claim process should be checked through the booking service. Example: your boarding time may not be the charting departure Suppose a train leaves its origin at 18:00 and reaches your boarding station at 22:30. Those are two different inputs. First establish which charting station applies to your booking, then enter that station’s scheduled departure date and time. Read the calculator’s assumption with its output. Neither the estimate nor a passed countdown proves that your passenger chart is prepared; check the actual chart field in your PNR result. Next steps Chart Preparation PNR Status Cancellation Deadline Calculator Official references Central Railway: revised chart timings, July 2025 Examples are illustrative. If you find an error, send the page address and a source for the correction. Corrections process More guidance: Keep booking, charting and refunds separate Keep booking, charting and refunds separate A booking date tells you when to prepare. A chart-time estimate helps you plan a status check. A refund calculation is an estimate, not an approved refund. Verify the applicable action in your booking account. A worked example Planning example: before cancelling a family ticket, identify who will travel, read each current status, check the amount shown by the booking service and save its acknowledgement. Do not cancel everyone just to investigate one passenger’s uncertainty. Illustrative only; not a real booking. Plan when to book Choose the relevant refund process Estimate a refund Reference: IRCTC: official booking service · Data and estimation methodology · Report a correction This is a planning aid. Verify applicable rules and final journey details. Official railway enquiry · More official services Was this explanation helpful? Yes No Report an issue with this page Issue category Explanation is unclear Information may be incorrect Tool or link is not working Translation or captions Display or accessibility Send issue report Do not submit PNRs or passenger details. This form sends only this page’s path and your selected answer/category, without URL queries. It does not use visitor analytics or tracking cookies.",
+    "protected": true
+  },
+  {
+    "path": "/hi/chart-preparation-calculator",
+    "title": "ट्रेन चार्ट बनने का समय कैलकुलेटर | RailQ",
+    "description": "चार्टिंग स्टेशन से ट्रेन के प्रस्थान की तारीख और समय डालकर पहला चार्ट बनने का अनुमान जानें। यात्रा से पहले वास्तविक चार्ट स्थिति की पुष्टि करें।",
+    "h1": "चार्ट तैयारी कैलकुलेटर",
+    "canonical": "https://railq.in/hi/chart-preparation-calculator",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/booking-reminders",
+    "title": "Booking & Tatkal Reminders | RailQ",
+    "description": "Create a calendar reminder for general or Tatkal booking. Check the date, Indian time and notification after importing the file.",
+    "h1": "Booking & Tatkal Reminders",
+    "canonical": "https://railq.in/booking-reminders",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/booking-reminders",
+    "title": "बुकिंग और तत्काल रिमाइंडर | RailQ",
+    "description": "सामान्य या तत्काल बुकिंग का कैलेंडर रिमाइंडर बनाएँ। फ़ाइल जोड़ने के बाद तारीख, भारतीय समय और सूचना सेटिंग जाँचें।",
+    "h1": "बुकिंग और तत्काल रिमाइंडर",
+    "canonical": "https://railq.in/hi/booking-reminders",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/cancellation-deadline-calculator",
+    "title": "Cancellation Deadline Calculator | RailQ",
+    "description": "Find key cancellation times before scheduled departure. Check ticket status, charting and the official cancellation process.",
+    "h1": "Cancellation Deadline Calculator",
+    "canonical": "https://railq.in/cancellation-deadline-calculator",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/cancellation-deadline-calculator",
+    "title": "टिकट रद्द करने की समय-सीमा | RailQ",
+    "description": "निर्धारित प्रस्थान से पहले मुख्य रद्दीकरण समय जानें। टिकट स्थिति, चार्ट और आधिकारिक रद्दीकरण प्रक्रिया जाँचें।",
+    "h1": "टिकट रद्द करने की समय-सीमा",
+    "canonical": "https://railq.in/hi/cancellation-deadline-calculator",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/refund-calculator",
+    "title": "Refund Calculator | RailQ",
+    "description": "Estimate a train ticket refund by fare, class, status and time before departure. Compare normal and Tatkal cancellation limits.",
+    "h1": "Refund Calculator",
+    "canonical": "https://railq.in/refund-calculator",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/refund-calculator",
+    "title": "रिफंड कैलकुलेटर | RailQ",
+    "description": "किराया, श्रेणी, स्थिति और प्रस्थान से बचे समय से रिफंड अनुमानित करें। सामान्य और तत्काल रद्दीकरण की सीमाएँ समझें।",
+    "h1": "रिफंड कैलकुलेटर",
+    "canonical": "https://railq.in/hi/refund-calculator",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/seat-berth-finder",
+    "title": "Train Berth Calculator: Find Berth by Seat Number | RailQ",
+    "description": "Enter an allocated berth number and matching coach pattern to find its expected type. See a highlighted diagram and learn when to verify the official layout.",
+    "h1": "Seat & Berth Finder",
+    "canonical": "https://railq.in/seat-berth-finder",
+    "mainText": "Home / Tools / Seat & Berth Finder Smart journey calculator Seat & Berth Finder Identify lower, middle, upper or side berth from coach and seat number. Privacy first English and हिंदी Enter an allocated berth number to check its type in a matching standard coach pattern. Coach layout pattern Sleeper · standard 72-berth pattern 3A · standard 64-berth pattern 3A · standard 72-berth pattern 2A · standard 46-berth pattern 2A · standard 54-berth pattern Other / unsure / CC / 2S / 1A / 3E Allocated berth number Find and highlight berth Match the capacity and numbering with your actual coach. These are selected standard patterns, not every Indian Railways coach. No PNR is needed. WL/12 is a waiting position, not berth 12. Try an example: Berth 1 Berth 7 Berth 8 Berth 15 Bay 1 · numbering schematic 1 LB 4 LB 2 MB 5 MB 3 UB 6 UB Aisle 7 SL 8 SU Berths are stacked vertically. This schematic is not to scale and does not show doors, toilets or travel direction. LB = Lower berth MB = Middle berth UB = Upper berth SL = Side lower SU = Side upper Worked examples for the selected pattern Number Berth type 1 Lower berth 7 Side lower 8 Side upper 15 Side lower SL in a berth label means Side Lower; SL as a travel class means Sleeper. This tool does not check vacancy, confirmation, coach position or berth entitlement. Compare coach layouts Find coach position Check allocated coach and berth Compare train classes IRCTC: use Charts / Vacancy Updated: 13 October 2026. Official reference: Railway chart and coach-layout facility . This source explains the official facility, not certification of these illustrative patterns. Which tool do you need? Coach layout See seats and berths inside a coach. Coach position Find a coach along the length of the train. Seat / berth finder You are here Understand berth type from a seat number and coach pattern. Seat & Berth Finder: how to use the result Berth 7 means different things in different patterns In the selected eight-berth Sleeper/3A pattern, 7 is side lower and 8 is side upper. In the six-berth 2A pattern, 7 starts the next bay as a lower berth and 8 is upper. Select the matching pattern before entering the number. This explains why a seat number without the class is not enough. WL and RAC numbers are not berth allocations Use the allocated berth number shown for the individual passenger. WL/12 is a waiting position; it does not identify berth 12. Likewise, a RAC queue number is not a numbered berth. A finder result cannot confirm a ticket or grant travel permission. Read the passenger’s current official allocation. Can this find a Chair Car window seat? Not reliably without the exact coach layout. CC, 2S, 1A, 3E and special variants are deliberately not decoded with a universal formula. Select Other / unsure and check the official map. If the printed berth type differs from this illustration, follow the official allocation and ask the TTE about any discrepancy. Next steps Coach Layout Viewer Train Coach Position Train Classes Explained: Sleeper, 3A, 2A & More PNR Status Official references Indian Railways: PNR enquiry and status legend Examples are illustrative. If you find an error, send the page address and a source for the correction. Corrections process This is a planning aid. Verify applicable rules and final journey details. Official railway enquiry · More official services Was this explanation helpful? Yes No Report an issue with this page Issue category Explanation is unclear Information may be incorrect Tool or link is not working Translation or captions Display or accessibility Send issue report Do not submit PNRs or passenger details. This form sends only this page’s path and your selected answer/category, without URL queries. It does not use visitor analytics or tracking cookies.",
+    "protected": true
+  },
+  {
+    "path": "/hi/seat-berth-finder",
+    "title": "सीट नंबर से ट्रेन की बर्थ जानें | RailQ",
+    "description": "आवंटित बर्थ नंबर और मिलता कोच पैटर्न चुनकर बर्थ प्रकार व चित्र देखें। जानें कब आधिकारिक लेआउट से पुष्टि जरूरी है।",
+    "h1": "सीट और बर्थ पहचानें",
+    "canonical": "https://railq.in/hi/seat-berth-finder",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/coach-layout",
+    "title": "Train Coach Layout: Sleeper, 3A & 2A | RailQ",
+    "description": "Explore standard Sleeper, 3A and 2A berth layouts. Understand lower, middle, upper and side berths, with examples and coach-variant limitations.",
+    "h1": "Coach Layout Viewer",
+    "canonical": "https://railq.in/coach-layout",
+    "mainText": "Home / Tools / Coach Layout Viewer Smart journey calculator Coach Layout Viewer Explore a clear representative layout for common Indian train coaches. Privacy first English and हिंदी Compare the berth arrangement inside Sleeper, 3A and 2A coaches. Choose the pattern matching your coach. Coach layout pattern Sleeper · standard 72-berth pattern 3A · standard 64-berth pattern 3A · standard 72-berth pattern 2A · standard 46-berth pattern 2A · standard 54-berth pattern Other / unsure / CC / 2S / 1A / 3E Allocated berth number Find and highlight berth Match the capacity and numbering with your actual coach. These are selected standard patterns, not every Indian Railways coach. No PNR is needed. WL/12 is a waiting position, not berth 12. Try an example: Berth 1 Berth 7 Berth 8 Berth 15 Bay 1 · numbering schematic 1 LB 4 LB 2 MB 5 MB 3 UB 6 UB Aisle 7 SL 8 SU Berths are stacked vertically. This schematic is not to scale and does not show doors, toilets or travel direction. LB = Lower berth MB = Middle berth UB = Upper berth SL = Side lower SU = Side upper Worked examples for the selected pattern Number Berth type 1 Lower berth 7 Side lower 8 Side upper 15 Side lower SL in a berth label means Side Lower; SL as a travel class means Sleeper. This tool does not check vacancy, confirmation, coach position or berth entitlement. Open berth finder Find coach position Check allocated coach and berth Compare train classes IRCTC: use Charts / Vacancy Updated: 13 October 2026. Official reference: Railway chart and coach-layout facility . This source explains the official facility, not certification of these illustrative patterns. Which tool do you need? Coach layout You are here See seats and berths inside a coach. Coach position Find a coach along the length of the train. Seat / berth finder Understand berth type from a seat number and coach pattern. Coach Layout Viewer: how to use the result Why is no coach layout available for this train? An unavailable layout does not prove that a train has no reserved coaches. The service may not supply a map for that coach variant, or the train, journey date or boarding station may not match. Check those details once. Use IRCTC Charts / Vacancy when available, your allocated ticket details or railway staff. RailQ’s diagrams are illustrative and are not fetched for a particular train. Check coach order along the train · Check allocated coach and berth in PNR status Sleeper and 3A compared with 2A The selected standard Sleeper and 3A patterns use an eight-berth sequence: two lower, two middle, two upper and two side berths. The selected 2A pattern uses six: two lower, two upper and two side berths, without middle berths. Coach capacities and end sections vary; do not infer the whole train’s arrangement from its class name alone. Coach position is a different question A coach layout explains accommodation inside a coach. Coach position tells you where that coach sits along the train. Use the coach-position tool for the latter, then confirm the platform display and announcements. A berth map cannot determine which end of the platform you should stand at. Next steps Seat & Berth Finder Train Coach Position Train Classes Explained: Sleeper, 3A, 2A & More PNR Status Official references Indian Railways: PNR enquiry and status legend Examples are illustrative. If you find an error, send the page address and a source for the correction. Corrections process This is a planning aid. Verify applicable rules and final journey details. Official railway enquiry · More official services Was this explanation helpful? Yes No Report an issue with this page Issue category Explanation is unclear Information may be incorrect Tool or link is not working Translation or captions Display or accessibility Send issue report Do not submit PNRs or passenger details. This form sends only this page’s path and your selected answer/category, without URL queries. It does not use visitor analytics or tracking cookies.",
+    "protected": true
+  },
+  {
+    "path": "/hi/coach-layout",
+    "title": "ट्रेन कोच लेआउट: स्लीपर, 3A और 2A | RailQ",
+    "description": "स्लीपर, 3A और 2A की सामान्य बर्थ व्यवस्था देखें। उदाहरणों से लोअर, मिडिल, अपर और साइड बर्थ समझें तथा कोच के अंतर जानें।",
+    "h1": "कोच लेआउट देखें",
+    "canonical": "https://railq.in/hi/coach-layout",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/status-code-decoder",
+    "title": "Railway Status-Code Decoder | RailQ",
+    "description": "Understand CNF, RAC, GNWL and other railway status codes. Learn how booking status differs from the latest passenger status.",
+    "h1": "Railway Status-Code Decoder",
+    "canonical": "https://railq.in/status-code-decoder",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/status-code-decoder",
+    "title": "रेलवे स्थिति कोड समझें | RailQ",
+    "description": "CNF, RAC, GNWL और अन्य रेलवे स्थिति कोड समझें। बुकिंग स्थिति और यात्री की नवीनतम स्थिति के बीच अंतर जानें।",
+    "h1": "रेलवे स्थिति कोड समझें",
+    "canonical": "https://railq.in/hi/status-code-decoder",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/waitlist-guide",
+    "title": "Train Waiting List Codes Explained | RailQ",
+    "description": "Understand waiting-list categories and passenger status. Compare WL, RAC and CNF without assuming that a smaller number guarantees confirmation.",
+    "h1": "Waitlist Guide",
+    "canonical": "https://railq.in/waitlist-guide",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/waitlist-guide",
+    "title": "ट्रेन वेटलिस्ट कोड का अर्थ | RailQ",
+    "description": "वेटलिस्ट श्रेणियाँ और यात्री स्थिति समझें। WL, RAC और CNF की तुलना करें; छोटा वेटलिस्ट नंबर कन्फर्मेशन की गारंटी नहीं है।",
+    "h1": "वेटलिस्ट गाइड",
+    "canonical": "https://railq.in/hi/waitlist-guide",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/vikalp-eligibility",
+    "title": "VIKALP Eligibility Assistant | RailQ",
+    "description": "Learn whether to check VIKALP for a waiting-list booking. Understand alternate trains, station changes and allocation limits.",
+    "h1": "VIKALP Eligibility Assistant",
+    "canonical": "https://railq.in/vikalp-eligibility",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/vikalp-eligibility",
+    "title": "VIKALP पात्रता सहायक | RailQ",
+    "description": "जानें कि वेटलिस्ट बुकिंग के लिए VIKALP कब जाँचना है। वैकल्पिक ट्रेन, स्टेशन बदलाव और आवंटन की सीमाएँ समझें।",
+    "h1": "VIKALP पात्रता सहायक",
+    "canonical": "https://railq.in/hi/vikalp-eligibility",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/connection-buffer-calculator",
+    "title": "Connection Buffer Calculator | RailQ",
+    "description": "Compare the time between two trains and allow for delays or a station change. See the assumptions before planning a connection.",
+    "h1": "Connection Buffer Calculator",
+    "canonical": "https://railq.in/connection-buffer-calculator",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/connection-buffer-calculator",
+    "title": "कनेक्शन समय कैलकुलेटर | RailQ",
+    "description": "दो ट्रेनों के बीच समय की तुलना करें और देरी या स्टेशन बदलने का समय रखें। कनेक्शन बनाने से पहले गणना की धारणाएँ समझें।",
+    "h1": "कनेक्शन समय कैलकुलेटर",
+    "canonical": "https://railq.in/hi/connection-buffer-calculator",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/luggage-allowance",
+    "title": "Luggage Allowance Guide | RailQ",
+    "description": "Estimate luggage allowance by class and adult or child passenger count. Check weight limits and official rules before packing.",
+    "h1": "Luggage Allowance Guide",
+    "canonical": "https://railq.in/luggage-allowance",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/luggage-allowance",
+    "title": "सामान सीमा गाइड | RailQ",
+    "description": "श्रेणी, वयस्क और बच्चों की संख्या से सामान सीमा अनुमानित करें। सामान बाँधने से पहले वजन सीमा और आधिकारिक नियम जाँचें।",
+    "h1": "सामान सीमा गाइड",
+    "canonical": "https://railq.in/hi/luggage-allowance",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/when-to-order-food-in-train",
+    "title": "When Should You Order Food on a Train? | RailQ",
+    "description": "Plan your train meal around delivery stations, order cutoffs and delays. Use a practical timeline and avoid last-minute ordering mistakes.",
+    "h1": "When Should You Order Food on a Train?",
+    "canonical": "https://railq.in/guides/when-to-order-food-in-train",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/when-to-order-food-in-train",
+    "title": "ट्रेन में खाना कब ऑर्डर करना चाहिए? | RailQ",
+    "description": "डिलीवरी स्टेशन, ऑर्डर की अंतिम समय-सीमा और ट्रेन की देरी देखकर भोजन की योजना बनाएँ। आखिरी समय की गलतियों से बचने का आसान तरीका जानें।",
+    "h1": "ट्रेन में खाना कब ऑर्डर करना चाहिए?",
+    "canonical": "https://railq.in/hi/guides/when-to-order-food-in-train",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/useful-apps-indian-train-travel",
+    "title": "7 Useful Apps for Indian Train Travel | RailQ",
+    "description": "Choose railway apps by task: booking, live running, complaints, food and onward navigation. Compare official services and practical limitations.",
+    "h1": "7 Useful Apps for Indian Train Travel",
+    "canonical": "https://railq.in/guides/useful-apps-indian-train-travel",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/useful-apps-indian-train-travel",
+    "title": "भारतीय ट्रेन यात्रा के लिए 7 उपयोगी ऐप | RailQ",
+    "description": "बुकिंग, लाइव स्थिति, शिकायत, भोजन और आगे के रास्ते के लिए सही ऐप चुनें। आधिकारिक सेवाओं और उनकी सीमाओं को सरल भाषा में समझें।",
+    "h1": "भारतीय ट्रेन यात्रा के लिए 7 उपयोगी ऐप",
+    "canonical": "https://railq.in/hi/guides/useful-apps-indian-train-travel",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/train-food-delivery-apps-compared",
+    "title": "Train Food Delivery Apps Compared: Cost & Coverage | RailQ",
+    "description": "Compare six train-food services by delivery coverage, checkout charges and support. Check availability for your train and station before ordering.",
+    "h1": "Train Food Delivery Apps Compared: Cost & Coverage",
+    "canonical": "https://railq.in/guides/train-food-delivery-apps-compared",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/train-food-delivery-apps-compared",
+    "title": "ट्रेन में खाना पहुँचाने वाले ऐप: खर्च और सेवा की तुलना | RailQ",
+    "description": "छह ट्रेन-फूड सेवाओं की डिलीवरी उपलब्धता, कुल शुल्क और सहायता की तुलना करें। ऑर्डर से पहले अपनी ट्रेन और स्टेशन की सेवा जाँचें।",
+    "h1": "ट्रेन में खाना पहुँचाने वाले ऐप: खर्च और सेवा की तुलना",
+    "canonical": "https://railq.in/hi/guides/train-food-delivery-apps-compared",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/train-food-ordering-checklist",
+    "title": "10 Checks Before Ordering Food on a Train | RailQ",
+    "description": "Use this train-food checklist before paying: delivery station, phone, coach, meal details, total bill, cancellation and order confirmation.",
+    "h1": "10 Checks Before Ordering Food on a Train",
+    "canonical": "https://railq.in/guides/train-food-ordering-checklist",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/train-food-ordering-checklist",
+    "title": "ट्रेन में खाना ऑर्डर करने से पहले 10 जाँचें | RailQ",
+    "description": "भुगतान से पहले ट्रेन भोजन की यह चेकलिस्ट देखें: स्टेशन, फोन, कोच, भोजन विवरण, कुल बिल, रद्दीकरण और ऑर्डर की पुष्टि।",
+    "h1": "ट्रेन में खाना ऑर्डर करने से पहले 10 जाँचें",
+    "canonical": "https://railq.in/hi/guides/train-food-ordering-checklist",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/hotel-near-railway-station-checklist",
+    "title": "7 Checks Before Booking a Hotel Near a Station | RailQ",
+    "description": "Choose a station hotel using the correct exit, arrival time, room access, total cost and cancellation terms—not just distance on a map.",
+    "h1": "7 Checks Before Booking a Hotel Near a Station",
+    "canonical": "https://railq.in/guides/hotel-near-railway-station-checklist",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/hotel-near-railway-station-checklist",
+    "title": "स्टेशन के पास होटल बुक करने से पहले 7 जाँचें | RailQ",
+    "description": "सिर्फ मैप की दूरी नहीं: सही निकास, आगमन समय, कमरे में प्रवेश, कुल खर्च और रद्दीकरण देखकर स्टेशन के पास होटल चुनें।",
+    "h1": "स्टेशन के पास होटल बुक करने से पहले 7 जाँचें",
+    "canonical": "https://railq.in/hi/guides/hotel-near-railway-station-checklist",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/overnight-train-journey-checklist",
+    "title": "10 Things to Prepare for an Overnight Train Trip | RailQ",
+    "description": "A practical overnight train checklist for your ticket, berth, small bag, food, phone, sleep and arrival. Includes a simple packing example.",
+    "h1": "10 Things to Prepare for an Overnight Train Trip",
+    "canonical": "https://railq.in/guides/overnight-train-journey-checklist",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/overnight-train-journey-checklist",
+    "title": "रात की ट्रेन यात्रा से पहले तैयार रखें ये 10 चीजें | RailQ",
+    "description": "टिकट, बर्थ, छोटा बैग, भोजन, फोन, आराम और आगमन के लिए रात की ट्रेन यात्रा की व्यावहारिक चेकलिस्ट। पैकिंग का आसान उदाहरण भी देखें।",
+    "h1": "रात की ट्रेन यात्रा से पहले तैयार रखें ये 10 चीजें",
+    "canonical": "https://railq.in/hi/guides/overnight-train-journey-checklist",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/train-food-discounts-final-price",
+    "title": "Train Food Discounts: Compare the Final Bill | RailQ",
+    "description": "Understand train-food coupon caps, minimum orders, fees and cashback. Compare two worked examples without relying on expired promo codes.",
+    "h1": "Train Food Discounts: Compare the Final Bill",
+    "canonical": "https://railq.in/guides/train-food-discounts-final-price",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/train-food-discounts-final-price",
+    "title": "ट्रेन भोजन पर छूट: अंतिम बिल की तुलना कैसे करें | RailQ",
+    "description": "ट्रेन भोजन कूपन की अधिकतम छूट, न्यूनतम ऑर्डर, शुल्क और कैशबैक समझें। पुराने प्रोमो कोड पर निर्भर हुए बिना दो उदाहरणों से तुलना करें।",
+    "h1": "ट्रेन भोजन पर छूट: अंतिम बिल की तुलना कैसे करें",
+    "canonical": "https://railq.in/hi/guides/train-food-discounts-final-price",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/pnr-status-explained",
+    "title": "How to Read Your PNR Status | RailQ",
+    "description": "Read booking and current status for every passenger. Understand missing coach details, mixed results and where confirmation estimates fit in.",
+    "h1": "How to Read Your PNR Result",
+    "canonical": "https://railq.in/guides/pnr-status-explained",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/pnr-status-explained",
+    "title": "अपना PNR परिणाम कैसे पढ़ें | RailQ",
+    "description": "हर यात्री की बुकिंग और वर्तमान स्थिति पढ़ें। खाली कोच विवरण, मिली-जुली स्थिति और कन्फर्मेशन अनुमान की भूमिका समझें।",
+    "h1": "PNR परिणाम कैसे समझें",
+    "canonical": "https://railq.in/hi/guides/pnr-status-explained",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/booking-and-advance-reservation",
+    "title": "Train Booking & Advance Reservation Guide | RailQ",
+    "description": "Plan your train booking with the right journey date, station, class and passenger details. Check the booking window and verify the issued ticket.",
+    "h1": "Booking and Advance Reservation",
+    "canonical": "https://railq.in/guides/booking-and-advance-reservation",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/booking-and-advance-reservation",
+    "title": "ट्रेन बुकिंग और अग्रिम आरक्षण गाइड | RailQ",
+    "description": "सही यात्रा तारीख, स्टेशन, श्रेणी और यात्री विवरण के साथ ट्रेन बुकिंग की योजना बनाएँ। बुकिंग अवधि और जारी टिकट की पुष्टि करें।",
+    "h1": "बुकिंग और अग्रिम आरक्षण",
+    "canonical": "https://railq.in/hi/guides/booking-and-advance-reservation",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/tatkal",
+    "title": "Tatkal Booking Preparation Guide | RailQ",
+    "description": "Prepare your journey details, passenger information and payment before Tatkal booking. Check the correct opening time and keep practical alternatives.",
+    "h1": "Tatkal",
+    "canonical": "https://railq.in/guides/tatkal",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/tatkal",
+    "title": "तत्काल टिकट बुकिंग की तैयारी | RailQ",
+    "description": "तत्काल बुकिंग से पहले यात्रा विवरण, यात्री जानकारी और भुगतान तैयार रखें। सही खुलने का समय जाँचें और व्यावहारिक विकल्प रखें।",
+    "h1": "तत्काल",
+    "canonical": "https://railq.in/hi/guides/tatkal",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/cancellation-and-refunds",
+    "title": "Train Cancellation & Refund Guide | RailQ",
+    "description": "Choose the right process for ticket cancellation, a disrupted train or a failed booking. Check applicable conditions and keep refund evidence.",
+    "h1": "Cancellation and Refunds",
+    "canonical": "https://railq.in/guides/cancellation-and-refunds",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/cancellation-and-refunds",
+    "title": "ट्रेन रद्दीकरण और रिफंड गाइड | RailQ",
+    "description": "टिकट रद्द करने, प्रभावित ट्रेन या असफल बुकिंग के लिए सही प्रक्रिया चुनें। लागू शर्तें पढ़ें और रिफंड के प्रमाण सुरक्षित रखें।",
+    "h1": "रद्दीकरण और रिफंड",
+    "canonical": "https://railq.in/hi/guides/cancellation-and-refunds",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/pnr-and-waiting-lists",
+    "title": "PNR Waiting List: Changes & Next Steps | RailQ",
+    "description": "Understand why your waiting-list number changes, why movement is not a guarantee, and when to compare other trains or check official status.",
+    "h1": "PNR and Waiting Lists",
+    "canonical": "https://railq.in/guides/pnr-and-waiting-lists",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/pnr-and-waiting-lists",
+    "title": "PNR वेटलिस्ट: बदलाव और अगले कदम | RailQ",
+    "description": "वेटलिस्ट नंबर क्यों बदलता है, बदलाव गारंटी क्यों नहीं और कब दूसरी ट्रेन या आधिकारिक स्थिति देखनी चाहिए—सरल उदाहरणों से समझें।",
+    "h1": "PNR और प्रतीक्षा सूची",
+    "canonical": "https://railq.in/hi/guides/pnr-and-waiting-lists",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/train-classes-and-coaches",
+    "title": "Train Classes Explained: Sleeper, 3A, 2A & More | RailQ",
+    "description": "Compare Indian Railways accommodation classes and common coach labels. Understand berth patterns and check the actual allocation on your ticket.",
+    "h1": "Train Classes Explained: Sleeper, 3A, 2A & More",
+    "canonical": "https://railq.in/guides/train-classes-and-coaches",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/train-classes-and-coaches",
+    "title": "ट्रेन श्रेणियाँ समझें: स्लीपर, 3A, 2A और अन्य | RailQ",
+    "description": "भारतीय रेलवे की यात्रा श्रेणियों और सामान्य कोच लेबल की तुलना करें। बर्थ पैटर्न समझें और अपने टिकट का वास्तविक आवंटन जाँचें।",
+    "h1": "ट्रेन श्रेणियाँ समझें: स्लीपर, 3A, 2A और अन्य",
+    "canonical": "https://railq.in/hi/guides/train-classes-and-coaches",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/chart-preparation",
+    "title": "Train Chart Preparation Explained | RailQ",
+    "description": "Understand what chart preparation changes, how to use a chart-time estimate and why you should check each passenger’s current status before travel.",
+    "h1": "Chart Preparation",
+    "canonical": "https://railq.in/guides/chart-preparation",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/chart-preparation",
+    "title": "ट्रेन का चार्ट बनना क्या है? | RailQ",
+    "description": "चार्ट बनने पर क्या बदलता है, समय के अनुमान का उपयोग कैसे करें और यात्रा से पहले हर यात्री की वर्तमान स्थिति क्यों जाँचें—जानें।",
+    "h1": "चार्ट तैयारी",
+    "canonical": "https://railq.in/hi/guides/chart-preparation",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/vikalp-and-alternate-routes",
+    "title": "VIKALP & Alternative Train Routes | RailQ",
+    "description": "Compare VIKALP, another direct train and a connecting route. Check station changes, dates, seats and transfer time before changing your travel plan.",
+    "h1": "VIKALP and Alternate Routes",
+    "canonical": "https://railq.in/guides/vikalp-and-alternate-routes",
+    "mainText": "Home / Guides / VIKALP and Alternate Routes Practical journey guide VIKALP and Alternate Routes Plan alternatives while understanding that an option does not guarantee an alternate berth. Source-aware guidance English and हिंदी Compare the whole connection A connecting route is a timetable option, not a reservation. Check both train dates, the exact interchange stations and seat availability on every leg. Find a route with one train change Assess your transfer margin Check seats for both trains On this page What choosing VIKALP does Only select alternatives you can reach After an alternate is allotted A separate connection is a different plan Keep a clear decision record Low confirmation chances: compare alternatives in this order Read a connection across midnight correctly What the connecting planner does—and what it cannot promise Before paying for separate legs 01 What choosing VIKALP does VIKALP requests consideration for an alternate service; it does not guarantee a berth. Check the option and offered trains in your official booking history. RailQ’s assistant cannot submit the preference or confirm an allocation. Read the linked IRCTC terms before selecting services. 02 Only select alternatives you can reach Compare the exact departure station, date and arrival. A nearby station can still involve a long road transfer at a busy time. Write down the earliest time you can reach each alternative and the latest arrival you can accept. Remove choices that would miss an essential appointment. 03 After an alternate is allotted Recheck the PNR and the allotted train, including any changed station. IRCTC’s terms say passengers given alternate accommodation must not board the original train. Follow the cancellation conditions for the alternate allocation rather than assuming the original waiting-list treatment continues. 04 A separate connection is a different plan Booking two independent trains is not the same as receiving a VIKALP allocation. Work out the transfer yourself: scheduled gap, station change, platform access, luggage and delay margin. A short scheduled connection can become expensive if a missed train requires a fresh ticket or an overnight stay. 05 Keep a clear decision record Before travel, put the final train, station, date and transport plan in one private note. Remove obsolete reminders so you do not act on the abandoned plan. Verify the final booking again before leaving for the station. 06 Low confirmation chances: compare alternatives in this order Start with a different departure time, date or class on a direct service. Next compare nearby stations only if you can reach them comfortably. Then use the connecting-train planner for routes with one train change. Compare the whole journey: both ticket prices, station transport, waiting time and any overnight accommodation. A cheaper individual ticket can produce a more expensive or less practical overall trip. Find direct and connecting trains Check seats on each train Compare each leg’s fare 07 Read a connection across midnight correctly Illustrative timetable: the first train arrives on 20 October at 23:30 and the next leaves on 21 October at 02:15. The scheduled gap is 2 hours 45 minutes, not a negative interval. If the first train arrives 90 minutes late, only 75 minutes remain before the second train’s scheduled departure, before allowing for walking or a station change. This is an example, not an actual service or a recommended connection. Work through your transfer margin 08 What the connecting planner does—and what it cannot promise RailQ searches timetable options with up to one train change and displays the exact station codes, dates and scheduled gap. The minimum gap you select is your planning preference, not an official rule. Routes without complete timings or enough gap are omitted. A result does not confirm seats, reserve tickets or establish that you will catch the second train. Check live running separately near travel time. Check running status 09 Before paying for separate legs Verify the available class and passenger status on both trains, and review the terms in the authorised booking service. RailQ does not link PNRs or create refund protection. Do not assume that two independently purchased tickets receive the same treatment as an officially linked connecting booking. If a delay causes a missed connection, contact the booking service or railway staff promptly for the applicable process and evidence requirements. Find the relevant refund guidance Sources and references Published by RailQ · Content updated: 15 October 2026 IRCTC: VIKALP terms and conditions RailRadar: journey planner API Related tools VIKALP Eligibility Assistant Trains Between Stations Connection Buffer Calculator PNR Status Send a correction (no ticket details) What to verify before acting Always verify final fare, timing, eligibility, quota and refund rules through an official Indian Railways or IRCTC service. Official source Related journey guides Browse all travel guides Was this explanation helpful? Yes No Report an issue with this page Issue category Explanation is unclear Information may be incorrect Tool or link is not working Translation or captions Display or accessibility Send issue report Do not submit PNRs or passenger details. This form sends only this page’s path and your selected answer/category, without URL queries. It does not use visitor analytics or tracking cookies. Put it into practice Plan your journey All railway tools",
+    "protected": true
+  },
+  {
+    "path": "/hi/guides/vikalp-and-alternate-routes",
+    "title": "VIKALP और वैकल्पिक ट्रेन मार्ग | RailQ",
+    "description": "VIKALP, दूसरी सीधी ट्रेन और कनेक्टिंग मार्ग की तुलना करें। योजना बदलने से पहले स्टेशन, तारीख, सीट और ट्रांसफर समय जाँचें।",
+    "h1": "VIKALP और वैकल्पिक रूट",
+    "canonical": "https://railq.in/hi/guides/vikalp-and-alternate-routes",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/family-and-senior-citizen-travel",
+    "title": "Train Travel With Family & Seniors | RailQ",
+    "description": "Plan station access, lower-berth needs, medicines, food and transfer time for family or senior travellers. Prepare around each passenger’s needs.",
+    "h1": "Family and Senior-Citizen Travel",
+    "canonical": "https://railq.in/guides/family-and-senior-citizen-travel",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/family-and-senior-citizen-travel",
+    "title": "परिवार और बुजुर्गों के साथ रेल यात्रा | RailQ",
+    "description": "परिवार या बुजुर्ग यात्रियों के लिए स्टेशन पहुँच, लोअर बर्थ की जरूरत, दवा, भोजन और ट्रांसफर समय की योजना बनाएँ। हर यात्री की जरूरत देखें।",
+    "h1": "परिवार और वरिष्ठ नागरिक यात्रा",
+    "canonical": "https://railq.in/hi/guides/family-and-senior-citizen-travel",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/station-and-onboard-travel",
+    "title": "Railway Station & Onboard Travel Guide | RailQ",
+    "description": "Prepare for station entry, platform checks, coach location and onboard help. Know which information can change and where to verify it.",
+    "h1": "Station and Onboard Travel",
+    "canonical": "https://railq.in/guides/station-and-onboard-travel",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/station-and-onboard-travel",
+    "title": "रेलवे स्टेशन और ट्रेन में यात्रा गाइड | RailQ",
+    "description": "स्टेशन प्रवेश, प्लेटफॉर्म, कोच खोजने और ट्रेन में सहायता की तैयारी करें। बदल सकने वाली जानकारी और उसकी पुष्टि का सही माध्यम जानें।",
+    "h1": "स्टेशन और ट्रेन में यात्रा",
+    "canonical": "https://railq.in/hi/guides/station-and-onboard-travel",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/festival-travel-planning",
+    "title": "Festival Train Travel Planning Guide | RailQ",
+    "description": "Plan festival travel with alternative trains, realistic station time and a backup journey. Check availability and avoid relying on one uncertain option.",
+    "h1": "Festival Travel Planning",
+    "canonical": "https://railq.in/guides/festival-travel-planning",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/festival-travel-planning",
+    "title": "त्योहार में रेल यात्रा की योजना | RailQ",
+    "description": "त्योहार में वैकल्पिक ट्रेन, स्टेशन पहुँचने का पर्याप्त समय और दूसरी यात्रा योजना रखें। उपलब्धता जाँचें और एक अनिश्चित विकल्प पर निर्भर न रहें।",
+    "h1": "त्योहार यात्रा योजना",
+    "canonical": "https://railq.in/hi/guides/festival-travel-planning",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/can-you-travel-with-rac-ticket",
+    "title": "Can You Travel With an RAC Ticket? | RailQ",
+    "description": "Understand RAC travel, seating versus a full berth, passenger-wise status and what to check before boarding your train.",
+    "h1": "Can You Travel With an RAC Ticket?",
+    "canonical": "https://railq.in/guides/can-you-travel-with-rac-ticket",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/can-you-travel-with-rac-ticket",
+    "title": "RAC टिकट पर यात्रा कर सकते हैं? | RailQ",
+    "description": "RAC टिकट पर यात्रा, बैठने की जगह और पूरी बर्थ का अंतर समझें। जानें कि ट्रेन में चढ़ने से पहले हर यात्री की कौन-सी जानकारी जाँचनी चाहिए।",
+    "h1": "RAC टिकट पर यात्रा कर सकते हैं?",
+    "canonical": "https://railq.in/hi/guides/can-you-travel-with-rac-ticket",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/irctc-money-debited-ticket-not-booked",
+    "title": "Money Debited but Train Ticket Not Booked? | RailQ",
+    "description": "Check booking and payment status, avoid duplicate bookings, collect the right references and follow up on a failed train-ticket transaction.",
+    "h1": "Money Debited but Train Ticket Not Booked?",
+    "canonical": "https://railq.in/guides/irctc-money-debited-ticket-not-booked",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/irctc-money-debited-ticket-not-booked",
+    "title": "पैसे कटे, पर ट्रेन टिकट नहीं बना? | RailQ",
+    "description": "पैसे कटने पर बुकिंग और भुगतान की स्थिति कैसे जाँचें, दोहरी बुकिंग से कैसे बचें और असफल ट्रेन टिकट लेन-देन की शिकायत कैसे करें, जानें।",
+    "h1": "पैसे कटे, पर ट्रेन टिकट नहीं बना?",
+    "canonical": "https://railq.in/hi/guides/irctc-money-debited-ticket-not-booked",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/patna-junction-rajendra-nagar-danapur-stations",
+    "title": "PNBE, RJPB or DNR: Which Patna Station? | RailQ",
+    "description": "Compare Patna Junction, Rajendra Nagar Terminal and Danapur station codes. Match your boarding point and plan transfers without station confusion.",
+    "h1": "PNBE, RJPB or DNR: Which Patna Station?",
+    "canonical": "https://railq.in/guides/patna-junction-rajendra-nagar-danapur-stations",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/patna-junction-rajendra-nagar-danapur-stations",
+    "title": "PNBE, RJPB या DNR: पटना का कौन-सा स्टेशन? | RailQ",
+    "description": "पटना जंक्शन, राजेंद्र नगर टर्मिनल और दानापुर के स्टेशन कोड समझें। सही बोर्डिंग स्टेशन पहचानें और स्टेशन बदलने की यात्रा पहले से तय करें।",
+    "h1": "PNBE, RJPB या DNR: पटना का कौन-सा स्टेशन?",
+    "canonical": "https://railq.in/hi/guides/patna-junction-rajendra-nagar-danapur-stations",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/waitlisted-ticket-after-chart-preparation",
+    "title": "Waitlisted After Charting: What Next? | RailQ",
+    "description": "Find the right next step for a fully waitlisted e-ticket, a mixed family booking or a counter ticket after chart preparation.",
+    "h1": "Waitlisted After Charting: What Next?",
+    "canonical": "https://railq.in/guides/waitlisted-ticket-after-chart-preparation",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/waitlisted-ticket-after-chart-preparation",
+    "title": "चार्ट के बाद वेटलिस्ट: अब क्या करें? | RailQ",
+    "description": "चार्ट के बाद पूरी तरह वेटलिस्ट ई-टिकट, अलग-अलग स्थिति वाली पारिवारिक बुकिंग और काउंटर टिकट के लिए सही अगला कदम समझें।",
+    "h1": "चार्ट के बाद वेटलिस्ट: अब क्या करें?",
+    "canonical": "https://railq.in/hi/guides/waitlisted-ticket-after-chart-preparation",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/gnwl-rlwl-pqwl-tqwl-difference",
+    "title": "GNWL vs RLWL vs PQWL vs TQWL: Meanings & Examples | RailQ",
+    "description": "Compare GNWL, RLWL, PQWL and TQWL meanings with fictional ticket examples. Understand current PNR status and why codes cannot guarantee confirmation.",
+    "h1": "GNWL vs RLWL vs PQWL vs TQWL: Meanings & Examples",
+    "canonical": "https://railq.in/guides/gnwl-rlwl-pqwl-tqwl-difference",
+    "mainText": "Home / Guides / GNWL vs RLWL vs PQWL vs TQWL: Meanings & Examples Practical journey guide GNWL vs RLWL vs PQWL vs TQWL: Meanings & Examples Compare GNWL, RLWL, PQWL and TQWL meanings with fictional ticket examples. Understand current PNR status and why codes cannot guarantee confirmation. Source-aware guidance English and हिंदी GNWL, RLWL, PQWL and TQWL at a glance These codes identify waiting-list categories. They do not promise a berth or tell you which ticket will confirm first. Read booking status, current status and chart status separately for every passenger. What are RLWL and PQWL? RLWL means Remote Location Wait List, linked to a remote-location quota. PQWL means Pooled Quota Wait List, linked to a quota shared by selected stations. Neither category alone tells you whether your ticket will confirm. Code meanings and fictional ticket examples Code / meaning What to understand Fictional booking → current status GNWL General Wait List General waiting-list category; the code alone does not establish a confirmation chance. GNWL 24 → WL 9 RLWL Remote Location Wait List A remote-location waiting-list category; do not compare its number directly with GNWL. RLWL 12 → WL 5 PQWL Pooled Quota Wait List A pooled-quota waiting-list category; read the actual current passenger status too. PQWL 7 → WL 3 TQWL Tatkal Quota Wait List A Tatkal waiting-list category; Tatkal does not make a waitlisted ticket confirmed. TQWL 8 → WL 4 All four examples are invented and unrelated; they are not live tickets, forecasts or a ranking. In ‘GNWL 24 → WL 9’, the booking began at 24 and the shown current position is 9; the passenger remains waitlisted. Movement does not establish a percentage or permission to travel. Check the official status and applicable ticket rules before boarding. Check each passenger’s PNR status What confirmation estimates can and cannot tell you Code definitions checked against Indian Railways PNR enquiry on 22 October 2026. Official PNR legend On this page What the four codes mean Read the prefix and number together Is GNWL always better than RLWL? Choose an option using your arrival deadline When should you check again? 01 What the four codes mean GNWL means General Wait List; RLWL means Remote Location Wait List; PQWL means Pooled Quota Wait List; TQWL means Tatkal Quota Wait List. The prefix identifies a waiting-list category. It is not an assurance that a particular passenger will receive a berth. 02 Read the prefix and number together For an illustrative booking GNWL/20 with current WL/8, the earlier and later positions describe different moments. The number is a queue position, not coach 8 or berth 8. Keep the train, date, class and boarding pair with the result. Looking at a cropped status screenshot without these details makes comparisons unreliable. Decode a status label 03 Is GNWL always better than RLWL? There is no universal ranking that proves an individual booking will confirm. Do not compare a small number in one category with a larger number in another as though they shared one queue. Compare the available alternatives for your actual trip and decide how much uncertainty you can accept. RailQ does not publish invented percentage chances from a prefix alone. 04 Choose an option using your arrival deadline If you must arrive for an exam, appointment or flight, start with that deadline and compare journeys with confirmed accommodation. A cheaper waitlisted option can become expensive if you later need emergency transport. Include station transfers, overnight accommodation and cancellation conditions in the comparison, not just ticket price. Compare train options 05 When should you check again? Check when making a travel decision and before leaving for the station. Repeated refreshing cannot improve the queue position. After charting, use the separate guide for your ticket type and passenger mix; understanding a category name does not by itself answer whether you may board. Decide what to do after charting Sources and references Published by RailQ · Content updated: 22 October 2026 Indian Railways: status legend Related tools Railway Status-Code Decoder PNR Status Send a correction (no ticket details) What to verify before acting Always verify final fare, timing, eligibility, quota and refund rules through an official Indian Railways or IRCTC service. Official source Related journey guides PNR and Waiting Lists Waitlisted After Charting: What Next? Browse all travel guides Was this explanation helpful? Yes No Report an issue with this page Issue category Explanation is unclear Information may be incorrect Tool or link is not working Translation or captions Display or accessibility Send issue report Do not submit PNRs or passenger details. This form sends only this page’s path and your selected answer/category, without URL queries. It does not use visitor analytics or tracking cookies. Put it into practice Plan your journey All railway tools",
+    "protected": true
+  },
+  {
+    "path": "/hi/guides/gnwl-rlwl-pqwl-tqwl-difference",
+    "title": "GNWL, RLWL, PQWL और TQWL: अंतर और उदाहरण | RailQ",
+    "description": "GNWL, RLWL, PQWL और TQWL के अर्थ काल्पनिक टिकट उदाहरणों से समझें। वर्तमान PNR स्थिति पढ़ें और जानें कि कोड कन्फर्मेशन की गारंटी क्यों नहीं देते।",
+    "h1": "GNWL, RLWL, PQWL और TQWL: अंतर और उदाहरण",
+    "canonical": "https://railq.in/hi/guides/gnwl-rlwl-pqwl-tqwl-difference",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/change-boarding-station-irctc",
+    "title": "Change Your Boarding Station on IRCTC | RailQ",
+    "description": "Learn the boarding-point change process, the 2026 announcement, older help-page conflict and how to verify your updated boarding station.",
+    "h1": "Change Your Boarding Station on IRCTC",
+    "canonical": "https://railq.in/guides/change-boarding-station-irctc",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/change-boarding-station-irctc",
+    "title": "IRCTC पर बोर्डिंग स्टेशन कैसे बदलें | RailQ",
+    "description": "बोर्डिंग स्टेशन बदलने की प्रक्रिया, 2026 की घोषणा और पुराने सहायता पेज का अंतर समझें। बदलाव के बाद सही स्टेशन की पुष्टि करना सीखें।",
+    "h1": "IRCTC पर बोर्डिंग स्टेशन कैसे बदलें",
+    "canonical": "https://railq.in/hi/guides/change-boarding-station-irctc",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/current-booking-after-chart",
+    "title": "Current Booking After Chart Preparation | RailQ",
+    "description": "Understand current booking, how to check vacant accommodation after charting and what to verify before buying a last-minute train ticket.",
+    "h1": "Current Booking After Chart Preparation",
+    "canonical": "https://railq.in/guides/current-booking-after-chart",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/current-booking-after-chart",
+    "title": "चार्ट बनने के बाद करंट बुकिंग | RailQ",
+    "description": "चार्ट के बाद करंट बुकिंग और खाली जगह की जाँच समझें। अंतिम समय पर ट्रेन टिकट खरीदने से पहले जरूरी विवरण और शर्तें जानें।",
+    "h1": "चार्ट बनने के बाद करंट बुकिंग",
+    "canonical": "https://railq.in/hi/guides/current-booking-after-chart",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/3e-vs-3a-train-class",
+    "title": "3E vs 3A: Which Class Should You Book? | RailQ",
+    "description": "Compare AC 3-tier Economy and AC 3-tier by accommodation, fare checks, linen and practical needs before choosing your train class.",
+    "h1": "3E vs 3A: Which Class Should You Book?",
+    "canonical": "https://railq.in/guides/3e-vs-3a-train-class",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/3e-vs-3a-train-class",
+    "title": "3E या 3A: कौन-सी श्रेणी चुनें? | RailQ",
+    "description": "AC 3-tier Economy और AC 3-tier में जगह, किराया, लिनेन और यात्रा की जरूरतों की तुलना करके सही ट्रेन श्रेणी चुनें।",
+    "h1": "3E या 3A: कौन-सी श्रेणी चुनें?",
+    "canonical": "https://railq.in/hi/guides/3e-vs-3a-train-class",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/train-cancelled-delayed-refund",
+    "title": "Train Cancelled or Delayed: Refund Steps | RailQ",
+    "description": "Distinguish a cancelled train, a delayed journey and voluntary cancellation. Identify the official refund action and keep the right evidence.",
+    "h1": "Train Cancelled or Delayed: Refund Steps",
+    "canonical": "https://railq.in/guides/train-cancelled-delayed-refund",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/train-cancelled-delayed-refund",
+    "title": "ट्रेन रद्द या लेट: रिफंड के कदम | RailQ",
+    "description": "ट्रेन रद्द होने, देरी और खुद टिकट रद्द करने का अंतर समझें। सही आधिकारिक रिफंड विकल्प चुनें और जरूरी प्रमाण सुरक्षित रखें।",
+    "h1": "ट्रेन रद्द या लेट: रिफंड के कदम",
+    "canonical": "https://railq.in/hi/guides/train-cancelled-delayed-refund",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/partially-confirmed-family-ticket",
+    "title": "One Confirmed, One Waitlisted: Family PNR | RailQ",
+    "description": "Understand a mixed-status family booking, check each passenger and decide on travel or cancellation without assuming everyone has a berth.",
+    "h1": "One Confirmed, One Waitlisted: Family PNR",
+    "canonical": "https://railq.in/guides/partially-confirmed-family-ticket",
+    "mainText": "Home / Guides / One Confirmed, One Waitlisted: Family PNR Practical journey guide One Confirmed, One Waitlisted: Family PNR Understand a mixed-status family booking, check each passenger and decide on travel or cancellation without assuming everyone has a berth. Source-aware guidance English and हिंदी 25 seconds · English video Family PNR: check every passenger Open video Illustrative animation; not a live ticket or timetable result. Passengers on one PNR can have different statuses. Read every row and verify the applicable travel conditions through the official booking service. Keep ticket details private. Read the video text Checking a family PNR? Don’t stop at the first passenger. In this fictional example, one row says CNF and another says WL. Read each current status separately, then verify the applicable travel conditions through the official booking service. A prediction for the booking is not a guaranteed berth for everyone. Keep your ticket details private when asking for help. Check each passenger’s PNR status Understand your PNR before making a decision Current status describes your booking now. A confirmation estimate concerns a possible future outcome; it is not a confirmed berth. Check every passenger separately. Check current PNR status Understand the confirmation percentage Understand waiting-list movement On this page One PNR can contain different outcomes Example: two adults on one booking Decide whether everyone or only some will travel Partial travel can need evidence Before cancelling selected passengers 01 One PNR can contain different outcomes A confirmed passenger does not make every other passenger confirmed. IRCTC treats a partially confirmed or partially RAC e-ticket differently from an entirely waitlisted e-ticket. Read all rows and the chart status. Chart inclusion is not the same as a separate berth allocation for a waitlisted companion. 02 Example: two adults on one booking Suppose passenger one shows CNF and passenger two shows WL. Keep a private two-row checklist: present status, assigned coach/berth, intended travel and the official action required. Do not copy passenger one’s berth into passenger two’s row. Recheck near departure because an earlier screenshot may no longer describe the booking. Read every passenger row 03 Decide whether everyone or only some will travel Discuss the actual accommodation before travelling, especially with children or older relatives. If nobody will travel, that differs from one passenger travelling and another staying home. Confirm the applicable process with the booking service before acting. Do not assume an unused companion’s fare will return automatically. 04 Partial travel can need evidence The published IRCTC document describes a ticket-checking certificate for some mixed-booking non-travel claims. Ask the official service what evidence and submission method apply now. Preserve the acknowledgement and any original document. Do not wait until you are home to ask what should have been recorded during the journey. 05 Before cancelling selected passengers Match names and row numbers carefully. Read the final screen, save the revised ticket and tell the travelling passengers which record is current. Do not publish the family ticket when asking for advice. For a completely waitlisted booking use the separate guide; for current RAC accommodation use the RAC guide. Understand RAC accommodation Check an entirely waitlisted booking Sources and references Published by RailQ · Content updated: 7 October 2026 IRCTC: waitlisted e-ticket scheme IRCTC: refund and TDR document (read alongside later announcements) Related tools PNR Status Send a correction (no ticket details) What to verify before acting Always verify final fare, timing, eligibility, quota and refund rules through an official Indian Railways or IRCTC service. Official source Related journey guides PNR and Waiting Lists Can You Travel With an RAC Ticket? Family and Senior-Citizen Travel Money Debited but Train Ticket Not Booked? Waitlisted After Charting: What Next? Browse all travel guides Was this explanation helpful? Yes No Report an issue with this page Issue category Explanation is unclear Information may be incorrect Tool or link is not working Translation or captions Display or accessibility Send issue report Do not submit PNRs or passenger details. This form sends only this page’s path and your selected answer/category, without URL queries. It does not use visitor analytics or tracking cookies. Put it into practice Plan your journey All railway tools",
+    "protected": true
+  },
+  {
+    "path": "/hi/guides/partially-confirmed-family-ticket",
+    "title": "एक कन्फर्म, एक वेटलिस्ट: परिवार का PNR | RailQ",
+    "description": "परिवार के एक PNR में अलग-अलग स्थिति समझें। हर यात्री का विवरण देखकर यात्रा या रद्दीकरण तय करें; सबकी बर्थ तय होने का अनुमान न लगाएँ।",
+    "h1": "एक कन्फर्म, एक वेटलिस्ट: परिवार का PNR",
+    "canonical": "https://railq.in/hi/guides/partially-confirmed-family-ticket",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/missed-train-what-to-do",
+    "title": "Missed Your Train? Next Steps & Refund Checks | RailQ",
+    "description": "Work out your next step after missing a train. Check ticket conditions, onward options and official help before buying another ticket or claiming a refund.",
+    "h1": "Missed Your Train? Next Steps & Refund Checks",
+    "canonical": "https://railq.in/guides/missed-train-what-to-do",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/missed-train-what-to-do",
+    "title": "ट्रेन छूट गई? अगले कदम और रिफंड की जाँच | RailQ",
+    "description": "ट्रेन छूटने पर टिकट की शर्तें, आगे की यात्रा के विकल्प और आधिकारिक सहायता जाँचें। दूसरा टिकट या रिफंड लेने से पहले जरूरी जानकारी समझें।",
+    "h1": "ट्रेन छूट गई? अगले कदम और रिफंड की जाँच",
+    "canonical": "https://railq.in/hi/guides/missed-train-what-to-do",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/new-delhi-station-ajmeri-gate-paharganj",
+    "title": "Ajmeri Gate, New Delhi Station: Entrance & Metro Guide | RailQ",
+    "description": "Choose the NDLS entrance for Metro, taxi or your hotel. Compare Ajmeri Gate and Paharganj, open labelled maps and plan your arrival.",
+    "h1": "Ajmeri Gate, New Delhi Station: Entrance & Metro Guide",
+    "canonical": "https://railq.in/guides/new-delhi-station-ajmeri-gate-paharganj",
+    "mainText": "Home / Guides / Ajmeri Gate, New Delhi Station: Entrance & Metro Guide Practical journey guide Ajmeri Gate, New Delhi Station: Entrance & Metro Guide Choose the NDLS entrance for Metro, taxi or your hotel. Compare Ajmeri Gate and Paharganj, open labelled maps and plan your arrival. Source-aware guidance English and हिंदी Ajmeri Gate or Paharganj: which entrance? For the New Delhi Metro interchange (Yellow Line / Airport Express), plan around the Ajmeri Gate side. If you are coming from Paharganj or a hotel there, compare the Paharganj approach with your actual walking or taxi route. Both serve New Delhi railway station (NDLS). Neither entrance guarantees the shortest route to your platform. Choose by your approach, then verify today’s access Check Ajmeri Gate side Paharganj side Metro connection DMRC identifies the railway connection on the Ajmeri Gate side; its skywalk announcement connects the adjacent Metro lines. Do not assume the Metro exit is on this side. Check the route before crossing with luggage. Hotel / taxi arrival Tell the driver ‘NDLS, Ajmeri Gate side’ and confirm the current authorised drop-off. For a Paharganj address, compare this approach; tell the driver ‘NDLS, Paharganj side’. Platform and accessibility Confirm the platform on station displays. Gates, diversions, lifts and assistance can change; ask railway staff for the current step-free route. Google Maps: Ajmeri Gate entrance search Google Maps: Paharganj entrance search Before leaving: match NDLS on your ticket, choose the side with your driver, allow time for security and walking, and check signs on arrival. Map search results are orientation aids, not live gate-access instructions. Sources checked 22 October 2026: DMRC’s interchange guidance and its 4 March 2022 skywalk announcement. The announcement is not a live access notice. DMRC: interchanges · DMRC: skywalk announcement On this page Both names refer to approaches to NDLS Arriving by Metro Arriving by cab or meeting someone An entrance does not guarantee your platform For a train-to-flight connection 01 Both names refer to approaches to NDLS Ajmeri Gate and Paharganj describe different sides of New Delhi railway station, not two interchangeable taxi destinations. First confirm that your ticket says NDLS. If it says DLI, NZM or ANVT, you need another railway station, not a different entrance to New Delhi. Identify the correct Delhi station 02 Arriving by Metro DMRC documents the New Delhi Metro connection on the Yellow and Airport Express lines, with an Ajmeri Gate-side skywalk connection. Check the live Metro route and operating hours for your journey. The 2022 skywalk notice explains the connection but cannot guarantee today’s access restrictions, lift operation or crowd conditions. Follow current signs and staff directions. 03 Arriving by cab or meeting someone Send the station name, chosen side and a specific permitted meeting point to the driver. If you are staying near Paharganj, compare the actual walking or road route rather than changing your destination to Ajmeri Gate automatically. For a pickup, wait until you know which side you will exit. A message saying only “outside the station” is easy to misunderstand. 04 An entrance does not guarantee your platform Check the train display after entering and leave time to reach the assigned platform. Do not choose a side solely from an old platform prediction. With a wheelchair, pram or heavy luggage, ask about the usable step-free route before committing to a staircase. Accessibility planning is part of reaching the coach, not only reaching the station boundary. Check platform information 05 For a train-to-flight connection Include getting off the train, reaching the Metro or road pickup, airport-terminal access and the airline’s check-in deadline. An airport train connection does not erase the risk of a delayed incoming railway service. Check the airport terminal you need and keep an alternative if a delay would make the onward journey impractical. Check the hotel route and arrival arrangements Sources and references Published by RailQ · Content updated: 22 October 2026 DMRC: New Delhi station DMRC: Ajmeri Gate skywalk announcement, 4 March 2022 Indian Railways: station-name and code directory Related tools Platform Number Train Coach Position Send a correction (no ticket details) What to verify before acting Always verify final fare, timing, eligibility, quota and refund rules through an official Indian Railways or IRCTC service. Official source Related journey guides Delhi Stations: NDLS, DLI, NZM and ANVT Station and Onboard Travel 7 Checks Before Booking a Hotel Near a Station Change Your Boarding Station on IRCTC Browse all travel guides Was this explanation helpful? Yes No Report an issue with this page Issue category Explanation is unclear Information may be incorrect Tool or link is not working Translation or captions Display or accessibility Send issue report Do not submit PNRs or passenger details. This form sends only this page’s path and your selected answer/category, without URL queries. It does not use visitor analytics or tracking cookies. Put it into practice Plan your journey All railway tools",
+    "protected": true
+  },
+  {
+    "path": "/hi/guides/new-delhi-station-ajmeri-gate-paharganj",
+    "title": "अजमेरी गेट, नई दिल्ली स्टेशन: प्रवेश और मेट्रो गाइड | RailQ",
+    "description": "मेट्रो, टैक्सी या होटल से NDLS का सही प्रवेश चुनें। अजमेरी गेट और पहाड़गंज की तुलना, स्पष्ट मैप लिंक और पहुँचने की व्यावहारिक जानकारी पढ़ें।",
+    "h1": "अजमेरी गेट, नई दिल्ली स्टेशन: प्रवेश और मेट्रो गाइड",
+    "canonical": "https://railq.in/hi/guides/new-delhi-station-ajmeri-gate-paharganj",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/delhi-railway-stations-codes",
+    "title": "Delhi Stations: NDLS, DLI, NZM and ANVT | RailQ",
+    "description": "Match Delhi station codes to your ticket and plan a cross-city connection without confusing New Delhi, Old Delhi, Nizamuddin and Anand Vihar.",
+    "h1": "Delhi Stations: NDLS, DLI, NZM and ANVT",
+    "canonical": "https://railq.in/guides/delhi-railway-stations-codes",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/delhi-railway-stations-codes",
+    "title": "दिल्ली स्टेशन: NDLS, DLI, NZM और ANVT | RailQ",
+    "description": "टिकट से दिल्ली के स्टेशन कोड मिलाएँ। नई दिल्ली, पुरानी दिल्ली, निजामुद्दीन और आनंद विहार की उलझन से बचकर कनेक्शन की योजना बनाएँ।",
+    "h1": "दिल्ली स्टेशन: NDLS, DLI, NZM और ANVT",
+    "canonical": "https://railq.in/hi/guides/delhi-railway-stations-codes",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/mumbai-railway-terminals-codes",
+    "title": "Mumbai Terminals: CSMT, LTT, MMCT, BDTS | RailQ",
+    "description": "Identify four Mumbai railway terminals, avoid confusing suburban stops with long-distance boarding points and plan the complete station transfer.",
+    "h1": "Mumbai Terminals: CSMT, LTT, MMCT, BDTS",
+    "canonical": "https://railq.in/guides/mumbai-railway-terminals-codes",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/mumbai-railway-terminals-codes",
+    "title": "मुंबई टर्मिनल: CSMT, LTT, MMCT, BDTS | RailQ",
+    "description": "मुंबई के चार रेलवे टर्मिनल पहचानें। लोकल स्टेशन और लंबी दूरी की ट्रेन के बोर्डिंग स्टेशन का अंतर समझकर पूरा ट्रांसफर तय करें।",
+    "h1": "मुंबई टर्मिनल: CSMT, LTT, MMCT, BDTS",
+    "canonical": "https://railq.in/hi/guides/mumbai-railway-terminals-codes",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/howrah-vs-sealdah-stations",
+    "title": "Howrah or Sealdah: Which Station? | RailQ",
+    "description": "Distinguish HWH and SDAH on Kolkata-area tickets, plan a transfer between stations and avoid confusing a city destination with your actual terminal.",
+    "h1": "Howrah or Sealdah: Which Station?",
+    "canonical": "https://railq.in/guides/howrah-vs-sealdah-stations",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/howrah-vs-sealdah-stations",
+    "title": "हावड़ा या सियालदह: कौन-सा स्टेशन? | RailQ",
+    "description": "कोलकाता क्षेत्र के टिकट में HWH और SDAH पहचानें। शहर और वास्तविक टर्मिनल का अंतर समझें तथा स्टेशनों के बीच ट्रांसफर की योजना बनाएँ।",
+    "h1": "हावड़ा या सियालदह: कौन-सा स्टेशन?",
+    "canonical": "https://railq.in/hi/guides/howrah-vs-sealdah-stations",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/guides/pnr-confirmation-probability",
+    "title": "PNR Confirmation Probability Explained | RailQ",
+    "description": "Understand what a confirmation percentage means, why WL movement is different, and how to compare alternatives without treating an estimate as a guarantee.",
+    "h1": "PNR Confirmation Probability Explained",
+    "canonical": "https://railq.in/guides/pnr-confirmation-probability",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/guides/pnr-confirmation-probability",
+    "title": "PNR कन्फर्मेशन संभावना का अर्थ | RailQ",
+    "description": "कन्फर्मेशन प्रतिशत का अर्थ, वेटलिस्ट के बदलाव से उसका अंतर और अनुमान को गारंटी माने बिना दूसरे यात्रा विकल्पों की तुलना समझें।",
+    "h1": "PNR कन्फर्मेशन संभावना का अर्थ",
+    "canonical": "https://railq.in/hi/guides/pnr-confirmation-probability",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/about",
+    "title": "About RailQ: Independent Railway Tools | RailQ",
+    "description": "Learn what RailQ’s independent railway tools do, where third-party results come from, their limitations and how to contact us about the website.",
+    "h1": "About RailQ — Indian Railway Tools",
+    "canonical": "https://railq.in/about",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/about",
+    "title": "RailQ के बारे में: स्वतंत्र रेल यात्रा टूल्स | RailQ",
+    "description": "RailQ के स्वतंत्र रेलवे टूल्स, तीसरे पक्ष के परिणाम, उनकी सीमाएँ और वेबसाइट के बारे में संपर्क करने का तरीका जानें।",
+    "h1": "RailQ के बारे में — भारतीय रेल यात्रा टूल्स",
+    "canonical": "https://railq.in/hi/about",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/contact",
+    "title": "Contact: Help & Feedback | RailQ",
+    "description": "Contact RailQ about a website problem, factual correction, accessibility need or partnership. Do not send full PNRs, passwords or payment details.",
+    "h1": "Contact RailQ",
+    "canonical": "https://railq.in/contact",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/contact",
+    "title": "संपर्क: सहायता और सुझाव | RailQ",
+    "description": "वेबसाइट समस्या, तथ्य सुधार, सुगमता जरूरत या साझेदारी के लिए RailQ से संपर्क करें। पूरा PNR, पासवर्ड या भुगतान जानकारी न भेजें।",
+    "h1": "RailQ से संपर्क",
+    "canonical": "https://railq.in/hi/contact",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/methodology",
+    "title": "Data Sources & Methodology | RailQ",
+    "description": "See how RailQ uses RailRadar data, confirmation estimates and planning calculations. Understand missing results, limitations and official verification.",
+    "h1": "How RailQ reaches an answer",
+    "canonical": "https://railq.in/methodology",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/methodology",
+    "title": "डेटा स्रोत और प्रक्रिया | RailQ",
+    "description": "RailQ में RailRadar डेटा, कन्फर्मेशन अनुमान और योजना की गणना कैसे उपयोग होते हैं, जानें। अधूरे परिणाम, सीमाएँ और आधिकारिक पुष्टि समझें।",
+    "h1": "RailQ उत्तर कैसे तैयार करता है",
+    "canonical": "https://railq.in/hi/methodology",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/corrections",
+    "title": "Report an Error or Correction | RailQ",
+    "description": "Report incorrect information or a tool problem with the page URL and supporting source. Learn which details to share and which ticket data to hide.",
+    "h1": "Corrections policy",
+    "canonical": "https://railq.in/corrections",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/corrections",
+    "title": "गलती या सुधार बताएँ | RailQ",
+    "description": "पेज URL और स्रोत के साथ गलत जानकारी या टूल की समस्या बताएँ। जानें कौन-सा विवरण भेजें और टिकट की कौन-सी निजी जानकारी छिपाएँ।",
+    "h1": "सुधार नीति",
+    "canonical": "https://railq.in/hi/corrections",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/privacy",
+    "title": "Privacy Policy | RailQ",
+    "description": "Read how RailQ handles railway searches, optional analytics, browser favourites and contact messages, including the information you should not share.",
+    "h1": "Privacy policy",
+    "canonical": "https://railq.in/privacy",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/privacy",
+    "title": "गोपनीयता नीति | RailQ",
+    "description": "रेलवे खोज, वैकल्पिक एनालिटिक्स, ब्राउज़र में पसंदीदा और संपर्क संदेशों की RailQ प्रक्रिया पढ़ें। जानें कौन-सी जानकारी साझा नहीं करनी चाहिए।",
+    "h1": "गोपनीयता नीति",
+    "canonical": "https://railq.in/hi/privacy",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/terms",
+    "title": "Terms of Use | RailQ",
+    "description": "Review the terms for using RailQ’s railway information, tools and estimates. Understand service limits and your responsibility to verify travel details.",
+    "h1": "Terms of use",
+    "canonical": "https://railq.in/terms",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/terms",
+    "title": "उपयोग की शर्तें | RailQ",
+    "description": "RailQ की रेलवे जानकारी, टूल्स और अनुमानों के उपयोग की शर्तें पढ़ें। सेवा की सीमाएँ और यात्रा विवरण सत्यापित करने की जिम्मेदारी समझें।",
+    "h1": "उपयोग की शर्तें",
+    "canonical": "https://railq.in/hi/terms",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/disclaimer",
+    "title": "Railway Information Disclaimer | RailQ",
+    "description": "Understand the limits of railway feeds, predictions and calculators on RailQ. Verify ticket status, train details and applicable rules before acting.",
+    "h1": "Railway information disclaimer",
+    "canonical": "https://railq.in/disclaimer",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/disclaimer",
+    "title": "रेलवे जानकारी संबंधी अस्वीकरण | RailQ",
+    "description": "RailQ के रेलवे डेटा, भविष्यवाणी और कैलकुलेटर की सीमाएँ समझें। निर्णय से पहले टिकट स्थिति, ट्रेन विवरण और लागू नियम सत्यापित करें।",
+    "h1": "रेलवे जानकारी अस्वीकरण",
+    "canonical": "https://railq.in/hi/disclaimer",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/advertise",
+    "title": "Advertising & Partnerships | RailQ",
+    "description": "Explore relevant advertising and partnership enquiries for RailQ’s railway audience. Read the approach to labelled offers and passenger-first placements.",
+    "h1": "Advertise with RailQ",
+    "canonical": "https://railq.in/advertise",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/advertise",
+    "title": "विज्ञापन और साझेदारी | RailQ",
+    "description": "RailQ के रेलवे यात्रियों के लिए संबंधित विज्ञापन और साझेदारी की जानकारी लें। स्पष्ट लेबल वाले ऑफर और यात्री सुविधा वाली जगहों का तरीका जानें।",
+    "h1": "RailQ पर विज्ञापन",
+    "canonical": "https://railq.in/hi/advertise",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/alerts",
+    "title": "Railway Reminders & Alert Availability | RailQ",
+    "description": "Create booking calendar reminders and check which RailQ alerts are available. PNR email monitoring is paused and does not accept new subscriptions.",
+    "h1": "Railway alerts and reminders",
+    "canonical": "https://railq.in/alerts",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/alerts",
+    "title": "रेलवे रिमाइंडर और अलर्ट की उपलब्धता | RailQ",
+    "description": "बुकिंग कैलेंडर रिमाइंडर बनाएँ और RailQ अलर्ट की उपलब्धता देखें। PNR ईमेल निगरानी बंद है और नए अनुरोध स्वीकार नहीं किए जा रहे हैं।",
+    "h1": "रेलवे अलर्ट और रिमाइंडर",
+    "canonical": "https://railq.in/hi/alerts",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/railway-updates",
+    "title": "Railway notices behind the planning tools | RailQ",
+    "description": "Dated official notices relevant to advance reservation, Tatkal preparation and chart estimates, with practical next steps.",
+    "h1": "Railway notices behind the planning tools",
+    "canonical": "https://railq.in/railway-updates",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/railway-updates",
+    "title": "योजना टूल्स से संबंधित रेलवे सूचनाएँ | RailQ",
+    "description": "अग्रिम आरक्षण, तत्काल तैयारी और चार्ट अनुमान की तारीख सहित आधिकारिक सूचनाएँ और अगले कदम।",
+    "h1": "योजना टूल्स से संबंधित रेलवे सूचनाएँ",
+    "canonical": "https://railq.in/hi/railway-updates",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/blog",
+    "title": "RailQ Blog: Reading for Your Next Train Journey | RailQ",
+    "description": "Choose useful reading before booking, after receiving a ticket and before travel. Find help with RAC, failed payments, waiting lists and journey checks.",
+    "h1": "RailQ blog: reading for your next journey",
+    "canonical": "https://railq.in/blog",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/blog",
+    "title": "RailQ ब्लॉग: अगली रेल यात्रा की तैयारी | RailQ",
+    "description": "बुकिंग से पहले, टिकट मिलने के बाद और यात्रा से पहले उपयोगी जानकारी चुनें। RAC, असफल भुगतान, प्रतीक्षा सूची और यात्रा की जाँच समझें।",
+    "h1": "RailQ ब्लॉग: अगली यात्रा की तैयारी",
+    "canonical": "https://railq.in/hi/blog",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/official-services",
+    "title": "Official Indian Railway Services | RailQ",
+    "description": "Find official links for train booking, PNR enquiry, live running and passenger assistance. Choose the right service for your railway question.",
+    "h1": "Official railway services",
+    "canonical": "https://railq.in/official-services",
+    "mainText": null,
+    "protected": false
+  },
+  {
+    "path": "/hi/official-services",
+    "title": "आधिकारिक भारतीय रेल सेवाएँ | RailQ",
+    "description": "ट्रेन बुकिंग, PNR पूछताछ, लाइव स्थिति और यात्री सहायता के आधिकारिक लिंक पाएँ। अपने रेलवे सवाल के लिए सही सेवा चुनें।",
+    "h1": "आधिकारिक रेलवे सेवाएँ",
+    "canonical": "https://railq.in/hi/official-services",
+    "mainText": null,
+    "protected": false
+  }
+]
