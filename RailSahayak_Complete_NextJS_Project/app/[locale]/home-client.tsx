@@ -1,4 +1,5 @@
 "use client";
+import { mobileRefreshEnabled } from "@/lib/protected-pages";
 import { PnrJourneyCard } from "@/components/pnr-journey-card";
 import { rememberTrain } from "@/lib/local-journeys";
 
@@ -177,11 +178,11 @@ export default function Home() {
   }
 
   return (
-    <main>
+    <main data-mobile-refresh={mobileRefreshEnabled("/", language) || undefined} className={language === "hi" ? "mobile-home" : undefined}>
       <section className="hero" id="top">
         <div className="hero-copy"><div className="eyebrow"><span className="live-dot" /> {t.badge}</div><h1>{t.titleA}<br /><em>{t.titleB}</em></h1><p>{t.intro}</p><div className="trust-inline"><span><Icon name="shield" size={17} /> {t.privacy}</span><span><Icon name="pulse" size={17} /> {t.updated}</span></div></div>
         <div className="hero-visual" aria-label={language === "hi" ? "आधुनिक भारतीय यात्री ट्रेन यात्रा" : "Modern Indian passenger train journey"}>
-          <Image src="/rail-hero.webp" alt={language === "hi" ? "सूर्योदय के समय आधुनिक भारतीय यात्री ट्रेन" : "Modern Indian passenger train at sunrise"} width={1672} height={941} priority sizes="(max-width: 760px) 100vw, (max-width: 1440px) 55vw, 792px" />
+          <Image src="/rail-hero.webp" alt={language === "hi" ? "सूर्योदय के समय आधुनिक भारतीय यात्री ट्रेन" : "Modern Indian passenger train at sunrise"} width={1672} height={941} priority={language !== "hi"} loading={language === "hi" ? "lazy" : undefined} sizes="(max-width: 760px) 100vw, (max-width: 1440px) 55vw, 792px" />
           <div className="route-card"><div><span>NDLS</span><b>New Delhi</b></div><span className="route-line"><i /><i /><i /></span><div><span>MMCT</span><b>Mumbai Central</b></div></div>
           <Link className="status-pill" href="/trains-between-stations?from=NDLS&to=MMCT">{language === "hi" ? "इस मार्ग पर ट्रेनें खोजें →" : "Search trains on this route →"}</Link>
         </div>

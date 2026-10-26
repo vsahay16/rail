@@ -35,7 +35,7 @@ export function JourneyPlanner({ heading, intro }: { heading?: string; intro?: s
     } catch { setError(t("The search could not finish. Your inputs are still here. Please try later.", "खोज पूरी नहीं हुई। आपकी जानकारी फॉर्म में है। कुछ देर बाद कोशिश करें।")); }
     finally { lock.current = false; setBusy(false); }
   }
-  return <main className={styles.page}>
+  return <main data-mobile-refresh className={`${styles.page} mobile-planner`}>
     <nav className={styles.links}><Link href="/tools">{t("Railway tools", "रेलवे टूल्स")}</Link><span>/</span><span>{t("Connecting trains", "कनेक्टिंग ट्रेनें")}</span></nav>
     <header className={styles.hero}><span className={styles.kicker}>{t("More ways to reach your destination", "मंज़िल तक पहुँचने के और रास्ते")}</span><h1>{heading ?? t("Find your next connection.", "अगली ट्रेन का कनेक्शन खोजें।")}</h1><p>{intro ?? t("Compare direct trains and journeys with one change. See every train, travel date and transfer gap before deciding what to book.", "सीधी ट्रेन और एक बार ट्रेन बदलने वाले मार्ग देखें। बुकिंग तय करने से पहले हर ट्रेन, यात्रा तारीख और बीच का समय जाँचें।")}</p></header>
     <section className={styles.panel} aria-labelledby="journey-search"><h2 id="journey-search">{t("Where are you travelling?", "आप कहाँ जा रहे हैं?")}</h2><form onSubmit={submit}><fieldset disabled={busy} className={styles.fields}>

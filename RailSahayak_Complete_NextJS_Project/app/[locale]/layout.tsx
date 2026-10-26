@@ -12,6 +12,7 @@ import "../service-quality.css";
 import "../audit-fixes.css";
 import "../readability.css";
 import "../mobile-journeys.css";
+import "../mobile-refresh.css";
 import { MobileMetrics } from "@/components/mobile-metrics";
 
 const devanagari = localFont({ src: "../fonts/NotoSansDevanagari.woff", weight: "100 900", variable: "--font-devanagari", display: "swap", preload: false, fallback: ["Nirmala UI", "Mangal", "sans-serif"] });

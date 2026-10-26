@@ -1,4 +1,5 @@
 "use client";
+import { mobileRefreshEnabled } from "@/lib/protected-pages";
 import { contentDate } from "@/lib/content-date";
 import { PageFeedback } from "@/components/page-feedback";
 import { travelImageAlt } from "@/lib/travel-image-alt";
@@ -13,19 +14,22 @@ export function TravelArticlePage({ article }: { article: TravelArticle }) {
   const { language } = useLanguage();
   const lang = language === "hi" ? "hi" : "en";
   const hi = lang === "hi";
+  const refresh = mobileRefreshEnabled(`/guides/${article.slug}`, language);
+  const answer = <section className={`${styles.answer} ${refresh ? "mobile-article-answer" : ""}`} aria-labelledby="quick-answer"><h2 id="quick-answer">{hi ? "सीधा जवाब" : "The short answer"}</h2><p>{article.answer[lang]}</p></section>;
   const date = contentDate(article.updated, hi);
-  return <main className={styles.page} lang={hi ? "hi" : "en"}>
-    <header className={styles.hero}>
+  return <main data-mobile-refresh={refresh || undefined} className={styles.page} lang={hi ? "hi" : "en"}>
+    <header className={`${styles.hero} mobile-article-hero`}>
       <nav className={styles.breadcrumbs} aria-label={hi ? "पृष्ठ का रास्ता" : "Breadcrumb"}><Link href="/">RailQ</Link><span aria-hidden="true">/</span><Link href="/guides">{hi ? "यात्रा गाइड" : "Travel guides"}</Link></nav>
       <p className={styles.eyebrow}>{hi ? "बेहतर तैयारी, आसान यात्रा" : "Better prepared. Easier journeys."}</p>
       <h1>{article.title[lang]}</h1><p className={styles.description}>{article.description[lang]}</p>
       <p className={styles.byline}>{hi ? "प्रकाशक: RailQ" : "Published by RailQ"} <span aria-hidden="true">·</span> <time dateTime={article.updated}>{hi ? "समीक्षा: " : "Reviewed: "}{date}</time></p>
     </header>
-{article.slug !== "train-food-delivery-apps-compared" && <figure className={styles.figure}><Image src={`/images/travel-guides/${article.visual}-${lang}.svg`} width={1200} height={630} unoptimized priority alt={travelImageAlt[article.visual]?.[lang] ?? article.title[lang]} sizes="(max-width: 1000px) 100vw, 1000px" /><figcaption>{hi ? "RailQ का मूल चित्र। यह ऐप का स्क्रीनशॉट या वास्तविक ऑर्डर नहीं है।" : "Original RailQ illustration. Not an app screenshot or a real order."}</figcaption></figure>}
+{refresh && answer}
+{refresh && article.slug !== "train-food-delivery-apps-compared" ? <details className={`${styles.optionalVisual} mobile-illustration`}><summary>{hi ? "यात्रा का चित्र देखें" : "View the journey illustration"}</summary>{article.slug !== "train-food-delivery-apps-compared" && <figure className={styles.figure}><Image src={`/images/travel-guides/${article.visual}-${lang}.svg`} width={1200} height={630} unoptimized loading="lazy" alt={travelImageAlt[article.visual]?.[lang] ?? article.title[lang]} sizes="(max-width: 1000px) 100vw, 1000px" /><figcaption>{hi ? "RailQ का मूल चित्र। यह ऐप का स्क्रीनशॉट या वास्तविक ऑर्डर नहीं है।" : "Original RailQ illustration. Not an app screenshot or a real order."}</figcaption></figure>}</details> : (article.slug !== "train-food-delivery-apps-compared" && <figure className={styles.figure}><Image src={`/images/travel-guides/${article.visual}-${lang}.svg`} width={1200} height={630} unoptimized priority alt={travelImageAlt[article.visual]?.[lang] ?? article.title[lang]} sizes="(max-width: 1000px) 100vw, 1000px" /><figcaption>{hi ? "RailQ का मूल चित्र। यह ऐप का स्क्रीनशॉट या वास्तविक ऑर्डर नहीं है।" : "Original RailQ illustration. Not an app screenshot or a real order."}</figcaption></figure>)}
     <div className={styles.layout}>
-      <aside className={styles.contents}><nav aria-label={hi ? "इस लेख में" : "On this page"}><h2>{hi ? "इस लेख में" : "On this page"}</h2><ol>{article.sections.map((s,i)=><li key={i}><a href={`#section-${i+1}`}>{s.title[lang]}</a></li>)}</ol><a href="#sources">{hi ? "स्रोत और जाँच का तरीका" : "Sources and method"}</a></nav></aside>
+      {refresh ? <details className="mobile-contents"><summary>{hi ? "इस लेख में" : "On this page"}</summary><aside className={styles.contents}><nav aria-label={hi ? "इस लेख में" : "On this page"}><h2>{hi ? "इस लेख में" : "On this page"}</h2><ol>{article.sections.map((s,i)=><li key={i}><a href={`#section-${i+1}`}>{s.title[lang]}</a></li>)}</ol><a href="#sources">{hi ? "स्रोत और जाँच का तरीका" : "Sources and method"}</a></nav></aside></details> : <aside className={styles.contents}><nav aria-label={hi ? "इस लेख में" : "On this page"}><h2>{hi ? "इस लेख में" : "On this page"}</h2><ol>{article.sections.map((s,i)=><li key={i}><a href={`#section-${i+1}`}>{s.title[lang]}</a></li>)}</ol><a href="#sources">{hi ? "स्रोत और जाँच का तरीका" : "Sources and method"}</a></nav></aside>}
       <article className={styles.article}>
-        <section className={styles.answer} aria-labelledby="quick-answer"><h2 id="quick-answer">{hi ? "सीधा जवाब" : "The short answer"}</h2><p>{article.answer[lang]}</p></section>
+        {!refresh && answer}
         {article.table && <div className={styles.tableScroll} tabIndex={0} role="region" aria-label={article.table.caption[lang]}><table><caption>{article.table.caption[lang]}</caption><thead><tr>{article.table.headers.map((h,i)=><th key={i} scope="col">{h[lang]}</th>)}</tr></thead><tbody>{article.table.rows.map((row,i)=><tr key={i}>{row.map((v,j)=>j===0?<th scope="row" key={j}>{v[lang]}</th>:<td key={j}>{v[lang]}</td>)}</tr>)}</tbody></table></div>}
         {article.slug === "train-food-delivery-apps-compared" && <details className={styles.optionalVisual}><summary>{hi ? "मूल तुलना चित्र देखें" : "View the original comparison illustration"}</summary><figure className={styles.figure}><Image src={`/images/travel-guides/${article.visual}-${lang}.svg`} width={1200} height={630} unoptimized loading="lazy" alt={travelImageAlt[article.visual]?.[lang] ?? article.title[lang]} sizes="(max-width: 1000px) 100vw, 1000px" /><figcaption>{hi ? "RailQ का मूल चित्र। यह ऐप का स्क्रीनशॉट या वास्तविक ऑर्डर नहीं है।" : "Original RailQ illustration. Not an app screenshot or a real order."}</figcaption></figure></details>}
         {article.sections.map((s,i)=><section className={styles.section} id={`section-${i+1}`} key={i}><h2>{s.title[lang]}</h2>{s.paragraphs.map((p,j)=><p key={j}>{p[lang]}</p>)}{s.points.length>0 && <ul>{s.points.map((p,j)=><li key={j}>{p[lang]}</li>)}</ul>}{s.refs.length>0 && <p className={styles.citations}>{hi ? "संदर्भ: " : "References: "}{s.refs.map(n=><a key={n} href={`#source-${n}`} aria-label={`${hi ? "स्रोत" : "Source"} ${n}`}>[{n}] </a>)}</p>}{i===3 && <div className={styles.ad}><AdSlot placement="bottom" format="Responsive" /></div>}</section>)}

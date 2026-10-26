@@ -1,18 +1,8 @@
+import { protectedSeoPaths } from "@/lib/protected-pages";
+export { protectedSeoPaths } from "@/lib/protected-pages";
 /** Full URL-specific rollout; English and Hindi exclusions are independent. */
 export type SeoRolloutCopy = {title:string;description:string;h1?:string};
 export const seoRolloutDate = "2026-10-26";
-export const protectedSeoPaths = new Set<string>([
-  "/pnr-status",
-  "/coach-layout",
-  "/chart-preparation-calculator",
-  "/guides/vikalp-and-alternate-routes",
-  "/seat-berth-finder",
-  "/guides/new-delhi-station-ajmeri-gate-paharganj",
-  "/guides/partially-confirmed-family-ticket",
-  "/",
-  "/hi/pnr-status",
-  "/guides/gnwl-rlwl-pqwl-tqwl-difference"
-]);
 export const seoRolloutCopy: Record<string,SeoRolloutCopy> = {
   "/coach-position": {
     "title": "Train Coach Position: Check Your Coach Order",

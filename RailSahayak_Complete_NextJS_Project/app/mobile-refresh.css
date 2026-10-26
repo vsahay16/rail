@@ -1,0 +1,86 @@
+/* Only eligible page mains opt in. The top ten URLs never receive this attribute.
+   Shared header/footer, desktop typography and all SEO copy stay unchanged. */
+main[data-mobile-refresh] .mobile-contents{border:1px solid #cbded7;border-radius:12px;padding:12px 16px;max-width:1120px;margin:16px auto;background:#f5faf7}
+main[data-mobile-refresh] .mobile-contents>summary{min-height:48px;display:list-item;padding:10px 0;font-weight:700;cursor:pointer}
+main[data-mobile-refresh] .mobile-contents>nav,main[data-mobile-refresh] .mobile-contents>aside{width:100%;margin:12px 0 0;padding:0;border:0;position:static;background:transparent}
+main[data-mobile-refresh] .mobile-contents nav h2{display:none}
+main[data-mobile-refresh] .mobile-contents a{display:inline-flex;align-items:center;min-height:44px;line-height:1.6}
+main[data-mobile-refresh] .mobile-contents :focus-visible{outline:3px solid #086b63;outline-offset:3px}
+@media(max-width:760px){
+ main[data-mobile-refresh]{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.65;min-width:0}
+ html[lang^="hi"] main[data-mobile-refresh]{font-family:var(--font-devanagari),"Nirmala UI",Mangal,sans-serif;line-height:1.8}
+ main[data-mobile-refresh] :is(h1,h2,h3,h4){font-family:inherit;letter-spacing:normal;overflow-wrap:anywhere}
+ main[data-mobile-refresh] h1{font-size:clamp(28px,7.2vw,32px);line-height:1.25;letter-spacing:-.02em;margin:8px 0 12px}
+ main[data-mobile-refresh] h1 em{font:inherit;color:inherit;letter-spacing:inherit}
+ html[lang^="hi"] main[data-mobile-refresh] h1{line-height:1.5;letter-spacing:normal}
+ main[data-mobile-refresh] h2{font-size:22px;line-height:1.4}
+ main[data-mobile-refresh] :is(p,li){font-size:16px;line-height:1.7}
+ main[data-mobile-refresh] :is(input:not([type=checkbox]),select,textarea){font-size:16px!important;font-family:inherit;min-height:48px;max-width:100%;min-width:0}
+ main[data-mobile-refresh] :is(button,summary){font-family:inherit;min-height:48px;line-height:1.5}
+ main[data-mobile-refresh] :is(.generic-tool-hero,.guide-detail-hero,.content-hero,.directory-hero){padding:16px;gap:12px}
+ main[data-mobile-refresh] :is(.generic-tool-intro,.guide-detail-hero,.content-hero,.directory-hero)>.kicker{display:none}
+ main[data-mobile-refresh] :is(.generic-tool-intro,.guide-detail-hero,.content-hero,.directory-hero)>p{margin:8px 0 12px;font-size:16px;line-height:1.55}
+ main[data-mobile-refresh] .breadcrumbs{font-size:13px;margin:0 0 8px;flex-wrap:wrap;gap:6px}
+ main[data-mobile-refresh] .breadcrumbs>span:last-child{display:none}
+ main[data-mobile-refresh] .breadcrumbs>span:nth-last-child(2){display:none}
+ main[data-mobile-refresh] .tool-engine{min-width:0;border-radius:14px}
+ main[data-mobile-refresh] .tool-engine>form{padding:12px}
+ main[data-mobile-refresh] .engine-fields{gap:10px}
+ main[data-mobile-refresh] .engine-fields>label:not(.engine-checkbox){min-height:80px;padding:8px 12px}
+ main[data-mobile-refresh] .engine-submit{width:100%;min-height:52px;font-size:16px}
+ main[data-mobile-refresh] .engine-result{padding:16px;scroll-margin-top:88px}
+ main[data-mobile-refresh] .engine-result h2{font-size:24px;line-height:1.35}
+ main[data-mobile-refresh] .rail-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ main[data-mobile-refresh] .rail-metric{min-width:0;padding:12px}
+ main[data-mobile-refresh] .rail-metric strong{font-size:22px;line-height:1.35;overflow-wrap:anywhere}
+ main[data-mobile-refresh] .rail-result-source{flex-wrap:wrap;gap:6px;font-size:14px}
+ main[data-mobile-refresh] .rail-result-heading{flex-wrap:wrap;gap:10px}
+ main[data-mobile-refresh] .rail-train-list>article{padding:14px}
+ main[data-mobile-refresh] .route-seat-link{width:100%;justify-content:center;text-align:center;min-height:48px}
+ main[data-mobile-refresh] .ad-slot.live-ad{min-height:280px;margin:32px auto;max-width:100%}
+ main[data-mobile-refresh] .guide-contents ol{columns:1}
+ main[data-mobile-refresh] .guide-article>section,main[data-mobile-refresh] .content-article>section{padding:20px 0}
+ main[data-mobile-refresh] .guide-article>section>span,main[data-mobile-refresh] .content-article>section>span{display:none}
+ main[data-mobile-refresh] .guide-article>section,main[data-mobile-refresh] .content-article>section{grid-template-columns:minmax(0,1fr)}
+ main[data-mobile-refresh] .mobile-article-answer{padding:16px;margin:12px 0;border-radius:12px}
+ main[data-mobile-refresh] .mobile-article-answer p{margin:0}
+ main[data-mobile-refresh] .mobile-contents{margin:12px 0;padding:8px 14px}
+ main[data-mobile-refresh] .mobile-contents ol{columns:1;padding-left:22px}
+ main[data-mobile-refresh] .mobile-illustration{margin:12px 0}
+ main[data-mobile-refresh] .mobile-illustration img{max-width:100%;height:auto}
+ main[data-mobile-refresh] .dashboard-hero{padding:16px;gap:14px;border-radius:0 0 18px 18px}
+ main[data-mobile-refresh] .dashboard-copy>.kicker{display:none}
+ main[data-mobile-refresh] .dashboard-copy p{margin:8px 0}
+ main[data-mobile-refresh] .directory-category{margin-top:24px}
+ main[data-mobile-refresh].mobile-home .hero{padding:16px;gap:12px}
+ main[data-mobile-refresh].mobile-home .hero-copy>.eyebrow{display:none}
+ main[data-mobile-refresh].mobile-home .hero-copy>p{font-size:16px;margin:8px 0 12px}
+ main[data-mobile-refresh].mobile-home .hero-visual{display:none}
+ main[data-mobile-refresh].mobile-home .tools-section{padding-top:24px}
+ main[data-mobile-refresh].mobile-home .tool-card{min-height:0;padding:16px}
+ main[data-mobile-refresh].mobile-home :is(.journey-section,.updates-section,.india-section,.cta-band){padding-block:28px}
+}
+@media(max-width:760px){
+ main[data-mobile-refresh].mobile-planner{padding:16px}
+ main[data-mobile-refresh].mobile-planner>header{padding:12px 0}
+ main[data-mobile-refresh].mobile-planner>header>span{display:none}
+ main[data-mobile-refresh].mobile-planner>header p{font-size:16px;line-height:1.55;margin:8px 0}
+ main[data-mobile-refresh].mobile-planner>section{padding:16px;margin:12px 0}
+ main[data-mobile-refresh] .mobile-article-hero{margin-bottom:12px}
+ main[data-mobile-refresh] .mobile-article-hero>nav{margin-bottom:12px}
+ main[data-mobile-refresh] .mobile-article-hero>p:first-of-type{display:none}
+ main[data-mobile-refresh] .mobile-article-hero>p{font-size:16px;line-height:1.6;margin:8px 0}
+}
+@media(max-width:760px){
+ main[data-mobile-refresh].mobile-home .tool-grid{gap:10px}
+ main[data-mobile-refresh].mobile-home .tool-card{display:grid;grid-template-columns:40px minmax(0,1fr) 20px;gap:4px 12px;align-items:center}
+ main[data-mobile-refresh].mobile-home .tool-card .tool-icon{grid-row:1/3;width:40px;height:40px}
+ main[data-mobile-refresh].mobile-home .tool-card .tool-number{display:none}
+ main[data-mobile-refresh].mobile-home .tool-card h3{grid-column:2;font-size:18px;line-height:1.5;margin:0}
+ main[data-mobile-refresh].mobile-home .tool-card p{grid-column:2;margin:0;line-height:1.55}
+ main[data-mobile-refresh].mobile-home .tool-card .tool-link{grid-column:3;grid-row:1/3;font-size:0;margin:0;gap:0}
+}
+@media(max-width:760px){
+ main[data-mobile-refresh] :is(p,li,a,label){overflow-wrap:anywhere}
+ main[data-mobile-refresh] :is(.rail-metric strong,.rail-train-times,.engine-result dd){font-variant-numeric:tabular-nums}
+}
