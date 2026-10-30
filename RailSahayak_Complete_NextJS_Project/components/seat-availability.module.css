@@ -1,0 +1,14 @@
+.results { color: var(--ink); }
+.results p { line-height: 1.65; }
+.days { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,240px),1fr)); gap: 16px; margin: 20px 0; }
+.day { min-width: 0; border: 1px solid var(--line); border-radius: 12px; padding: 18px; background: var(--white, #fff); overflow-wrap: anywhere; }
+.day h3 { font-size: var(--text-lg); margin: 8px 0 12px; }
+.day strong { display: block; }
+.day p { margin: 10px 0; }
+.available { border-color: var(--teal); }
+.dateKind { font-size: var(--text-sm, .875rem); color: var(--muted); }
+.estimate { color: var(--teal); font-weight: 600; }
+.note, .checked { color: var(--muted); font-size: var(--text-sm, .875rem); }
+.day summary { cursor: pointer; min-height: 44px; padding: 12px 0; }
+.day summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+@media (max-width: 600px) { .days { grid-template-columns: 1fr; } .day { padding: 16px; } }

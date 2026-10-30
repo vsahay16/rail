@@ -1,3 +1,4 @@
+import { normalizeSeatDay, parseJourneyDate, railkitDate } from "./seat-availability";
 /** Server-side RailKit transport. No keys or SDK code belong in client components. */
 import * as sdk from "railkit";
 import { record, rows, scalar, type RailRecord } from "./rail-data";
@@ -7,7 +8,7 @@ export function railkitRequest(endpoint: string, action: string) {
   const url = new URL(endpoint, "https://internal.invalid");
   const parts = url.pathname.split("/").filter(Boolean);
   const q = url.searchParams;
-  const date = (value: string) => /^\d{4}-\d{2}-\d{2}$/.test(value) ? value.split("-").reverse().join("-") : value;
+  const date = (value: string) => value ? railkitDate(value) : "";
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
   const train = parts[1];
   let path: string; let args: string[];
@@ -24,12 +25,14 @@ export function railkitRequest(endpoint: string, action: string) {
   }
   return { path, args };
 }
-export async function callRailkit(endpoint: string, action: string, key: string): Promise<{status: number; payload: RailRecord}> {
+export async function callRailkit(endpoint: string, action: string, key: string): Promise<{status: number; payload: RailRecord; retryAfter?: number}> {
   const { path, args: a } = railkitRequest(endpoint, action);
-  if (process.env.RAILKIT_TRANSPORT === "rest") {
-    // RailKit documents direct REST access for Advance plans only.
+  if (action === "availability" || process.env.RAILKIT_TRANSPORT === "rest") {
+    // Availability uses the verified REST contract; other tools retain their configured transport.
     const response = await fetch(`https://api.railkit.in${path}`, { headers: { "x-api-key": key, accept: "application/json" }, cache: "no-store", signal: AbortSignal.timeout(15000) });
-    return { status: response.status, payload: record(await response.json().catch(() => null)) };
+    const retry = response.headers.get("retry-after");
+    const retryAfter = retry && /^\d+$/.test(retry) ? Number(retry) : retry && Number.isFinite(Date.parse(retry)) ? Math.max(1, Math.ceil((Date.parse(retry) - Date.now()) / 1000)) : undefined;
+    return { status: response.status, payload: record(await response.json().catch(() => null)), retryAfter: Number.isFinite(retryAfter) ? retryAfter : undefined };
   }
   sdk.configure(key);
   let result: unknown;
@@ -63,16 +66,18 @@ export function normalizeRailkit(action: string, input: unknown, endpoint: strin
   } else if (action === "schedule") {
     const t = record(d.trainInfo);
     if (!scalar(t.train_no) || !rows(d.route).length) throw new Error("Incomplete timetable");
-    data = { train: { number: t.train_no, name: t.train_name, source: station(t.from_stn_code, t.from_stn_name), destination: station(t.to_stn_code, t.to_stn_name), type: t.type, distance: t.total_distance, duration: minutes(t.travel_time), runDays: runDays(t.running_days) }, route: rows(d.route).map(r => ({ station: station(r.stnCode, r.stnName), arrival: r.arrival, departure: r.departure, distance: r.distance, arrivalDay: r.day, departureDay: r.day, isHalt: true })) };
+    data = { train: { number: t.train_no, name: t.train_name, source: station(t.from_stn_code, t.from_stn_name), destination: station(t.to_stn_code, t.to_stn_name), type: t.type, distance: t.total_distance, duration: minutes(t.travel_time), runDays: runDays(t.running_days), classes: Array.isArray(t.classes) ? t.classes : [] }, route: rows(d.route).map(r => ({ station: station(r.stnCode, r.stnName), arrival: r.arrival, departure: r.departure, distance: r.distance, arrivalDay: r.day, departureDay: r.day, isHalt: true })) };
   } else if (action === "between") {
     if (!Array.isArray(root.data)) throw new Error("Invalid trains list");
     const trains = rows(root.data).map(t => ({ train: { number: t.train_no, name: t.train_name, runDays: runDays(t.running_days) }, from: { ...station(t.from_stn_code, t.from_stn_name), departure: t.from_time }, to: { ...station(t.to_stn_code, t.to_stn_name), arrival: t.to_time }, duration: minutes(t.travel_time), distance: t.distance }));
     data = { from: station(args[0]), to: station(args[1]), count: trains.length, trains };
   } else if (action === "availability") {
     const t = record(d.train);
-    if (!Array.isArray(d.availability)) throw new Error("Invalid availability response");
-    data = { trainNumber: t.trainNo, trainName: t.trainName, from: station(t.from, t.fromStationName), to: station(t.to, t.toStationName), classCode: t.travelClass, quotaCode: t.quota, calendar: rows(d.availability).map(r => ({ date: r.date, availability: scalar(r.rawStatus, r.availabilityText, r.status), status: scalar(r.availabilityText, r.status) })) };
-    // Availability forecasts are NOT a prediction for a booked passenger's PNR.
+    if (!Array.isArray(d.availability)) throw new Error("Missing availability response");
+    for (const [value, expected] of [[t.trainNo, args[0]], [t.from, args[1]], [t.to, args[2]], [t.travelClass, args[4]], [t.quota, args[5]]]) {
+      if (value !== undefined && scalar(value).toUpperCase() !== expected) throw new Error("Mismatched search context");
+    }
+    data = { trainNumber: scalar(t.trainNo, args[0]), trainName: scalar(t.trainName), from: station(t.from ?? args[1], t.fromStationName), to: station(t.to ?? args[2], t.toStationName), classCode: args[4], quotaCode: args[5], requestedDate: parseJourneyDate(args[3]), calendar: rows(d.availability).map(normalizeSeatDay) };
   } else if (action === "fare") {
     if (d.totalFare === undefined || d.totalFare === null) throw new Error("Missing fare");
     const breakdown: RailRecord = {};

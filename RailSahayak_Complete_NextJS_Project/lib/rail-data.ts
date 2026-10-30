@@ -259,6 +259,7 @@ export function railError(payload: unknown, hi = false) {
   const code = scalar(error.code, root.code) || "PROVIDER_ERROR";
 
   const copy: Record<string, [string, string]> = {
+    INVALID_COMBINATION: ["This class or date does not match the known timetable. Load the train classes and check the journey date.", "यह श्रेणी या तारीख उपलब्ध समय-सारणी से मेल नहीं खाती। ट्रेन की श्रेणियाँ देखें और यात्रा तारीख जाँचें।"],
     TOOL_UNAVAILABLE: ["This tool is currently unavailable with the new data provider. Please use official railway enquiry.", "नए डेटा प्रदाता के साथ यह सुविधा अभी उपलब्ध नहीं है। कृपया आधिकारिक रेलवे पूछताछ सेवा देखें।"],
     SERVICE_PAUSED: ["Live searches are paused while the new provider is verified. Please use official railway enquiry.", "नए प्रदाता की जाँच के दौरान लाइव खोज रुकी हुई है। कृपया आधिकारिक रेलवे पूछताछ सेवा देखें।"],
     PROVIDER_AUTH_ERROR: ["The provider connection needs attention. Please use official railway enquiry for now.", "डेटा प्रदाता के कनेक्शन में समस्या है। अभी आधिकारिक रेलवे पूछताछ सेवा देखें।"],
@@ -287,8 +288,8 @@ export function railError(payload: unknown, hi = false) {
       "API सीमा की सुरक्षा के लिए लाइव खोज अस्थायी रूप से रुकी है। आधिकारिक रेलवे सेवा देखें।",
     ],
     API_BURST_LIMIT: [
-      "The live service is busy. Please try again in a minute.",
-      "लाइव सेवा व्यस्त है। एक मिनट बाद फिर प्रयास करें।",
+      "The live service is busy. Wait for the indicated cooldown before trying again.",
+      "लाइव सेवा व्यस्त है। दिए गए प्रतीक्षा समय के बाद फिर प्रयास करें।",
     ],
     PROTECTION_UNAVAILABLE: [
       "Live lookups are temporarily unavailable. Please try later or use an official railway service.",
@@ -363,7 +364,7 @@ export async function railRequest(
   const fingerprint = Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2,"0")).join("");
   if (pendingLookups.has(fingerprint)) {
     const payload = { success: false, code: "RATE_LIMITED", message: "Please wait before repeating this lookup." };
-    return {response: new Response(JSON.stringify(payload), {status:429}), payload: record(payload), ok:false};
+    return {response: new Response(JSON.stringify(payload), {status:429}), payload: record(payload), retryAfter: 1, ok:false};
   }
   pendingLookups.add(fingerprint);
   try {
@@ -383,8 +384,8 @@ export async function railRequest(
         : {}),
       cache: "no-store",
       signal: signal
-        ? AbortSignal.any([signal, AbortSignal.timeout(25000)])
-        : AbortSignal.timeout(25000),
+        ? AbortSignal.any([signal, AbortSignal.timeout(params.get("action") === "availability" ? 35000 : 25000)])
+        : AbortSignal.timeout(params.get("action") === "availability" ? 35000 : 25000),
     }
   );
 
@@ -398,6 +399,7 @@ export async function railRequest(
   return {
     response,
     payload,
+    retryAfter: Math.max(0, Number(response.headers.get("retry-after")) || 0),
     ok: response.ok && payload.success !== false,
   };
   } finally { pendingLookups.delete(fingerprint); }

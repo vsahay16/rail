@@ -64,4 +64,4 @@ for (const [slug, sections] of Object.entries(journeyExpansions)) {
  const existing = guideAdditions[slug];
  if (existing) { existing.sections = [...existing.sections, ...sections]; existing.checked = "15 October 2026"; existing.checkedHi = "15 अक्टूबर 2026"; }
 }
-guideAdditions["vikalp-and-alternate-routes"].sources.push({ label: "RailRadar: journey planner API", url: "https://railradar.in/docs/journey-plan" });
+guideAdditions["vikalp-and-alternate-routes"].sources.push({ label: "Indian Railways: train enquiry", url: "https://enquiry.indianrail.gov.in/mntes/" });

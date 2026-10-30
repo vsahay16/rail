@@ -1,3 +1,4 @@
+import { metadataProblem, trainMetadata } from "@/lib/seat-availability";
 import { callRailkit, normalizeRailkit, supportedActions } from "@/lib/railkit-provider";
 import { createHash, createHmac } from "node:crypto";
 import type { NextRequest } from "next/server";
@@ -18,7 +19,7 @@ export async function database(path: string, body?: RailRecord, method?: string)
     const response = await fetch(`${config.url}/rest/v1/${path}`, {
       method: method ?? (body ? "POST" : "GET"),
       headers: { apikey: config.key, authorization: `Bearer ${config.key}`, "content-type": "application/json", ...(path.startsWith("rail_api_cache") && body ? { prefer: "resolution=merge-duplicates,return=minimal" } : path === "railq_tool_reports" ? { prefer: "return=minimal" } : {}) },
-      ...(body ? { body: JSON.stringify(body) } : {}), cache: "no-store", signal: AbortSignal.timeout(5000),
+      ...(body ? { body: JSON.stringify(body) } : {}), cache: "no-store", signal: AbortSignal.timeout(path.startsWith("rail_api_cache") ? 1500 : 5000),
     });
     if (!response.ok) throw new Error("Storage unavailable");
     return response.status === 204 || (body && (path.startsWith("rail_api_cache") || path === "railq_tool_reports")) ? null : await response.json();
@@ -53,21 +54,41 @@ export async function recordHealth(action: string, outcome: string, duration: nu
   try { await database("rpc/railq_record_health", { p_action: action, p_outcome: outcome, p_ms: Math.max(0, Math.round(duration)), p_cached: cached }); }
   catch { console.warn("RailQ monitoring write unavailable"); }
 }
+// Best-effort coalescing in this instance only. Shared cache/rate limits are database-backed.
+const availabilityInFlight = new Map<string, Promise<Awaited<ReturnType<typeof fetchRailwayOnce>>>>();
 export async function fetchRailway(endpoint: string, action: string, body?: RailRecord) {
+  if (action !== "availability") return fetchRailwayOnce(endpoint, action, body);
+  const pending = availabilityInFlight.get(endpoint);
+  if (pending) return pending;
+  const job = fetchRailwayOnce(endpoint, action, body);
+  if (availabilityInFlight.size < 128) availabilityInFlight.set(endpoint, job);
+  try { return await job; } finally { if (availabilityInFlight.get(endpoint) === job) availabilityInFlight.delete(endpoint); }
+}
+async function fetchRailwayOnce(endpoint: string, action: string, body?: RailRecord) {
   if (!supportedActions.includes(action)) throw new RailServiceError(action === "prediction" ? "PREDICTION_DISABLED" : "TOOL_UNAVAILABLE", "This tool is unavailable with the current provider. Please use an official railway enquiry service.", 503, 0);
   if (process.env.RAILKIT_ENABLED !== "true") throw new RailServiceError("SERVICE_PAUSED", "Railway lookups are paused while the new provider is being verified.", 503, 0);
   const key = process.env.RAILKIT_API_KEY;
   if (!key) throw new RailServiceError("PROVIDER_NOT_CONFIGURED", "The live railway service has not been connected yet.");
-  const base = "railkit:adapter-v1:";
+  const base = action === "availability" ? "railkit:availability-v2:" : "railkit:adapter-v1:";
   const ttl: Record<string, number> = { live: 45, schedule: 3600, between: 900, station: 45, coach: 3600, platform: 60, journey: 300 };
-  const seconds = ttl[action] ?? 0;
-  // PNR, availability and fare are never persisted. Cache keys contain no personal data.
+  const seconds = action === "availability" ? integerSetting("RAILKIT_AVAILABILITY_CACHE_SECONDS", 120, 600) : ttl[action] ?? 0;
+  // PNR and fare are never persisted. Public seat searches contain no passenger data.
   const cacheKey = seconds ? createHash("sha256").update(`${base}${endpoint}${body ? JSON.stringify(body) : ""}`).digest("hex") : "";
   if (seconds) {
     const cached = await database(`rail_api_cache?cache_key=eq.${cacheKey}&expires_at=gt.${encodeURIComponent(new Date().toISOString())}&select=payload,fetched_at&limit=1`);
     if (Array.isArray(cached) && cached.length) {
       const row = record(cached[0]);
       return { ...record(row.payload), railq: { cached: true, fetchedAt: row.fetched_at, cacheSeconds: seconds } };
+    }
+  }
+  if (action === "availability") {
+    const url = new URL(endpoint, "https://internal.invalid"), train = url.pathname.split("/")[2];
+    const metadataKey = createHash("sha256").update(`railkit:adapter-v1:/trains/${train}`).digest("hex");
+    const cached = await database(`rail_api_cache?cache_key=eq.${metadataKey}&expires_at=gt.${encodeURIComponent(new Date().toISOString())}&select=payload&limit=1`);
+    if (Array.isArray(cached) && cached.length) {
+      const params = new URLSearchParams({ train, from: url.searchParams.get("source") || "", class: url.searchParams.get("classCode") || "", date: url.searchParams.get("journeyDate") || "" });
+      const problem = metadataProblem(params, trainMetadata(record(cached[0]).payload));
+      if (problem) throw new RailServiceError("INVALID_COMBINATION", problem, 400, 0);
     }
   }
   const quota = integerSetting("RAILKIT_MONTHLY_QUOTA", 0, 10000000);
@@ -78,7 +99,7 @@ export async function fetchRailway(endpoint: string, action: string, body?: Rail
   }));
   if (budget.allowed !== true) throw new RailServiceError(String(budget.reason || "API_BUDGET_REACHED"), "Live requests are temporarily limited.", 429, Number(budget.retry_after) || 60);
   // Reserve each transport invocation, including errors. RailQ does not retry automatically.
-  let result: {status: number; payload: RailRecord};
+  let result: {status: number; payload: RailRecord; retryAfter?: number};
   try { result = await callRailkit(endpoint, action, key); }
   catch { throw new RailServiceError("PROVIDER_UNAVAILABLE", "The railway data provider is unavailable. Please try again later.", 502); }
   const raw = result.payload;
@@ -86,7 +107,7 @@ export async function fetchRailway(endpoint: string, action: string, body?: Rail
     if ([401, 403].includes(result.status)) throw new RailServiceError("PROVIDER_AUTH_ERROR", "The railway provider connection requires attention. Please use the official enquiry service.", 503, 0);
     if (result.status === 400) throw new RailServiceError("INVALID_INPUT", "The provider could not accept these search details. Check the date, stations and train number.", 400, 0);
     if (result.status === 404) throw new RailServiceError("NOT_FOUND", "No result was found. The record may be expired or unavailable.", 404);
-    if (result.status === 429) throw new RailServiceError("API_BURST_LIMIT", "The provider request allowance is temporarily unavailable.", 429);
+    if (result.status === 429) throw new RailServiceError("API_BURST_LIMIT", "The provider request allowance is temporarily unavailable. Wait before checking again.", 429, result.retryAfter ?? 60);
     throw new RailServiceError("PROVIDER_UNAVAILABLE", "The railway data provider did not return a usable result.", 502);
   }
   let payload: RailRecord;

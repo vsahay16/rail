@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "data": {
+    "train": {"trainNo":"15743","trainName":"FARAKKA EXP","from":"PNBE","to":"DLI","fromStationName":"Patna Junction","toStationName":"Old Delhi","distance":1061,"travelClass":"3A","quota":"GN"},
+    "fare": {"totalFare":1400},
+    "availability": [
+      {"date":"31-10-2026","status":"WAITLIST","availabilityText":"Not Available","rawStatus":"NOT AVAILABLE","prediction":"No More Booking","predictionPercentage":0,"canBook":false},
+      {"date":"2-11-2026","status":"WAITLIST","availabilityText":"WL 14","rawStatus":"RLWL16/WL14","prediction":"84% Chance","predictionPercentage":84,"canBook":true},
+      {"date":"4-11-2026","status":"WAITLIST","availabilityText":"WL 7","rawStatus":"RLWL8/WL7","prediction":"85% Chance","predictionPercentage":85,"canBook":true}
+    ]
+  }
+}

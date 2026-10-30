@@ -1,4 +1,5 @@
 "use client";
+import { metadataProblem, seatInputProblem, seatClasses, trainMetadata, type TrainMetadata } from "@/lib/seat-availability";
 import { mobileRefreshEnabled } from "@/lib/protected-pages";
 import { LocalizedLink as Link } from "./localized-link";
 import { NextUsefulStep } from "@/components/next-useful-step";
@@ -66,7 +67,7 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
   const { language } = useLanguage(); const hi = language === "hi";
   const refresh = mobileRefreshEnabled(`/${tool.slug}`, language);
   const fields = fieldMap[tool.slug] ?? emptyFields;
-  const [form, setForm] = useState<Record<string, string>>(() => initialForm(fields));
+  const [form, setForm] = useState<Record<string, string>>(() => ({ ...initialForm(fields), ...(tool.slug === "seat-availability" ? { class: "" } : {}) }));
   const applyPrefill = useCallback((query: URLSearchParams) => {
     const defaults = initialForm(fields), prefill: Record<string, string> = {};
     const train = query.get("train");
@@ -81,6 +82,30 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
     if (Object.keys(allowed).length) setForm(current => ({ ...current, ...allowed }));
   }, [fields]);
   const [loading, setLoading] = useState(false);
+  const [knownTrain, setKnownTrain] = useState<TrainMetadata | null>(null);
+  const [metadataBusy, setMetadataBusy] = useState(false);
+  const [metadataNote, setMetadataNote] = useState("");
+  const [retryAt, setRetryAt] = useState(0);
+  const metadataLock = useRef(false);
+  const activeMetadata = knownTrain?.number === form.train ? knownTrain : null;
+  useEffect(() => {
+    if (!retryAt) return;
+    const timer = setTimeout(() => setRetryAt(0), Math.min(2147483647, Math.max(0, retryAt - Date.now())));
+    return () => clearTimeout(timer);
+  }, [retryAt]);
+  async function loadTrainMetadata() {
+    if (metadataLock.current || loading || retryAt > Date.now()) return;
+    if (!/^\d{5}$/.test(form.train || "")) { setMetadataNote(hi ? "पहले सही पाँच अंकों का ट्रेन नंबर डालें।" : "Enter a five-digit train number first."); return; }
+    const train = form.train; metadataLock.current = true; setMetadataBusy(true); setMetadataNote("");
+    try {
+      const result = await railRequest(new URLSearchParams({ action: "schedule", train }));
+      if (!result.ok) { setMetadataNote(railError(result.payload, hi).message); if (result.retryAfter) setRetryAt(Date.now() + result.retryAfter * 1000); return; }
+      const metadata = trainMetadata(result.payload); setKnownTrain(metadata);
+      setForm(current => current.train === train && metadata.classes.length && !metadata.classes.includes(current.class) ? {...current, class: ""} : current);
+      if (!metadata.classes.length) setMetadataNote(hi ? "प्रदाता ने श्रेणियों की सूची नहीं दी। टिकट या आधिकारिक समय-सारणी में श्रेणी जाँचें।" : "The provider did not return a class list. Verify the class against the official timetable or booking service.");
+    } catch { setMetadataNote(hi ? "समय-सारणी नहीं मिली। फिर कोशिश करने से पहले जानकारी जाँचें।" : "Timetable unavailable. Verify the details before trying again."); }
+    finally { setMetadataBusy(false); metadataLock.current = false; }
+  }
   const submitting = useRef(false);
   const [localResult, setLocalResult] = useState<LocalResult | null>(null);
   const [providerResult, setProviderResult] = useState<Record<string, unknown> | null>(null);
@@ -91,7 +116,7 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
     return () => cancelAnimationFrame(frame);
   }, [localResult, providerResult, loading]);
   const submitLabel = tool.live ? (hi ? "लाइव जानकारी देखें" : "Check live information") : (hi ? "परिणाम निकालें" : "Calculate result");
-  function updateField(name: string, value: string) { setForm(current => ({...current, [name]:value})); setLocalResult(null); setProviderResult(null); }
+  function updateField(name: string, value: string) { setForm(current => ({...current, [name]:value, ...(name === "train" && tool.slug === "seat-availability" ? {class:""} : {})})); setLocalResult(null); setProviderResult(null); }
   function error(title: string, description: string) { setLocalResult({ tone: "error", eyebrow: hi ? "जानकारी जाँचें" : "Check the information", title, description }); }
 
   function calculate(form: Record<string, string>): LocalResult | null {
@@ -160,18 +185,24 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
   }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); (document.activeElement as HTMLElement | null)?.blur(); if(submitting.current) return; setLocalResult(null); setProviderResult(null);
+    event.preventDefault(); (document.activeElement as HTMLElement | null)?.blur(); if(submitting.current || metadataLock.current || retryAt > Date.now()) return; setLocalResult(null); setProviderResult(null);
     if (!tool.live) { const submitted = new FormData(event.currentTarget); const calculated = calculate({ ...form, ...Object.fromEntries(fields.filter(field => field.type !== "checkbox").map(field => [field.name, String(submitted.get(field.name) ?? form[field.name] ?? "")])) }); if (calculated) { setLocalResult(calculated); trackEvent("calculator_completed", { tool: tool.slug, outcome: calculated.tone }); } return; }
+    if (tool.slug === "seat-availability") {
+      const params = new URLSearchParams(form);
+      const problem = seatInputProblem(params) || (activeMetadata ? metadataProblem(params, activeMetadata) : null);
+      if (problem) { error(hi ? "यात्रा की जानकारी जाँचें" : "Check the journey details", hi ? "सही तारीख, अलग स्टेशन और ट्रेन में उपलब्ध श्रेणी चुनें। श्रेणियाँ देखने के लिए नीचे दिए बटन का उपयोग करें।" : problem); return; }
+    }
     const trainTools = ["live-train-status", "seat-availability", "train-schedule", "train-fare", "coach-position", "platform-number"];
     if (trainTools.includes(tool.slug) && !/^\d{5}$/.test(form.train ?? "")) { error(hi ? "सही 5 अंकों का ट्रेन नंबर डालें" : "Enter a valid 5-digit train number", hi ? "उदाहरण: 12952" : "For example: 12952"); return; }
-    if (["trains-between-stations", "seat-availability", "train-fare"].includes(tool.slug) && (!/^[A-Z0-9]{2,6}$/i.test(form.from ?? "") || !/^[A-Z0-9]{2,6}$/i.test(form.to ?? ""))) { error(hi ? "दोनों स्टेशन कोड जाँचें" : "Check both station codes", hi ? "उदाहरण: NDLS से MMCT" : "For example: NDLS to MMCT"); return; }
+    if (["trains-between-stations", "train-fare"].includes(tool.slug) && (!/^[A-Z0-9]{2,6}$/i.test(form.from?.trim() ?? "") || !/^[A-Z0-9]{2,6}$/i.test(form.to?.trim() ?? ""))) { error(hi ? "दोनों स्टेशन कोड जाँचें" : "Check both station codes", hi ? "उदाहरण: NDLS से MMCT" : "For example: NDLS to MMCT"); return; }
     if (["seat-availability", "train-fare"].includes(tool.slug) && !form.date) { error(hi ? "यात्रा तारीख चुनें" : "Select a journey date", hi ? "उपलब्धता और किराए के लिए तारीख जरूरी है।" : "A journey date is required for availability and fare."); return; }
     if (["station-arrivals-departures", "platform-number"].includes(tool.slug) && !/^[A-Z0-9]{2,6}$/i.test(form.station ?? "")) { error(hi ? "सही स्टेशन कोड डालें" : "Enter a valid station code", hi ? "उदाहरण: NDLS" : "For example: NDLS"); return; }
     submitting.current = true; const started = performance.now(); setLoading(true); trackEvent("live_tool_submitted", { tool: tool.slug });
     const actionMap: Record<string, string> = { "live-train-status": "live", "trains-between-stations": "between", "seat-availability": "availability", "train-schedule": "schedule", "train-fare": "fare", "station-arrivals-departures": "station", "coach-position": "coach", "platform-number": "platform" };
-    const params = new URLSearchParams({ action: actionMap[tool.slug] ?? tool.slug }); Object.entries(form).forEach(([key, value]) => { if (value) params.set(key, ["from", "to", "station"].includes(key) ? value.toUpperCase() : value); });
+    const params = new URLSearchParams({ action: actionMap[tool.slug] ?? tool.slug }); Object.entries(form).forEach(([key, value]) => { if (value) params.set(key, ["from", "to", "station"].includes(key) ? value.trim().toUpperCase() : value); });
     try {
-      const { payload, ok } = await railRequest(params);
+      const { payload, ok, retryAfter } = await railRequest(params);
+      if (retryAfter) setRetryAt(Date.now() + retryAfter * 1000);
       if (!ok) { const problem = railError(payload, hi); setLocalResult({ tone: "warning", eyebrow: hi ? "लाइव जानकारी अनुपलब्ध" : "Live information unavailable", title: problem.title, code: problem.code, description: problem.message }); trackEvent("live_tool_result", { tool: tool.slug, outcome: "error", duration_ms: Math.round(performance.now() - started) }); }
       else { if (form.train) rememberTrain(form.train); setProviderResult(payload); trackEvent("live_tool_result", { tool: tool.slug, outcome: liveResultOutcome(tool.slug, payload), duration_ms: Math.round(performance.now() - started) }); }
     } catch { trackEvent("live_tool_result", { tool:tool.slug, outcome:"network_error", duration_ms:Math.round(performance.now()-started) }); error(hi ? "कनेक्शन रुक गया" : "Connection interrupted", hi ? "फिर प्रयास करें या आधिकारिक रेलवे सेवा देखें।" : "Try again or use an official railway service."); }
@@ -189,6 +220,7 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
   return <section className="tool-engine"><Suspense fallback={null}><ToolQueryPrefill onPrefill={applyPrefill} /></Suspense>{tool.slug === "trains-between-stations" && <h2>{hi ? "पहले स्टेशन के बीच ट्रेनें खोजें" : "Start with a station-to-station search"}</h2>}{tool.slug === "seat-availability" && <p className="task-entry-note">{hi ? "ट्रेन नंबर नहीं जानते? " : "Don’t know the train number? "}<Link href="/trains-between-stations">{hi ? "दो स्टेशनों के बीच ट्रेनें खोजें" : "Find trains between your stations"}</Link></p>}
     {tool.slug === "waitlist-guide" && <p className="task-entry-note">{hi ? "अपनी वेटलिस्ट श्रेणी चुनकर अर्थ जानें। " : "Choose your waiting-list category to understand it. "}<Link href="/guides/gnwl-rlwl-pqwl-tqwl-difference">{hi ? "GNWL, RLWL, PQWL और TQWL की पूरी तुलना" : "Compare GNWL, RLWL, PQWL and TQWL"}</Link></p>}
     {tool.slug === "status-code-decoder" && <p className="task-entry-note">{hi ? "टिकट पर दिखा स्थिति कोड भरें। " : "Enter the status code printed in your ticket result. "}<Link href="/guides/pnr-status-explained">{hi ? "पूरी यात्री पंक्ति पढ़ने का तरीका" : "Learn how to read the full passenger result"}</Link></p>}
+    {retryAt > 0 && <p role="status">{hi ? "अनुरोध सीमा लागू है। प्रदाता का प्रतीक्षा समय पूरा होने पर फिर खोज कर सकेंगे।" : "A request limit applies. Searching will be available again after the required waiting period."}</p>}
     <form id="rail-search" onSubmit={submit} aria-busy={loading} onKeyDown={event => {
       if (!refresh || !window.matchMedia("(max-width: 760px)").matches || event.defaultPrevented || event.key !== "Enter" || event.nativeEvent.isComposing) return;
       const input = event.target;
@@ -196,7 +228,14 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
       const controls = Array.from(event.currentTarget.querySelectorAll<HTMLInputElement | HTMLSelectElement>("fieldset input, fieldset select"));
       const next = controls[controls.indexOf(input) + 1];
       if (next) { event.preventDefault(); next.focus(); }
-    }}><fieldset disabled={loading} className={`engine-fields fields-${Math.min(fields.length, 3)}`}>{fields.map((field) => <label className={field.type === "checkbox" ? "engine-checkbox" : ""} key={field.name}>{field.type === "checkbox" ? <><input type="checkbox" checked={form[field.name] === "true"} onChange={(event) => updateField(field.name, String(event.target.checked))} /><span>{hi ? field.labelHi : field.label}</span></> : <><span>{hi ? field.labelHi : field.label}</span>{["from", "to", "station"].includes(field.name) ? <StationInput name={field.name} hi={hi} value={form[field.name]} onChange={(value) => updateField(field.name, value)} /> : field.type === "select" ? <select name={field.name} value={form[field.name]} onChange={(event) => updateField(field.name, event.target.value)}>{field.options?.map(([value, en, hindi]) => <option key={value} value={value}>{hi ? hindi : en}</option>)}</select> : <input name={field.name} type={field.name === "train" ? "text" : field.type ?? "text"} inputMode={field.name === "train" ? "numeric" : undefined} maxLength={field.name === "train" ? 5 : undefined} autoComplete={field.name === "train" ? "off" : undefined} enterKeyHint={refresh && field.name !== fields.at(-1)?.name ? "next" : "go"} min={field.min} max={field.max} step={field.step ?? (field.name === "fare" ? "0.01" : undefined)} value={form[field.name]} onChange={(event) => updateField(field.name, event.target.value.replace(field.type === "number" && ["train", "pnr", "seat"].includes(field.name) ? /\D/g : /$^/, ""))} placeholder={hi ? field.placeholderHi ?? field.placeholder : field.placeholder} />}</>}</label>)}</fieldset><button className="engine-submit" type="submit" disabled={loading}>{loading ? <><span className="spinner" />{hi ? "जानकारी मिल रही है" : "Getting information"}</> : <>{submitLabel}<Icon name="arrow" size={18} /></>}</button><p className="engine-disclaimer"><Icon name="shield" size={14} />{tool.live ? (hi ? "लाइव डेटा प्रदाता की उपलब्धता पर निर्भर करता है।" : "Live data depends on provider availability.") : (hi ? "यह योजना के लिए सहायक अनुमान है; महत्वपूर्ण नियम सत्यापित करें।" : "This is a planning aid; verify important rules.")}</p>{loading && <LookupProgress hi={hi} />}</form>
+    }}><fieldset disabled={loading || metadataBusy} className={`engine-fields fields-${Math.min(fields.length, 3)}`}>{fields.map((field) => <label className={field.type === "checkbox" ? "engine-checkbox" : ""} key={field.name}>{field.type === "checkbox" ? <><input type="checkbox" checked={form[field.name] === "true"} onChange={(event) => updateField(field.name, String(event.target.checked))} /><span>{hi ? field.labelHi : field.label}</span></> : <><span>{hi ? field.labelHi : field.label}</span>{["from", "to", "station"].includes(field.name) ? <StationInput name={field.name} hi={hi} value={form[field.name]} onChange={(value) => updateField(field.name, value)} /> : field.type === "select" ? <select name={field.name} value={form[field.name]} onChange={(event) => updateField(field.name, event.target.value)}>{tool.slug === "seat-availability" && field.name === "class" && <option value="" disabled>{hi ? "श्रेणी चुनें" : "Choose a class"}</option>}{(tool.slug === "seat-availability" && field.name === "class" ? seatClasses.filter(c => !activeMetadata?.classes.length || activeMetadata.classes.includes(c)).map(c => [c,c,c]) : field.options)?.map(([value, en, hindi]) => <option key={value} value={value}>{hi ? hindi : en}</option>)}</select> : <input name={field.name} type={field.name === "train" ? "text" : field.type ?? "text"} inputMode={field.name === "train" ? "numeric" : undefined} maxLength={field.name === "train" ? 5 : undefined} autoComplete={field.name === "train" ? "off" : undefined} enterKeyHint={refresh && field.name !== fields.at(-1)?.name ? "next" : "go"} min={field.min} max={field.max} step={field.step ?? (field.name === "fare" ? "0.01" : undefined)} value={form[field.name]} onChange={(event) => updateField(field.name, event.target.value.replace(field.type === "number" && ["train", "pnr", "seat"].includes(field.name) ? /\D/g : /$^/, ""))} placeholder={hi ? field.placeholderHi ?? field.placeholder : field.placeholder} />}</>}</label>)}</fieldset>    {tool.slug === "seat-availability" && <div className="task-entry-note">
+      <p>{hi ? "हर ट्रेन में हर श्रेणी नहीं होती। पहले श्रेणियाँ जाँचें या अपनी बुकिंग सेवा में उनकी पुष्टि करें।" : "Not every train offers every class. Check its classes first or verify them with your booking service."}</p>
+      <button type="button" onClick={loadTrainMetadata} disabled={loading || metadataBusy || retryAt > 0}>{metadataBusy ? (hi ? "समय-सारणी देख रहे हैं…" : "Checking timetable…") : (hi ? "ट्रेन की श्रेणियाँ देखें" : "Load this train’s classes")}</button>
+      <p>{hi ? "यह बटन एक समय-सारणी खोज करता है; उपलब्ध कैश दोबारा इस्तेमाल होता है।" : "This button makes one timetable lookup; an existing cached result is reused."}</p>
+      {activeMetadata?.classes.length ? <p>{hi ? "प्रदाता की श्रेणियाँ" : "Provider-listed classes"}: {activeMetadata.classes.join(", ")}</p> : <p>{hi ? "ट्रेन की श्रेणियाँ अभी सत्यापित नहीं हैं।" : "This train’s classes are not verified yet."}</p>}
+      {metadataNote && <p role="status">{metadataNote}</p>}
+    </div>}
+<button className="engine-submit" type="submit" disabled={loading || metadataBusy || retryAt > 0}>{loading ? <><span className="spinner" />{hi ? "जानकारी मिल रही है" : "Getting information"}</> : <>{submitLabel}<Icon name="arrow" size={18} /></>}</button><p className="engine-disclaimer"><Icon name="shield" size={14} />{tool.live ? (hi ? "लाइव डेटा प्रदाता की उपलब्धता पर निर्भर करता है।" : "Live data depends on provider availability.") : (hi ? "यह योजना के लिए सहायक अनुमान है; महत्वपूर्ण नियम सत्यापित करें।" : "This is a planning aid; verify important rules.")}</p>{loading && <LookupProgress hi={hi} />}</form>
     {!loading && (fields.some(f => f.name === "train") || fields.some(f => f.name === "from")) && <SavedJourneys hi={hi} acceptsTrain={fields.some(f => f.name === "train")} acceptsRoute={fields.some(f => f.name === "from")} train={form.train} from={form.from} to={form.to} onChoose={values => { setForm(current => ({...current, ...Object.fromEntries(Object.entries(values).filter(([key]) => fields.some(f => f.name === key)))})); setLocalResult(null); setProviderResult(null); document.getElementById("rail-search")?.scrollIntoView({block:"nearest",behavior:"smooth"}); }} />}
 
     {tool.slug === "coach-layout" && <div className="coach-visual"><div className="coach-corridor">{hi ? "गलियारा / Aisle" : "Aisle"}</div><div className={`coach-seat-map map-${form.coach}`}>{Array.from({ length: 24 }, (_, index) => <span className={layoutPattern[index % layoutPattern.length].toLowerCase()} key={index}><b>{index + 1}</b><small>{layoutPattern[index % layoutPattern.length]}</small></span>)}</div><p>{hi ? "यह प्रतिनिधि लेआउट है। वास्तविक रेक संरचना अलग हो सकती है।" : "Representative layout only. The actual rake formation may differ."}</p></div>}
