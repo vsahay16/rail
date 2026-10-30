@@ -259,6 +259,9 @@ export function railError(payload: unknown, hi = false) {
   const code = scalar(error.code, root.code) || "PROVIDER_ERROR";
 
   const copy: Record<string, [string, string]> = {
+    TOOL_UNAVAILABLE: ["This tool is currently unavailable with the new data provider. Please use official railway enquiry.", "नए डेटा प्रदाता के साथ यह सुविधा अभी उपलब्ध नहीं है। कृपया आधिकारिक रेलवे पूछताछ सेवा देखें।"],
+    SERVICE_PAUSED: ["Live searches are paused while the new provider is verified. Please use official railway enquiry.", "नए प्रदाता की जाँच के दौरान लाइव खोज रुकी हुई है। कृपया आधिकारिक रेलवे पूछताछ सेवा देखें।"],
+    PROVIDER_AUTH_ERROR: ["The provider connection needs attention. Please use official railway enquiry for now.", "डेटा प्रदाता के कनेक्शन में समस्या है। अभी आधिकारिक रेलवे पूछताछ सेवा देखें।"],
     INVALID_INPUT: [
       "Check the input and try again. Select station suggestions or use exact station codes; keep your original search in the form.",
       "जानकारी जाँचकर फिर प्रयास करें। स्टेशन सुझाव चुनें या सही कोड डालें। फॉर्म की जानकारी बनी रहेगी।",
