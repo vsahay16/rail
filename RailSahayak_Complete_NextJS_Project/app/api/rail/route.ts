@@ -17,16 +17,21 @@ function endpointFor(params: URLSearchParams, privatePost: boolean) {
   const date = params.get("date") ?? "";
   for (const field of ["from", "to", "station", "class", "quota"]) if (params.has(field)) params.set(field, params.get(field)!.trim().toUpperCase());
   if (action === "pnr" || action === "prediction") {
-    if (action === "prediction" && process.env.RAILRADAR_PREDICTION_ENABLED !== "true") throw new RailServiceError("PREDICTION_DISABLED", "Prediction is not enabled.", 503, 0);
+    if (action === "prediction") throw new RailServiceError("PREDICTION_DISABLED", "Prediction is not enabled.", 503, 0);
     if (!privatePost) throw new RailServiceError("POST_REQUIRED", "Use a private POST request for PNR lookup.", 405, 0);
     const pnr = params.get("pnr") ?? "";
     if (!/^\d{10}$/.test(pnr)) invalid("A valid 10-digit PNR is required.");
-    return { action, endpoint: `/pnr/${pnr}${action === "prediction" ? "/prediction" : ""}` };
+    return { action, endpoint: `/pnr/${pnr}` };
   }
   if (privatePost) invalid("POST only supports PNR lookup.");
   if (!["live", "schedule", "between", "availability", "fare", "station", "coach", "platform"].includes(action)) invalid("Unsupported railway lookup.");
   if (["live", "schedule", "availability", "fare", "coach", "platform"].includes(action) && !trainValid(train)) invalid("A valid 5-digit train number is required.");
   if ((date && !dateValid(date)) || (["availability", "fare"].includes(action) && !date)) invalid("A valid journey date is required.");
+  if (action === "live" && date) {
+    const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+    const daysAgo = (Date.parse(today) - Date.parse(date)) / 86400000;
+    if (daysAgo < 0 || daysAgo > 5) invalid("Live status supports today and the previous five journey dates only.");
+  }
   if (["between", "availability", "fare"].includes(action)) {
     if (!stationValid(params.get("from") ?? "") || !stationValid(params.get("to") ?? "") || params.get("from") === params.get("to")) invalid("Two different valid station codes are required.");
   }
@@ -37,18 +42,18 @@ function endpointFor(params: URLSearchParams, privatePost: boolean) {
   }
   if (action === "station") {
     const hours = Number(params.get("hours") || 4);
-    if (!Number.isInteger(hours) || hours < 1 || hours > 12) invalid("Station window must be 1–12 hours.");
+    if (!Number.isInteger(hours) || ![2, 4, 8].includes(hours)) invalid("Station window must be 2, 4 or 8 hours.");
     params.set("hours", String(hours));
   }
   const paths: Record<string, string> = {
     live: `/trains/${train}/live${date ? `?date=${encodeURIComponent(date)}` : ""}`,
     schedule: `/trains/${train}`,
     between: `/trains/between/${params.get("from")}/${params.get("to")}${date ? `?date=${encodeURIComponent(date)}` : ""}`,
-    availability: process.env.RAIL_API_AVAILABILITY_PATH ?? "/trains/{train}/seats?source={from}&destination={to}&journeyDate={date}&classCode={class}&quotaCode={quota}",
-    fare: process.env.RAIL_API_FARE_PATH ?? "/trains/{train}/fare?source={from}&destination={to}&journeyDate={date}&classCode={class}&quotaCode={quota}",
-    station: process.env.RAIL_API_STATION_BOARD_PATH ?? "/stations/{station}/live?hours={hours}",
-    coach: process.env.RAIL_API_COACH_POSITION_PATH ?? "/trains/{train}/coaches",
-    platform: process.env.RAIL_API_PLATFORM_PATH ?? "/trains/{train}/coaches/{station}",
+    availability: "/trains/{train}/seats?source={from}&destination={to}&journeyDate={date}&classCode={class}&quotaCode={quota}",
+    fare: "/trains/{train}/fare?source={from}&destination={to}&journeyDate={date}&classCode={class}&quotaCode={quota}",
+    station: "/stations/{station}/live?hours={hours}",
+    coach: "/trains/{train}/coaches",
+    platform: "/trains/{train}/coaches/{station}",
   };
   const endpoint = ["train", "from", "to", "date", "class", "quota", "station", "hours"].reduce((path, name) => path.replaceAll(`{${name}}`, encodeURIComponent(params.get(name) ?? "")), paths[action]);
   return { action, endpoint };
@@ -75,7 +80,7 @@ async function handle(request: NextRequest, privatePost: boolean) {
       const percentage = predictionPercent(data?.probability);
       if (percentage === null) throw new RailServiceError("PREDICTION_UNAVAILABLE", "No supported prediction was returned.", 502, 0);
       outcome="SUCCESS";
-      return NextResponse.json({ success: true, data: { percentage, scope: "pnr", source: "RailRadar" }, railq: payload.railq }, { headers: { "Cache-Control": "no-store" } });
+      return NextResponse.json({ success: true, data: { percentage, scope: "pnr", source: "RailKit" }, railq: payload.railq }, { headers: { "Cache-Control": "no-store" } });
     }
     outcome="SUCCESS";
     return NextResponse.json(payload, { headers: { "Cache-Control": "no-store" } });

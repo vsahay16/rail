@@ -1,3 +1,4 @@
 import { NextResponse } from "next/server";
-export const dynamic = "force-dynamic";
-export function GET() { return NextResponse.json({prediction:process.env.RAILRADAR_PREDICTION_ENABLED === "true"},{headers:{"Cache-Control":"no-store"}}); }
+export function GET() {
+  return NextResponse.json({ provider: "RailKit", prediction: false, enabled: process.env.RAILKIT_ENABLED === "true", tools: ["pnr", "live", "schedule", "between", "availability", "fare", "station"], unavailable: ["prediction", "journey", "coach", "platform"] }, { headers: { "Cache-Control": "no-store" } });
+}
