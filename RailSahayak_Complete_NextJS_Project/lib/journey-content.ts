@@ -22,27 +22,27 @@ export const confirmationGuide: GuideConfig = {
       "links": [
         {
           "href": "/pnr-status",
-          "label": "Check PNR and request an estimate",
-          "labelHi": "PNR जाँचें और अनुमान देखें"
+          "label": "Check current PNR status",
+          "labelHi": "वर्तमान PNR स्थिति जाँचें"
         }
       ]
     },
     {
       "title": "What does an 80% chance mean?",
       "titleHi": "80% संभावना का क्या अर्थ है?",
-      "body": "Illustrative example: in a well-calibrated model, a large group of comparable bookings given an 80% estimate would confirm about 80 times out of 100. It does not mean that your ticket is 80% confirmed, that 80 seats remain, or that four of five family members will receive berths. RailQ has not independently measured RailRadar’s calibration or published an accuracy rate. Treat the number as a planning signal, not a promise.",
-      "bodyHi": "केवल उदाहरण: सही तरह से कैलिब्रेट किए गए मॉडल में 80% अनुमान वाली बहुत-सी तुलनीय बुकिंग में लगभग 100 में 80 कन्फर्म होंगी। इसका अर्थ आपका टिकट 80% कन्फर्म होना, 80 सीटें बचना या परिवार के पाँच में चार लोगों को बर्थ मिलना नहीं है। RailQ ने RailRadar के मॉडल की कैलिब्रेशन स्वतंत्र रूप से नहीं मापी है और अपनी सटीकता दर प्रकाशित नहीं की है। इस संख्या को योजना में मदद मानें, वादा नहीं।"
+      "body": "An 80% provider estimate is not 80 available seats, a partly confirmed ticket or a promise for four of five passengers. RailKit has not yet confirmed whether this estimate describes CNF only or CNF plus RAC. RailQ has not independently measured its accuracy. Use it only as a pre-booking planning signal for the displayed availability, not as your ticket status.",
+      "bodyHi": "प्रदाता का 80% अनुमान 80 उपलब्ध सीटें, आंशिक कन्फर्म टिकट या पाँच में चार यात्रियों की गारंटी नहीं है। RailKit ने अभी नहीं बताया कि अनुमान केवल CNF का है या CNF और RAC दोनों का। RailQ ने इसकी सटीकता स्वतंत्र रूप से नहीं मापी है। इसे दिखाई गई उपलब्धता के लिए बुकिंग से पहले योजना में सहायता मानें, टिकट की स्थिति नहीं।",
     },
     {
       "title": "How to check the estimate on RailQ",
       "titleHi": "RailQ पर अनुमान कैसे देखें",
-      "body": "First submit your PNR and check that the train, date, class and passenger rows match your booking. For an eligible WL/RAC result, select “Check confirmation chance”. This is a separate request; opening the page alone does not fetch a prediction. If an estimate is returned, read it alongside the current status. The present RailQ integration displays a booking-level estimate; it does not calculate a separate percentage for each passenger.",
-      "bodyHi": "पहले PNR डालें और ट्रेन, तारीख, श्रेणी तथा हर यात्री की पंक्ति अपनी बुकिंग से मिलाएँ। पात्र WL/RAC परिणाम में “कन्फर्म होने की संभावना देखें” चुनें। यह अलग अनुरोध है; केवल पेज खोलने से अनुमान नहीं माँगा जाता। अनुमान मिले तो उसे वर्तमान स्थिति के साथ पढ़ें। RailQ का मौजूदा इंटीग्रेशन बुकिंग स्तर का अनुमान दिखाता है; हर यात्री के लिए अलग प्रतिशत नहीं निकालता।",
+      "body": "Existing-PNR prediction is currently unavailable on RailQ. The seat-availability tool can show a RailKit provider estimate for a bookable waiting-list result before booking. Enter the train, route, date, class and quota there. This estimate does not apply to an existing PNR or any particular passenger. For a booked ticket, use PNR status to read each passenger’s current railway status.",
+      "bodyHi": "RailQ पर मौजूदा PNR का अनुमान अभी उपलब्ध नहीं है। सीट उपलब्धता टूल बुकिंग से पहले बुकिंग योग्य वेटलिस्ट परिणाम का RailKit प्रदाता अनुमान दिखा सकता है। वहाँ ट्रेन, मार्ग, तारीख, श्रेणी और कोटा दें। यह अनुमान किसी मौजूदा PNR या विशेष यात्री के लिए नहीं है। बुक किए टिकट में हर यात्री की वर्तमान रेलवे स्थिति PNR टूल पर जाँचें।",
       "links": [
         {
           "href": "/pnr-status",
-          "label": "Check PNR and request an estimate",
-          "labelHi": "PNR जाँचें और अनुमान देखें"
+          "label": "Check current PNR status",
+          "labelHi": "वर्तमान PNR स्थिति जाँचें"
         }
       ]
     },
@@ -113,8 +113,8 @@ export const confirmationReferences: GuideAddition = {
   "checkedHi": "15 अक्टूबर 2026",
   "sources": [
     {
-      "label": "RailRadar: PNR prediction API and probability format",
-      "url": "https://railradar.in/docs/pnr-prediction"
+      "label": "RailKit: pre-booking seat availability fields",
+      "url": "https://railkit.in/docs/seat-availability"
     },
     {
       "label": "Indian Railways: current PNR status and prediction notice",
@@ -134,27 +134,27 @@ export const confirmationReferences: GuideAddition = {
       "links": [
         {
           "href": "/pnr-status",
-          "label": "Check PNR and request an estimate",
-          "labelHi": "PNR जाँचें और अनुमान देखें"
+          "label": "Check current PNR status",
+          "labelHi": "वर्तमान PNR स्थिति जाँचें"
         }
       ]
     },
     {
       "title": "What does an 80% chance mean?",
       "titleHi": "80% संभावना का क्या अर्थ है?",
-      "body": "Illustrative example: in a well-calibrated model, a large group of comparable bookings given an 80% estimate would confirm about 80 times out of 100. It does not mean that your ticket is 80% confirmed, that 80 seats remain, or that four of five family members will receive berths. RailQ has not independently measured RailRadar’s calibration or published an accuracy rate. Treat the number as a planning signal, not a promise.",
-      "bodyHi": "केवल उदाहरण: सही तरह से कैलिब्रेट किए गए मॉडल में 80% अनुमान वाली बहुत-सी तुलनीय बुकिंग में लगभग 100 में 80 कन्फर्म होंगी। इसका अर्थ आपका टिकट 80% कन्फर्म होना, 80 सीटें बचना या परिवार के पाँच में चार लोगों को बर्थ मिलना नहीं है। RailQ ने RailRadar के मॉडल की कैलिब्रेशन स्वतंत्र रूप से नहीं मापी है और अपनी सटीकता दर प्रकाशित नहीं की है। इस संख्या को योजना में मदद मानें, वादा नहीं।"
+      "body": "An 80% provider estimate is not 80 available seats, a partly confirmed ticket or a promise for four of five passengers. RailKit has not yet confirmed whether this estimate describes CNF only or CNF plus RAC. RailQ has not independently measured its accuracy. Use it only as a pre-booking planning signal for the displayed availability, not as your ticket status.",
+      "bodyHi": "प्रदाता का 80% अनुमान 80 उपलब्ध सीटें, आंशिक कन्फर्म टिकट या पाँच में चार यात्रियों की गारंटी नहीं है। RailKit ने अभी नहीं बताया कि अनुमान केवल CNF का है या CNF और RAC दोनों का। RailQ ने इसकी सटीकता स्वतंत्र रूप से नहीं मापी है। इसे दिखाई गई उपलब्धता के लिए बुकिंग से पहले योजना में सहायता मानें, टिकट की स्थिति नहीं।",
     },
     {
       "title": "How to check the estimate on RailQ",
       "titleHi": "RailQ पर अनुमान कैसे देखें",
-      "body": "First submit your PNR and check that the train, date, class and passenger rows match your booking. For an eligible WL/RAC result, select “Check confirmation chance”. This is a separate request; opening the page alone does not fetch a prediction. If an estimate is returned, read it alongside the current status. The present RailQ integration displays a booking-level estimate; it does not calculate a separate percentage for each passenger.",
-      "bodyHi": "पहले PNR डालें और ट्रेन, तारीख, श्रेणी तथा हर यात्री की पंक्ति अपनी बुकिंग से मिलाएँ। पात्र WL/RAC परिणाम में “कन्फर्म होने की संभावना देखें” चुनें। यह अलग अनुरोध है; केवल पेज खोलने से अनुमान नहीं माँगा जाता। अनुमान मिले तो उसे वर्तमान स्थिति के साथ पढ़ें। RailQ का मौजूदा इंटीग्रेशन बुकिंग स्तर का अनुमान दिखाता है; हर यात्री के लिए अलग प्रतिशत नहीं निकालता।",
+      "body": "Existing-PNR prediction is currently unavailable on RailQ. The seat-availability tool can show a RailKit provider estimate for a bookable waiting-list result before booking. Enter the train, route, date, class and quota there. This estimate does not apply to an existing PNR or any particular passenger. For a booked ticket, use PNR status to read each passenger’s current railway status.",
+      "bodyHi": "RailQ पर मौजूदा PNR का अनुमान अभी उपलब्ध नहीं है। सीट उपलब्धता टूल बुकिंग से पहले बुकिंग योग्य वेटलिस्ट परिणाम का RailKit प्रदाता अनुमान दिखा सकता है। वहाँ ट्रेन, मार्ग, तारीख, श्रेणी और कोटा दें। यह अनुमान किसी मौजूदा PNR या विशेष यात्री के लिए नहीं है। बुक किए टिकट में हर यात्री की वर्तमान रेलवे स्थिति PNR टूल पर जाँचें।",
       "links": [
         {
           "href": "/pnr-status",
-          "label": "Check PNR and request an estimate",
-          "labelHi": "PNR जाँचें और अनुमान देखें"
+          "label": "Check current PNR status",
+          "labelHi": "वर्तमान PNR स्थिति जाँचें"
         }
       ]
     },

@@ -13,7 +13,7 @@ export async function POST(request:NextRequest){
  const from=typeof data.from==="string"?data.from.trim().toUpperCase():"",to=typeof data.to==="string"?data.to.trim().toUpperCase():"",date=typeof data.date==="string"?data.date:"",minimum=data.minimum;
  if(Object.keys(data).some(k=>!["from","to","date","minimum"].includes(k))||!/^[A-Z0-9]{2,6}$/.test(from)||!/^[A-Z0-9]{2,6}$/.test(to)||from===to||railDateTime(date,"12:00")===null||typeof minimum!=="number"||![120,180,240].includes(minimum))throw new RailServiceError("INVALID_INPUT","Check stations, departure date and transfer time.",400,0);
  await limitVisitor(request,"journey");
- // RailRadar documented two-stop request. Keep filtering margins local.
+ // Legacy planner request; unsupported by the current provider and rejected by the service guard.
  const payload=await fetchRailway("/journeys/plan","journey",{stops:[{station:from,date},{station:to}],maxTransfers:1});
  cached=payload.railq.cached===true;const result=connectingOptions(payload,from,to,date,minimum);outcome="SUCCESS";
  return NextResponse.json({success:true,...result,railq:payload.railq},{headers:{"Cache-Control":"no-store"}});

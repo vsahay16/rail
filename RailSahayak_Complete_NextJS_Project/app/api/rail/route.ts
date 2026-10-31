@@ -1,11 +1,12 @@
+import { seatInputProblem, seatClasses, seatQuotas } from "@/lib/seat-availability";
 import { predictionPercent } from "@/lib/journey-options";
 import { after, NextRequest, NextResponse } from "next/server";
 import { fetchRailway, limitVisitor, recordHealth, RailServiceError } from "@/lib/rail-server";
 
 export const runtime = "nodejs";
-export const maxDuration = 30;
+export const maxDuration = 45;
 const trainValid = (value: string) => /^\d{5}$/.test(value);
-const stationValid = (value: string) => /^[A-Z0-9]{2,6}$/.test(value);
+const stationValid = (value: string) => /^[A-Z0-9]{1,5}$/.test(value);
 function dateValid(value: string) {
   const date = new Date(`${value}T12:00:00Z`);
   return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
@@ -37,8 +38,12 @@ function endpointFor(params: URLSearchParams, privatePost: boolean) {
   }
   if (["station", "platform"].includes(action) && !stationValid(params.get("station") ?? "")) invalid("A valid station code is required.");
   if (["availability", "fare"].includes(action)) {
-    if (!["1A", "2A", "3A", "3E", "CC", "EC", "SL", "2S", "FC"].includes(params.get("class") ?? "")) invalid("Choose a valid travel class.");
-    if (!["GN", "TQ", "PT", "LD", "SS", "HP", "DF", "DP", "FT", "YU"].includes(params.get("quota") ?? "")) invalid("Choose a valid quota.");
+    if (!seatClasses.includes(params.get("class") ?? "")) invalid("Choose a valid travel class.");
+    if (!seatQuotas.includes(params.get("quota") ?? "")) invalid("Choose a valid quota.");
+  }
+  if (action === "availability") {
+    const problem = seatInputProblem(params);
+    if (problem) invalid(problem);
   }
   if (action === "station") {
     const hours = Number(params.get("hours") || 4);

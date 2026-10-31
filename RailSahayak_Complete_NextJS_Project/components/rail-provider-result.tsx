@@ -104,12 +104,12 @@ function BetweenResult({ data, hi, search }: { data: JsonRecord; hi: boolean; se
   </ResultShell>;
 }
 
-function AvailabilityResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
+function AvailabilityResult({ data, hi, cache }: { data: JsonRecord; hi: boolean; cache: JsonRecord | null }) {
   const entries = [data.calendar, data.avlDayList, data.availability, data.days, data.results, data.dates].map(list).find((items) => items.length > 0) ?? [];
-  return <ResultShell hi={hi} updated={data.lastUpdatedAt}>
+  return <div className="rail-provider-result" aria-live="polite">
     <div className="rail-result-heading"><div><span>{first(data.trainNumber, data.trainNo)}</span><h2>{hi ? "सीट उपलब्धता" : "Seat availability"}</h2><p>{(stationLabel(data.sourceStation ?? data.source ?? data.from) || "—")} → {(stationLabel(data.destinationStation ?? data.destination ?? data.to) || "—")} · {first(data.classCode, data.class)} · {first(data.quotaCode, data.quota)}</p></div><div className="rail-status-badge neutral">{entries.length} {hi ? "तारीखें" : "dates"}</div></div>
-    <AvailabilityCalendar data={data} hi={hi} />
-  </ResultShell>;
+    <AvailabilityCalendar data={data} hi={hi} fetchedAt={typeof cache?.fetchedAt === "string" ? cache.fetchedAt : undefined} cached={cache?.cached === true} />
+  </div>;
 }
 
 function FareResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
@@ -150,7 +150,7 @@ export function RailProviderResult({ toolSlug, payload, hi, search }: { toolSlug
   const content = toolSlug === "live-train-status" ? <LiveResult data={data} hi={hi} />
     : toolSlug === "train-schedule" ? <ScheduleResult data={data} hi={hi} />
     : toolSlug === "trains-between-stations" ? <BetweenResult data={data} hi={hi} search={search} />
-    : toolSlug === "seat-availability" ? <AvailabilityResult data={data} hi={hi} />
+    : toolSlug === "seat-availability" ? <AvailabilityResult data={data} hi={hi} cache={cache} />
     : toolSlug === "train-fare" ? <FareResult data={data} hi={hi} />
     : toolSlug === "station-arrivals-departures" ? <StationResult data={data} hi={hi} />
     : toolSlug === "coach-position" ? <CoachResult data={data} hi={hi} platform={false} />

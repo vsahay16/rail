@@ -266,8 +266,8 @@ Object.assign(metadataCopy, {
   "/methodology": {
     "title": "Data Sources & Methodology",
     "titleHi": "डेटा स्रोत और प्रक्रिया",
-    "description": "See how RailQ uses RailRadar data, confirmation estimates and planning calculations. Understand missing results, limitations and official verification.",
-    "descriptionHi": "RailQ में RailRadar डेटा, कन्फर्मेशन अनुमान और योजना की गणना कैसे उपयोग होते हैं, जानें। अधूरे परिणाम, सीमाएँ और आधिकारिक पुष्टि समझें।"
+    "description": "See how RailQ uses RailKit data, confirmation estimates and planning calculations. Understand missing results, limitations and official verification.",
+    "descriptionHi": "RailQ में RailKit डेटा, कन्फर्मेशन अनुमान और योजना की गणना कैसे उपयोग होते हैं, जानें। अधूरे परिणाम, सीमाएँ और आधिकारिक पुष्टि समझें।"
   },
   "/corrections": {
     "title": "Report an Error or Correction",

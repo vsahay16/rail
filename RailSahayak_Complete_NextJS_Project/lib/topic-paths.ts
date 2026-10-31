@@ -75,8 +75,8 @@ export const topicData = {
       ]
     ],
     "source": [
-      "RailRadar: journey planner API",
-      "https://railradar.in/docs/journey-plan"
+      "Indian Railways: train enquiry",
+      "https://enquiry.indianrail.gov.in/mntes/"
     ]
   },
   "booking": {
