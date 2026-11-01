@@ -1,0 +1,52 @@
+{
+  "success": true,
+  "summary": {
+    "total": 60,
+    "fullyCancelled": 16,
+    "partiallyCancelled": 44,
+    "journeyDates": [
+      "26-08-2026"
+    ]
+  },
+  "data": {
+    "fullyCancelledTrains": [
+      {
+        "trainNo": "12614",
+        "trainName": "WODEYAR SF EXP",
+        "journeyDate": "26-08-2026",
+        "status": "fully_cancelled",
+        "route": {
+          "source": {
+            "code": "SBC",
+            "name": "KRANTIVIRA SANGOLLI RAYANNA (BENGALURU)"
+          },
+          "destination": {
+            "code": "MYS",
+            "name": "MYSORE JN"
+          }
+        },
+        "cancelledSegment": null,
+        "trainType": null,
+        "reportedAt": "16-08-2026 12:03:14 IST"
+      }
+    ],
+    "partiallyCancelledTrains": [
+      {
+        "trainNo": "12112",
+        "trainName": "AMI CSMT SF EXP",
+        "journeyDate": "26-08-2026",
+        "status": "partially_cancelled",
+        "cancelledSegment": {
+          "from": {
+            "code": "DR",
+            "name": "DADAR"
+          },
+          "to": {
+            "code": "CSMT",
+            "name": "CHHATRAPATI SHIVAJI MAHARAJ TERMINUS"
+          }
+        }
+      }
+    ]
+  }
+}

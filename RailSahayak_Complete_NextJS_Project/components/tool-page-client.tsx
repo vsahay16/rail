@@ -35,6 +35,7 @@ export function ToolPageClient({ config }: { config: ToolConfig }) {
       <summary>{hi ? "ट्रेनें चुन ली हैं? सीट और किराए की तुलना करें" : "Shortlisted your trains? Compare seats and fares"}</summary>
       <TrainComparison hi={hi} />
     </details>}
+    {config.live && <nav className="rail-tool-links" aria-label={hi ? "संबंधित लाइव टूल" : "Related live tools"}><Link href="/train-search">{hi ? "ट्रेन खोजें" : "Find a train"}</Link>{" · "}<Link href="/station-timetable">{hi ? "स्टेशन समय-सारणी" : "Station timetable"}</Link>{" · "}<Link href="/station-facilities">{hi ? "स्टेशन सुविधाएँ" : "Station facilities"}</Link>{" · "}<Link href="/cancelled-trains">{hi ? "रद्द ट्रेनें" : "Cancelled trains"}</Link>{" · "}<Link href="/train-history">{hi ? "पिछली यात्रा" : "Journey history"}</Link></nav>}
     <PageGuidance slug={config.slug} />
     <TopicPath slug={config.slug} expandable />
     <p className={styles.verification}>{config.live

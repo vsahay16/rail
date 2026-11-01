@@ -10,7 +10,8 @@
     "test:mobile": "node scripts/test-mobile.cjs && node scripts/test-mobile-privacy.cjs",
     "test:seo": "node scripts/test-seo-release.cjs",
     "test:railkit": "node scripts/test-railkit.cjs",
-    "test:availability": "node scripts/test-seat-availability.cjs"
+    "test:availability": "node scripts/test-seat-availability.cjs",
+    "test:railkit-browser": "node scripts/test-railkit-tools-browser.cjs"
   },
   "dependencies": {
     "next": "16.2.6",

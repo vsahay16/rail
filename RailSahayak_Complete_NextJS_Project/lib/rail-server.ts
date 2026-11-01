@@ -1,3 +1,4 @@
+import { coachOrPlatform } from "@/lib/railkit-tools";
 import { metadataProblem, trainMetadata } from "@/lib/seat-availability";
 import { callRailkit, normalizeRailkit, supportedActions } from "@/lib/railkit-provider";
 import { createHash, createHmac } from "node:crypto";
@@ -55,22 +56,27 @@ export async function recordHealth(action: string, outcome: string, duration: nu
   catch { console.warn("RailQ monitoring write unavailable"); }
 }
 // Best-effort coalescing in this instance only. Shared cache/rate limits are database-backed.
-const availabilityInFlight = new Map<string, Promise<Awaited<ReturnType<typeof fetchRailwayOnce>>>>();
-export async function fetchRailway(endpoint: string, action: string, body?: RailRecord) {
-  if (action !== "availability") return fetchRailwayOnce(endpoint, action, body);
-  const pending = availabilityInFlight.get(endpoint);
+const publicInFlight = new Map<string, Promise<Awaited<ReturnType<typeof fetchRailwayOnce>>>>();
+export async function fetchRailway(endpoint: string, action: string, body?: RailRecord): Promise<Awaited<ReturnType<typeof fetchRailwayOnce>>> {
+  if (action === "coach" || action === "platform") {
+    const u = new URL(endpoint, "https://internal.invalid"), train = u.pathname.split("/")[2];
+    const data = await fetchRailway(`/trains/${train}/live?date=${encodeURIComponent(u.searchParams.get("date") || "")}`, "live");
+    return coachOrPlatform(data, action, u.searchParams.get("station") || "") as typeof data;
+  }
+  if (action === "pnr" || action === "fare") return fetchRailwayOnce(endpoint, action, body);
+  const pending = publicInFlight.get(`${action}:${endpoint}`);
   if (pending) return pending;
   const job = fetchRailwayOnce(endpoint, action, body);
-  if (availabilityInFlight.size < 128) availabilityInFlight.set(endpoint, job);
-  try { return await job; } finally { if (availabilityInFlight.get(endpoint) === job) availabilityInFlight.delete(endpoint); }
+  if (publicInFlight.size < 128) publicInFlight.set(`${action}:${endpoint}`, job);
+  try { return await job; } finally { if (publicInFlight.get(`${action}:${endpoint}`) === job) publicInFlight.delete(`${action}:${endpoint}`); }
 }
 async function fetchRailwayOnce(endpoint: string, action: string, body?: RailRecord) {
   if (!supportedActions.includes(action)) throw new RailServiceError(action === "prediction" ? "PREDICTION_DISABLED" : "TOOL_UNAVAILABLE", "This tool is unavailable with the current provider. Please use an official railway enquiry service.", 503, 0);
   if (process.env.RAILKIT_ENABLED !== "true") throw new RailServiceError("SERVICE_PAUSED", "Railway lookups are paused while the new provider is being verified.", 503, 0);
   const key = process.env.RAILKIT_API_KEY;
   if (!key) throw new RailServiceError("PROVIDER_NOT_CONFIGURED", "The live railway service has not been connected yet.");
-  const base = action === "availability" ? "railkit:availability-v2:" : "railkit:adapter-v1:";
-  const ttl: Record<string, number> = { live: 45, schedule: 3600, between: 900, station: 45, coach: 3600, platform: 60, journey: 300 };
+  const base = action === "availability" ? "railkit:availability-v2:" : ["live", "between", "live-v2", "history", "timetable", "amenities", "cancelled", "train-search"].includes(action) ? "railkit:tools-v2:" : "railkit:adapter-v1:";
+  const ttl: Record<string, number> = { live: 45, "live-v2": 45, history: 3600, timetable: 900, amenities: 86400, cancelled: 300, "train-search": 3600, schedule: 3600, between: 900, station: 45, coach: 3600, platform: 60, journey: 300 };
   const seconds = action === "availability" ? integerSetting("RAILKIT_AVAILABILITY_CACHE_SECONDS", 120, 600) : ttl[action] ?? 0;
   // PNR and fare are never persisted. Public seat searches contain no passenger data.
   const cacheKey = seconds ? createHash("sha256").update(`${base}${endpoint}${body ? JSON.stringify(body) : ""}`).digest("hex") : "";

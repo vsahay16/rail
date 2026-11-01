@@ -1,0 +1,92 @@
+{
+  "success": true,
+  "data": {
+    "trainNo": "12301",
+    "trainName": "RAJDHANI EXPRES",
+    "journeyDate": "11-06-2026",
+    "sourceStationCode": "HWH",
+    "sourceStationName": "Howrah Jn",
+    "destinationStationCode": "NDLS",
+    "destinationStationName": "New Delhi",
+    "coachPosition": [
+      {
+        "type": "ENG",
+        "number": "ENG",
+        "position": "0"
+      },
+      {
+        "type": "LPR",
+        "number": "LPR",
+        "position": "1"
+      },
+      {
+        "type": "3A",
+        "number": "B1",
+        "position": "2"
+      },
+      {
+        "type": "3A",
+        "number": "B2",
+        "position": "3"
+      },
+      {
+        "type": "2A",
+        "number": "A1",
+        "position": "16"
+      },
+      {
+        "type": "VP",
+        "number": "VP",
+        "position": "23"
+      }
+    ],
+    "stations": [
+      {
+        "stationCode": "HWH",
+        "stationName": "HOWRAH JN",
+        "platform": "9",
+        "arrival": {
+          "scheduled": "SRC",
+          "actual": "SRC"
+        },
+        "departure": {
+          "scheduled": "16:50 11-Jun",
+          "actual": "16:50 11-Jun",
+          "delay": "On Time"
+        }
+      },
+      {
+        "stationCode": "ASN",
+        "stationName": "ASANSOL JN.",
+        "platform": "4",
+        "distanceKm": "200",
+        "arrival": {
+          "scheduled": "18:47 11-Jun",
+          "actual": "19:03 11-Jun",
+          "delay": "16 Min"
+        },
+        "departure": {
+          "scheduled": "18:49 11-Jun",
+          "actual": "19:05 11-Jun",
+          "delay": "16 Min"
+        }
+      },
+      {
+        "stationCode": "NDLS",
+        "stationName": "NEW DELHI",
+        "platform": "14",
+        "distanceKm": "1449",
+        "arrival": {
+          "scheduled": "10:05 12-Jun",
+          "actual": "10:13 12-Jun",
+          "delay": "8 Min"
+        },
+        "departure": {
+          "scheduled": "DSTN",
+          "actual": "DSTN"
+        }
+      }
+    ],
+    "lastUpdate": "12-06-2026 11:12:53 IST"
+  }
+}

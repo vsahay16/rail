@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": {
+    "summary": "168 Trains scheduled at ASN - ASANSOL JN. on 28-Aug-2026",
+    "station": "ASN",
+    "date": "28-Aug-2026",
+    "totalTrains": 168,
+    "trains": [
+      {
+        "trainNo": "15052",
+        "trainName": "GKP KOAA EXP",
+        "source": "GKP",
+        "sourceName": "Gorakhpur Jn",
+        "destination": "KOAA",
+        "destinationName": "Kolkatta Terminal",
+        "trainType": "Mail Express",
+        "classes": "1A,2A,3A,SL,GEN,PWD",
+        "runningDays": "",
+        "arrival": "00:01",
+        "departure": "00:11"
+      }
+    ]
+  }
+}

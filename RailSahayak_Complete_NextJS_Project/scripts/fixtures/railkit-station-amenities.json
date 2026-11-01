@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "data": {
+    "stationCategory": "NSG2 (A)",
+    "platforms": "1-2, 3-4, 5-6, 7",
+    "dailyPassengerCount": 29206,
+    "footOverBridgeCount": 4,
+    "subwayCount": 0,
+    "atmCount": 2,
+    "toiletCount": 65,
+    "retiringRoomCount": 7,
+    "waitingRoomSeatCount": 230,
+    "seatingCapacity": 1300,
+    "escalatorCount": 2,
+    "wheelchairAvailable": true,
+    "enquiryOfficeCount": 1,
+    "bookingWindowCount": 13,
+    "concourseArea": 14000,
+    "foodPlazaAvailable": true,
+    "electronicTrainDisplayAvailable": true,
+    "fanCount": 143,
+    "liftCount": 2,
+    "waterFacilityCount": 142,
+    "parkingAvailable": true,
+    "entryCount": 2,
+    "exitCount": 2,
+    "passengerReservationWindowAvailable": true,
+    "cashCoinSmartCardTicketVendingMachineAvailable": true
+  }
+}

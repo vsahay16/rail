@@ -61,7 +61,7 @@ function load(file) {
  const meta={number:'22349',classes:['CC','EC'],runDays:[],route:[]};assert.ok(model.metadataProblem(new URLSearchParams({train:'22349',class:'3A'}),meta));assert.equal(model.metadataProblem(new URLSearchParams({train:'22349',class:'CC'}),meta),null);
  const monday={number:'15743',classes:[],runDays:['Mon'],route:[{station:{code:'PNBE'},departureDay:'2'}]};assert.equal(model.metadataProblem(new URLSearchParams({train:'15743',from:'PNBE',date:'2026-11-03'}),monday),null);assert.ok(model.metadataProblem(new URLSearchParams({train:'15743',from:'PNBE',date:'2026-11-04'}),monday));
  assert.match(railkitRequest(endpoint,'availability').path,/\/02-11-2026\/3A\/GN$/);
- Object.assign(process.env,{SUPABASE_URL:'https://fixture.invalid',SUPABASE_SERVICE_ROLE_KEY:'fixture-only',RAILKIT_API_KEY:'fixture-key',RAILKIT_ENABLED:'true',RAILKIT_MONTHLY_QUOTA:'10000',RAILKIT_BURST_LIMIT:'50',RAILKIT_TRANSPORT:'sdk'});
+ Object.assign(process.env,{SUPABASE_URL:'https://fixture.invalid',SUPABASE_SERVICE_ROLE_KEY:'fixture-only',RAILKIT_API_KEY:'fixture-key',RAILKIT_ENABLED:'true',RAILKIT_MONTHLY_QUOTA:'10000',RAILKIT_BURST_LIMIT:'50',RAILKIT_TRANSPORT:'rest'});
  const {fetchRailway}=load('lib/rail-server.ts');
  const first=await fetchRailway(endpoint,'availability');assert.equal(first.railq.cacheSeconds,120);assert.equal(first.railq.cached,false);assert.equal(calls,1);
  const second=await fetchRailway(endpoint,'availability');assert.equal(second.railq.fetchedAt,first.railq.fetchedAt);assert.equal(second.railq.cached,true);assert.equal(calls,1);assert.equal(reservations,1);assert.match(render(second.data.calendar,second.data.requestedDate,false,true),/Cached result/);
@@ -69,6 +69,7 @@ function load(file) {
  for(const [http,error] of [[400,'INVALID_INPUT'],[403,'PROVIDER_AUTH_ERROR'],[429,'API_BURST_LIMIT'],[500,'PROVIDER_UNAVAILABLE']]) {cache.clear();status=http;retryAfter='180';payload={success:false,error:'DO_NOT_EXPOSE'};const n=calls;await assert.rejects(fetchRailway(endpoint,'availability'),e=>e.code===error&&!e.message.includes('DO_NOT_EXPOSE')&&(http!==429||e.retryAfter===180));assert.equal(calls,n+1);assert.equal(cache.size,0);}
  status=200;payload={success:false};await assert.rejects(fetchRailway(endpoint,'availability'));assert.equal(cache.size,0);
  payload={success:true,data:{}};await assert.rejects(fetchRailway(endpoint,'availability'));assert.equal(cache.size,0);
+ process.env.RAILKIT_TRANSPORT='sdk';
  assert.equal((await fetchRailway('/pnr/0000000000','pnr')).data.passengers[0].current.formatted,'WL/7');
  assert.equal(cache.size,0);
  console.log('PASS: statuses, percentages, EN/HI rendered cards, explicit dates, request context, metadata constraints, auth, retry-after, cache timestamp, in-flight dedupe, errors and PNR isolation. All fixtures; zero live calls.');

@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "data": {
+    "query": "rajdhani",
+    "count": 2,
+    "trains": [
+      {
+        "trainNo": "12301",
+        "trainName": "RAJDHANI EXPRES"
+      },
+      {
+        "trainNo": "12302",
+        "trainName": "HWH RAJDHANI"
+      }
+    ]
+  }
+}
