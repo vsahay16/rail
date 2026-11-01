@@ -1,4 +1,6 @@
 "use client";
+import { extraInputProblem } from "@/lib/railkit-tools";
+import { todayInIndia } from "@/lib/seat-availability";
 import { metadataProblem, seatInputProblem, seatClasses, trainMetadata, type TrainMetadata } from "@/lib/seat-availability";
 import { mobileRefreshEnabled } from "@/lib/protected-pages";
 import { LocalizedLink as Link } from "./localized-link";
@@ -32,7 +34,7 @@ const yesNo: Option[] = [["yes", "Yes", "हाँ"], ["no", "No", "नहीं
 const coachOptions: Option[] = [["SL3A", "Sleeper / AC 3 Tier", "स्लीपर / AC 3 टियर"], ["2A", "AC 2 Tier", "AC 2 टियर"], ["CC", "Chair Car", "चेयर कार"], ["2S", "Second Sitting", "सेकंड सिटिंग"], ["1A", "AC First Class", "AC प्रथम श्रेणी"]];
 
 const fieldMap: Record<string, Field[]> = {
-  "live-train-status": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12951", type: "number" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }],
+  "live-train-status": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12951", type: "number" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }, {name:"source",label:"Tracking feed",labelHi:"ट्रैकिंग स्रोत",type:"select",options:[["v1","NTES feed via RailKit","RailKit का NTES स्रोत"],["v2","WIMT feed via RailKit","RailKit का WIMT स्रोत"]]}],
   "trains-between-stations": [{ name: "from", label: "From station code", labelHi: "शुरुआती स्टेशन कोड", placeholder: "NDLS" }, { name: "to", label: "To station code", labelHi: "मंज़िल स्टेशन कोड", placeholder: "MMCT" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }],
   "seat-availability": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12952", type: "number" }, { name: "from", label: "From", labelHi: "कहाँ से", placeholder: "NDLS" }, { name: "to", label: "To", labelHi: "कहाँ तक", placeholder: "MMCT" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }, { name: "class", label: "Class", labelHi: "श्रेणी", type: "select", options: classOptions }, { name: "quota", label: "Quota", labelHi: "कोटा", type: "select", options: quotaOptions }],
   "train-schedule": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12951", type: "number" }],
@@ -40,6 +42,11 @@ const fieldMap: Record<string, Field[]> = {
   "station-arrivals-departures": [{ name: "station", label: "Station code", labelHi: "स्टेशन कोड", placeholder: "NDLS" }, { name: "hours", label: "Time window", labelHi: "समय अवधि", type: "select", options: [["2", "Next 2 hours", "अगले 2 घंटे"], ["4", "Next 4 hours", "अगले 4 घंटे"], ["8", "Next 8 hours", "अगले 8 घंटे"]] }],
   "coach-position": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12951", type: "number" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }],
   "platform-number": [{ name: "train", label: "Train number", labelHi: "ट्रेन नंबर", placeholder: "12951", type: "number" }, { name: "station", label: "Station code", labelHi: "स्टेशन कोड", placeholder: "NDLS" }, { name: "date", label: "Journey date", labelHi: "यात्रा तारीख", type: "date" }],
+  "station-timetable": [{name:"station",label:"Station code",labelHi:"स्टेशन कोड"},{name:"date",label:"Date (optional; yesterday, today or tomorrow)",labelHi:"तारीख (वैकल्पिक; कल, आज या आने वाला कल)",type:"date"}],
+  "station-facilities": [{name:"station",label:"Station code",labelHi:"स्टेशन कोड"}],
+  "cancelled-trains": [],
+  "train-history": [{name:"train",label:"Train number",labelHi:"ट्रेन नंबर",type:"number"},{name:"date",label:"Origin-departure date",labelHi:"शुरुआती स्टेशन से प्रस्थान तारीख",type:"date"}],
+  "train-search": [{name:"query",label:"Train name or number prefix",labelHi:"ट्रेन का नाम या नंबर के शुरुआती अंक",placeholder:"Rajdhani / 123"}],
   "pnr-alerts": [{ name: "pnr", label: "10-digit PNR", labelHi: "10 अंकों का PNR", placeholder: "1234567890", type: "number" }, { name: "email", label: "Email for alerts", labelHi: "अलर्ट के लिए ईमेल", placeholder: "you@example.com", type: "email" }, { name: "consent", label: "I consent to secure PNR rechecks and email alerts", labelHi: "मैं सुरक्षित PNR जाँच और ईमेल अलर्ट के लिए सहमत हूँ", type: "checkbox" }],
   "booking-date-calculator": [{ name: "date", label: "Journey date from train origin", labelHi: "ट्रेन के शुरुआती स्टेशन से यात्रा तारीख", type: "date" }],
   "tatkal-time-calculator": [{ name: "date", label: "Journey date from train origin", labelHi: "ट्रेन के शुरुआती स्टेशन से यात्रा तारीख", type: "date" }, { name: "group", label: "Travel class group", labelHi: "यात्रा श्रेणी समूह", type: "select", options: [["ac", "AC classes", "AC श्रेणियाँ"], ["nonac", "Non-AC classes", "नॉन-AC श्रेणियाँ"]] }],
@@ -67,14 +74,14 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
   const { language } = useLanguage(); const hi = language === "hi";
   const refresh = mobileRefreshEnabled(`/${tool.slug}`, language);
   const fields = fieldMap[tool.slug] ?? emptyFields;
-  const [form, setForm] = useState<Record<string, string>>(() => ({ ...initialForm(fields), ...(tool.slug === "seat-availability" ? { class: "" } : {}) }));
+  const [form, setForm] = useState<Record<string, string>>(() => ({ ...initialForm(fields), ...(tool.slug === "seat-availability" ? { class: "" } : {}), ...(["live-train-status","coach-position","platform-number"].includes(tool.slug) ? {date:todayInIndia()} : {}) }));
   const applyPrefill = useCallback((query: URLSearchParams) => {
     const defaults = initialForm(fields), prefill: Record<string, string> = {};
     const train = query.get("train");
     if (train && /^\d{5}$/.test(train)) prefill.train = train;
     for (const name of ["from", "to"]) {
       const code = query.get(name)?.toUpperCase();
-      if (code && /^[A-Z0-9]{2,6}$/.test(code)) prefill[name] = code;
+      if (code && /^[A-Z0-9]{1,5}$/.test(code)) prefill[name] = code;
     }
     const date = query.get("date");
     if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) prefill.date = date;
@@ -192,14 +199,17 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
       const problem = seatInputProblem(params) || (activeMetadata ? metadataProblem(params, activeMetadata) : null);
       if (problem) { error(hi ? "यात्रा की जानकारी जाँचें" : "Check the journey details", hi ? "सही तारीख, अलग स्टेशन और ट्रेन में उपलब्ध श्रेणी चुनें। श्रेणियाँ देखने के लिए नीचे दिए बटन का उपयोग करें।" : problem); return; }
     }
-    const trainTools = ["live-train-status", "seat-availability", "train-schedule", "train-fare", "coach-position", "platform-number"];
+    const trainTools = ["live-train-status", "seat-availability", "train-schedule", "train-fare", "coach-position", "platform-number", "train-history"];
     if (trainTools.includes(tool.slug) && !/^\d{5}$/.test(form.train ?? "")) { error(hi ? "सही 5 अंकों का ट्रेन नंबर डालें" : "Enter a valid 5-digit train number", hi ? "उदाहरण: 12952" : "For example: 12952"); return; }
-    if (["trains-between-stations", "train-fare"].includes(tool.slug) && (!/^[A-Z0-9]{2,6}$/i.test(form.from?.trim() ?? "") || !/^[A-Z0-9]{2,6}$/i.test(form.to?.trim() ?? ""))) { error(hi ? "दोनों स्टेशन कोड जाँचें" : "Check both station codes", hi ? "उदाहरण: NDLS से MMCT" : "For example: NDLS to MMCT"); return; }
+    if (["trains-between-stations", "train-fare"].includes(tool.slug) && (!/^[A-Z0-9]{1,5}$/i.test(form.from?.trim() ?? "") || !/^[A-Z0-9]{1,5}$/i.test(form.to?.trim() ?? ""))) { error(hi ? "दोनों स्टेशन कोड जाँचें" : "Check both station codes", hi ? "उदाहरण: NDLS से MMCT" : "For example: NDLS to MMCT"); return; }
     if (["seat-availability", "train-fare"].includes(tool.slug) && !form.date) { error(hi ? "यात्रा तारीख चुनें" : "Select a journey date", hi ? "उपलब्धता और किराए के लिए तारीख जरूरी है।" : "A journey date is required for availability and fare."); return; }
-    if (["station-arrivals-departures", "platform-number"].includes(tool.slug) && !/^[A-Z0-9]{2,6}$/i.test(form.station ?? "")) { error(hi ? "सही स्टेशन कोड डालें" : "Enter a valid station code", hi ? "उदाहरण: NDLS" : "For example: NDLS"); return; }
-    submitting.current = true; const started = performance.now(); setLoading(true); trackEvent("live_tool_submitted", { tool: tool.slug });
-    const actionMap: Record<string, string> = { "live-train-status": "live", "trains-between-stations": "between", "seat-availability": "availability", "train-schedule": "schedule", "train-fare": "fare", "station-arrivals-departures": "station", "coach-position": "coach", "platform-number": "platform" };
+    if (["station-arrivals-departures", "platform-number", "station-timetable", "station-facilities"].includes(tool.slug) && !/^[A-Z0-9]{1,5}$/i.test(form.station ?? "")) { error(hi ? "सही स्टेशन कोड डालें" : "Enter a valid station code", hi ? "उदाहरण: NDLS" : "For example: NDLS"); return; }
+    const actionMap: Record<string, string> = { "live-train-status": "live", "trains-between-stations": "between", "seat-availability": "availability", "train-schedule": "schedule", "train-fare": "fare", "station-arrivals-departures": "station", "coach-position": "coach", "platform-number": "platform", "station-timetable":"timetable", "station-facilities":"amenities", "cancelled-trains":"cancelled", "train-history":"history", "train-search":"train-search" };
     const params = new URLSearchParams({ action: actionMap[tool.slug] ?? tool.slug }); Object.entries(form).forEach(([key, value]) => { if (value) params.set(key, ["from", "to", "station"].includes(key) ? value.trim().toUpperCase() : value); });
+    if (tool.slug === "live-train-status" && form.source === "v2") params.set("action","live-v2");
+    const problem = extraInputProblem(params.get("action") || "", params);
+    if (problem) { error(hi ? "खोज की जानकारी जाँचें" : "Check search details", hi ? "ट्रेन की शुरुआती तारीख और फ़ील्ड की सीमाएँ जाँचें। लाइव जाँच पिछले पाँच दिनों तक और स्टेशन समय-सारणी कल, आज या आने वाले कल के लिए है।" : problem); return; }
+    submitting.current = true; const started = performance.now(); setLoading(true); trackEvent("live_tool_submitted", { tool: tool.slug });
     try {
       const { payload, ok, retryAfter } = await railRequest(params);
       if (retryAfter) setRetryAt(Date.now() + retryAfter * 1000);
@@ -220,6 +230,8 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
   return <section className="tool-engine"><Suspense fallback={null}><ToolQueryPrefill onPrefill={applyPrefill} /></Suspense>{tool.slug === "trains-between-stations" && <h2>{hi ? "पहले स्टेशन के बीच ट्रेनें खोजें" : "Start with a station-to-station search"}</h2>}{tool.slug === "seat-availability" && <p className="task-entry-note">{hi ? "ट्रेन नंबर नहीं जानते? " : "Don’t know the train number? "}<Link href="/trains-between-stations">{hi ? "दो स्टेशनों के बीच ट्रेनें खोजें" : "Find trains between your stations"}</Link></p>}
     {tool.slug === "waitlist-guide" && <p className="task-entry-note">{hi ? "अपनी वेटलिस्ट श्रेणी चुनकर अर्थ जानें। " : "Choose your waiting-list category to understand it. "}<Link href="/guides/gnwl-rlwl-pqwl-tqwl-difference">{hi ? "GNWL, RLWL, PQWL और TQWL की पूरी तुलना" : "Compare GNWL, RLWL, PQWL and TQWL"}</Link></p>}
     {tool.slug === "status-code-decoder" && <p className="task-entry-note">{hi ? "टिकट पर दिखा स्थिति कोड भरें। " : "Enter the status code printed in your ticket result. "}<Link href="/guides/pnr-status-explained">{hi ? "पूरी यात्री पंक्ति पढ़ने का तरीका" : "Learn how to read the full passenger result"}</Link></p>}
+    {["live-train-status","coach-position","platform-number"].includes(tool.slug) && <p className="task-entry-note">{hi ? "ट्रेन जिस तारीख को अपने पहले स्टेशन से चली थी वह चुनें (आज या पिछले पाँच दिन)। प्लेटफॉर्म जाँच में अपना मंज़िल या बोर्डिंग स्टेशन डालें।" : "Select the date the train left its first station (today or the previous five days). For platform lookup, enter your destination or boarding station."}</p>}
+    {tool.slug === "trains-between-stations" && <p className="task-entry-note">{hi ? "सभी निर्धारित दिन देखने के लिए तारीख खाली रखें। प्रदाता पास के टर्मिनल भी दिखा सकता है।" : "Leave the date blank for all scheduled days. The provider may also include nearby terminals."}</p>}
     {retryAt > 0 && <p role="status">{hi ? "अनुरोध सीमा लागू है। प्रदाता का प्रतीक्षा समय पूरा होने पर फिर खोज कर सकेंगे।" : "A request limit applies. Searching will be available again after the required waiting period."}</p>}
     <form id="rail-search" onSubmit={submit} aria-busy={loading} onKeyDown={event => {
       if (!refresh || !window.matchMedia("(max-width: 760px)").matches || event.defaultPrevented || event.key !== "Enter" || event.nativeEvent.isComposing) return;

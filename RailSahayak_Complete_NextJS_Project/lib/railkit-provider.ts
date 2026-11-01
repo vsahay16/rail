@@ -1,9 +1,11 @@
+import { setTimeout, clearTimeout } from "node:timers";
+import { extraActions, normalizeExtra, coachRows, platformValue } from "./railkit-tools";
 import { normalizeSeatDay, parseJourneyDate, railkitDate } from "./seat-availability";
 /** Server-side RailKit transport. No keys or SDK code belong in client components. */
 import * as sdk from "railkit";
 import { record, rows, scalar, type RailRecord } from "./rail-data";
 
-export const supportedActions = ["pnr", "live", "schedule", "between", "availability", "fare", "station"];
+export const supportedActions = ["pnr", "live", "schedule", "between", "availability", "fare", "station", "coach", "platform", ...extraActions];
 export function railkitRequest(endpoint: string, action: string) {
   const url = new URL(endpoint, "https://internal.invalid");
   const parts = url.pathname.split("/").filter(Boolean);
@@ -21,22 +23,34 @@ export function railkitRequest(endpoint: string, action: string) {
       args = [train, q.get("source") || "", q.get("destination") || "", date(q.get("journeyDate") || ""), q.get("classCode") || "", q.get("quotaCode") || ""];
       path = action === "fare" ? `/api/v1/fare/${train}/${args[3]}/${args[1]}/${args[2]}/${args[4]}/${args[5]}` : `/api/v1/seats/${args.join("/")}`; break;
     case "station": args = [parts[1], q.get("hours") || "4"]; path = `/api/v1/stations/${args[0]}/live?hrs=${args[1]}`; break;
+    case "live-v2": case "history": args = [train, date(q.get("date") || today)]; path = action === "history" ? `/api/v1/trains/${train}/history/${args[1]}` : `/api/v2/trains/${train}/live/${args[1]}`; break;
+    case "timetable": args = [parts[1], date(q.get("date") || "")]; path = `/api/v1/stations/${args[0]}/timetable${args[1] ? `?date=${args[1]}` : ""}`; break;
+    case "amenities": args = [parts[1]]; path = `/api/v1/stations/${args[0]}/amenities`; break;
+    case "cancelled": args = []; path = "/api/v1/trains/cancelled"; break;
+    case "train-search": args = [q.get("query") || ""]; path = /^\d+$/.test(args[0]) ? `/api/v1/trains/${args[0]}` : `/api/v1/trains/search?name=${encodeURIComponent(args[0])}`; break;
     default: throw new Error("Unsupported RailKit action");
   }
   return { path, args };
 }
 export async function callRailkit(endpoint: string, action: string, key: string): Promise<{status: number; payload: RailRecord; retryAfter?: number}> {
   const { path, args: a } = railkitRequest(endpoint, action);
-  if (action === "availability" || process.env.RAILKIT_TRANSPORT === "rest") {
-    // Availability uses the verified REST contract; other tools retain their configured transport.
+  if (process.env.RAILKIT_TRANSPORT === "rest") {
+    // Use the account-configured transport consistently. Never retry a denied REST request via another transport.
     const response = await fetch(`https://api.railkit.in${path}`, { headers: { "x-api-key": key, accept: "application/json" }, cache: "no-store", signal: AbortSignal.timeout(15000) });
     const retry = response.headers.get("retry-after");
     const retryAfter = retry && /^\d+$/.test(retry) ? Number(retry) : retry && Number.isFinite(Date.parse(retry)) ? Math.max(1, Math.ceil((Date.parse(retry) - Date.now()) / 1000)) : undefined;
     return { status: response.status, payload: record(await response.json().catch(() => null)), retryAfter: Number.isFinite(retryAfter) ? retryAfter : undefined };
   }
   sdk.configure(key);
+  const invoke = async () => {
   let result: unknown;
   switch (action) {
+    case "live-v2": result = await sdk.trackTrainV2(a[0], a[1]); break;
+    case "history": result = await sdk.getTrainHistory(a[0], a[1]); break;
+    case "timetable": result = await sdk.trainTimetableAtStation(a[0], a[1] || undefined); break;
+    case "amenities": result = await sdk.stationAmenities(a[0]); break;
+    case "cancelled": result = await sdk.cancelList(); break;
+    case "train-search": result = /^\d+$/.test(a[0]) ? await sdk.trainByNumber(a[0]) : await sdk.trainsByName(a[0]); break;
     case "pnr": result = await sdk.checkPNRStatus(a[0]); break;
     case "schedule": result = await sdk.getTrainInfo(a[0]); break;
     case "live": result = await sdk.trackTrain(a[0], a[1]); break;
@@ -46,6 +60,10 @@ export async function callRailkit(endpoint: string, action: string, key: string)
     case "station": result = await sdk.liveAtStation(a[0], Number(a[1]) as 2 | 4 | 8); break;
     default: throw new Error("Unsupported RailKit action");
   }
+  return result;
+  };
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const result = await Promise.race([invoke(), new Promise<never>((_, reject) => { timer = setTimeout(() => reject(new Error("Provider timeout")), 15000); })]).finally(() => { if (timer) clearTimeout(timer); });
   const payload = record(result);
   return { status: Number(payload.statusCode) || (payload.success === true ? 200 : 502), payload };
 }
@@ -56,7 +74,9 @@ function runDays(value: unknown) { return scalar(value) === "1111111" ? ["Mon", 
 export function normalizeRailkit(action: string, input: unknown, endpoint: string): RailRecord {
   const root = record(input), d = record(root.data), { args } = railkitRequest(endpoint, action);
   let data: RailRecord;
-  if (action === "pnr") {
+  if (extraActions.includes(action)) {
+    data = normalizeExtra(action, input, args);
+  } else if (action === "pnr") {
     const t = record(d.train), j = record(d.journey);
     if (!scalar(t.number) || !rows(d.passengers).length) throw new Error("Incomplete PNR response");
     data = { train: { ...t, boardingPoint: j.boardingPoint ?? j.source, source: j.source, destination: j.destination, reservationUpto: j.destination, journeyDate: j.dateOfJourney, journeyClass: j.class }, journey: { ...j, date: j.dateOfJourney }, charting: record(d.chart), passengers: rows(d.passengers).map((p, i) => {
@@ -70,7 +90,7 @@ export function normalizeRailkit(action: string, input: unknown, endpoint: strin
   } else if (action === "between") {
     if (!Array.isArray(root.data)) throw new Error("Invalid trains list");
     const trains = rows(root.data).map(t => ({ train: { number: t.train_no, name: t.train_name, runDays: runDays(t.running_days) }, from: { ...station(t.from_stn_code, t.from_stn_name), departure: t.from_time }, to: { ...station(t.to_stn_code, t.to_stn_name), arrival: t.to_time }, duration: minutes(t.travel_time), distance: t.distance }));
-    data = { from: station(args[0]), to: station(args[1]), count: trains.length, trains };
+    data = { from: station(args[0]), to: station(args[1]), count: trains.length, requestedDate: parseJourneyDate(args[2]), includesNearby: trains.some(t => t.from.code !== args[0] || t.to.code !== args[1]), trains };
   } else if (action === "availability") {
     const t = record(d.train);
     if (!Array.isArray(d.availability)) throw new Error("Missing availability response");
@@ -87,12 +107,12 @@ export function normalizeRailkit(action: string, input: unknown, endpoint: strin
     if (!Array.isArray(d.trains)) throw new Error("Invalid station board");
     data = { station: station(args[0]), trains: rows(d.trains).map(t => ({ train: { number: t.trainNo, name: t.trainName, source: station(t.source, t.sourceName), destination: station(t.dest, t.destName) }, stop: { arrival: record(t.arrival).scheduled, departure: record(t.departure).scheduled, platform: t.platform }, live: { expectedArrivalTime: record(t.arrival).actual, expectedDepartureTime: record(t.departure).actual, platform: t.platform, type: t.cancelled === true ? "cancelled" : "" } })) };
   } else if (action === "live") {
-    if (!scalar(d.trainNo) || !Array.isArray(d.timeline)) throw new Error("Invalid live status");
-    const route = rows(d.timeline).map(r => ({ stationCode: r.stationCode, stationName: r.stationName, isHalt: r.type === "stoppage", status: r.status, platform: r.platform, scheduledArrival: record(r.arrival).scheduled, expectedArrival: record(r.arrival).actual, scheduledDeparture: record(r.departure).scheduled, expectedDeparture: record(r.departure).actual }));
+    if (scalar(d.trainNo) !== args[0] || !Array.isArray(d.timeline)) throw new Error("Invalid live status");
+    const route = rows(d.timeline).map(r => ({ stationCode: r.stationCode, stationName: r.stationName, isHalt: r.type === "stoppage", status: r.status, platform: platformValue(r.platform), scheduledArrival: record(r.arrival).scheduled, expectedArrival: record(r.arrival).actual, scheduledDeparture: record(r.departure).scheduled, expectedDeparture: record(r.departure).actual }));
     const currentIndex = route.findIndex(r => r.stationCode === d.currentStationCode);
     const previous = currentIndex >= 0 ? route.slice(0, currentIndex).filter(r => r.isHalt).at(-1) : undefined;
     const next = currentIndex >= 0 ? route.slice(currentIndex + 1).find(r => r.isHalt) : undefined;
-    data = { train: { number: d.trainNo, name: d.trainName }, status: d.statusNote, currentLocation: station(d.currentStationCode), previousHalt: previous, nextHalt: next, route, delayMinutes: null };
+    data = { train: { number: d.trainNo, name: d.trainName }, journeyDate: args[1], providerUpdated: scalar(d.lastUpdate), coaches: coachRows(d.coachPosition), compositionChanges: rows(d.coachPositionTimeline).length > 1, status: d.statusNote, currentLocation: station(d.currentStationCode), previousHalt: previous, nextHalt: next, route, delayMinutes: null };
   } else throw new Error("Unsupported response");
   return { success: true, data };
 }

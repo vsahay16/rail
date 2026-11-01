@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "data": {
+    "query": "12345",
+    "count": 1,
+    "trains": [
+      {
+        "trainNo": "12345",
+        "trainName": "HWH GHY SARAIGHAT EXPRESS"
+      }
+    ]
+  }
+}

@@ -5,7 +5,7 @@ Implemented on `codex/availability-estimates`. Do not merge to production before
 ## Behaviour and files
 
 - `lib/seat-availability.ts`: explicit calendar/IST validation, supported codes, metadata constraints and strict normalization. False `canBook` wins; AVAILABLE shows a safely parsed count; only bookable WAITLIST receives a finite numeric 0–100 percentage. RAC remains distinct. Raw waitlist type is independent of quota.
-- `lib/railkit-provider.ts`: availability calls the specified REST `/api/v1/seats/...` endpoint with server-only `x-api-key`, DD-MM-YYYY, a 15-second timeout and Retry-After propagation. PNR retains its existing transport and adapter. No automatic retries.
+- `lib/railkit-provider.ts`: in REST mode availability calls the specified REST `/api/v1/seats/...` endpoint with server-only `x-api-key`, DD-MM-YYYY, a 15-second timeout and Retry-After propagation. PNR retains its existing transport and adapter. No automatic retries.
 - `lib/rail-server.ts`, `app/api/rail/route.ts`: shared Supabase cache, six-part request key, fresh cached timetable constraints, existing durable rate/budget limits. New availability cache namespace prevents stale adapter formats. Original retrieval time survives cache hits. Best-effort in-flight coalescing is process-local, not a global serverless guarantee. Cache database calls have a 1.5-second timeout; other protection calls keep existing bounds. API duration ceiling is 45 seconds, browser availability timeout 35 seconds.
 - `components/tool-engine.tsx`: explicit optional timetable lookup restricts known classes; known running days are validated when boarding-day metadata exists. Unknown metadata is explained; never invented. No polling or speculative class/date requests. Retry-After temporarily disables repeated submission.
 - `components/availability-calendar.tsx`, `components/seat-availability.module.css`, `components/rail-provider-result.tsx`: bilingual mobile cards, requested versus additional dates, provider estimate disclaimer, original Last checked timestamp, keyboard-accessible raw status details and no booking button.
@@ -23,7 +23,7 @@ Keep these server-side; never prefix secrets with NEXT_PUBLIC:
 - `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`: existing shared cache/protection infrastructure.
 - `RAILKIT_AVAILABILITY_CACHE_SECONDS=120`: optional, initial default120; bounded1–600.
 - Existing `RAILKIT_MONTHLY_QUOTA=10000`, `RAILKIT_BURST_LIMIT=50`, budget safety/reset settings remain unchanged. The conservative per-minute limit is distinct from the provider's600/10-minute limit.
-- Keep `RAILKIT_TRANSPORT=sdk` if currently used for working PNR and other tools. Availability explicitly uses REST regardless of this setting.
+- Keep `RAILKIT_TRANSPORT=sdk` if currently used for working PNR and other tools. Availability now follows this setting too; the tools release removes the forced REST override.
 
 No new database migration or package dependency is required. Existing RailKit budget RPCs and shared-cache schema must already exist.
 

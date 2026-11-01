@@ -9,6 +9,7 @@ export function StationInput({ value, onChange, hi, name }: { value: string; onC
   const [loading, setLoading] = useState(false), [failed, setFailed] = useState(false);
   const matches = stationMatches(value, directory);
   const selected = directory.find(station => station[0] === value.trim().toUpperCase());
+  const suggestionsVisible = open && (!selected || active >= 0);
   const label = (station: Station) => hi && station[3] ? station[3] : station[1];
   async function focus() {
     setOpen(true);
@@ -18,7 +19,7 @@ export function StationInput({ value, onChange, hi, name }: { value: string; onC
   }
   function choose(code: string) { onChange(code); setOpen(false); setActive(-1); }
   return <span className="station-picker">
-    <input name={name} role="combobox" aria-expanded={open} aria-controls={open ? `${id}-list` : undefined} aria-describedby={`${id}-hint`} aria-autocomplete="list" aria-activedescendant={open && active >= 0 && matches[active] ? `${id}-${active}` : undefined} autoComplete="off" spellCheck={false} maxLength={60} value={value}
+    <input name={name} role="combobox" aria-expanded={suggestionsVisible} aria-controls={suggestionsVisible ? `${id}-list` : undefined} aria-describedby={`${id}-hint`} aria-autocomplete="list" aria-activedescendant={suggestionsVisible && active >= 0 && matches[active] ? `${id}-${active}` : undefined} autoComplete="off" spellCheck={false} maxLength={60} value={value}
       placeholder={hi ? "स्टेशन या कोड, जैसे PNBE" : "Station or code, e.g. PNBE"}
       onFocus={focus} onBlur={() => { setOpen(false); setActive(-1); }}
       onChange={e => { onChange(e.target.value); setActive(-1); setOpen(true); }}
@@ -31,7 +32,7 @@ export function StationInput({ value, onChange, hi, name }: { value: string; onC
         if (e.key === "Enter" && open && matches.length && (active >= 0 || !selected)) { e.preventDefault(); choose(matches[Math.max(active, 0)][0]); }
       }} />
     <small id={`${id}-hint`} className="station-hint">{selected ? `${label(selected)} · ${selected[0]}` : hi ? "नाम खोजें या टिकट का कोड डालें।" : "Search by name or use the code on your ticket."}</small>
-    {open && <span className="station-dropdown">
+    {suggestionsVisible && <span className="station-dropdown">
       <span id={`${id}-list`} role="listbox" className="station-options" aria-label={hi ? "स्टेशन सुझाव" : "Station suggestions"}>
         {matches.map((station, i) => <span role="option" aria-selected={active === i} id={`${id}-${i}`} key={station[0]} onMouseDown={e => e.preventDefault()} onClick={() => choose(station[0])}>
           <b>{station[0]}</b><span className="station-option-name">{label(station)}{station[2] && <small>{station[2]}</small>}</span>

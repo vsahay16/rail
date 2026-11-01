@@ -1,4 +1,5 @@
-import { seatInputProblem, seatClasses, seatQuotas } from "@/lib/seat-availability";
+import { extraActions, extraInputProblem } from "@/lib/railkit-tools";
+import { todayInIndia, seatInputProblem, seatClasses, seatQuotas } from "@/lib/seat-availability";
 import { predictionPercent } from "@/lib/journey-options";
 import { after, NextRequest, NextResponse } from "next/server";
 import { fetchRailway, limitVisitor, recordHealth, RailServiceError } from "@/lib/rail-server";
@@ -25,18 +26,16 @@ function endpointFor(params: URLSearchParams, privatePost: boolean) {
     return { action, endpoint: `/pnr/${pnr}` };
   }
   if (privatePost) invalid("POST only supports PNR lookup.");
-  if (!["live", "schedule", "between", "availability", "fare", "station", "coach", "platform"].includes(action)) invalid("Unsupported railway lookup.");
-  if (["live", "schedule", "availability", "fare", "coach", "platform"].includes(action) && !trainValid(train)) invalid("A valid 5-digit train number is required.");
+  if (!["live", "schedule", "between", "availability", "fare", "station", "coach", "platform", ...extraActions].includes(action)) invalid("Unsupported railway lookup.");
+  if (["live", "live-v2", "history", "schedule", "availability", "fare", "coach", "platform"].includes(action) && !trainValid(train)) invalid("A valid 5-digit train number is required.");
   if ((date && !dateValid(date)) || (["availability", "fare"].includes(action) && !date)) invalid("A valid journey date is required.");
-  if (action === "live" && date) {
-    const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
-    const daysAgo = (Date.parse(today) - Date.parse(date)) / 86400000;
-    if (daysAgo < 0 || daysAgo > 5) invalid("Live status supports today and the previous five journey dates only.");
-  }
+  if ((action === "live" || action === "live-v2") && !date) params.set("date", todayInIndia());
+  const dateProblem = extraInputProblem(action, params);
+  if (dateProblem) invalid(dateProblem);
   if (["between", "availability", "fare"].includes(action)) {
     if (!stationValid(params.get("from") ?? "") || !stationValid(params.get("to") ?? "") || params.get("from") === params.get("to")) invalid("Two different valid station codes are required.");
   }
-  if (["station", "platform"].includes(action) && !stationValid(params.get("station") ?? "")) invalid("A valid station code is required.");
+  if (["station", "platform", "amenities", "timetable"].includes(action) && !stationValid(params.get("station") ?? "")) invalid("A valid station code is required.");
   if (["availability", "fare"].includes(action)) {
     if (!seatClasses.includes(params.get("class") ?? "")) invalid("Choose a valid travel class.");
     if (!seatQuotas.includes(params.get("quota") ?? "")) invalid("Choose a valid quota.");
@@ -51,16 +50,19 @@ function endpointFor(params: URLSearchParams, privatePost: boolean) {
     params.set("hours", String(hours));
   }
   const paths: Record<string, string> = {
-    live: `/trains/${train}/live${date ? `?date=${encodeURIComponent(date)}` : ""}`,
+    live: `/trains/${train}/live?date=${encodeURIComponent(params.get("date") || "")}`,
     schedule: `/trains/${train}`,
     between: `/trains/between/${params.get("from")}/${params.get("to")}${date ? `?date=${encodeURIComponent(date)}` : ""}`,
     availability: "/trains/{train}/seats?source={from}&destination={to}&journeyDate={date}&classCode={class}&quotaCode={quota}",
     fare: "/trains/{train}/fare?source={from}&destination={to}&journeyDate={date}&classCode={class}&quotaCode={quota}",
     station: "/stations/{station}/live?hours={hours}",
-    coach: "/trains/{train}/coaches",
-    platform: "/trains/{train}/coaches/{station}",
+    coach: "/trains/{train}/coaches?date={date}",
+    platform: "/trains/{train}/platform?station={station}&date={date}",
+    "live-v2": "/trains/{train}/live-v2?date={date}", history: "/trains/{train}/history?date={date}",
+    timetable: "/stations/{station}/timetable?date={date}", amenities: "/stations/{station}/amenities",
+    cancelled: "/trains/cancelled", "train-search": "/trains/search?query={query}",
   };
-  const endpoint = ["train", "from", "to", "date", "class", "quota", "station", "hours"].reduce((path, name) => path.replaceAll(`{${name}}`, encodeURIComponent(params.get(name) ?? "")), paths[action]);
+  const endpoint = ["train", "from", "to", "date", "class", "quota", "station", "hours", "query"].reduce((path, name) => path.replaceAll(`{${name}}`, encodeURIComponent(params.get(name) ?? "")), paths[action]);
   return { action, endpoint };
 }
 async function handle(request: NextRequest, privatePost: boolean) {
@@ -75,7 +77,7 @@ async function handle(request: NextRequest, privatePost: boolean) {
       params = new URLSearchParams({ action: String(body.action), pnr: body.pnr.trim() });
     } else params = new URLSearchParams(request.nextUrl.searchParams);
     const candidate=params.get("action")??"";
-    if(["pnr","prediction","live","schedule","between","availability","fare","station","coach","platform"].includes(candidate))monitoredAction=candidate;
+    if(["pnr","prediction","live","schedule","between","availability","fare","station","coach","platform",...extraActions].includes(candidate))monitoredAction=candidate;
     const { action, endpoint } = endpointFor(params, privatePost);
     await limitVisitor(request, action);
     const payload = await fetchRailway(endpoint, action);

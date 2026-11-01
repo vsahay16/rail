@@ -1,0 +1,49 @@
+{
+  "success": true,
+  "data": {
+    "startDate": "12-09-2026",
+    "lastUpdatedAt": "Sep 12, 2026, 16:22",
+    "status": "running",
+    "isLive": true,
+    "statusText": "Arriving Kashi (KEI)",
+    "trainInfo": [
+      {
+        "number": "20888",
+        "name": "VANDE BHARAT EXP",
+        "source": {
+          "code": "BSB",
+          "name": "Varanasi Junction"
+        },
+        "destination": {
+          "code": "RNC",
+          "name": "Ranchi Junction"
+        },
+        "totalHalts": 10,
+        "coachPosition": "C7,C6,C5,C4,C3,E1,C2,C1"
+      }
+    ],
+    "currentLocation": {
+      "stnCode": "BSB",
+      "stnName": "Varanasi Junction",
+      "status": "departed",
+      "distanceToNextStationKm": 16.85,
+      "delayMinutes": 13
+    },
+    "nextHalt": {
+      "stnCode": "DDU",
+      "stnName": "Pt. DD Upadhyaya Junction (Mughalsarai)",
+      "distance": 18.1
+    },
+    "delayMinutes": 13,
+    "route": [
+      {
+        "sequence": 1,
+        "stnCode": "BSB",
+        "stnName": "Varanasi Junction",
+        "isHalt": true,
+        "status": "departed"
+      }
+    ],
+    "_provider": "wimt"
+  }
+}
