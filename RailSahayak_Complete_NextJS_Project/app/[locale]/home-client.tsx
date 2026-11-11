@@ -195,7 +195,7 @@ export default function Home() {
               if (next >= 0) { event.preventDefault(); switchTab(tabs[next]); document.getElementById(`search-tab-${tabs[next]}`)?.focus(); }
             }}><Icon name={icon} size={18} /> {label}</button>)}
           </div>
-          {activeTab === "pnr" && <p className="home-pnr-hint">{language === "hi" ? "टिकट का 10 अंकों का PNR डालें। समर्थित बुकिंग पर परिणाम के बाद वैकल्पिक कन्फर्मेशन अनुमान माँग सकते हैं।" : "Enter the 10-digit PNR from your ticket. An optional confirmation estimate can be requested after supported results."}</p>}
+          {activeTab === "pnr" && <p className="home-pnr-hint">{language === "hi" ? "हर यात्री की वर्तमान स्थिति देखने के लिए टिकट का 10 अंकों का PNR डालें।" : "Enter the 10-digit PNR from your ticket to check each passenger’s current status."}</p>}
           <form id="search-tool-panel" role="tabpanel" aria-labelledby={`search-tab-${activeTab}`} className="search-form" onSubmit={handleSubmit}>
             {activeTab === "pnr" && <label className="single-field"><span>PNR</span><input inputMode="numeric" autoComplete="off" maxLength={10} value={form.pnr} onChange={(e) => setForm({ ...form, pnr: e.target.value.replace(/\D/g, "") })} placeholder={t.pnrPlaceholder} aria-label={t.pnrPlaceholder} /></label>}
             {activeTab === "live" && <><label><span>{t.train}</span><input inputMode="numeric" maxLength={5} value={form.train} onChange={(e) => setForm({ ...form, train: e.target.value.replace(/\D/g, "") })} placeholder={t.trainPlaceholder} aria-label={t.trainPlaceholder} /></label><label><span>{t.journeyDate}</span><input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} aria-label={t.journeyDate} /></label></>}

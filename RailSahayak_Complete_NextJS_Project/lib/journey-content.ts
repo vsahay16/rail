@@ -43,6 +43,11 @@ export const confirmationGuide: GuideConfig = {
           "href": "/pnr-status",
           "label": "Check current PNR status",
           "labelHi": "वर्तमान PNR स्थिति जाँचें"
+        },
+        {
+          "href": "/seat-availability",
+          "label": "Check seats before booking",
+          "labelHi": "बुकिंग से पहले सीट उपलब्धता देखें"
         }
       ]
     },
@@ -77,8 +82,8 @@ export const confirmationGuide: GuideConfig = {
         },
         {
           "href": "/connecting-trains",
-          "label": "Find direct and connecting trains",
-          "labelHi": "सीधी और कनेक्टिंग ट्रेनें खोजें"
+          "label": "Find direct trains and plan transfers",
+          "labelHi": "सीधी ट्रेनें खोजें और ट्रांसफर की योजना बनाएँ"
         },
         {
           "href": "/guides/cancellation-and-refunds",
@@ -155,6 +160,11 @@ export const confirmationReferences: GuideAddition = {
           "href": "/pnr-status",
           "label": "Check current PNR status",
           "labelHi": "वर्तमान PNR स्थिति जाँचें"
+        },
+        {
+          "href": "/seat-availability",
+          "label": "Check seats before booking",
+          "labelHi": "बुकिंग से पहले सीट उपलब्धता देखें"
         }
       ]
     },
@@ -189,8 +199,8 @@ export const confirmationReferences: GuideAddition = {
         },
         {
           "href": "/connecting-trains",
-          "label": "Find direct and connecting trains",
-          "labelHi": "सीधी और कनेक्टिंग ट्रेनें खोजें"
+          "label": "Find direct trains and plan transfers",
+          "labelHi": "सीधी ट्रेनें खोजें और ट्रांसफर की योजना बनाएँ"
         },
         {
           "href": "/guides/cancellation-and-refunds",
@@ -248,8 +258,8 @@ export const journeyExpansions: Record<string, GuideSection[]> = {
         },
         {
           "href": "/connecting-trains",
-          "label": "Find direct and connecting trains",
-          "labelHi": "सीधी और कनेक्टिंग ट्रेनें खोजें"
+          "label": "Find direct trains and plan transfers",
+          "labelHi": "सीधी ट्रेनें खोजें और ट्रांसफर की योजना बनाएँ"
         }
       ]
     }
@@ -258,13 +268,13 @@ export const journeyExpansions: Record<string, GuideSection[]> = {
     {
       "title": "Low confirmation chances: compare alternatives in this order",
       "titleHi": "कन्फर्मेशन संभावना कम हो तो इस क्रम में विकल्प देखें",
-      "body": "Start with a different departure time, date or class on a direct service. Next compare nearby stations only if you can reach them comfortably. Then use the connecting-train planner for routes with one train change. Compare the whole journey: both ticket prices, station transport, waiting time and any overnight accommodation. A cheaper individual ticket can produce a more expensive or less practical overall trip.",
-      "bodyHi": "पहले सीधी ट्रेन में दूसरा समय, तारीख या श्रेणी देखें। फिर पास के स्टेशन तभी चुनें जब आराम से पहुँच सकें। इसके बाद एक बार ट्रेन बदलने वाले मार्ग के लिए कनेक्टिंग ट्रेन प्लानर उपयोग करें। पूरी यात्रा की तुलना करें: दोनों टिकट, स्टेशन परिवहन, इंतजार और रात में रुकने का खर्च। एक सस्ता टिकट मिलकर महँगी या कम व्यावहारिक यात्रा बना सकता है।",
+      "body": "Start with a different departure time, date or class on a direct service. Next compare nearby stations only if you can reach them comfortably. For a journey with a train change, search each leg separately and check the transfer time. Compare the whole journey: both ticket prices, station transport, waiting time and any overnight accommodation. A cheaper individual ticket can produce a more expensive or less practical overall trip.",
+      "bodyHi": "पहले सीधी ट्रेन में दूसरा समय, तारीख या श्रेणी देखें। फिर पास के स्टेशन तभी चुनें जब आराम से पहुँच सकें। ट्रेन बदलनी हो तो यात्रा का हर हिस्सा अलग से खोजें और बीच का समय जाँचें। पूरी यात्रा की तुलना करें: दोनों टिकट, स्टेशन परिवहन, इंतजार और रात में रुकने का खर्च। एक सस्ता टिकट मिलकर महँगी या कम व्यावहारिक यात्रा बना सकता है।",
       "links": [
         {
           "href": "/connecting-trains",
-          "label": "Find direct and connecting trains",
-          "labelHi": "सीधी और कनेक्टिंग ट्रेनें खोजें"
+          "label": "Find direct trains and plan transfers",
+          "labelHi": "सीधी ट्रेनें खोजें और ट्रांसफर की योजना बनाएँ"
         },
         {
           "href": "/seat-availability",
@@ -292,10 +302,10 @@ export const journeyExpansions: Record<string, GuideSection[]> = {
       ]
     },
     {
-      "title": "What the connecting planner does—and what it cannot promise",
-      "titleHi": "कनेक्टिंग प्लानर क्या बताता है और किसकी गारंटी नहीं देता",
-      "body": "RailQ searches timetable options with up to one train change and displays the exact station codes, dates and scheduled gap. The minimum gap you select is your planning preference, not an official rule. Routes without complete timings or enough gap are omitted. A result does not confirm seats, reserve tickets or establish that you will catch the second train. Check live running separately near travel time.",
-      "bodyHi": "RailQ समय-सारणी में अधिकतम एक ट्रेन बदलाव वाले मार्ग खोजता है और सही स्टेशन कोड, तारीख तथा निर्धारित समय अंतर दिखाता है। चुना न्यूनतम अंतर आपकी योजना की पसंद है, आधिकारिक नियम नहीं। अधूरे समय या कम अंतर वाले मार्ग नहीं दिखते। परिणाम सीट कन्फर्म, टिकट आरक्षित या दूसरी ट्रेन पकड़ना सुनिश्चित नहीं करता। यात्रा के पास लाइव स्थिति अलग जाँचें।",
+      "title": "How to check a train connection",
+      "titleHi": "ट्रेन का कनेक्शन कैसे जाँचें",
+      "body": "Automatic connecting-route search is currently unavailable. Search each leg separately, match station codes and travel dates, then check the scheduled gap with the transfer calculator. Verify seats for each train and check live running near departure.",
+      "bodyHi": "कनेक्टिंग मार्ग की स्वचालित खोज अभी उपलब्ध नहीं है। हर हिस्सा अलग से खोजें, स्टेशन कोड और तारीख मिलाएँ, फिर ट्रांसफर कैलकुलेटर से निर्धारित अंतर देखें। हर ट्रेन की सीट और प्रस्थान के पास लाइव स्थिति जाँचें।",
       "links": [
         {
           "href": "/live-train-status",
@@ -322,8 +332,8 @@ export const journeyExpansions: Record<string, GuideSection[]> = {
     {
       "title": "Where confirmation chances fit into your result",
       "titleHi": "परिणाम में कन्फर्मेशन संभावना की भूमिका",
-      "body": "Current status answers what the booking shows now. The optional confirmation estimate answers a different question about a possible future outcome. For supported WL/RAC results, use the separate confirmation-chance button, then read the explanation before acting. Keep checking every passenger row; a booking-level percentage must not be presented as a guaranteed individual berth.",
-      "bodyHi": "वर्तमान स्थिति बताती है अभी बुकिंग में क्या है। वैकल्पिक कन्फर्मेशन अनुमान संभावित भविष्य के परिणाम का अलग सवाल समझाता है। सपोर्ट किए गए WL/RAC परिणाम में अलग संभावना बटन चुनें, फिर निर्णय से पहले व्याख्या पढ़ें। हर यात्री की पंक्ति देखें; बुकिंग स्तर के प्रतिशत को किसी व्यक्ति की बर्थ की गारंटी न मानें।",
+      "body": "Use RailQ to check the current status for each passenger. Confirmation predictions for existing PNRs are currently unavailable. Eligible pre-booking estimates appear separately in seat availability and apply to the availability shown there.",
+      "bodyHi": "RailQ पर हर यात्री की वर्तमान स्थिति देखें। मौजूदा PNR का कन्फर्मेशन अनुमान अभी उपलब्ध नहीं है। बुकिंग से पहले पात्र अनुमान सीट उपलब्धता टूल में दिखते हैं और वहीं दिखाई गई उपलब्धता पर लागू होते हैं।",
       "links": [
         {
           "href": "/guides/pnr-confirmation-probability",

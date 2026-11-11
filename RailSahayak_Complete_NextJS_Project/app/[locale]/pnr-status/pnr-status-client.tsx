@@ -37,7 +37,7 @@ const content = {
   en: {
     breadcrumbHome: "Home", breadcrumbPage: "PNR status",
     kicker: "Live railway journey tool", titleA: "PNR Status Check", titleB: "Understand every status.",
-    intro: "Enter your 10-digit PNR to see each passenger’s current status, coach, berth and chart details. Confirmation estimates depend on the connected provider and are available only for supported bookings.",
+    intro: "Enter your 10-digit PNR to see each passenger’s current status, coach, berth and chart details.",
     private: "Your PNR is used only to fetch this result", noLogin: "No login needed", label: "10-digit PNR number", placeholder: "Example: 1234567890", button: "Check PNR status", checking: "Checking latest status", clear: "Check another PNR",
     invalid: "Enter a valid 10-digit PNR", invalidText: "Use numbers only. You can find the PNR near the top of your ticket or booking message.",
     ready: "Live connection ready", readyTitle: "Add the railway API key to activate live results.", readyText: "The secure server integration is complete. The key must be added through your hosting environment and is never shown to visitors.",
@@ -56,7 +56,7 @@ const content = {
   hi: {
     breadcrumbHome: "होम", breadcrumbPage: "PNR स्थिति",
     kicker: "लाइव रेलवे यात्रा टूल", titleA: "पीएनआर स्टेटस चेक करें", titleB: "हर स्थिति को समझें।",
-    intro: "10 अंकों का PNR डालकर हर यात्री की वर्तमान स्थिति, कोच, बर्थ और चार्ट विवरण देखें। कन्फर्मेशन अनुमान जुड़े प्रदाता पर निर्भर हैं और केवल समर्थित बुकिंग के लिए उपलब्ध होते हैं।",
+    intro: "10 अंकों का PNR डालकर हर यात्री की वर्तमान स्थिति, कोच, बर्थ और चार्ट विवरण देखें।",
     private: "आपका PNR केवल यह परिणाम लाने के लिए उपयोग होता है", noLogin: "लॉगिन की जरूरत नहीं", label: "10 अंकों का PNR नंबर", placeholder: "उदाहरण: 1234567890", button: "PNR स्थिति देखें", checking: "नवीनतम स्थिति देखी जा रही है", clear: "दूसरा PNR देखें",
     invalid: "सही 10 अंकों का PNR डालें", invalidText: "केवल अंक डालें। PNR टिकट या बुकिंग संदेश के ऊपर मिलता है।",
     ready: "लाइव कनेक्शन तैयार है", readyTitle: "लाइव परिणाम शुरू करने के लिए रेलवे API कुंजी जोड़ें।", readyText: "सुरक्षित सर्वर इंटीग्रेशन तैयार है। कुंजी होस्टिंग सेटिंग में जोड़नी होगी और यात्रियों को दिखाई नहीं देगी।",
@@ -86,9 +86,7 @@ const statusCodes = [
 ] as const;
 
 const faqs = [
-  ["How do I check my confirmation chances?", "कन्फर्म होने की संभावना कैसे देखें?", "Enter your PNR and check the result. For an eligible WL/RAC booking, select Check confirmation chance below the passenger details. The connected third-party provider supplies the optional estimate when available; coverage depends on the provider and booking.", "PNR डालकर परिणाम देखें। पात्र WL/RAC बुकिंग के लिए यात्री विवरण के नीचे ‘कन्फर्म होने की संभावना देखें’ चुनें। उपलब्ध होने पर यह वैकल्पिक अनुमान जुड़ा तृतीय-पक्ष प्रदाता देता है; इसका दायरा प्रदाता और बुकिंग पर निर्भर है।"],
-  ["Is the confirmation prediction guaranteed?", "क्या कन्फर्म होने का अनुमान गारंटी है?", "No. It is a PNR-level estimate, not a separate score for each passenger or permission to travel. Check each passenger’s final status in the official railway record.", "नहीं। यह पूरे PNR का अनुमान है, हर यात्री का अलग स्कोर या यात्रा की अनुमति नहीं। आधिकारिक रेलवे रिकॉर्ड में हर यात्री की अंतिम स्थिति जाँचें।"],
-  ["Why might no confirmation estimate appear?", "कन्फर्म होने का अनुमान क्यों नहीं दिख सकता?", "Predictions are not available for every booking. The option is shown for supported WL/RAC results when the feature is enabled. A provider outage or unsupported response can also make an estimate unavailable; your current PNR status remains separate.", "हर बुकिंग के लिए अनुमान उपलब्ध नहीं होता। सुविधा चालू होने पर समर्थित WL/RAC परिणामों में विकल्प दिखता है। प्रदाता की सेवा या उत्तर में समस्या होने पर भी अनुमान नहीं मिल सकता; वर्तमान PNR स्थिति इससे अलग है।"],
+  ["Can I get a confirmation estimate for my PNR?", "क्या मेरे PNR का कन्फर्मेशन अनुमान मिल सकता है?", "RailQ currently shows the railway status for each passenger on an existing PNR. Predictions for an existing PNR are unavailable. Before booking, the seat availability tool may show a provider estimate for eligible waiting-list results.", "RailQ मौजूदा PNR में हर यात्री की वर्तमान रेलवे स्थिति दिखाता है। मौजूदा PNR का अनुमान अभी उपलब्ध नहीं है। बुकिंग से पहले पात्र वेटलिस्ट परिणामों के लिए सीट उपलब्धता टूल प्रदाता का अनुमान दिखा सकता है।"],
   ["What is a railway PNR number?", "रेलवे PNR नंबर क्या है?", "PNR means Passenger Name Record. Indian railway reservations use a 10-digit number to identify the booking record.", "PNR का अर्थ Passenger Name Record है। भारतीय रेलवे आरक्षण में बुकिंग रिकॉर्ड पहचानने के लिए 10 अंकों का नंबर होता है।"],
   ["Can PNR status change after booking?", "क्या बुकिंग के बाद PNR स्थिति बदल सकती है?", "Yes. Waiting-list and RAC positions can change as passengers cancel or railway allocation changes, including around chart preparation.", "हाँ। यात्रियों के टिकट रद्द करने या रेलवे आवंटन बदलने से WL और RAC स्थिति, चार्ट बनने तक, बदल सकती है।"],
   ["What does chart prepared mean?", "चार्ट तैयार होने का क्या अर्थ है?", "It means the reservation chart for the train has been prepared. Check the current passenger status and official record for the final travel position.", "इसका अर्थ है कि ट्रेन का आरक्षण चार्ट तैयार हो गया है। अंतिम यात्रा स्थिति के लिए वर्तमान यात्री स्थिति और आधिकारिक रिकॉर्ड देखें।"],
@@ -173,7 +171,6 @@ export function PnrStatusClient() {
         <form onSubmit={checkPnr} className="pnr-form" noValidate>
           <label htmlFor="pnr-number">{t.label}</label>
           <div className="pnr-input-row"><input disabled={loading} enterKeyHint="search" id="pnr-number" name="pnr" inputMode="numeric" autoComplete="off" maxLength={10} value={pnr} onChange={(event) => { setPnr(event.target.value.replace(/\D/g, "")); if (result?.tone === "error") setResult(null); }} placeholder={t.placeholder} aria-describedby="pnr-privacy-note" /><button type="submit" disabled={loading}>{loading ? <><span className="spinner" />{t.checking}</> : <>{t.button}<Icon name="arrow" size={18} /></>}</button></div>
-          <p>{hi ? "पहले PNR जाँचें, फिर WL/RAC परिणाम में ‘कन्फर्म होने की संभावना देखें’ चुनें। वैकल्पिक अनुमान · गारंटी नहीं।" : "Check your PNR first, then choose ‘Check confirmation chance’ on a WL/RAC result. Optional estimate · Not a guarantee."}</p>
           <p id="pnr-privacy-note"><Icon name="shield" size={14} />{t.private}</p>
           {loading && <LookupProgress hi={hi} />}
         </form>

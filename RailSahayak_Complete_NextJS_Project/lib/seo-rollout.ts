@@ -15,14 +15,14 @@ export const seoRolloutCopy: Record<string,SeoRolloutCopy> = {
     "h1": "ट्रेन कोच पोज़िशन"
   },
   "/connecting-trains": {
-    "title": "Connecting Trains: Find Routes With One Change",
-    "description": "Find direct trains and routes with one change between stations. Compare dates, interchange stations and transfer time, then check seats for each train.",
-    "h1": "Find Connecting Trains"
+    "title": "Connecting Trains: Plan Transfers & Find Direct Trains",
+    "description": "Search direct trains and plan a transfer using station codes, travel dates and scheduled gaps. Automatic connecting-route search is currently unavailable.",
+    "h1": "Plan a Connecting Train Journey"
   },
   "/hi/connecting-trains": {
-    "title": "कनेक्टिंग ट्रेनें: एक बदलाव वाले मार्ग खोजें",
-    "description": "दो स्टेशनों के बीच सीधी ट्रेनें या एक बदलाव वाले मार्ग खोजें। तारीख, बदलने का स्टेशन और बीच का समय मिलाएँ; हर ट्रेन की सीट अलग जाँचें।",
-    "h1": "कनेक्टिंग ट्रेनें खोजें"
+    "title": "कनेक्टिंग ट्रेनें: ट्रांसफर की योजना और सीधी ट्रेनें",
+    "description": "सीधी ट्रेनें खोजें और स्टेशन कोड, तारीख व निर्धारित समय अंतर से ट्रेन बदलने की योजना बनाएँ। कनेक्टिंग मार्ग की स्वचालित खोज अभी उपलब्ध नहीं है।",
+    "h1": "कनेक्टिंग ट्रेन यात्रा की योजना बनाएँ"
   },
   "/guides/missed-train-what-to-do": {
     "title": "Missed Your Train? Next Steps & Refund Checks",
@@ -36,12 +36,12 @@ export const seoRolloutCopy: Record<string,SeoRolloutCopy> = {
   },
   "/guides/pnr-confirmation-probability": {
     "title": "PNR Confirmation Chances: What the Percentage Means",
-    "description": "Understand PNR confirmation percentages, missing estimates and mixed passenger statuses. Learn how to request an estimate and why it is not a guarantee.",
+    "description": "Understand confirmation percentages and mixed passenger statuses. Check an existing PNR’s current status or explore pre-booking seat estimates.",
     "h1": "PNR Confirmation Chances: What the Percentage Means"
   },
   "/hi/guides/pnr-confirmation-probability": {
     "title": "PNR कन्फर्मेशन चांस: प्रतिशत का अर्थ समझें",
-    "description": "PNR कन्फर्मेशन प्रतिशत, अनुमान न मिलने और यात्रियों की अलग स्थितियों को समझें। अनुमान माँगने का तरीका और उसकी सीमाएँ जानें।",
+    "description": "कन्फर्मेशन प्रतिशत और यात्रियों की अलग स्थितियाँ समझें। मौजूदा PNR की वर्तमान स्थिति या बुकिंग से पहले सीट उपलब्धता का अनुमान देखें।",
     "h1": "PNR कन्फर्मेशन चांस: प्रतिशत का अर्थ समझें"
   },
   "/guides/train-classes-and-coaches": {
