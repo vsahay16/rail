@@ -1,4 +1,5 @@
 "use client";
+import { RouteSeatComparison, comparisonLimit, type ComparisonTrain } from "@/components/route-seat-comparison";
 import { RouteSeatAvailability } from "@/components/route-seat-availability";
 import { useState } from "react";
 import { RailkitExtraResults } from "./railkit-extra-results";
@@ -103,11 +104,13 @@ function ScheduleResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
 export function BetweenResult({ data, hi, search, inlineSeats = false }: { data: JsonRecord; hi: boolean; search?: SearchContext; inlineSeats?: boolean }) {
   const from = objectAt(data, "from"); const to = objectAt(data, "to"); const allTrains = list(data.trains).map(record).filter(Boolean) as JsonRecord[];
   const [filter,setFilter]=useState(""); const [exact,setExact]=useState(false);
+  const [selected, setSelected] = useState<ComparisonTrain[]>([]);
   const trains=allTrains.filter(row=>(!exact || (stationCode(objectAt(row,"from"))===stationCode(from) && stationCode(objectAt(row,"to"))===stationCode(to))) && `${text(objectAt(row,"train").number)} ${text(objectAt(row,"train").name)}`.toLowerCase().includes(filter.trim().toLowerCase()));
   return <ResultShell hi={hi} updated={data.lastUpdatedAt}>
     <div className="rail-result-heading"><div><span>{stationCode(from)} → {stationCode(to)}</span><h2>{hi ? "प्रदाता की ट्रेन सूची" : "Trains returned by the provider"}</h2><p>{stationName(from)} → {stationName(to)}</p></div><div className="rail-status-badge neutral">{text(data.count, text(trains.length))} {hi ? "ट्रेन" : "trains"}</div></div>
     <p>{search?.date ? `${hi ? "चुनी तारीख" : "Requested date"}: ${search.date}` : (hi ? "सभी निर्धारित दिन; बुकिंग से पहले यात्रा तारीख पर चलना जाँचें।" : "All scheduled days; check the running date before booking.")}</p>
     {data.includesNearby === true && <p className="rail-inline-note">{hi ? "प्रदाता ने पास के अन्य स्टेशन भी लौटाए हैं। हर ट्रेन के बोर्डिंग और मंज़िल कोड जाँचें।" : "The provider also returned nearby terminals. Check each train’s actual boarding and destination codes."}</p>}
+    {inlineSeats && <p>{hi ? "सीटों की तुलना के लिए अधिकतम तीन ट्रेनें चुनें।" : "Select up to three trains to compare seats."} {selected.length > 0 && <a href="#route-seat-comparison">{hi ? `तुलना खोलें (${selected.length})` : `Go to comparison (${selected.length})`}</a>}</p>}
     <label className="rail-list-filter">{hi ? "नाम या नंबर से फ़िल्टर करें" : "Filter by train name or number"}<input type="search" value={filter} onChange={e=>setFilter(e.target.value)} /></label>
     <label className="rail-exact-filter"><input type="checkbox" checked={exact} onChange={e=>setExact(e.target.checked)} />{hi ? "केवल चुने हुए स्टेशन कोड" : "Only the exact station codes selected"}</label>
     <p>{trains.length} / {allTrains.length} {hi ? "लौटाई ट्रेनें दिखाई गईं; कोई छिपी पेज सीमा नहीं" : "returned trains shown; no hidden page limit"}</p>
@@ -128,7 +131,9 @@ export function BetweenResult({ data, hi, search, inlineSeats = false }: { data:
         }
         if (search?.date && /^\d{4}-\d{2}-\d{2}$/.test(search.date)) params.set("date", search.date);
         const classes = list(train.classes).filter((value): value is string => typeof value === "string");
-        return <article key={`${number}-${originCode}-${destinationCode}-${index}`}>
+        const key = `${number}-${originCode}-${destinationCode}`;
+        const checked = selected.some(train => train.key === key);
+        return <article key={`${key}-${index}`}>
           <div className="rail-train-title">
             <span>{number}</span>
             <div><h3>{validTrain ? <Link href={`/train/${number}`}>{text(train.name)}</Link> : text(train.name)}</h3><small>{titleCase(train.type)}</small></div>
@@ -142,11 +147,25 @@ export function BetweenResult({ data, hi, search, inlineSeats = false }: { data:
             <span>{duration(row.duration, hi)}</span><span>{text(row.distance)} km</span>
             <span>{list(train.runDays).map(day => text(day).slice(0, 3).toUpperCase()).join(" · ") || (hi ? "चलने के दिन नहीं मिले" : "Running days not supplied")}</span>
           </div>
+          {inlineSeats && validTrain && validRoute && <label className="rail-exact-filter">
+            <input type="checkbox" checked={checked} disabled={!checked && selected.length >= comparisonLimit}
+              onChange={event => {
+                const pick = event.target.checked;
+                setSelected(current => pick
+                  ? current.length < comparisonLimit && !current.some(train => train.key === key)
+                    ? [...current, { key, number, name: text(train.name), from: originCode, to: destinationCode, classes }]
+                    : current
+                  : current.filter(train => train.key !== key));
+              }} />
+            {hi ? `तुलना में जोड़ें · ${number}` : `Compare seats · ${number}`}
+          </label>}
+          {inlineSeats && checked && <a href="#route-seat-comparison">{hi ? "तुलना खोलें" : "Go to comparison"}</a>}
           {inlineSeats && validTrain && validRoute && <RouteSeatAvailability train={number} from={originCode} to={destinationCode} classes={classes} initialDate={search?.date} hi={hi} />}
           {validTrain && <Link className="route-seat-link" href={`/seat-availability?${params}`}>{inlineSeats && validRoute ? (hi ? "पूरा सीट उपलब्धता टूल खोलें" : "Open full Seat Availability tool") : (hi ? "इस ट्रेन की सीट उपलब्धता जाँचें" : "Check seats for this train")}</Link>}
         </article>;
       })}
     </div>}
+    {inlineSeats && <RouteSeatComparison trains={selected} initialDate={search?.date} hi={hi} onRemove={key => setSelected(current => current.filter(train => train.key !== key))} />}
   </ResultShell>;
 }
 
