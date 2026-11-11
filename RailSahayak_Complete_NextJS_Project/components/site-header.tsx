@@ -56,6 +56,7 @@ export function SiteHeader() {
           <button ref={trigger} className="nav-trigger" aria-controls="rail-tools-menu" onClick={() => setToolsOpen(!toolsOpen)} aria-expanded={toolsOpen}>{hi ? "रेल टूल्स" : "Rail tools"}<Icon name="chevron" size={15} /></button>
           {toolsOpen && <div id="rail-tools-menu" className="tools-menu">{tools.map(([en, hindi, href, icon]) => <Link href={href} key={href} onClick={() => setToolsOpen(false)}><span><Icon name={icon} size={18} /></span><b>{hi ? hindi : en}</b><Icon name="arrow" size={14} /></Link>)}<Link className="all-tools-link" href="/tools" onClick={() => setToolsOpen(false)}>{hi ? "सभी टूल्स देखें" : "View all railway tools"}<Icon name="arrow" size={15} /></Link></div>}
         </div>
+        <Link href="/search">{hi ? "खोजें" : "Search"}</Link>
         <Link href="/dashboard">{hi ? "मेरी यात्रा" : "My journey"}</Link>
         <Link href="/railway-updates">{hi ? "रेलवे अपडेट" : "Railway updates"}</Link>
         <Link href="/guides">{hi ? "यात्रा गाइड" : "Travel guides"}</Link>
@@ -69,7 +70,7 @@ export function SiteHeader() {
     </header>
     {mobileOpen && <nav className="mobile-nav" id="mobile-navigation" aria-label={hi ? "मोबाइल नेविगेशन" : "Mobile navigation"}>
       <div className="mobile-tools"><span>{hi ? "लोकप्रिय टूल्स" : "Popular tools"}</span>{tools.map(([en, hindi, href, icon]) => <Link href={href} key={href} onClick={() => setMobileOpen(false)}><Icon name={icon} size={18} />{hi ? hindi : en}</Link>)}</div>
-      <div className="mobile-main-links"><Link href="/tools" onClick={() => setMobileOpen(false)}>{hi ? "सभी रेल टूल्स" : "All rail tools"}</Link><Link href="/dashboard" onClick={() => setMobileOpen(false)}>{hi ? "मेरी यात्रा" : "My journey"}</Link><Link href="/railway-updates" onClick={() => setMobileOpen(false)}>{hi ? "रेलवे अपडेट" : "Railway updates"}</Link><Link href="/guides" onClick={() => setMobileOpen(false)}>{hi ? "यात्रा गाइड" : "Travel guides"}</Link><Link href="/blog" onClick={() => setMobileOpen(false)}>{hi ? "ब्लॉग" : "Blog"}</Link></div>
+      <div className="mobile-main-links"><Link href="/search" onClick={() => setMobileOpen(false)}>{hi ? "टूल्स और गाइड खोजें" : "Search tools and guides"}</Link><Link href="/tools" onClick={() => setMobileOpen(false)}>{hi ? "सभी रेल टूल्स" : "All rail tools"}</Link><Link href="/dashboard" onClick={() => setMobileOpen(false)}>{hi ? "मेरी यात्रा" : "My journey"}</Link><Link href="/railway-updates" onClick={() => setMobileOpen(false)}>{hi ? "रेलवे अपडेट" : "Railway updates"}</Link><Link href="/guides" onClick={() => setMobileOpen(false)}>{hi ? "यात्रा गाइड" : "Travel guides"}</Link><Link href="/blog" onClick={() => setMobileOpen(false)}>{hi ? "ब्लॉग" : "Blog"}</Link></div>
     </nav>}
   </div>;
 }

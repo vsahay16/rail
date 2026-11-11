@@ -84,6 +84,9 @@ export function ToolEngine({ tool }: { tool: ToolConfig }) {
     }
     const date = query.get("date");
     if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) prefill.date = date;
+    const travelClass = query.get("class"), quota = query.get("quota");
+    if (travelClass && classOptions.some(([code]) => code === travelClass)) prefill.class = travelClass;
+    if (quota && quotaOptions.some(([code]) => code === quota)) prefill.quota = quota;
     const allowed = Object.fromEntries(Object.entries(prefill).filter(([key]) => key in defaults));
     if (Object.keys(allowed).length) setForm(current => ({ ...current, ...allowed }));
   }, [fields]);

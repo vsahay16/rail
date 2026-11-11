@@ -27,7 +27,7 @@ export function PnrJourneyCard({ summary: s, hi, pnr }: { summary: Summary; hi: 
     {pnr && s.passengers.some(p => /WL|^RAC/i.test(p.current)) && <PnrPrediction key={pnr} pnr={pnr} hi={hi} />}
     <nav className={styles.actions} aria-label={text("Next journey steps", "यात्रा के अगले चरण")}>
       <Link className="primary-next-step" href={nextHref} onClick={() => trackEvent("next_step_clicked", {tool:"pnr-status",step})}>{nextLabel} →</Link>
-      {waiting && <Link href="/connecting-trains" onClick={() => trackEvent("next_step_clicked", {tool:"pnr-status",step:"alternatives"})}>{text("Compare alternative journeys", "वैकल्पिक यात्राएँ देखें")} →</Link>}
+      {waiting && <Link href={`/trains-between-stations?${new URLSearchParams({ from: s.fromCode, to: s.toCode, date: s.journeyDate })}`} onClick={() => trackEvent("next_step_clicked", {tool:"pnr-status",step:"alternatives"})}>{text("Find another train", "दूसरी ट्रेन खोजें")} →</Link>}
       {waiting && <Link href="/guides/waitlisted-ticket-after-chart-preparation">{text("Chart prepared and still WL?", "चार्ट के बाद भी WL है?")} →</Link>}
       {s.trainNumber && <Link href={`/train/${encodeURIComponent(s.trainNumber)}`}>{text("Train schedule", "ट्रेन समय-सारणी")} →</Link>}
       <Link onClick={() => trackEvent("next_step_clicked", {tool:"pnr-status",step:"running"})} href={s.trainNumber ? `/live-train-status?train=${encodeURIComponent(s.trainNumber)}` : "/live-train-status"}>{text("Check live running status", "लाइव ट्रेन स्थिति देखें")} →</Link>

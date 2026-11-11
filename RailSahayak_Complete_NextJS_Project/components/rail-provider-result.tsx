@@ -1,5 +1,6 @@
 "use client";
 import { RouteSeatComparison, comparisonLimit, type ComparisonTrain } from "@/components/route-seat-comparison";
+import { LiveTripActions } from "@/components/trip-actions";
 import { RouteSeatAvailability } from "@/components/route-seat-availability";
 import { useState } from "react";
 import { RailkitExtraResults } from "./railkit-extra-results";
@@ -67,7 +68,7 @@ function Metric({ label, value, tone = "" }: { label: string; value: string; ton
   return <div className={`rail-metric ${tone}`}><small>{label}</small><strong>{value}</strong></div>;
 }
 
-function LiveResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
+function LiveResult({ data, hi, search }: { data: JsonRecord; hi: boolean; search?: SearchContext }) {
   const train = objectAt(data, "train"); const previous = objectAt(data, "previousHalt"); const next = objectAt(data, "nextHalt");
   const route = list(data.route).map(record).filter(Boolean) as JsonRecord[];
   const halts = route.filter((row) => row.isHalt === true);
@@ -83,6 +84,7 @@ function LiveResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
       <Metric label={hi ? "अगला ठहराव" : "Next halt"} value={`${stationCode(next)} · ${stationName(next)}`} tone="accent" />
     </div>
     {importantHalts.length > 0 && <div className="rail-timeline"><div className="rail-subheading"><h3>{hi ? "अगले मुख्य ठहराव" : "Next important halts"}</h3><small>{hi ? "पिछला और अगले चार तक" : "Previous and up to four ahead"}</small></div>{importantHalts.map((row, index) => <div className={`rail-timeline-row ${text(row.status, "scheduled")}`} key={`${text(row.stationCode)}-${index}`}><span className="rail-timeline-dot" /><div><b>{text(row.stationCode)} · {text(row.stationName)}</b><small>{titleCase(row.status)}</small></div><div><small>{hi ? "आगमन" : "Arrival"}</small><b>{dateTime(first(row.expectedArrival, row.scheduledArrival), hi)}</b></div><div><small>{hi ? "प्रस्थान" : "Departure"}</small><b>{dateTime(first(row.expectedDeparture, row.scheduledDeparture), hi)}</b></div><div><small>{hi ? "प्लेटफॉर्म" : "Platform"}</small><b>{text(row.platform)}</b></div></div>)}</div>}
+    <LiveTripActions hi={hi} trip={{ train: first(data.trainNumber, train.number), name: first(data.trainName, train.name), originDate: search?.date }} />
   </ResultShell>;
 }
 
@@ -216,7 +218,7 @@ function GenericResult({ hi }: { hi: boolean }) {
 export function RailProviderResult({ toolSlug, payload, hi, search }: { toolSlug: string; payload: JsonRecord; hi: boolean; search?:SearchContext }) {
   const data = record(payload.data) ?? record(payload.result) ?? payload;
   const cache = record(payload.railq);
-  const content = toolSlug === "live-train-status" ? <LiveResult data={data} hi={hi} />
+  const content = toolSlug === "live-train-status" ? <LiveResult data={data} hi={hi} search={search} />
     : toolSlug === "train-schedule" ? <ScheduleResult data={data} hi={hi} />
     : toolSlug === "trains-between-stations" ? <BetweenResult data={data} hi={hi} search={search} />
     : toolSlug === "seat-availability" ? <AvailabilityResult data={data} hi={hi} cache={cache} />
