@@ -1,0 +1,2 @@
+export const classOptions: [string, string, string][] = [["1A", "AC First Class", "AC प्रथम श्रेणी"], ["2A", "AC 2 Tier", "AC 2 टियर"], ["3A", "AC 3 Tier", "AC 3 टियर"], ["3E", "AC 3 Economy", "AC 3 इकोनॉमी"], ["CC", "Chair Car", "चेयर कार"], ["SL", "Sleeper", "स्लीपर"], ["2S", "Second Sitting", "सेकंड सिटिंग"]];
+export const quotaOptions: [string, string, string][] = [["GN", "General", "सामान्य"], ["TQ", "Tatkal", "तत्काल"], ["LD", "Ladies", "महिला"], ["SS", "Lower berth / senior citizen", "लोअर बर्थ / वरिष्ठ नागरिक"]];

@@ -7,6 +7,7 @@ import { useLanguage } from "@/components/language-provider";
 import { trackEvent } from "@/lib/analytics";
 
 const tools = [
+  ["Seat Availability", "सीट उपलब्धता", "/seat-availability", "seat"],
   ["PNR Status", "PNR स्थिति", "/pnr-status", "ticket"],
   ["Live Train Status", "लाइव ट्रेन स्थिति", "/live-train-status", "pulse"],
   ["Trains Between Stations", "स्टेशनों के बीच ट्रेनें", "/trains-between-stations", "route"],
@@ -62,7 +63,7 @@ export function SiteHeader() {
       </nav>
       <div className="header-actions">
         <button className="language-switch" lang={hi ? "en" : "hi"} onClick={changeLanguage} aria-label={hi ? "Switch to English" : "हिंदी में बदलें"}><Icon name="globe" size={17} />{hi ? "English" : "हिंदी"}</button>
-        <Link className="header-cta" href="/pnr-status">{hi ? "PNR देखें" : "Check PNR"}<Icon name="arrow" size={16} /></Link>
+        <Link className="header-cta" href="/seat-availability">{hi ? "सीटें देखें" : "Check seats"}<Icon name="arrow" size={16} /></Link>
         <button className="menu-button" onClick={() => setMobileOpen(!mobileOpen)} aria-controls="mobile-navigation" aria-expanded={mobileOpen} aria-label={hi ? (mobileOpen ? "मेन्यू बंद करें" : "मेन्यू खोलें") : (mobileOpen ? "Close navigation" : "Open navigation")}><Icon name={mobileOpen ? "close" : "menu"} /></button>
       </div>
     </header>

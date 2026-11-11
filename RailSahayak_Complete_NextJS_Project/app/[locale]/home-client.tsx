@@ -1,5 +1,6 @@
 "use client";
 import { mobileRefreshEnabled } from "@/lib/protected-pages";
+import { BetweenResult } from "@/components/rail-provider-result";
 import { PnrJourneyCard } from "@/components/pnr-journey-card";
 import { rememberTrain } from "@/lib/local-journeys";
 
@@ -13,11 +14,12 @@ import { Icon } from "@/components/icon";
 import { LocalizedLink as Link } from "@/components/localized-link";
 import { Language, useLanguage } from "@/components/language-provider";
 import { trackEvent } from "@/lib/analytics";
-import { pnrSummary, liveSummary, railData, rows, railRequest, railError } from "@/lib/rail-data";
+import { pnrSummary, liveSummary, railData, railRequest, railError } from "@/lib/rail-data";
 
 type SearchTab = "pnr" | "live" | "between" | "booking";
 type SearchResult = {
   journey?: ReturnType<typeof pnrSummary>;
+  route?: Record<string, unknown>;
   lookupPnr?: string;
   code?: string;
   fetchedAt?: string;
@@ -30,9 +32,9 @@ type SearchResult = {
 
 const copy = {
   en: {
-    badge: "Independent railway travel utility", titleA: "PNR status and train tools.", titleB: "Plan your next step.",
-    intro: "Check each passenger’s ticket status, track your train or compare routes. Use the tools and clear explanations in English or Hindi to plan what to do next.",
-    pnr: "PNR status", live: "Live train", between: "Between stations", booking: "Booking date",
+    badge: "Independent railway travel utility", titleA: "Find trains and check seats.", titleB: "Plan before you book.",
+    intro: "Compare trains and seats by date. See provider estimates on eligible waitlist results before booking.",
+    pnr: "PNR status", live: "Live train", between: "Trains & seats", booking: "Booking date",
     pnrPlaceholder: "Enter 10-digit PNR", trainPlaceholder: "Train number, e.g. 12951",
     fromPlaceholder: "From station code, e.g. NDLS", toPlaceholder: "To station code, e.g. MMCT", journeyDate: "Journey date",
     checkPnr: "Check PNR", trackTrain: "Track train", findTrains: "Find trains", calculate: "Calculate date",
@@ -50,9 +52,9 @@ const copy = {
     invalidPnr: "Invalid PNR", invalidPnrTitle: "Enter the 10-digit number printed on your ticket.", invalidPnrText: "Spaces and letters are not accepted. We do not save this number in analytics.", invalidTrain: "Check the train number", invalidTrainTitle: "Enter a valid 5-digit train number.", invalidTrainText: "For example, enter 12951 for Mumbai Rajdhani.", stationsNeeded: "Both stations are needed", stationsNeededTitle: "Enter your origin and destination station codes.", stationsNeededText: "Choose station suggestions or enter the exact codes on your ticket.",
   },
   hi: {
-    badge: "स्वतंत्र रेलवे यात्रा सुविधा", titleA: "PNR स्टेटस और रेल टूल्स।", titleB: "यात्रा का अगला कदम तय करें।",
-    intro: "हर यात्री का टिकट स्टेटस देखें, ट्रेन की स्थिति जाँचें या मार्ग की तुलना करें। हिंदी और अंग्रेज़ी के टूल्स और सरल जानकारी से यात्रा का अगला कदम तय करें।",
-    pnr: "PNR स्थिति", live: "लाइव ट्रेन", between: "स्टेशन के बीच", booking: "बुकिंग तारीख",
+    badge: "स्वतंत्र रेलवे यात्रा सुविधा", titleA: "ट्रेनें खोजें और सीटें देखें।", titleB: "बुकिंग से पहले योजना बनाएँ।",
+    intro: "तारीख के अनुसार ट्रेनें और सीटें देखें। बुकिंग से पहले पात्र वेटलिस्ट परिणामों पर प्रदाता का अनुमान देखें।",
+    pnr: "PNR स्थिति", live: "लाइव ट्रेन", between: "ट्रेनें और सीटें", booking: "बुकिंग तारीख",
     pnrPlaceholder: "10 अंकों का PNR डालें", trainPlaceholder: "ट्रेन नंबर, जैसे 12951",
     fromPlaceholder: "स्टेशन कोड, जैसे NDLS", toPlaceholder: "स्टेशन कोड, जैसे MMCT", journeyDate: "यात्रा की तारीख",
     checkPnr: "PNR देखें", trackTrain: "ट्रेन ट्रैक करें", findTrains: "ट्रेन खोजें", calculate: "तारीख निकालें",
@@ -72,6 +74,7 @@ const copy = {
 };
 
 const tools = [
+  { icon: "seat", title: "Seat Availability", titleHi: "सीट उपलब्धता", description: "Check seats by date and see provider estimates for eligible waitlists.", descriptionHi: "तारीख के अनुसार सीटें और पात्र वेटलिस्ट के लिए प्रदाता का अनुमान देखें।", accent: "teal", href: "/seat-availability" },
   { icon: "ticket", title: "PNR Status", titleHi: "PNR स्थिति", description: "Current status, coach, berth and chart details.", descriptionHi: "वर्तमान स्थिति, कोच, बर्थ और चार्ट की जानकारी।", accent: "orange", href: "/pnr-status" },
   { icon: "pulse", title: "Live Train Status", titleHi: "लाइव ट्रेन स्थिति", description: "Running position, delay and next halt.", descriptionHi: "ट्रेन की स्थिति, देरी और अगला स्टेशन।", accent: "teal", href: "/live-train-status" },
   { icon: "route", title: "Trains Between Stations", titleHi: "स्टेशनों के बीच ट्रेनें", description: "Direct options between any two stations.", descriptionHi: "दो स्टेशनों के बीच सीधी ट्रेनों के विकल्प।", accent: "blue", href: "/trains-between-stations" },
@@ -116,13 +119,12 @@ function mapProviderResult(tab: SearchTab, payload: Record<string, unknown>, lan
     const data = liveSummary(payload);
     return { tone: "success", eyebrow: hi ? "लाइव रनिंग अपडेट" : "Live running update", title: data.trainName || data.trainNumber || (hi ? "ट्रेन की स्थिति" : "Train status"), description: data.delayMinutes === null ? (hi ? "देरी की जानकारी उपलब्ध नहीं" : "Delay information unavailable") : data.delayMinutes <= 0 ? (hi ? "समय पर" : "On time") : `${data.delayMinutes} ${hi ? "मिनट देरी" : "min late"}`, details: [{ label: hi ? "नवीनतम स्थिति स्थान" : "Latest reported location", value: data.current || data.previous || "—" }, { label: hi ? "अगला ठहराव" : "Next halt", value: data.next || "—" }, { label: hi ? "प्रदाता अपडेट" : "Provider updated", value: data.updated || "—" }] };
   }
-  const trains = rows(railData(payload).trains);
-  return { tone: trains.length ? "success" : "warning", eyebrow: hi ? "रूट की ट्रेनें" : "Route trains", title: `${trains.length} ${hi ? "ट्रेनें मिलीं" : "trains found"}`, description: hi ? "पूरी समय-सारणी और ट्रेन विकल्प स्टेशनों के बीच ट्रेनें टूल पर देखें।" : "Open Trains Between Stations for the full timetable and train options." };
+  return { route: railData(payload), tone: "success", eyebrow: "", title: "", description: "" };
 }
 
 export default function Home() {
   const { language } = useLanguage();
-  const [activeTab, setActiveTab] = useState<SearchTab>("pnr");
+  const [activeTab, setActiveTab] = useState<SearchTab>("between");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<SearchResult | null>(null);
   const [form, setForm] = useState({ pnr: "", train: "", date: "", from: "", to: "" });
@@ -132,12 +134,15 @@ export default function Home() {
   useEffect(() => { trackEvent("homepage_view", { language }); }, [language]);
 
   function switchTab(tab: SearchTab) {
+    if (loading) return;
     setActiveTab(tab); setResult(null); trackEvent("search_tab_selected", { tab });
     window.setTimeout(() => document.getElementById("rail-search")?.scrollIntoView({ behavior: "smooth", block: "center" }), 20);
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setResult(null);
+    event.preventDefault();
+    if (loading) return;
+    setResult(null);
     if (activeTab === "booking") {
       const calculated = getGeneralBookingDate(form.date, language); setResult(calculated);
       trackEvent("tool_completed", { tool: "booking_date", outcome: calculated.tone }); return;
@@ -188,13 +193,14 @@ export default function Home() {
         </div>
         <section className="search-shell" id="rail-search" aria-label="Railway search tools">
           <div className="search-tabs" role="tablist" aria-label={language === "hi" ? "रेलवे टूल चुनें" : "Choose a railway tool"}>
-            {([["pnr", t.pnr, "ticket"], ["live", t.live, "pulse"], ["between", t.between, "route"], ["booking", t.booking, "calendar"]] as Array<[SearchTab, string, string]>).map(([tab, label, icon]) => <button key={tab} className={activeTab === tab ? "active" : ""} onClick={() => switchTab(tab)} role="tab" id={`search-tab-${tab}`} aria-controls="search-tool-panel" tabIndex={activeTab === tab ? 0 : -1} aria-selected={activeTab === tab} onKeyDown={event => {
-              const tabs: SearchTab[] = ["pnr", "live", "between", "booking"];
+            {([["between", t.between, "route"], ["live", t.live, "pulse"], ["pnr", t.pnr, "ticket"], ["booking", t.booking, "calendar"]] as Array<[SearchTab, string, string]>).map(([tab, label, icon]) => <button key={tab} disabled={loading} className={activeTab === tab ? "active" : ""} onClick={() => switchTab(tab)} role="tab" id={`search-tab-${tab}`} aria-controls="search-tool-panel" tabIndex={activeTab === tab ? 0 : -1} aria-selected={activeTab === tab} onKeyDown={event => {
+              const tabs: SearchTab[] = ["between", "live", "pnr", "booking"];
               const index = tabs.indexOf(tab);
               const next = event.key === "ArrowRight" ? (index + 1) % 4 : event.key === "ArrowLeft" ? (index + 3) % 4 : event.key === "Home" ? 0 : event.key === "End" ? 3 : -1;
               if (next >= 0) { event.preventDefault(); switchTab(tabs[next]); document.getElementById(`search-tab-${tabs[next]}`)?.focus(); }
             }}><Icon name={icon} size={18} /> {label}</button>)}
           </div>
+          {activeTab === "between" && <p className="home-pnr-hint">{language === "hi" ? "मार्ग खोजें, फिर किसी ट्रेन की सीटें और वेटलिस्ट अनुमान तारीख के अनुसार देखें।" : "Search a route, then check seats and waitlist estimates by date for any listed train."}</p>}
           {activeTab === "pnr" && <p className="home-pnr-hint">{language === "hi" ? "हर यात्री की वर्तमान स्थिति देखने के लिए टिकट का 10 अंकों का PNR डालें।" : "Enter the 10-digit PNR from your ticket to check each passenger’s current status."}</p>}
           <form id="search-tool-panel" role="tabpanel" aria-labelledby={`search-tab-${activeTab}`} className="search-form" onSubmit={handleSubmit}>
             {activeTab === "pnr" && <label className="single-field"><span>PNR</span><input inputMode="numeric" autoComplete="off" maxLength={10} value={form.pnr} onChange={(e) => setForm({ ...form, pnr: e.target.value.replace(/\D/g, "") })} placeholder={t.pnrPlaceholder} aria-label={t.pnrPlaceholder} /></label>}
@@ -204,8 +210,9 @@ export default function Home() {
             <button className="primary-button" type="submit" disabled={loading}>{loading ? <span className="spinner" /> : buttonLabel} <Icon name="arrow" size={18} /></button>
           </form>
           {result?.journey && <PnrJourneyCard summary={result.journey} pnr={result.lookupPnr} hi={language === "hi"} />}
-          {result && !result.journey && <div className={`search-result ${result.tone}`} aria-live="polite"><div><span>{result.eyebrow}</span><h3>{result.title}</h3><p>{result.description}</p></div>{result.details && <dl>{result.details.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>}</div>}
-          {result && activeTab !== "booking" && <ResultHelp hi={language === "hi"} pnr={activeTab === "pnr"} tool={activeTab === "pnr" ? "pnr-status" : activeTab === "live" ? "live-train-status" : "trains-between-stations"} code={result.code} fetchedAt={result.fetchedAt} />}
+          {result?.route && <BetweenResult data={result.route} hi={language === "hi"} inlineSeats />}
+          {result && !result.journey && !result.route && <div className={`search-result ${result.tone}`} aria-live="polite"><div><span>{result.eyebrow}</span><h3>{result.title}</h3><p>{result.description}</p></div>{result.details && <dl>{result.details.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>}</div>}
+          {result && !result.route && activeTab !== "booking" && <ResultHelp hi={language === "hi"} pnr={activeTab === "pnr"} tool={activeTab === "pnr" ? "pnr-status" : activeTab === "live" ? "live-train-status" : "trains-between-stations"} code={result.code} fetchedAt={result.fetchedAt} />}
           <div className="search-footnote"><span><Icon name="shield" size={15} /> {t.noLogin}</span><span>{t.officialNote}</span></div>
         </section>
       </section>

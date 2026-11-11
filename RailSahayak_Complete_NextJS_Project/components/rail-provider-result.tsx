@@ -1,4 +1,5 @@
 "use client";
+import { RouteSeatAvailability } from "@/components/route-seat-availability";
 import { useState } from "react";
 import { RailkitExtraResults } from "./railkit-extra-results";
 import { NextUsefulStep } from "@/components/next-useful-step";
@@ -99,7 +100,7 @@ function ScheduleResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
   </ResultShell>;
 }
 
-function BetweenResult({ data, hi, search }: { data: JsonRecord; hi: boolean; search?: SearchContext }) {
+export function BetweenResult({ data, hi, search, inlineSeats = false }: { data: JsonRecord; hi: boolean; search?: SearchContext; inlineSeats?: boolean }) {
   const from = objectAt(data, "from"); const to = objectAt(data, "to"); const allTrains = list(data.trains).map(record).filter(Boolean) as JsonRecord[];
   const [filter,setFilter]=useState(""); const [exact,setExact]=useState(false);
   const trains=allTrains.filter(row=>(!exact || (stationCode(objectAt(row,"from"))===stationCode(from) && stationCode(objectAt(row,"to"))===stationCode(to))) && `${text(objectAt(row,"train").number)} ${text(objectAt(row,"train").name)}`.toLowerCase().includes(filter.trim().toLowerCase()));
@@ -110,7 +111,42 @@ function BetweenResult({ data, hi, search }: { data: JsonRecord; hi: boolean; se
     <label className="rail-list-filter">{hi ? "नाम या नंबर से फ़िल्टर करें" : "Filter by train name or number"}<input type="search" value={filter} onChange={e=>setFilter(e.target.value)} /></label>
     <label className="rail-exact-filter"><input type="checkbox" checked={exact} onChange={e=>setExact(e.target.checked)} />{hi ? "केवल चुने हुए स्टेशन कोड" : "Only the exact station codes selected"}</label>
     <p>{trains.length} / {allTrains.length} {hi ? "लौटाई ट्रेनें दिखाई गईं; कोई छिपी पेज सीमा नहीं" : "returned trains shown; no hidden page limit"}</p>
-    {trains.length === 0 ? <div className="rail-empty"><Icon name="info" size={20} /><div><h3>{hi ? "मिलती ट्रेन नहीं मिली" : "No matching train returned"}</h3><p>{hi ? "स्टेशन कोड जाँचें या पास के मुख्य स्टेशन से खोजें।" : "Check the station codes or try a nearby major station."}</p></div></div> : <div className="rail-train-list">{trains.map((row, index) => { const train = objectAt(row, "train"); const origin = { ...from, ...objectAt(row, "from") }; const destination = { ...to, ...objectAt(row, "to") }; const number = text(train.number, ""); const params = new URLSearchParams({train:number}); for (const key of ["from","to"] as const) { const code = ((key === "from" ? stationCode(origin) : stationCode(destination)) || search?.[key] || "").toUpperCase(); if (/^[A-Z0-9]{2,6}$/.test(code)) params.set(key,code); } if (search?.date && /^\d{4}-\d{2}-\d{2}$/.test(search.date)) params.set("date",search.date); return <article key={`${text(train.number)}-${index}`}><div className="rail-train-title"><span>{text(train.number)}</span><div><h3><Link href={`/train/${text(train.number)}`}>{text(train.name)}</Link></h3><small>{titleCase(train.type)}</small></div></div><div className="rail-train-times"><div><small>{stationCode(origin)}</small><b>{text(origin.departure)}</b><span>{hi ? "दिन" : "Day"} {text(origin.day)}</span></div><i /><div><small>{stationCode(destination)}</small><b>{text(destination.arrival)}</b><span>{hi ? "दिन" : "Day"} {text(destination.day)}</span></div></div><div className="rail-train-meta"><span>{duration(row.duration, hi)}</span><span>{text(row.distance)} km</span><span>{list(train.runDays).map((day) => text(day).slice(0, 3).toUpperCase()).join(" · ") || (hi ? "चलने के दिन नहीं मिले" : "Running days not supplied")}</span></div>{/^\d{5}$/.test(number) && <Link className="route-seat-link" href={`/seat-availability?${params.toString()}`}>{hi ? "इस ट्रेन की सीट उपलब्धता जाँचें" : "Check seats for this train"}</Link>}</article>; })}</div>}
+    {trains.length === 0 ? <div className="rail-empty"><Icon name="info" size={20} /><div><h3>{hi ? "मिलती ट्रेन नहीं मिली" : "No matching train returned"}</h3><p>{hi ? "स्टेशन कोड जाँचें या पास के मुख्य स्टेशन से खोजें।" : "Check the station codes or try a nearby major station."}</p></div></div> : <div className="rail-train-list">
+      {trains.map((row, index) => {
+        const train = objectAt(row, "train");
+        const origin = { ...from, ...objectAt(row, "from") };
+        const destination = { ...to, ...objectAt(row, "to") };
+        const number = text(train.number, "");
+        const originCode = stationCode(origin).toUpperCase();
+        const destinationCode = stationCode(destination).toUpperCase();
+        const validTrain = /^\d{5}$/.test(number);
+        const validRoute = /^[A-Z0-9]{2,6}$/.test(originCode) && /^[A-Z0-9]{2,6}$/.test(destinationCode) && originCode !== destinationCode;
+        const params = new URLSearchParams({ train: number });
+        if (validRoute) {
+          params.set("from", originCode);
+          params.set("to", destinationCode);
+        }
+        if (search?.date && /^\d{4}-\d{2}-\d{2}$/.test(search.date)) params.set("date", search.date);
+        const classes = list(train.classes).filter((value): value is string => typeof value === "string");
+        return <article key={`${number}-${originCode}-${destinationCode}-${index}`}>
+          <div className="rail-train-title">
+            <span>{number}</span>
+            <div><h3>{validTrain ? <Link href={`/train/${number}`}>{text(train.name)}</Link> : text(train.name)}</h3><small>{titleCase(train.type)}</small></div>
+          </div>
+          <div className="rail-train-times">
+            <div><small>{originCode}</small><b>{text(origin.departure)}</b><span>{hi ? "दिन" : "Day"} {text(origin.day)}</span></div>
+            <i />
+            <div><small>{destinationCode}</small><b>{text(destination.arrival)}</b><span>{hi ? "दिन" : "Day"} {text(destination.day)}</span></div>
+          </div>
+          <div className="rail-train-meta">
+            <span>{duration(row.duration, hi)}</span><span>{text(row.distance)} km</span>
+            <span>{list(train.runDays).map(day => text(day).slice(0, 3).toUpperCase()).join(" · ") || (hi ? "चलने के दिन नहीं मिले" : "Running days not supplied")}</span>
+          </div>
+          {inlineSeats && validTrain && validRoute && <RouteSeatAvailability train={number} from={originCode} to={destinationCode} classes={classes} initialDate={search?.date} hi={hi} />}
+          {validTrain && <Link className="route-seat-link" href={`/seat-availability?${params}`}>{inlineSeats && validRoute ? (hi ? "पूरा सीट उपलब्धता टूल खोलें" : "Open full Seat Availability tool") : (hi ? "इस ट्रेन की सीट उपलब्धता जाँचें" : "Check seats for this train")}</Link>}
+        </article>;
+      })}
+    </div>}
   </ResultShell>;
 }
 

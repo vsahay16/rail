@@ -19,6 +19,7 @@ import { useLanguage } from "@/components/language-provider";
 import { RailProviderResult } from "@/components/rail-provider-result";
 import { trackEvent } from "@/lib/analytics";
 import { estimateRefund, cancellationHours } from "@/lib/refund";
+import { classOptions, quotaOptions } from "@/lib/rail-booking-options";
 import { railRequest, railError, liveResultOutcome } from "@/lib/rail-data";
 import { railwayDateValue as dateValue, formatRailwayDate as formatDate, railwayCalendarIso, chartPlanningWindow } from "@/lib/railway-time";
 import type { ToolConfig } from "@/lib/tool-registry";
@@ -27,9 +28,7 @@ type Option = [string, string, string];
 type Field = { name: string; type?: "text" | "number" | "date" | "datetime-local" | "email" | "select" | "checkbox"; label: string; labelHi: string; placeholder?: string; placeholderHi?: string; options?: Option[]; min?: string; max?: string; step?: string };
 type LocalResult = { code?: string; tone: "success" | "warning" | "error"; eyebrow: string; title: string; description: string; metrics?: Array<[string, string]>; calendarIso?: string };
 
-const classOptions: Option[] = [["1A", "AC First Class", "AC प्रथम श्रेणी"], ["2A", "AC 2 Tier", "AC 2 टियर"], ["3A", "AC 3 Tier", "AC 3 टियर"], ["3E", "AC 3 Economy", "AC 3 इकोनॉमी"], ["CC", "Chair Car", "चेयर कार"], ["SL", "Sleeper", "स्लीपर"], ["2S", "Second Sitting", "सेकंड सिटिंग"]];
 const refundTicketOptions: Option[] = [["normal", "Ordinary ticket (no special refund policy)", "सामान्य टिकट (विशेष रिफंड नीति नहीं)"], ["tatkal", "Tatkal", "तत्काल"], ["special", "Special policy / unsure", "विशेष नीति / निश्चित नहीं"]];
-const quotaOptions: Option[] = [["GN", "General", "सामान्य"], ["TQ", "Tatkal", "तत्काल"], ["LD", "Ladies", "महिला"], ["SS", "Lower berth / senior citizen", "लोअर बर्थ / वरिष्ठ नागरिक"]];
 const yesNo: Option[] = [["yes", "Yes", "हाँ"], ["no", "No", "नहीं"]];
 const coachOptions: Option[] = [["SL3A", "Sleeper / AC 3 Tier", "स्लीपर / AC 3 टियर"], ["2A", "AC 2 Tier", "AC 2 टियर"], ["CC", "Chair Car", "चेयर कार"], ["2S", "Second Sitting", "सेकंड सिटिंग"], ["1A", "AC First Class", "AC प्रथम श्रेणी"]];
 
