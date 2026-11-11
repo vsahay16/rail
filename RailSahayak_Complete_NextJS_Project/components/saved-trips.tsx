@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { LocalizedLink as Link } from "./localized-link";
 import { readTrips, tripHref, tripKey, writeTrips, type SavedTrip } from "@/lib/saved-trips";
 
-export function SavedTrips({ hi }: { hi: boolean }) {
+export function SavedTrips({ hi, busy, onOpen }: { hi: boolean; busy: boolean; onOpen: (trip: SavedTrip) => void }) {
   const [trips, setTrips] = useState<SavedTrip[]>([]);
   const [error, setError] = useState("");
   useEffect(() => {
@@ -21,13 +21,14 @@ export function SavedTrips({ hi }: { hi: boolean }) {
   return <section className="saved-places" aria-labelledby="saved-trips-heading">
     <h2 id="saved-trips-heading">{hi ? "सेव की गई यात्राएँ" : "Saved journeys"}</h2>
     <p>{hi ? "यात्रा की जानकारी इस ब्राउज़र में सेव होती है। PNR या यात्री विवरण सेव नहीं होता।" : "Trip details are saved in this browser. PNRs and passenger details are never saved here."}</p>
+    {busy && <p role="status">{hi ? "यात्रा जाँची जा रही है…" : "Checking journey…"}</p>}
     {trips.length === 0 && <p>{hi ? "सीट तुलना या लाइव ट्रेन परिणाम से कोई यात्रा सेव करें।" : "Save a journey from a seat comparison or a live train result."}</p>}
     {trips.map(trip => <article key={tripKey(trip)} className="saved-journey-shortcuts">
       <h3>{trip.train}{trip.name ? ` · ${trip.name}` : ""}</h3>
       <p>{[trip.from && trip.to && `${trip.from} → ${trip.to}`, trip.boardingDate, trip.travelClass, trip.quota].filter(Boolean).join(" · ")}</p>
       {trip.originDate && <p>{hi ? "मूल स्टेशन से प्रस्थान" : "Origin departure"} · {trip.originDate}</p>}
       <nav className="saved-journey-actions">
-        {trip.from && trip.to && trip.boardingDate && <Link href={tripHref("/dashboard", trip)}>{hi ? "यात्रा खोलें" : "Open journey"}</Link>}
+        <button type="button" disabled={busy} onClick={() => onOpen(trip)}>{hi ? "यात्रा खोलें" : "Open journey"}</button>
         <Link href={tripHref("/train-schedule", trip)}>{hi ? "समय-सारणी" : "Timetable"}</Link>
         <Link href={tripHref("/live-train-status", trip)}>{hi ? "लाइव स्थिति" : "Live status"}</Link>
         <Link href={tripHref("/coach-position", trip)}>{hi ? "कोच की स्थिति" : "Coach position"}</Link>

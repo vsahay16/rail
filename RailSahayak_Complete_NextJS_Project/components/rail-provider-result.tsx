@@ -1,5 +1,6 @@
 "use client";
 import { RouteSeatComparison, comparisonLimit, type ComparisonTrain } from "@/components/route-seat-comparison";
+import { RailFreshness, railwayTime } from "@/components/rail-freshness";
 import { LiveTripActions } from "@/components/trip-actions";
 import { RouteSeatAvailability } from "@/components/route-seat-availability";
 import { useState } from "react";
@@ -56,12 +57,31 @@ function money(value: unknown) {
 function stationName(value: JsonRecord) { return first(value.name, value.stationName, value.code, value.stationCode); }
 function stationCode(value: JsonRecord) { return first(value.code, value.stationCode); }
 
-function ResultShell({ children, hi, updated }: { children: ReactNode; hi: boolean; updated?: unknown }) {
+function ResultShell({ children, hi, updated, kind = "provider" }: {
+  children: ReactNode; hi: boolean; updated?: unknown; kind?: "provider" | "live" | "scheduled";
+}) {
+  const source = kind === "live" ? (hi ? "प्रदाता से मिली लाइव जानकारी" : "Reported live data")
+    : kind === "scheduled" ? (hi ? "निर्धारित समय-सारणी" : "Scheduled timetable")
+    : (hi ? "प्रदाता डेटा" : "Provider data");
   return <div className="rail-provider-result" aria-live="polite">
-    <div className="rail-result-source"><span className="live-dot" />{hi ? "प्रदाता डेटा" : "Provider data"}{typeof updated === "string" && updated.trim() && !Number.isNaN(new Date(updated).valueOf()) ? <small>{hi ? "प्रदाता का अपडेट" : "Provider updated"}: {dateTime(updated, hi)} IST</small> : <small>{hi ? "प्रदाता के अपडेट का समय उपलब्ध नहीं है" : "Provider update time unavailable"}</small>}</div>
+    <p className="rail-result-source"><strong>{source}</strong></p>
+    <RailFreshness hi={hi} updated={updated} />
     {children}
-    <div className="rail-result-verification"><Icon name="shield" size={15} /><span>{hi ? "महत्वपूर्ण और अंतिम जानकारी आधिकारिक रेलवे माध्यम पर जाँचें।" : "Verify critical and final journey information through official railway channels."}</span></div>
+    <div className="rail-result-verification"><Icon name="shield" size={15} />
+      <Link href="/official-services">{hi ? "आधिकारिक रेलवे पूछताछ" : "Official railway enquiry"}</Link>
+    </div>
   </div>;
+}
+
+function RailStopTime({ reported, scheduled, arrival, hi }: {
+  reported: unknown; scheduled: unknown; arrival: boolean; hi: boolean;
+}) {
+  const live = railwayTime(reported, hi);
+  const planned = railwayTime(scheduled, hi);
+  const label = arrival
+    ? (live ? (hi ? "प्रदाता का आगमन समय" : "Reported arrival") : (hi ? "निर्धारित आगमन" : "Scheduled arrival"))
+    : (live ? (hi ? "प्रदाता का प्रस्थान समय" : "Reported departure") : (hi ? "निर्धारित प्रस्थान" : "Scheduled departure"));
+  return <div><small>{label}</small><b>{live || planned || (hi ? "उपलब्ध नहीं" : "Unavailable")}</b></div>;
 }
 
 function Metric({ label, value, tone = "" }: { label: string; value: string; tone?: string }) {
@@ -75,7 +95,7 @@ function LiveResult({ data, hi, search }: { data: JsonRecord; hi: boolean; searc
   const nextCode = stationCode(next);
   const nextIndex = halts.findIndex((row) => first(row.stationCode, objectAt(row, "station").code) === nextCode);
   const importantHalts = nextIndex >= 0 ? halts.slice(Math.max(0, nextIndex - 1), nextIndex + 4) : halts.slice(0, 6);
-  return <ResultShell hi={hi} updated={data.lastUpdatedAt}>
+  return <ResultShell hi={hi} updated={first(data.lastUpdatedAt, data.providerUpdated)} kind="live">
     <div className="rail-result-heading"><div><span>{first(data.trainNumber, train.number)}</span><h2>{first(data.trainName, train.name, hi ? "लाइव ट्रेन स्थिति" : "Live train status")}</h2><p>{stationName(objectAt(train, "source"))} → {stationName(objectAt(train, "destination"))}</p></div><div className={`rail-status-badge ${Number(data.delayMinutes) > 0 ? "late" : "on-time"}`}>{delay(data.delayMinutes, hi)}</div></div>
     <div className="rail-summary-grid">
       <Metric label={hi ? "स्थिति" : "Status"} value={titleCase(data.status)} />
@@ -83,7 +103,7 @@ function LiveResult({ data, hi, search }: { data: JsonRecord; hi: boolean; searc
       <Metric label={hi ? "पिछला ठहराव" : "Previous halt"} value={`${stationCode(previous)} · ${stationName(previous)}`} />
       <Metric label={hi ? "अगला ठहराव" : "Next halt"} value={`${stationCode(next)} · ${stationName(next)}`} tone="accent" />
     </div>
-    {importantHalts.length > 0 && <div className="rail-timeline"><div className="rail-subheading"><h3>{hi ? "अगले मुख्य ठहराव" : "Next important halts"}</h3><small>{hi ? "पिछला और अगले चार तक" : "Previous and up to four ahead"}</small></div>{importantHalts.map((row, index) => <div className={`rail-timeline-row ${text(row.status, "scheduled")}`} key={`${text(row.stationCode)}-${index}`}><span className="rail-timeline-dot" /><div><b>{text(row.stationCode)} · {text(row.stationName)}</b><small>{titleCase(row.status)}</small></div><div><small>{hi ? "आगमन" : "Arrival"}</small><b>{dateTime(first(row.expectedArrival, row.scheduledArrival), hi)}</b></div><div><small>{hi ? "प्रस्थान" : "Departure"}</small><b>{dateTime(first(row.expectedDeparture, row.scheduledDeparture), hi)}</b></div><div><small>{hi ? "प्लेटफॉर्म" : "Platform"}</small><b>{text(row.platform)}</b></div></div>)}</div>}
+    {importantHalts.length > 0 && <div className="rail-timeline"><div className="rail-subheading"><h3>{hi ? "अगले मुख्य ठहराव" : "Next important halts"}</h3><small>{hi ? "पिछला और अगले चार तक" : "Previous and up to four ahead"}</small></div>{importantHalts.map((row, index) => <div className={`rail-timeline-row ${text(row.status, "scheduled")}`} key={`${text(row.stationCode)}-${index}`}><span className="rail-timeline-dot" /><div><b>{text(row.stationCode)} · {text(row.stationName)}</b><small>{titleCase(row.status)}</small></div><RailStopTime reported={first(row.actualArrival, row.expectedArrival)} scheduled={row.scheduledArrival} arrival hi={hi} /><RailStopTime reported={first(row.actualDeparture, row.expectedDeparture)} scheduled={row.scheduledDeparture} arrival={false} hi={hi} /><div><small>{hi ? "प्लेटफॉर्म" : "Platform"}</small><b>{text(row.platform)}</b></div></div>)}</div>}
     <LiveTripActions hi={hi} trip={{ train: first(data.trainNumber, train.number), name: first(data.trainName, train.name), originDate: search?.date }} />
   </ResultShell>;
 }
@@ -91,7 +111,7 @@ function LiveResult({ data, hi, search }: { data: JsonRecord; hi: boolean; searc
 function ScheduleResult({ data, hi }: { data: JsonRecord; hi: boolean }) {
   const train = objectAt(data, "train"); const source = objectAt(train, "source"); const destination = objectAt(train, "destination");
   const route = (list(data.route).map(record).filter(Boolean) as JsonRecord[]).filter((row) => row.isHalt === true || (row.isHalt === undefined && Boolean(row.arrival || row.departure)));
-  return <ResultShell hi={hi} updated={data.lastUpdatedAt}>
+  return <ResultShell hi={hi} updated={first(data.lastUpdatedAt, data.providerUpdated)} kind="scheduled">
     <div className="rail-result-heading"><div><span>{text(train.number)}</span><h2>{first(train.name, hi ? "ट्रेन समय-सारणी" : "Train schedule")}</h2><p>{stationCode(source)} · {stationName(source)} → {stationCode(destination)} · {stationName(destination)}</p></div><div className="rail-status-badge neutral">{titleCase(train.type)}</div></div>
     <div className="rail-summary-grid">
       <Metric label={hi ? "दूरी" : "Distance"} value={`${text(train.distance)} km`} />
@@ -199,7 +219,7 @@ function CoachResult({ data, hi, platform }: { data: JsonRecord; hi: boolean; pl
   const raw = list(data.rake).length ? list(data.rake) : list(data.coaches);
   const coaches = raw.map((item, index) => typeof item === "string" ? { code: item, position: index + 1 } : record(item)).filter(Boolean) as JsonRecord[];
   const station = objectAt(data, "station");
-  return <ResultShell hi={hi} updated={data.lastUpdatedAt}>
+  return <ResultShell hi={hi} updated={first(data.lastUpdatedAt, data.providerUpdated)}>
     <div className="rail-result-heading"><div><span>{first(data.trainNumber, data.trainNo)}</span><h2>{platform ? (hi ? "प्लेटफॉर्म कोच स्थिति" : "Platform coach position") : first(data.trainName, hi ? "कोच संरचना" : "Coach composition")}</h2><p>{platform ? `${first(station.code, data.stationCode)} · ${first(station.name, data.stationName)}` : `${text(data.totalCoaches, text(coaches.length))} ${hi ? "कोच" : "coaches"}`}</p></div>{platform && <div className="rail-platform-number"><small>{hi ? "प्लेटफॉर्म" : "Platform"}</small><strong>{first(station.platform, data.platform)}</strong></div>}</div>
     <p>{hi ? "शुरुआती स्टेशन से यात्रा तारीख" : "Origin-departure date"}: {first(data.journeyDate)}</p>
     {platform && <p>{data.stationFound !== true ? (hi ? "चुना स्टेशन प्रदाता की ठहराव सूची में नहीं मिला।" : "The selected station was not found in the provider’s halt list.") : !station.platform ? (hi ? "इस स्टेशन का प्लेटफॉर्म प्रदाता ने नहीं लौटाया।" : "The provider did not return a platform for this station.") : (hi ? "प्रदाता का बताया प्लेटफॉर्म; बदल सकता है। स्टेशन डिस्प्ले और घोषणा मानें।" : "Provider-reported platform; it can change. Follow station displays and announcements.")}</p>}
@@ -226,6 +246,8 @@ export function RailProviderResult({ toolSlug, payload, hi, search }: { toolSlug
     : toolSlug === "station-arrivals-departures" ? <StationResult data={data} hi={hi} />
     : toolSlug === "coach-position" ? <CoachResult data={data} hi={hi} platform={false} />
     : toolSlug === "platform-number" ? <CoachResult data={data} hi={hi} platform /> : ["station-timetable","station-facilities","cancelled-trains","train-history","train-search"].includes(toolSlug) ? <RailkitExtraResults slug={toolSlug} data={data} hi={hi} /> : <GenericResult hi={hi} />;
-  return <>{typeof cache?.fetchedAt === "string" && <p className="rail-cache-note">{hi ? "RailQ की पिछली जाँच" : "Last checked by RailQ"}: {dateTime(cache.fetchedAt,hi)} IST{cache.cached === true ? (hi ? " · सहेजा परिणाम" : " · Cached result") : ""}</p>}{cache?.cached === true && <p className="rail-cache-note">{hi ? "हाल में प्राप्त प्रदाता डेटा" : "Recently fetched provider data"} · {dateTime(cache.fetchedAt, hi)}</p>}{content}<NextUsefulStep tool={toolSlug} hi={hi} /><ResultHelp hi={hi} tool={toolSlug} fetchedAt={typeof cache?.fetchedAt === "string" ? cache.fetchedAt : undefined} /></>;
+  return <>{toolSlug !== "seat-availability" && <p className="rail-cache-note">
+    {hi ? "RailQ की पिछली जाँच" : "Last checked by RailQ"}: {railwayTime(cache?.fetchedAt, hi) || (hi ? "समय उपलब्ध नहीं" : "Time unavailable")}
+    {cache?.cached === true && (hi ? " · सहेजा परिणाम" : " · Cached result")}
+  </p>}{content}<NextUsefulStep tool={toolSlug} hi={hi} /><ResultHelp hi={hi} tool={toolSlug} /></>;
 }
-

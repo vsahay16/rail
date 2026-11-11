@@ -9,7 +9,7 @@ export function AvailabilityCalendar({ data, hi, fetchedAt, cached = false }: { 
   const matches = requested && days.some(d => d.date === requested);
   return <div className={styles.results}>
     <p><strong>{hi ? "माँगी गई यात्रा तारीख" : "Requested journey date"}: {displayDate(requested)}</strong></p>
-    <p className={styles.checked}>{cached ? (hi ? "कैश में सहेजा गया परिणाम। " : "Cached result. ") : ""}{hi ? "पिछली जाँच" : "Last checked"}: {checked ? <time dateTime={fetchedAt}>{checked} IST</time> : (hi ? "समय उपलब्ध नहीं" : "Time unavailable")}. {hi ? "यह RailQ के डेटा प्राप्त करने का समय है, रेलवे के अपडेट का समय नहीं।" : "This is when RailQ retrieved the data, not the railway’s update time."}</p>
+    <p className={styles.checked}>{cached ? (hi ? "कैश में सहेजा गया परिणाम। " : "Cached result. ") : ""}{hi ? "RailQ की पिछली जाँच" : "Last checked by RailQ"}: {checked ? <time dateTime={fetchedAt}>{checked} IST</time> : (hi ? "समय उपलब्ध नहीं" : "Time unavailable")}. {hi ? "यह RailQ के डेटा प्राप्त करने का समय है, रेलवे के अपडेट का समय नहीं।" : "This is when RailQ retrieved the data, not the railway’s update time."}</p>
     {!matches && <p role="status">{hi ? "माँगी गई तारीख का परिणाम नहीं मिला। नीचे अन्य तारीखें हों तो वे आपकी चुनी तारीख का विकल्प अपने-आप नहीं हैं।" : "No result was returned for the requested date. Any other dates below do not replace your selected journey date."}</p>}
     {!days.length ? <p>{hi ? "उपलब्धता की जानकारी नहीं मिली। इसका मतलब सीटें खत्म होना नहीं है।" : "Availability was not returned. This does not mean the train is sold out."}</p> : <div className={styles.days}>{days.map((day, index) => {
       const percentage = day.kind === "waitlist" && day.canBook === true ? numericEstimate(day.estimate) : null;

@@ -1,0 +1,15 @@
+.panel {
+  padding: 18px;
+  border: 1px solid #acd1c9;
+  background: #f5faf7;
+  border-radius: 14px;
+  scroll-margin-top: 88px;
+  margin-bottom: 20px;
+  overflow-wrap: anywhere;
+}
+.panel h2 { margin: 0 0 8px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 10px; }
+.grid div { padding: 12px; background: #fff; border: 1px solid #d5e4df; border-radius: 9px; min-width: 0; }
+.grid dt { color: #466258; font-size: 14px; }
+.grid dd { margin: 4px 0 0; font-weight: 700; }
+.errors { padding-inline-start: 20px; color: #634215; }
